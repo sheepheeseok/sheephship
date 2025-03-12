@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.3'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'com.github.node-gradle.node' version '3.3.0'
 }
 
 group = 'sheepship'
@@ -34,6 +35,7 @@ dependencies {
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
     implementation 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -43,3 +45,49 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+tasks.register('npmInstall') {
+    group = 'build'
+    description = 'Runs npm install'
+    doLast {
+        exec {
+            workingDir 'src/main/frontend'
+            commandLine 'npm', 'install'
+        }
+    }
+}
+
+tasks.register('npmBuild') {
+    group = 'build'
+    description = 'Runs npm run build'
+    doLast {
+        exec {
+            workingDir 'src/main/frontend'
+            commandLine 'npm', 'run', 'build'
+        }
+    }
+}
+
+// Node.js setup using node-gradle plugin
+node {
+    version = '20.11.1'
+    npmVersion = '10.2.4'
+    download = true
+    workDir = file("${buildDir}/nodejs")
+    npmWorkDir = file("${buildDir}/npm")
+}
+
+// Task for copying frontend build into the `public` folder
+task copyFrontendBuild(type: Copy) {
+    from 'src/main/frontend/build'
+    into 'build/classes/java/main/public'
+}
+
+build.dependsOn npmInstall, npmBuild, copyFrontendBuild
+
+// Spring Boot plugin configuration
+bootJar {
+    archiveFileName = 'react.jar'
+    dependsOn copyFrontendBuild
+}
+https://isaac-christian.tistory.com/entry/React-Spring-Boot%EC%99%80-React%EB%A5%BC-%EC%97%B0%EB%8F%99%ED%95%98%EC%97%AC-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95-Open-API-%EC%A1%B0%ED%9A%8C
