@@ -168,39 +168,77 @@ body {
 
 .login-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
-  height: 765px;
+  flex-direction: row;  /* 자식 요소를 가로로 배치 */
+  justify-content: center;
+  width: 100%;  /* 고정 크기 */
+  height: 100vh;  /* 고정 크기 */
 }
 
 .login-imgbox {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50%;
-  height: 100%;
+  width: 400px;  /* 고정 크기 */
+  height: 100%;  /* 부모 높이에 맞추기 */
+  margin-right: 50px;  /* 요소 간 간격 */
 }
 
 .login-box {
+  flex-direction: column;
+  margin-top: 84px;
+  width: 544px;  /* 고정 크기 */
+  height: 100%;  /* 부모 높이에 맞추기 */
+  margin-left: 220px;
+}
+
+.login-box h1 {
+  font-family: NotoSansKR-Bold;
+  font-size: 24px;
+  color: #000000;
+  align-items: start;
+  justify-content: start;
+  display: flex;
+  width: 50%;
+  margin-bottom: 0;
+  margin-left: 20px;
+}
+
+.login-box h2 {
+  font-family: NotoSansKR-Bold;
+  font-size: 24px;
+  color: #000000;
+  align-items: start;
+  justify-content: start;
+  display: flex;
+  width: 50%;
+  margin-left: 20px;
+  margin-top: 30px;
+  margin-bottom: 0;
+}
+
+.email-box {
+  width: 390px;
+  height: 52px;
+  border: 1px solid #000000;
+  border-radius: 30px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.email-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  width: 60%;
-  height: 100%;
-}
-
-.id-box {
-  width: 390px;
-  height: 52px;
-  border: 30px;
-  background-color: #F4F4F4;
+  width: 26px;
+  height: 26px;
+  margin-left: 20px;
 }
 
 .login_logo {
   width: 558px;
   height: 380px;
+  margin-top: 154px;
 }
 
 .footer {
