@@ -57,6 +57,7 @@ a {
 body {
   width : 100%;
   height: 100%;
+  overflow-x: hidden;
   position: relative; /* 푸터의 기준이 될 부모 요소에 relative 추가 */
 }
 
@@ -119,7 +120,7 @@ body {
 .Homelogo {
   display: flex;
   width: 100%;
-  height: 1113px;
+  height: 890px;
   background-image: url('imgs/Homelogo.png'); /* 배경 유지 */
   background-size: cover;
   background-repeat: no-repeat;
