@@ -20,6 +20,13 @@
 }
 
 @font-face {
+  font-family: "NotoSansKR-Regular";
+  src: url('/fonts/NotoSansKR-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "NotoSansKR-Bold";
   src: url('/fonts/NotoSansKR-Bold.ttf') format('truetype');
   font-weight: normal;
@@ -49,10 +56,21 @@ a {
 
 body {
   width : 100%;
-  height: 100vh;
+  height: 100%;
   position: relative; /* 푸터의 기준이 될 부모 요소에 relative 추가 */
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  margin-top: 87px;
+}
+
+{/* Navbar css */}
 .navbar {
   width: 100%;
   height: 87px;
@@ -69,7 +87,6 @@ body {
   box-sizing: border-box; /* 패딩 포함된 너비로 계산 */
   z-index: 1;
 }
-
 .nav-list {
   display: flex;
   gap: 30px;
@@ -77,13 +94,19 @@ body {
   padding: 0;
   margin: 0;
 }
-
 .nav-list a {
   text-decoration: none;
   color: black;
   font-weight: bold;
 }
+.nav-icons {
+  display: flex;
+  gap: 34px;
+  padding: 0;
+  margin: 0;
+}
 
+{/* 홈 페이지 css */}
 .MainIcon {
   display: flex;
   align-items: center;
@@ -93,14 +116,6 @@ body {
   left: 50%;
   transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
 }
-
-.nav-icons {
-  display: flex;
-  gap: 34px;
-  padding: 0;
-  margin: 0;
-}
-
 .Homelogo {
   display: flex;
   width: 100%;
@@ -109,7 +124,6 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
-
 .HomeInstagram {
   display: flex;
   width: 100%;
@@ -120,19 +134,16 @@ body {
   min-height: 1085px; /* 최소 높이만 설정 */
   margin-top: 295px;
 }
-
 .HomeInstagram h1 {
   font-family: NotoSansKR;
   font-size: 24px;
   color: #757575;
 }
-
 .HomeInstagram h2 {
   font-family: NotoSansKR;
   font-size: 15px;
   color: #757575;
 }
-
 .HomeInstagramBox {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -144,7 +155,6 @@ body {
   align-content: start;
   margin-top: 35px;
 }
-
 .InstagramProduct {
   width: 300px;
   height: 300px;
@@ -156,77 +166,87 @@ body {
   font-weight: bold;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: auto;
-  min-height: 100vh;
-  margin-top: 87px;
-}
-
+{/* 로그인 페이지 css */}
 .login-container {
   display: flex;
   flex-direction: row;  /* 자식 요소를 가로로 배치 */
+  align-items: center;
   justify-content: center;
   width: 100%;  /* 고정 크기 */
-  height: 100vh;  /* 고정 크기 */
+  height: 100%;  /* 고정 크기 */
+  margin-right: 160px;
 }
-
-.login-imgbox {
+.login-logo {
+  width: 558px;
+  height: 380px;
+  margin-right: 230px;
+  margin-top: 70px;
+}
+.login-area {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 400px;  /* 고정 크기 */
-  height: 100%;  /* 부모 높이에 맞추기 */
-  margin-right: 50px;  /* 요소 간 간격 */
-}
-
-.login-box {
   flex-direction: column;
-  margin-top: 84px;
-  width: 544px;  /* 고정 크기 */
-  height: 100%;  /* 부모 높이에 맞추기 */
-  margin-left: 220px;
+  max-width: 544px;
+  height: 100%;
+  margin-top: 80px;
 }
-
-.login-box h1 {
+.login-area h1 {
   font-family: NotoSansKR-Bold;
   font-size: 24px;
   color: #000000;
-  align-items: start;
-  justify-content: start;
-  display: flex;
-  width: 50%;
-  margin-bottom: 0;
-  margin-left: 20px;
+  margin-bottom: 8px;
+  width: 100%;
+  margin-left: 30px;
 }
-
-.login-box h2 {
-  font-family: NotoSansKR-Bold;
-  font-size: 24px;
-  color: #000000;
-  align-items: start;
-  justify-content: start;
+.login-area h2 {
+  font-family: NotoSansKR-Regular;
+  font-size: 15px;
+  color: #797979;
+  width: 100%;
+  margin-top: 8px;
   display: flex;
-  width: 50%;
-  margin-left: 20px;
-  margin-top: 30px;
-  margin-bottom: 0;
+  justify-content: end;
+  margin-right: 20px;
+  margin-left: 0;
 }
-
-.email-box {
+.login-area h3 {
+  font-family: NotoSansKR-Regular;
+  font-size: 15px;
+  color: #797979;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.login-area a {
+  font-family: NotoSansKR-Regular;
+  font-size: 14px;
+  color: #617BFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  padding: 0;
+}
+.login-box {
   width: 390px;
-  height: 52px;
+  height: 50px;
   border: 1px solid #000000;
   border-radius: 30px;
-  margin-top: 5px;
   display: flex;
   align-items: center;
+  margin-bottom: 8px;
 }
-
-.email-icon {
+.login-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-family: NotoSansKR-Regular;
+  color: #333;
+  margin-left: 10px;
+  background: transparent;
+}
+.login-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -234,13 +254,138 @@ body {
   height: 26px;
   margin-left: 20px;
 }
-
-.login_logo {
-  width: 558px;
-  height: 380px;
-  margin-top: 154px;
+.login-line {
+  height: 30px;
+  background-color: #ccc; /* 검은색 선 */
+  width: 1px; /* 가로폭 전체 */
+  margin-left: 9px;
+}
+.login-btn {
+  width: 293px;
+  height: 52px;
+  background-color: #414141;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: NotoSansKR-Bold;
+  font-size: 24px;
+  color: #FFFFFF;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+}
+.other-login {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 70px;
+  margin-top: 30px;
+}
+.ohter-icon {
+  width: 60px;
+  height: 60px;
+}
+.login-divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 13px;
+  gap: 20px; /* 선과 OR 사이 간격 조절 */
+}
+.login-divider hr {
+  flex-grow: 1;
+  border: none;
+  height: 1px;
+  background-color: #ccc;
+}
+.login-divider span {
+  font-family: NotoSansKR-Bold;
+  font-size: 17px;
+  color: #797979;
+  white-space: nowrap;
 }
 
+{/* 메인 토글 버튼 css */}
+.floating-box {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100000;
+  flex-direction: row; /* 수평으로 배치 */
+}
+.v-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease-out;
+  width: 40px; /* 동그라미 크기 */
+  height: 40px; /* 동그라미 크기 */
+  background-color: #757575;
+  border-radius: 50%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  z-index: 100000;
+  opacity: 80%;
+}
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;  /* question 아이콘을 동그라미 왼쪽에 배치하기 위해 여백 추가 */
+}
+.question-icon {
+  width: 104px;
+  height: 48px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+.fv-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+  transition: transform 0.3s ease-out;
+}
+.fv-icon.open {
+  transform: rotate(-180deg);
+}
+.f-icons {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s ease-out;
+}
+.f-icons.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+.f-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+.f-icon:hover {
+  transform: scale(1.2);
+}
+
+{/* Footer css */}
 .footer {
   position: relative;
   bottom: 0;
@@ -254,20 +399,17 @@ body {
   margin-top: 100px;
   flex-direction: column;
 }
-
 .footer-link {
   display: flex;
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   gap: 20px
 }
-
 .footer-link a {
   font-family: NotoSansKR;
   font-size: 13px;
   color: #333333;
 }
-
 .footer-info {
   display: flex;
   justify-content: center; /* 가로 중앙 정렬 */
@@ -276,31 +418,143 @@ body {
   gap: 0;
   margin-top: 10px;
 }
-
 .footer-info h1 {
   font-family: NotoSansKR-Light;
   font-size: 13px;
   margin: 3px; /* 기본 margin 제거 */
   color: #333333;
 }
-
 .footer-partner {
   display: flex;
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   margin-top: 10px;
 }
-
 .toss {
   height: 16px;
   width: 93px;
 }
-
 .footer-partner h1 {
   font-family: NotoSansKR;
   font-size: 13px;
   color: #333333;
 }
+
+{/* 회원가입 페이지 css */}
+.Signup-container {
+  width: 420px;
+  height: 100%;
+  align-items: start;
+  flex-direction: column;
+  margin-right: 15px;
+  margin-top: 120px;
+  display: flex;
+}
+.Signup-container h1 {
+  font-family: NotoSansKR-Regular;
+  font-size: 20px;
+  color: #333333;
+  margin-bottom: 30px;
+}
+.Signup-container h2{
+  font-family: NotoSansKR-Regular;
+  font-size: 14px;
+  color: #333333;
+}
+.Signup-container h3{
+  font-family: NotoSansKR-Light;
+  font-size: 14px;
+  color: #333333;
+}
+.Signup-container h4{
+  font-family: NotoSansKR-Light;
+  font-size: 12px;
+  color: #333333;
+  margin-top: -10px;
+  margin-left: 28px;
+  margin-bottom: 0;
+}
+.login-box {
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.Signup-input {
+  width: 400px;
+  height: 45px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  font-family: NotoSansKR-Light;
+  color: #333333;
+  padding-left: 15px; /* 텍스트가 왼쪽에서 15px 떨어지도록 설정 */
+  background: transparent;
+}
+.phone-number-input {
+  display: flex; /* 자식 요소들을 가로로 배치 */
+  justify-content: space-between; /* 각 input 사이에 간격을 줌 */
+  width: 400px; /* 부모 크기 지정 */
+  align-items: center;
+}
+.phone-input {
+  width: 104.5px; /* 각 input 요소가 부모의 가용 공간을 균등하게 나누게 만듬 */
+  height: 45px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  font-family: NotoSansKR-Light;
+  color: #333333;
+  padding-left: 15px; /* 텍스트가 왼쪽에서 15px 떨어지도록 설정 */
+  background: transparent;
+  margin: 0 5px; /* 각 input 사이에 간격을 주기 위해 마진 추가 */
+}
+.phone-input:first-child {
+  margin-left: 0; /* 첫 번째 input에는 왼쪽 마진을 제거 */
+}
+.phone-input:last-child {
+  margin-right: 0; /* 마지막 input에는 오른쪽 마진을 제거 */
+}
+.phone-number-input input {
+  margin-right: 8px; /* 칸 사이 간격 */
+}
+.consent-container {
+  display: flex;
+  flex-direction: column; /* 세로로 나열 */
+  gap: 10px; /* 항목 간의 간격 */
+  margin-top: 30px;
+}
+.consent-item {
+  display: flex;
+  align-items: center; /* 체크박스와 글을 수평 정렬 */
+}
+.checkbox {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #767676; /* border로 stroke 효과 */
+  border-radius: 2px; /* 체크박스를 둥글게 만들기 */
+  margin-right: 8px; /* 체크박스와 글 사이의 간격 */
+}
+label {
+  font-size: 14px;
+  color: #333333;
+  font-family: NotoSansKR-Regular;
+}
+.Signup-btn {
+  width: 160px;
+  height: 54px;
+  background-color: #3375B1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: NotoSansKR-Regular;
+  font-size: 14px;
+  color: #FFFFFF;
+  margin-left: 130px;
+  margin-top: 40px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
 
 button {
   border-radius: 8px;
