@@ -386,6 +386,21 @@ body {
   transform: scale(1.2);
 }
 
+.shop-menu {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 83px;
+}
+
+.shop-menu a {
+  text-decoration: none;
+  color: #333333;
+  font-weight: bold;
+}
+
 {/* Footer css */}
 .footer {
   position: relative;
