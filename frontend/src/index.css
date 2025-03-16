@@ -399,6 +399,19 @@ body {
   text-decoration: none;
   color: #333333;
   font-weight: bold;
+  border-radius: 10px;
+}
+
+.shop-menu li:hover a{
+    outline: 1px solid rgba(0, 0, 0, 0.5); /* 외곽선 */
+    outline-offset: 5px; /* 이미지와 테두리 간격 */
+    padding: 0px 15px;
+}
+
+.shop-menu li.active a {
+    outline: 1px solid rgba(0, 0, 0, 0.5); /* 외곽선 */
+    outline-offset: 5px; /* 이미지와 테두리 간격 */
+    padding: 0px 15px;
 }
 
 {/* Footer css */}
