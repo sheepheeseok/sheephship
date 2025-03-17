@@ -12,9 +12,9 @@ const Shop = () => {
                 <li><a href="#">SKIN CARE</a></li>
             </ul>
 
-                <section class="product-list"></section>
+                <section class="shop-product-list"></section>
 
-                <div class="pagination"></div>
+                <div class="shop-pagination"></div>
         </div>
     )
 }

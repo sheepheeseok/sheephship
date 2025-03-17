@@ -3,6 +3,7 @@ import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx"
 import Signup from "./pages/Signup.jsx";
 import Shop from "./pages/Shop.jsx";
+import Product from "./pages/Product.jsx"
 import Navbar from "./component/Navbar.jsx";
 import Footer from "./component/Footer.jsx";
 import FloatingButton from "./component/FloatingButton.jsx";
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/" element={<Home/>} /> {/* 홈 */}
                 <Route path="/Login" element={<Login/>} /> {/* 로그인 */}
                 <Route path="/Signup" element={<Signup/>} /> {/* 회원가입 */}
+                <Route path="/Product" element={<Product/>} /> { /* 제품 상세 */}
                 <Route path="/Shop" element={<Shop/>} /> {/* 샵 */}
             </Routes>
             <Footer/>
