@@ -386,8 +386,17 @@ body {
   transform: scale(1.2);
 }
 
+{/* 제품 상세 페이지 css */}
+.shop-container {
+    max-width: 1800px; /* 적절한 폭 제한 */
+    margin: 0 auto;
+    padding: 20px;
+
+}
+
 .shop-menu {
     display: flex;
+    align-text: center;
     gap: 25px;
     list-style: none;
     padding: 0;
@@ -412,6 +421,131 @@ body {
     outline: 1px solid rgba(0, 0, 0, 0.5); /* 외곽선 */
     outline-offset: 5px; /* 이미지와 테두리 간격 */
     padding: 0px 15px;
+}
+
+/* 상품 리스트 그리드 */
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+/* 상품 카드 스타일 */
+.product-item {
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: #fff;
+}
+
+.product-item img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.product-item img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-item p {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 10px 0;
+    height: 42px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-item strong {
+    font-size: 16px;
+    color: #333;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.product-item .price {
+    margin: 10px 0;
+}
+
+.product-item .sale-price {
+    color: red;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.product-item .original-price {
+    color: #888;
+    text-decoration: line-through;
+}
+
+/* 담기 버튼 */
+.cart-btn {
+    background: #1e40af;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.cart-btn:hover {
+    background: #1d4ed8;
+}
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 30px 0;
+}
+
+.page-btn {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background: white;
+    color: #333;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.page-btn:hover {
+    background: #f3f3f3;
+}
+
+.page-btn.active {
+    background: #1e40af;
+    color: white;
+    border-color: #1e40af;
+}
+
+/* 페이지네이션 화살표 비활성화 */
+.page-btn:disabled {
+    background: #f0f0f0;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .product-item img {
+        height: 180px;
+    }
+
+    .shop-menu {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .product-item p {
+        font-size: 14px;
+        height: auto;
+    }
 }
 
 {/* 제품 상세 페이지 css */}
