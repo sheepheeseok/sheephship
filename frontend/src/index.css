@@ -408,6 +408,7 @@ body {
   color: #333333;
   font-weight: bold;
   border-radius: 10px;
+    font-family: "NotoSansKR-Regular";
 }
 
 .shop-menu li:hover a{
@@ -457,6 +458,7 @@ body {
     height: 42px;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-family: "NotoSansKR-Bold";
 }
 
 .product-item strong {
