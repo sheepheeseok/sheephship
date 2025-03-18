@@ -391,7 +391,6 @@ body {
     max-width: 1800px; /* 적절한 폭 제한 */
     margin: 0 auto;
     padding: 20px;
-
 }
 
 .shop-menu {
@@ -576,8 +575,13 @@ body {
   margin: 0;
 }
 .Product-img {
-  width: 1110px;
-  height: 1110px;
+    width: 1110px;        /* 고정된 너비 */
+    height: 1110px;       /* 고정된 높이 */
+    object-fit: contain;  /* 비율을 유지하면서 이미지가 잘리지 않도록 */
+}
+.info-product-img:hover {
+    transform: scale(1.1); /* 이미지를 살짝 확대 */
+    opacity: 0.8; /* 투명도를 줄여 효과를 주는 예시 */
 }
 .product-buyinfo {
   display: flex;
@@ -664,7 +668,7 @@ body {
   border-radius: 0;
   margin-top: 0;
 }
-.cart-btn {
+.product-cart-btn {
   width: 160px;
   height: 54px;
   background-color: #ffffff;
@@ -721,6 +725,131 @@ body {
   width: 86px;
   height: 16px;
 }
+.product-img-info {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 260px;
+    gap: 20px;
+    margin-left: 36px;
+}
+.info-product-img {
+    width: 250px;
+    height: 250px;
+}
+.product-info-box {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 800px;
+    height: 100%;
+    margin-top: 61px;
+    padding-top: 150px;
+}
+.product-info-box h1 {
+    font-family: NotoSansKR-Bold;
+    font-size: 24px;
+    background-color: #000000;
+    color: #ffffff;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.product-info-box h2 {
+    font-family: NotoSansKR-Regular;
+    font-size: 16px;
+    color: #333333;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.product-info-box li {
+    font-family: NotoSansKR-Light;
+    font-size: 16px;
+    margin-left: 50px;
+}
+.product-info-box li .indent {
+    display: block;
+    padding-left: 56px; /* 원하는 만큼 들여쓰기 */
+}
+.product-info-title {
+    display: flex;
+    flex-direction: row;
+    width: 800px;
+    height: 57px;
+    align-items: center;
+    justify-content: center;
+    gap: 68.5px;
+    margin-top: 82px;
+    padding: 0;
+}
+.product-info-title a {
+    font-family: NotoSansKR-Light;
+    font-size: 14px;
+    text-decoration: none; /* 기본적으로 밑줄 없음 */
+    cursor: pointer; /* 마우스 포인터 변경 */
+    color: #333333;
+    position: relative; /* 가상 요소 배치를 위해 필요 */
+    padding-bottom: 5px; /* 밑줄과 텍스트 간격 */
+}
+.product-info-title a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0; /* 처음엔 보이지 않음 */
+    height: 2px; /* 밑줄 두께 */
+    background-color: #757575; /* 밑줄 색상 */
+    transition: width 0.3s ease-in-out; /* 밑줄 확장 애니메이션 */
+    opacity: 1; /* 투명도 조정 */
+}
+.product-info-title a:hover::after {
+    width: 100%;
+}
+.product-info-title a:focus::after,
+.product-info-title a:active::after {
+    width: 100%;
+}
+.product-info-box .image-container {
+    position: relative;  /* 이미지 컨테이너의 상대적인 위치를 설정 */
+    overflow: hidden;    /* 잘린 부분을 보이지 않게 처리 */
+    transition: max-height 0.5s ease-in-out;
+}
+.p-detail-img {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+.expand-btn {
+    font-family: NotoSansKR-Bold;
+    position: absolute;
+    bottom: 230px;
+    left: 50%;
+    height: 52px;
+    width: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #3375B1;
+    flex-direction: row;
+    border-radius: 0;
+    border: 1px solid #3375B1;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 1000000;
+}
+.expand-btn:hover {
+    background-color: #3375B1;
+    color: #ffffff;
+}
+.expand-btn:hover img {
+    filter: brightness(0) invert(1);  /* 흰색으로 변환 */
+}
+
 
 {/* Footer css */}
 .footer {
