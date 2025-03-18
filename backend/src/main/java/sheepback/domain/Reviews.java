@@ -15,5 +15,7 @@ public class Reviews {
     @Column(name = "review_id")
     private Long id;
 
+    private String title;
+
 
 }
