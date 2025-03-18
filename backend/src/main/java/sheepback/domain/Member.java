@@ -1,6 +1,7 @@
 package sheepback.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.ColumnDefault;
@@ -48,5 +49,25 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Wish> wishes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ItemQuestion> questions = new ArrayList<>();
+
+
+    //회원가입 빌더패턴 ( 다수의 생성자 만들지않는 장점 )
+    @Builder
+    public Member(String id, String name, String password, String email,  Address address) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.grade = Grade.RED;
+        this.address = address;
+        this.point = 0L;
+
+    }
 
 }
