@@ -41,6 +41,8 @@ public class Member {
     @ColumnDefault("0")
     private Long point;//포인트
 
+    private String phoneNumber;
+
 
     private String profilePicture;//프로필 사진
 
@@ -59,10 +61,11 @@ public class Member {
 
     //회원가입 빌더패턴 ( 다수의 생성자 만들지않는 장점 )
     @Builder
-    public Member(String id, String name, String password, String email,  Address address) {
+    public Member(String id, String name, String password, String email, String phoneNumber,  Address address) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.grade = Grade.RED;
         this.address = address;
