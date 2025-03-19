@@ -1,8 +1,10 @@
 package sheepback.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -11,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 @DynamicInsert
+
 public class Member {
 
     @Id
@@ -59,9 +62,10 @@ public class Member {
     private List<ItemQuestion> questions = new ArrayList<>();
 
 
+
     //회원가입 빌더패턴 ( 다수의 생성자 만들지않는 장점 )
     @Builder
-    public Member(String id, String name, String password, String email, String phoneNumber,  Address address) {
+    public Member(String id, String name, String password, String email, String phoneNumber,  Address address, String profilePicture) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -70,6 +74,7 @@ public class Member {
         this.grade = Grade.RED;
         this.address = address;
         this.point = 0L;
+        this.profilePicture = profilePicture;
 
     }
 
