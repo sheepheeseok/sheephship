@@ -7,19 +7,19 @@
         <sourceRoots>
           <root url="file://$MODULE_DIR$/../../backend/src/main/java" />
           <root url="file://$MODULE_DIR$/../../backend/src/main/resources" />
-          <root url="file://$MODULE_DIR$/../../backend/build/generated/sources/annotationProcessor/java/main" />
         </sourceRoots>
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_21">
     <output url="file://$MODULE_DIR$/../../backend/out/production/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../backend/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../backend/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../backend/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../backend/src/main/generated" isTestSource="false" generated="true" />
     </content>
-    <orderEntry type="jdk" jdkName="20" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="corretto-21" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.projectlombok:lombok:1.18.36" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-jpa:3.4.3" level="project" />
