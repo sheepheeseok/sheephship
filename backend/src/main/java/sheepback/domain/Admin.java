@@ -2,20 +2,21 @@ package sheepback.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
 
 @Entity
 @Getter
-public class Reviews {
+public class Admin {
 
     @Id
-    @GeneratedValue
-    @Column(name = "review_id")
-    private Long id;
+    @Column(name = "admin_id")
+    private String id;
 
-    private String title;
+    private String password;
 
+    private String name;
+
+    private AUTHORITY authority;
 
 }

@@ -5,11 +5,8 @@ import lombok.Getter;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import sheepback.domain.ItemCategory;
-import sheepback.domain.OrderItems;
-import sheepback.domain.Wish;
+import sheepback.domain.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,5 +46,11 @@ public class Item {
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Wish> wishes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ItemQuestion> itemQuestions = new ArrayList<>();
 
 }
