@@ -25,6 +25,7 @@ public class MemberApiController {
                 .password(registerRequest.getPassword())
                 .phoneNumber(registerRequest.getPhoneNumber())
                 .address(registerRequest.getAddress())
+                .email(registerRequest.getEmail())
                 .build();
         memberService.joinMember(member);
         return "회원가입 성공";
