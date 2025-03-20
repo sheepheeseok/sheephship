@@ -1,6 +1,7 @@
 package sheepback.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sheepback.domain.Address;
@@ -13,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MemberService {
+
 
     private final MemberRepository memberRepository;
 
@@ -40,7 +42,7 @@ public class MemberService {
     }
 
     //아이디 찾기
-    public List<Member> findId(String name, String phoneNumber) {
+    public List<String> findId(String name, String phoneNumber) {
         return memberRepository.findId(name, phoneNumber);
     }
 
@@ -55,6 +57,7 @@ public class MemberService {
     }
 
     //업데이트
+    @Transactional
     public Member updateMember(String id,String password, Address address, String profilePicture) {
                 Member member = memberRepository.findbyId(id);
                 member.setPassword(password);

@@ -34,9 +34,9 @@ public class MemberRepository {
     }
 
     //아이디 찾기
-    public List<Member> findId(String name, String phoneNumber) {
+    public List<String> findId(String name, String phoneNumber) {
         return em.createQuery("select m.id from Member m " +
-                "where m.name = :name and m.phoneNumber = :phoneNumber", Member.class)
+                "where m.name = :name and m.phoneNumber = :phoneNumber", String.class)
                 .setParameter("name", name)
                 .setParameter("phoneNumber", phoneNumber)
                 .getResultList();
