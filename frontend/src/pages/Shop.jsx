@@ -9,12 +9,12 @@ const allProducts = [
     { id: 6, title: "상품6", price: "60,000원", img: "/imgs/InstaBox/insta8.png" },
     { id: 7, title: "상품7", price: "70,000원", img: "/imgs/InstaBox/insta1.png" },
     { id: 8, title: "상품8", price: "80,000원", img: "/imgs/InstaBox/insta2.png" },
-    // 더 많은 상품 추가 가능
 ];
 
 const Shop = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 16; // 한 페이지당 16개 상품
+    const [activeMenu, setActiveMenu] = useState("ALL");
+    const productsPerPage = 16;
 
     // 현재 페이지에 맞는 상품 추출
     const indexOfLastProduct = currentPage * productsPerPage;
@@ -27,12 +27,11 @@ const Shop = () => {
     return (
         <div className="shop-container">
             <ul className="shop-menu">
-                <li><a href="#">ALL</a></li>
-                <li><a href="#">BOTTOM</a></li>
-                <li><a href="#">TOP</a></li>
-                <li><a href="#">CHALK BAGS</a></li>
-                <li><a href="#">ACC</a></li>
-                <li><a href="#">SKIN CARE</a></li>
+                {["ALL", "BOTTOM", "TOP", "CHALK BAGS", "ACC", "SKIN CARE"].map((menu) => (
+                    <li key={menu} className={activeMenu === menu ? "active" : ""} onClick={() => setActiveMenu(menu)}>
+                        <a href="#">{menu}</a>
+                    </li>
+                ))}
             </ul>
 
             {/* 상품 리스트 */}
