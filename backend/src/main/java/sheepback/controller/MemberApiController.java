@@ -17,6 +17,7 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
+    //회원가입 api
     @PostMapping("/api/signup")
     public String signup(@RequestBody RegisterRequest registerRequest) {
         Member member = Member.builder()
