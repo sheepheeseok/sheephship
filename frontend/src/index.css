@@ -387,7 +387,7 @@ body {
 }
 
 {/* 제품 상세 페이지 css */}
-.shop-container {
+.container {
     max-width: 1800px; /* 적절한 폭 제한 */
     margin: 0 auto;
     padding: 20px;
@@ -446,11 +446,7 @@ body {
     height: 350px;
     object-fit: cover;
     margin-bottom: 10px;
-}
-
-.product-item img:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.5s ease-in-out;
 }
 
 .product-item p {
