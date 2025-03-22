@@ -387,8 +387,9 @@ body {
 }
 
 {/* 제품 상세 페이지 css */}
-.container {
+.shop-container {
     max-width: 1800px; /* 적절한 폭 제한 */
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
 }

@@ -34,43 +34,45 @@ const Shop = () => {
     const totalPages = Math.ceil(allProducts.length / productsPerPage);
 
     return (
-        <div className="shop-container">
-            <ul className="shop-menu">
-                {["ALL", "BOTTOM", "TOP", "CHALK BAGS", "ACC", "SKIN CARE"].map((menu) => (
-                    <li key={menu} className={activeMenu === menu ? "active" : ""} onClick={() => setActiveMenu(menu)}>
-                        <a href="#">{menu}</a>
-                    </li>
-                ))}
-            </ul>
+        <div className="container">
+            <div className="shop-container">
+                <ul className="shop-menu">
+                    {["ALL", "BOTTOM", "TOP", "CHALK BAGS", "ACC", "SKIN CARE"].map((menu) => (
+                        <li key={menu} className={activeMenu === menu ? "active" : ""} onClick={() => setActiveMenu(menu)}>
+                            <a href="#">{menu}</a>
+                        </li>
+                    ))}
+                </ul>
 
-            <section className="product-list">
-                {currentProducts.map((product) => (
-                    <div className="product-item" key={product.id}
-                        onMouseEnter={() => setHoveredProduct(product.id)}
-                        onMouseLeave={() => setHoveredProduct(null)}>
-                        <img src={hoveredProduct === product.id ? product.hoverImg : product.img} alt={product.title} />
-                        <p>{product.title}</p>
-                        {product.sale ? (
-                            <div className="price">
-                                <span className="sale-price">{product.price}</span>
-                                <span className="original-price">{product.sale}</span>
-                            </div>
-                        ) : (
-                            <strong>{product.price}</strong>
-                        )}
-                        <button className="cart-btn">🛒 담기</button>
-                    </div>
-                ))}
-            </section>
+                <section className="product-list">
+                    {currentProducts.map((product) => (
+                        <div className="product-item" key={product.id}
+                            onMouseEnter={() => setHoveredProduct(product.id)}
+                            onMouseLeave={() => setHoveredProduct(null)}>
+                            <img src={hoveredProduct === product.id ? product.hoverImg : product.img} alt={product.title} />
+                            <p>{product.title}</p>
+                            {product.sale ? (
+                                <div className="price">
+                                    <span className="sale-price">{product.price}</span>
+                                    <span className="original-price">{product.sale}</span>
+                                </div>
+                            ) : (
+                                <strong>{product.price}</strong>
+                            )}
+                            <button className="cart-btn">🛒 담기</button>
+                        </div>
+                    ))}
+                </section>
 
-            <div className="pagination">
-                <button className="page-btn" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>«</button>
-                {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((num) => (
-                    <button key={num} className={`page-btn ${currentPage === num ? 'active' : ''}`} onClick={() => setCurrentPage(num)}>
-                        {num}
-                    </button>
-                ))}
-                <button className="page-btn" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>»</button>
+                <div className="pagination">
+                    <button className="page-btn" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>«</button>
+                    {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((num) => (
+                        <button key={num} className={`page-btn ${currentPage === num ? 'active' : ''}`} onClick={() => setCurrentPage(num)}>
+                            {num}
+                        </button>
+                    ))}
+                    <button className="page-btn" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>»</button>
+                </div>
             </div>
         </div>
     );
