@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 const allProducts = [
-    { id: 1, title: "와이드 턱 팬츠 스프링 믹스", price: "92,000원", img: "/imgs/shop/pants1-1.jpg", hoverImg: "/imgs/shop/pants1-2.jpg" },
-    { id: 2, title: "[무료배송] 오름 클라이밍 스타터 키트 (파인초크)", price: "45,000원", img: "/imgs/InstaBox/insta5.png", hoverImg: "/imgs/InstaBox/insta5.png" },
-    { id: 3, title: "[무료배송] 오름 클라이밍 스타터 키트 (크러쉬드)", price: "45,000원", sale: "55,000원", img: "/imgs/InstaBox/insta6.png", hoverImg: "/imgs/InstaBox/insta6_hover.png" },
-    { id: 4, title: "오름 리필러블 초크볼 (65g)", price: "6,000원", img: "/imgs/InstaBox/insta7.png", hoverImg: "/imgs/InstaBox/insta7_hover.png" },
+    { id: 1, title: "와이드 턱 팬츠 스프링 믹스", price: "92,000원", img: "/imgs/shop/pants1-1.jpg"},
+    { id: 2, title: "[무료배송] 오름 클라이밍 스타터 키트 (파인초크)", price: "45,000원", img: "/imgs/InstaBox/insta5.png"},
+    { id: 3, title: "[무료배송] 오름 클라이밍 스타터 키트 (크러쉬드)", price: "45,000원", sale: "55,000원", img: "/imgs/InstaBox/insta6.png"},
+    { id: 4, title: "오름 리필러블 초크볼 (65g)", price: "6,000원", img: "/imgs/InstaBox/insta7.png"},
     { id: 5, title: "상품5", price: "50,000원", img: "/imgs/InstaBox/insta4.png" },
     { id: 6, title: "상품6", price: "60,000원", img: "/imgs/InstaBox/insta8.png" },
     { id: 7, title: "상품7", price: "70,000원", img: "/imgs/InstaBox/insta1.png" },
@@ -46,10 +46,10 @@ const Shop = () => {
 
                 <section className="product-list">
                     {currentProducts.map((product) => (
-                        <div className="product-item" key={product.id}
+                        <div className="product-item"
                             onMouseEnter={() => setHoveredProduct(product.id)}
                             onMouseLeave={() => setHoveredProduct(null)}>
-                            <img src={hoveredProduct === product.id ? product.hoverImg : product.img} alt={product.title} />
+                            <img src={product.img} alt={product.title} />
                             <p>{product.title}</p>
                             {product.sale ? (
                                 <div className="price">
@@ -59,8 +59,10 @@ const Shop = () => {
                             ) : (
                                 <strong>{product.price}</strong>
                             )}
-                            <button className="cart-btn">🛒 담기</button>
+                            <button className="wish-btn">WISH</button>
+                            <button className="add-btn">ADD</button>
                         </div>
+
                     ))}
                 </section>
 
