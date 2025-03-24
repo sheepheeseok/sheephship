@@ -58,12 +58,20 @@ public class MemberService {
 
     //업데이트
     @Transactional
-    public Member updateMember(String id,String password, Address address, String profilePicture) {
+    public Member updateMember(String id,String password, String name, Address address, String profilePicture) {
                 Member member = memberRepository.findbyId(id);
                 member.setPassword(password);
+                member.setName(name);
                 member.setAddress(address);
                 member.setProfilePicture(profilePicture);
                 return member;
+    }
+    //비밀번호 변경
+    @Transactional
+    public String updatePassword(String id, String password) {
+        Member member = memberRepository.findbyId(id);
+        member.setPassword(password);
+        return "success";
     }
 
 }
