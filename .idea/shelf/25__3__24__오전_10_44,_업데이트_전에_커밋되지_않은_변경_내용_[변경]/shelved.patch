@@ -1,0 +1,12 @@
+Index: .idea/shelf/25__3__13___8_56__________.xml
+===================================================================
+diff --git a/.idea/shelf/25__3__13___8_56__________.xml b/.idea/shelf/25__3__13___8_56__________.xml
+deleted file mode 100644
+--- a/.idea/shelf/25__3__13___8_56__________.xml	(revision 5d56492a2f3cf53dcaf6587e2f28bc5c854b9536)
++++ /dev/null	(revision 5d56492a2f3cf53dcaf6587e2f28bc5c854b9536)
+@@ -1,4 +0,0 @@
+-<changelist name="25__3__13__오후_8_56,_업데이트_전에_커밋되지_않은_변경_내용_[변경]" date="1741867379208" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/25__3__13__오후_8_56,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" />
+-  <option name="DESCRIPTION" value="25. 3. 13. 오후 8:56, 업데이트 전에 커밋되지 않은 변경 내용 [변경]" />
+-</changelist>
+\ No newline at end of file
