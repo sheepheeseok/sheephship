@@ -32,6 +32,23 @@ public class MemberApiController {
         return "회원가입 성공";
     }
 
+    @PostMapping("/api/login")
+    public LoginMember login(String id, String password) {
+
+        Member login = memberService.login(id, password);
+        LoginMember loginMember = new LoginMember();
+        loginMember.setId(login.getId());
+        loginMember.setName(login.getName());
+
+        return loginMember;
+    }
+
+
+    @PostMapping("/api/findId")
+    public String findId(){
+        return "";
+    }
+
     @Data
     private static class RegisterRequest {
         String id;
@@ -40,5 +57,11 @@ public class MemberApiController {
         Address address;
         String phoneNumber;
         String email;
+    }
+
+    @Data
+    private static class LoginMember {
+        String id;
+        String name;
     }
 }
