@@ -67,8 +67,8 @@ public class MemberApiController {
             loginMember.setId(login.getId());
 
             Cookie cookie = new Cookie("loginId", String.valueOf(login.getId()));
-            cookie.setHttpOnly(true);
-            cookie.setSecure(true);
+            cookie.setHttpOnly(false);
+            cookie.setSecure(false);
             cookie.setPath("/");
             cookie.setMaxAge(60 * 60 * 24 * 7);
             response.addCookie(cookie);
@@ -82,10 +82,10 @@ public class MemberApiController {
 
 
     //아이디 찾기 찾은후 id 반환 없으면 null
-    @GetMapping("/api/findId")
+    @PostMapping("/api/findId")
     public String findId(@RequestBody @Valid FindIdDto findIdDto) {
 
-        String id = memberService.findId(name, phoneNumber);
+        String id = memberService.findId(findIdDto.getName(), findIdDto.getPhoneNumber());
 
         return id;
 
@@ -107,30 +107,38 @@ public class MemberApiController {
         return memberDtos;
     }
 
-    //멤버정보 가져오기
+    //회원정보 수정시 멤버정보 가져오기
     @PostMapping("/api/updateMemberInfo")
-    public MyPageDto getById(@RequestParam("id") String id) {
+    public MyPageDto getById(@CookieValue(name = "loginId", required = false) String id) {
+
+        //id반환 실패시 null반환
+        if (id == null) {
+            return null;
+        }
+
         Member member = memberService.getMemberById(id);
 
-        MyPageDto findByIdDto = new MyPageDto(member.getId(), member.getName(),
+        MyPageDto myPageDto = new MyPageDto(member.getId(), member.getName(),
                 member.getGrade(), member.getPoint());
-        return findByIdDto;
+
+        return myPageDto;
 
     }
 
-    //마이페이지 이름 등급 포인트
 
     //비밀번호 변경
     @PostMapping("/api/changePassword")
-    public String changePassword(@RequestBody @Valid ChangePw pw) {
-        String s = memberService.updatePassword(pw.getId(), pw.getNewPassword());
+    public String changePassword(@CookieValue(name = "loginId", required = false) String id,
+                                 @RequestBody @Valid ChangePw pw) {
+        String s = memberService.updatePassword(id, pw.getNewPassword());
         return s;
     }
     //이메일
     //회원 정보 업데이트
     @PostMapping("/api/updateMember")
-    public UpdateMemberDto updateMember(@RequestBody @Valid UpdateMember updatemember) {
-        Member member = memberService.updateMember(updatemember.getId(),
+    public UpdateMemberDto updateMember(@CookieValue(name = "loginId", required = false) String id,
+                                        @RequestBody @Valid UpdateMember updatemember) {
+        Member member = memberService.updateMember(id,
                 updatemember.getPassword(),
                 updatemember.getName(),
                 updatemember.getAddress(),
@@ -216,7 +224,6 @@ public class MemberApiController {
 
     @Data
     private static class UpdateMember {
-        String id;
         String name;
         String password;
         Address address;
@@ -240,7 +247,6 @@ public class MemberApiController {
 
     @Data
     private static class ChangePw {
-        String id;
         String newPassword;
     }
 
@@ -252,6 +258,7 @@ public class MemberApiController {
 
     @Data
     private static class FindIdDto {
-
+        String name;
+        String phoneNumber;
     }
 }
