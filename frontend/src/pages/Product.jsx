@@ -33,7 +33,10 @@ const Product = () => {
                 <div className="Product-box">
                     <h1>쉽쉽 메탈립 초크백 그레이 (grey)</h1>
 
+                    <div className="product-priceinfo">
                     <h2 style={{marginTop: "23px"}}>32,000원</h2>
+                    <img src="/icons/info.svg" alt="info-icon" className="info-icon"/>
+                    </div>
 
                     <h2 style={{marginTop: "28px"}}>메탈립 원단으로 제작된 초크백입니다.</h2>
 

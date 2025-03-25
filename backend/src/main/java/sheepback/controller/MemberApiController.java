@@ -42,9 +42,10 @@ public class MemberApiController {
     }
 
     //이이디 중복체크
-    @GetMapping("/api/checkId/{id}")
-    public boolean checkMemberId(@PathVariable("id") String id){
-        boolean check = memberService.checkMemberId(id);
+    @PostMapping("/api/checkId")
+    public boolean checkMemberId(@RequestBody @Valid GetId id){
+        boolean check = memberService.checkMemberId(id.getId());
+        System.out.println("check = " + check);
         return check;
     }
 
@@ -225,5 +226,11 @@ public class MemberApiController {
     private static class ChangePw {
         String id;
         String newPassword;
+    }
+
+    @Data
+    private static class GetId {
+        String id;
+
     }
 }

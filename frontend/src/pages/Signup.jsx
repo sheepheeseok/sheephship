@@ -12,6 +12,9 @@ const Signup = () => {
         handleAddressSearch,
         handleSubmit,
         passwordMatchError,
+        handleUserIdBlur,
+        idMessage,
+        idMessageColor,
     } = useForm();
 
     const [response, setResponse] = useState(null);
@@ -22,9 +25,19 @@ const Signup = () => {
                 <h1>회원가입</h1>
                 <form onSubmit={(e) => handleSubmit(e, axios, setResponse)}>
                     <h2>아이디</h2>
-                    <input type="ID" className="Signup-input" value={formData.userId}
-                           onChange={(e) => setFormData({...formData, userId: e.target.value})}
-                           placeholder="영문, 숫자 5자 이상 입력해주세요."/>
+                    <input
+                        type="text"
+                        className="Signup-input"
+                        value={formData.userId}
+                        onChange={(e) => setFormData({ ...formData, userId: e.target.value })}
+                        placeholder="영문, 숫자 5자 이상 입력해주세요."
+                        onBlur={handleUserIdBlur} // 아이디 입력 후 포커스 벗어날 때 중복 확인
+                    />
+                    { idMessage && (
+                        <p className="id-error" style={{ color: idMessageColor }}>
+                            {idMessage}
+                        </p>
+                    )}
                     <h2>이메일</h2>
                     <div className="signup-email-box" style={{display: "flex", alignItems: "center"}}>
                         <input
