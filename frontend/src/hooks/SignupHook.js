@@ -23,14 +23,12 @@ const SignupHook = () => {
     const [passwordMatchError, setPasswordMatchError] = useState(false);
 
     useEffect(() => {
-        // 비밀번호와 비밀번호 확인 값이 다르면 오류 메시지 표시
         if (formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword) {
             setPasswordMatchError(true);
         } else {
             setPasswordMatchError(false);
         }
 
-        // 카카오 주소 검색 API 스크립트 로드
         const script = document.createElement("script");
         script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
         script.async = true;
@@ -40,7 +38,6 @@ const SignupHook = () => {
     const handleAddressSearch = () => {
         new window.daum.Postcode({
             oncomplete: function(data) {
-                // 주소 선택 후 formData에 주소 및 상세 주소 설정
                 const fullAddress = data.address;
                 setFormData({
                     ...formData,
@@ -93,6 +90,7 @@ const SignupHook = () => {
         // 비밀번호가 일치하지 않으면 submit을 막고 처리
         if (formData.password !== formData.confirmPassword) {
             setPasswordMatchError(true);
+            alert("비밀번호를 다시 입력하세요")
             return;
         }
         setPasswordMatchError(false); // 비밀번호가 일치하면 오류 메시지 숨김
@@ -109,8 +107,10 @@ const SignupHook = () => {
         }
 
         const userData = {
-            ...rest,
-            phoneNumber,
+            id: formData.userId, // userId → id로 변경
+            name: formData.name,
+            password: formData.password,
+            phoneNumber: `${formData.part1}-${formData.part2}-${formData.part3}`,
             email: fullEmail,
             address: {
                 firstAddress: address,      // formData에서 address를 첫 번째 주소로 사용
@@ -125,9 +125,10 @@ const SignupHook = () => {
 
         try {
             const response = await axios.post("http://localhost:8080/api/signup", userData);
-            setResponse(response.data);
+            alert(response.data);
         } catch (error) {
             console.error("회원가입 실패:", error);
+            alert("회원가입에 실패했습니다."); // 에러 발생 시 알림창 표시
             setResponse(null);
         }
     };

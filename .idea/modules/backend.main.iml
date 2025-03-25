@@ -11,7 +11,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_21">
+  <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/../../backend/out/production/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../backend/src/main">
@@ -26,6 +26,7 @@
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-thymeleaf:3.4.3" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:3.4.3" level="project" />
     <orderEntry type="library" name="Gradle: org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-validation:3.4.3" level="project" />
     <orderEntry type="library" name="Gradle: com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0" level="project" />
     <orderEntry type="library" name="Gradle: com.mysql:mysql-connector-j:9.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-jdbc:3.4.3" level="project" />
@@ -41,6 +42,8 @@
     <orderEntry type="library" name="Gradle: org.mybatis.spring.boot:mybatis-spring-boot-autoconfigure:3.0.4" level="project" />
     <orderEntry type="library" name="Gradle: org.mybatis:mybatis:3.5.17" level="project" />
     <orderEntry type="library" name="Gradle: org.mybatis:mybatis-spring:3.0.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-el:10.1.36" level="project" />
+    <orderEntry type="library" name="Gradle: org.hibernate.validator:hibernate-validator:8.0.2.Final" level="project" />
     <orderEntry type="library" name="Gradle: com.github.gavlyukovskiy:datasource-decorator-spring-boot-autoconfigure:1.9.0" level="project" />
     <orderEntry type="library" name="Gradle: p6spy:p6spy:3.9.0" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-jdbc:6.2.3" level="project" />
@@ -69,9 +72,11 @@
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.18.2" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-websocket:10.1.36" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-core:10.1.36" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-el:10.1.36" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-expression:6.2.3" level="project" />
     <orderEntry type="library" name="Gradle: io.micrometer:micrometer-observation:1.14.4" level="project" />
+    <orderEntry type="library" name="Gradle: jakarta.validation:jakarta.validation-api:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.jboss.logging:jboss-logging:3.6.1.Final" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml:classmate:1.7.0" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.5.16" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.24.3" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:2.0.16" level="project" />
@@ -84,10 +89,8 @@
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.5.16" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.24.3" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.boot:spring-boot-devtools:3.4.3" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jboss.logging:jboss-logging:3.6.1.Final" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.hibernate.common:hibernate-commons-annotations:7.0.3.Final" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.smallrye:jandex:3.2.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml:classmate:1.7.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: net.bytebuddy:byte-buddy:1.15.11" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.glassfish.jaxb:jaxb-runtime:4.0.5" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: jakarta.xml.bind:jakarta.xml.bind-api:4.0.2" level="project" />
