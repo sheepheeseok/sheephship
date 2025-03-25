@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a0c40a4-086d-4962-9b79-4d7f94073d8c" name="변경" comment="반 최종 MemberController완성">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/backend.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/backend.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/backend.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/backend.test.iml" afterDir="false" />
+    <list default="true" id="3a0c40a4-086d-4962-9b79-4d7f94073d8c" name="변경" comment="강제로 집어넣기2">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemCategoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/MemberApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/MemberApiController.java" afterDir="false" />
     </list>
@@ -256,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742910403615</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="강제로 집어넣기2">
+      <option name="closed" value="true" />
+      <created>1742910962464</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1742910962464</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -294,7 +302,8 @@
     <MESSAGE value="제품 상세 페이지 제작 완료" />
     <MESSAGE value="마스터로 강제변경" />
     <MESSAGE value="반 최종 MemberController완성" />
-    <option name="LAST_COMMIT_MESSAGE" value="반 최종 MemberController완성" />
+    <MESSAGE value="강제로 집어넣기2" />
+    <option name="LAST_COMMIT_MESSAGE" value="강제로 집어넣기2" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
