@@ -40,9 +40,14 @@ public class MemberService {
         return login;
 
     }
+    //아이디로 회원정보 가져오기
+    public Member getMemberById(String id) {
+        Member member = memberRepository.findbyId(id);
+        return member;
+    }
 
     //아이디 찾기
-    public List<String> findId(String name, String phoneNumber) {
+    public String findId(String name, String phoneNumber) {
         return memberRepository.findId(name, phoneNumber);
     }
 
@@ -58,12 +63,18 @@ public class MemberService {
 
     //업데이트
     @Transactional
-    public Member updateMember(String id,String password, String name, Address address, String profilePicture) {
+    public Member updateMember(String id,String password,
+                               String name, Address address,
+                               String email,boolean agreeTerms, boolean agreeAge,
+                               boolean agreeMarketing) {
                 Member member = memberRepository.findbyId(id);
                 member.setPassword(password);
                 member.setName(name);
                 member.setAddress(address);
-                member.setProfilePicture(profilePicture);
+                member.setEmail(email);
+                member.setAgreeAge(agreeAge);
+                member.setAgreeMarketing(agreeMarketing);
+                member.setAgreeTerms(agreeTerms);
                 return member;
     }
     //비밀번호 변경
