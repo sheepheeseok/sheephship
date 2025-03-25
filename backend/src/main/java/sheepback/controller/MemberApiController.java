@@ -83,8 +83,7 @@ public class MemberApiController {
 
     //아이디 찾기 찾은후 id 반환 없으면 null
     @GetMapping("/api/findId")
-    public String findId(@RequestParam("name") String name,
-                               @RequestParam("phoneNumber") String phoneNumber) {
+    public String findId(@RequestBody @Valid FindIdDto findIdDto) {
 
         String id = memberService.findId(name, phoneNumber);
 
@@ -248,6 +247,11 @@ public class MemberApiController {
     @Data
     private static class GetId {
         String id;
+
+    }
+
+    @Data
+    private static class FindIdDto {
 
     }
 }
