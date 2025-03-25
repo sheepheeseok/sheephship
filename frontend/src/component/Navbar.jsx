@@ -9,7 +9,7 @@ const Navbar = () => {
                 <li><a href="shop">SHOP</a></li>
                 <li><a href="#">CENTER</a></li>
                 <li><a href="#">ROOTFIND</a></li>
-                <li><a href="#">BRAND</a></li>
+                <li><a href="brand">BRAND</a></li>
             </ul>
             <img src="/icons/MainIcon.svg" alt="MainIcon" className="MainIcon" onClick={() => navigate("/")} style={{ cursor: "pointer" }}/>
             <div className="nav-icons">
