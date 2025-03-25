@@ -26,9 +26,11 @@ public class Member {
     private String name; //이름
 
     @NotNull
+    @Column(unique = true)
     private String password; //비밀번호
 
     @NotNull
+    @Column(unique = true)
     private String email; // 이메일
 
     @Enumerated(EnumType.STRING)
@@ -39,10 +41,14 @@ public class Member {
 
     private Long point;//포인트
 
+    @Column(unique = true)
     private String phoneNumber;
 
+    private boolean agreeTerms;
 
-    private String profilePicture;//프로필 사진
+    private boolean agreeAge;
+
+    private boolean agreeMarketing;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Orders> orders = new ArrayList<>();//일대다 조인 ORDERS
@@ -60,7 +66,12 @@ public class Member {
 
     //회원가입 빌더패턴 ( 다수의 생성자 만들지않는 장점 )
     @Builder
-    public Member(String id, String name, String password, String email, String phoneNumber,  Address address) {
+    public Member(String id, String name,
+                  String password, String email,
+                  String phoneNumber,  Address address,
+                  boolean agreeTerms, boolean agreeAge,
+                  boolean agreeMarketing) {
+
         this.id = id;
         this.name = name;
         this.password = password;
@@ -69,6 +80,9 @@ public class Member {
         this.grade = Grade.RED;
         this.address = address;
         this.point = 0L;
+        this.agreeTerms = agreeTerms;
+        this.agreeAge = agreeAge;
+        this.agreeMarketing = agreeMarketing;
 
     }
 
