@@ -389,39 +389,38 @@ body {
 {/* 제품 상세 페이지 css */}
 .shop-container {
     max-width: 1800px; /* 적절한 폭 제한 */
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
 }
-
 .shop-menu {
     display: flex;
-    align-text: center;
-    gap: 25px;
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center;
+    gap: 10px;
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-top: 83px;
+    margin-top: 80px;
+    margin-bottom: 60px;
 }
-
-.shop-menu a {
-  text-decoration: none;
-  color: #333333;
-  font-weight: bold;
-  border-radius: 10px;
+.shop-menu li a {
+    text-decoration: none;
+    color: #333333;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 0 10px;
+    font-size: 15px;
 }
-
-.shop-menu li:hover a{
-    outline: 1px solid rgba(0, 0, 0, 0.5); /* 외곽선 */
-    outline-offset: 5px; /* 이미지와 테두리 간격 */
-    padding: 0px 15px;
+.shop-menu li:hover a {
+    outline: none;
+    padding: 0 10px;
 }
-
 .shop-menu li.active a {
     outline: 1px solid rgba(0, 0, 0, 0.5); /* 외곽선 */
     outline-offset: 5px; /* 이미지와 테두리 간격 */
     padding: 0px 15px;
 }
-
 /* 상품 리스트 그리드 */
 .product-list {
     display: grid;
@@ -429,72 +428,92 @@ body {
     gap: 30px;
     padding: 20px 0;
 }
-
 /* 상품 카드 스타일 */
 .product-item {
+    position: relative;
     padding: 15px;
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     background: #fff;
+    overflow: hidden;
 }
-
 .product-item img {
     width: 100%;
     height: 350px;
     object-fit: cover;
     margin-bottom: 10px;
+    transition: opacity 0.5s ease-in-out;
 }
-
-.product-item img:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
 .product-item p {
     font-size: 15px;
+    font-family: "NotoSansKR-Bold";
     font-weight: 500;
     margin: 10px 0;
-    height: 42px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .product-item strong {
     font-size: 16px;
     color: #333;
     display: block;
     margin-bottom: 10px;
 }
-
 .product-item .price {
     margin: 10px 0;
 }
-
 .product-item .sale-price {
     color: red;
     font-weight: bold;
     margin-right: 8px;
 }
-
 .product-item .original-price {
     color: #888;
     text-decoration: line-through;
 }
-
-/* 담기 버튼 */
-.cart-btn {
-    background: #1e40af;
-    color: white;
-    padding: 8px 14px;
-    border: none;
+/*  담기 버튼 (기본적으로 오른쪽 바깥에 숨김) */
+.add-btn, .wish-btn {
+    position: absolute;
+    top: 50%;
+    right: 20px; /* 처음에는 이미지 오른쪽 바깥에 위치 */
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    color: #3375B1;
+    border: 1px solid #3375B1;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    border-radius: 10px;
+    font-size: 12px;
+    opacity: 0;
+    visibility: hidden;
+    font-family: "NotoSansKR-bold";
 }
-
-.cart-btn:hover {
-    background: #1d4ed8;
+/* 버튼 호버 시 색상 변경 */
+.add-btn:hover, .wish-btn:hover {
+    background: #3375B1;
+    color: white;
 }
-
+.add-btn {
+    top: 50%;
+    padding: 8px 23px;
+}
+.wish-btn {
+    top: 41%;
+    padding: 8px 20px;
+}
+/* 호버 시 담기 버튼 오른쪽 → 왼쪽 슬라이드 */
+.product-item:hover .add-btn,
+.product-item:hover .wish-btn {
+    right: 40px; /* 왼쪽으로 이동하여 나타남 */
+    opacity: 1;
+    visibility: visible;
+}
+/* 마우스를 뺄 때 버튼이 오른쪽으로 슬라이드되면서 사라짐 */
+.product-item:not(:hover) .add-btn,
+.product-item:not(:hover) .wish-btn {
+    right: 20px; /* 원래 위치로 돌아감 */
+    opacity: 0;
+    visibility: hidden;
+}
 /* 페이지네이션 */
 .pagination {
     display: flex;
@@ -502,34 +521,24 @@ body {
     gap: 8px;
     margin: 30px 0;
 }
-
 .page-btn {
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    background: white;
-    color: #333;
-    border-radius: 6px;
+    background: none; /* 배경 제거 */
+    border: none; /* 테두리 제거 */
+    color: #333333; /* 숫자 색상 */
+    font-size: 16px;
     cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease;
+    padding: 0; /* 여백 제거 */
 }
-
-.page-btn:hover {
-    background: #f3f3f3;
-}
-
+.page-btn:hover,
 .page-btn.active {
-    background: #1e40af;
-    color: white;
-    border-color: #1e40af;
+    color: #757575; /* 활성화된 숫자 색상 변경 */
+    font-weight: bold;
 }
-
-/* 페이지네이션 화살표 비활성화 */
+/* 화살표 버튼 스타일 조정 */
 .page-btn:disabled {
-    background: #f0f0f0;
-    color: #aaa;
+    color: #333333; /* 비활성화된 화살표 색상 */
     cursor: not-allowed;
 }
-
 /* 반응형 */
 @media (max-width: 768px) {
     .product-item img {
