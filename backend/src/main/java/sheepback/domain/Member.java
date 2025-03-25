@@ -1,8 +1,10 @@
 package sheepback.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -11,16 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 @DynamicInsert
+
 public class Member {
 
     @Id
-    @GeneratedValue
-    @Column(name = "member_num")
-    private Long number; //고유 회원번호
-
-    @NotNull
+    @Column(name = "member_id")
     private String id; //아이디
 
     @NotNull
@@ -38,8 +37,9 @@ public class Member {
     @Embedded
     private Address address; //주소 임베디드타입
 
-    @ColumnDefault("0")
     private Long point;//포인트
+
+    private String phoneNumber;
 
 
     private String profilePicture;//프로필 사진
@@ -57,18 +57,21 @@ public class Member {
     private List<ItemQuestion> questions = new ArrayList<>();
 
 
+
     //회원가입 빌더패턴 ( 다수의 생성자 만들지않는 장점 )
     @Builder
-    public Member(String id, String name, String password, String email,  Address address) {
+    public Member(String id, String name, String password, String email, String phoneNumber,  Address address) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.grade = Grade.RED;
         this.address = address;
         this.point = 0L;
 
     }
+
 
     public Member() {
 
