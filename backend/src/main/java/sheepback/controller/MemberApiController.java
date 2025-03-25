@@ -1,9 +1,13 @@
 package sheepback.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -49,10 +53,10 @@ public class MemberApiController {
         return check;
     }
 
-    //로그인 api 값확인후 로그인 필드 반환
-
+    //로그인 api 값확인후 Id 쿠키로 반환
     @PostMapping("/api/login")
-    public LoginMember login(@RequestBody @Valid LoginMemberRequest loginMemberRequest) {
+    public ResponseEntity<LoginMember> login(@RequestBody @Valid LoginMemberRequest loginMemberRequest,
+                                             HttpServletResponse response) {
 
         Member login = memberService.login(loginMemberRequest.getId()
                 , loginMemberRequest.getPassword());
@@ -61,23 +65,29 @@ public class MemberApiController {
         //로그인 객체가 null이아니라면 getId반환
         if (login != null) {
             loginMember.setId(login.getId());
-            loginMember.setName(login.getName());
+
+            Cookie cookie = new Cookie("loginId", String.valueOf(login.getId()));
+            cookie.setHttpOnly(true);
+            cookie.setSecure(true);
+            cookie.setPath("/");
+            cookie.setMaxAge(60 * 60 * 24 * 7);
+            response.addCookie(cookie);
+        }
+        if (login == null) {
+            return ResponseEntity.badRequest().build(); // 로그인 실패 시 상태 코드 400 반환
         }
 
-        return loginMember;
+        return ResponseEntity.ok(loginMember);
     }
 
 
-    //아이디 찾기 찾은후 id 반환 여러 id가 있을경우 생각하여 List 형태로 반환
+    //아이디 찾기 찾은후 id 반환 없으면 null
     @GetMapping("/api/findId")
-    public String findId(@RequestParam("name") String name,
-                               @RequestParam("phoneNumber") String phoneNumber) {
+    public String findId(@RequestBody @Valid FindIdDto findIdDto) {
 
         String id = memberService.findId(name, phoneNumber);
 
-
-
-            return id;
+        return id;
 
     }
 
@@ -99,11 +109,11 @@ public class MemberApiController {
 
     //멤버정보 가져오기
     @PostMapping("/api/updateMemberInfo")
-    public FindByIdDto getById(@RequestParam("id") String id) {
+    public MyPageDto getById(@RequestParam("id") String id) {
         Member member = memberService.getMemberById(id);
 
-        FindByIdDto findByIdDto = new FindByIdDto();
-
+        MyPageDto findByIdDto = new MyPageDto(member.getId(), member.getName(),
+                member.getGrade(), member.getPoint());
         return findByIdDto;
 
     }
@@ -145,13 +155,20 @@ public class MemberApiController {
         Long point;
 
     }
+
     @Data
-    private static class FindByIdDto{
+    private static class MyPageDto{
         String id;
         String name;
         Grade grade;
         Long point;
 
+        public MyPageDto(String id, String name, Grade grade, Long point) {
+            this.id = id;
+            this.name = name;
+            this.grade = grade;
+            this.point = point;
+        }
     }
 
 
@@ -194,7 +211,6 @@ public class MemberApiController {
     @Data
     private static class LoginMember {
         String id;
-        String name;
     }
 
 
@@ -231,6 +247,11 @@ public class MemberApiController {
     @Data
     private static class GetId {
         String id;
+
+    }
+
+    @Data
+    private static class FindIdDto {
 
     }
 }
