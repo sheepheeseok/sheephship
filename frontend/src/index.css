@@ -889,7 +889,6 @@ body {
     position: relative;
     width: 100%;
     height: 24rem;
-    border-radius: 8px;
     overflow: hidden;
     max-width: 1200px;
     margin: 0 auto;
@@ -901,12 +900,11 @@ body {
 
 .intro {
     text-align: center;
-    margin: 3rem 0;
 }
 
 .title {
-    font-size: 2.5rem;
-    font-weight: bold;
+    font-size: 50pt;
+    font-family: "NotoSansKR-Light";
 }
 
 .description {
