@@ -66,12 +66,12 @@ public class MemberApiController {
         if (login != null) {
             loginMember.setId(login.getId());
 
-            Cookie cookie = new Cookie("loginId", String.valueOf(login.getId()));
-            cookie.setHttpOnly(false);
-            cookie.setSecure(false);
-            cookie.setPath("/");
-            cookie.setMaxAge(60 * 60 * 24 * 7);
-            response.addCookie(cookie);
+        Cookie cookie = new Cookie("loginId", String.valueOf(login.getId()));
+        cookie.setHttpOnly(false);
+        cookie.setSecure(false);
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 24 * 7);
+        response.addCookie(cookie);
         }
         if (login == null) {
             return ResponseEntity.badRequest().build(); // 로그인 실패 시 상태 코드 400 반환
@@ -107,8 +107,8 @@ public class MemberApiController {
         return memberDtos;
     }
 
-    //마이페이지 이동시 가져오는 데이터
-    @PostMapping("/api/myPageInfo")
+    //회원정보 수정시 멤버정보 가져오기
+    @PostMapping("/api/updateMemberInfo")
     public MyPageDto getById(@CookieValue(name = "loginId", required = false) String id) {
 
         //id반환 실패시 null반환
@@ -125,25 +125,6 @@ public class MemberApiController {
 
     }
 
-    @PostMapping("/api/updateForm")
-    public UpdateForm findById(@CookieValue(name = "loginId", required = false) String id) {
-
-        //id반환 실패시 null반환
-        if (id == null) {
-            return null;
-        }
-
-        Member member = memberService.getMemberById(id);
-        UpdateForm updateForm = new UpdateForm(member);
-
-
-
-        return updateForm;
-
-    }
-
-
-
 
     //비밀번호 변경
     @PostMapping("/api/changePassword")
@@ -156,8 +137,7 @@ public class MemberApiController {
     //회원 정보 업데이트
     @PostMapping("/api/updateMember")
     public UpdateMemberDto updateMember(@CookieValue(name = "loginId", required = false) String id,
-                                        @RequestBody @Valid UpdateMember updatemember,
-                                        HttpServletResponse response) {
+                                        @RequestBody @Valid UpdateMember updatemember) {
         Member member = memberService.updateMember(id,
                 updatemember.getPassword(),
                 updatemember.getName(),
@@ -167,21 +147,21 @@ public class MemberApiController {
                 updatemember.isAgreeAge(),
                 updatemember.isAgreeMarketing());
 
-        UpdateMemberDto newupdateMember = new UpdateMemberDto(member);
+        UpdateMemberDto newupdateMember = new UpdateMemberDto();
+        newupdateMember.setId(member.getId());
+        newupdateMember.setName(member.getName());
+        newupdateMember.setGrade(member.getGrade());
+        newupdateMember.setPoint(member.getPoint());
         return  newupdateMember;
     }
 
     @Data
     private static class UpdateMemberDto{
+        String id;
         String name;
         Grade grade;
         Long point;
 
-        public UpdateMemberDto(Member member) {
-            this.name = member.getName();
-            this.grade = member.getGrade();
-            this.point = member.getPoint();
-        }
     }
 
     @Data
@@ -280,28 +260,5 @@ public class MemberApiController {
     private static class FindIdDto {
         String name;
         String phoneNumber;
-    }
-
-    private class UpdateForm {
-        String id;
-        String name;
-        String password;
-        Address address;
-        String phoneNumber;
-        String email;
-        boolean agreeTerms;
-        boolean agreeMarketing;
-        boolean agreeAge;
-
-        public UpdateForm(Member member) {
-            this.name = member.getName();
-            this.password = member.getPassword();
-            this.address = member.getAddress();
-            this.phoneNumber = member.getPhoneNumber();
-            this.email = member.getEmail();
-            this.agreeTerms = member.isAgreeTerms();
-            this.agreeMarketing = member.isAgreeMarketing();
-            this.agreeAge = member.isAgreeAge();
-        }
     }
 }
