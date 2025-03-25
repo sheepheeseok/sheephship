@@ -7,9 +7,11 @@ const Signup = () => {
         formData,
         setFormData,
         handleChange,
+        handleDomainChange,
         handleConsentChange,
-        handleCustomDomainChange,
-        handleSubmit
+        handleAddressSearch,
+        handleSubmit,
+        passwordMatchError,
     } = useForm();
 
     const [response, setResponse] = useState(null);
@@ -24,35 +26,42 @@ const Signup = () => {
                            onChange={(e) => setFormData({...formData, userId: e.target.value})}
                            placeholder="영문, 숫자 5자 이상 입력해주세요."/>
                     <h2>이메일</h2>
-                    <div className="signup-email-box">
-                    <input type="text" className="Signup-input" value={formData.email} style={{ width: "150px" }}
-                           onChange={(e) => setFormData({...formData, email: e.target.value})}/>
-                    <span>@</span>
-                        <div className="select-container">
-                            <select
-                                className="Signup-select"
-                                style = {{ width: "215px"}}
+                    <div className="signup-email-box" style={{display: "flex", alignItems: "center"}}>
+                        <input
+                            type="text"
+                            className="Signup-input"
+                            value={formData.domain === "direct" ? `${formData.email}@${formData.customDomain}` : formData.email}
+                            onChange={(e) => {
+                                if (formData.domain === "direct") {
+                                    // 'direct'인 경우 email과 customDomain을 분리하여 업데이트
+                                    const emailParts = e.target.value.split('@');
+                                    setFormData({
+                                        ...formData,
+                                        email: emailParts[0],
+                                        customDomain: emailParts[1] || ''
+                                    });
+                                } else {
+                                    setFormData({...formData, email: e.target.value});
+                                }
+                            }}
+                            placeholder={formData.domain === "direct" ? "이메일 전체 입력 (example@gmail.com)" : "이메일 아이디"}
+                            style={{width: formData.domain === "direct" ? "400px" : "150px"}}
+                        />
+                        {formData.domain !== "direct" && <span>@</span>}
+
+                        <select className="Signup-input"
                                 value={formData.domain}
-                                onChange={(e) => setFormData({...formData, domain: e.target.value})}
-                                >
-                             <option value="">도메인 선택</option>
-                             <option value="gmail.com">gmail.com</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="daum.net">daum.net</option>
-                                <option value="yahoo.com">yahoo.com</option>
-                                <option value="direct">직접 입력</option>
-                            </select>
-                            {formData.domain === "direct" && (
-                                <input
-                                    type="text"
-                                    className="Signup-input"
-                                    value={formData.customDomain}
-                                    onChange={handleCustomDomainChange}
-                                    placeholder="도메인 입력"
-                                />
-                            )}
-                        </div>
+                                onChange={handleDomainChange}
+                                style={{width: "205px", marginLeft: "10px"}}>
+                            <option value="">도메인 선택</option>
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="naver.com">naver.com</option>
+                            <option value="daum.net">daum.net</option>
+                            <option value="yahoo.com">yahoo.com</option>
+                            <option value="direct">직접 입력</option>
+                        </select>
                     </div>
+
                     <h2>이름</h2>
                     <input type="name" className="Signup-input" value={formData.name}
                            onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -63,16 +72,27 @@ const Signup = () => {
                     <h2>비밀번호 확인</h2>
                     <input type="password" className="Signup-input" value={formData.confirmPassword}
                            onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}/>
+                    {passwordMatchError && <p className="password-error">비밀번호가 일치하지 않습니다.</p>} {/* 오류 메시지 */}
                     <h2>주소</h2>
                     <div className="signup-address-box">
-                        <input type="address" className="Signup-input" value={formData.address}
-                               onChange={(e) => setFormData({...formData, address: e.target.value})}
-                               style={{width: "309px"}}/>
-                        <button className="signup-address-btn">주소찾기</button>
+                        <input
+                            type="text"
+                            className="Signup-input"
+                            value={formData.address} // 선택된 주소 표시
+                            readOnly
+                            placeholder="주소를 입력하세요"
+                        />
+                        <button
+                            type="button"
+                            className="signup-address-btn"
+                            onClick={handleAddressSearch} // 주소찾기 버튼 클릭 시 카카오맵 열기
+                        >
+                            주소 찾기
+                        </button>
                     </div>
                     <input type="detailAddress" className="Signup-input" value={formData.detailAddress}
                            onChange={(e) => setFormData({...formData, detailAddress: e.target.value})}
-                           style={{marginTop: "18px"}}/>
+                           style={{marginTop: "18px"}} placeholder="상세 주소를 입력하세요"/>
                     <h2>휴대폰 번호</h2>
                     <div className="phone-number-input">
                         <input type="tel" className="phone-input" value={formData.part1}
