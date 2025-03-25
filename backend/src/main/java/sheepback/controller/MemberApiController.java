@@ -96,12 +96,16 @@ public class MemberApiController {
         return memberDtos;
     }
 
-//    //멤버정보 가져오기
-//    @PostMapping("/api/updateMemberInfo")
-//    public UpdateMemberDto getById(@RequestParam("id") String id) {
-//        Member member = memberService.getMemberById(id);
-//
-//    }
+    //멤버정보 가져오기
+    @PostMapping("/api/updateMemberInfo")
+    public FindByIdDto getById(@RequestParam("id") String id) {
+        Member member = memberService.getMemberById(id);
+
+        FindByIdDto findByIdDto = new FindByIdDto();
+
+        return findByIdDto;
+
+    }
 
     //마이페이지 이름 등급 포인트
 
@@ -114,7 +118,7 @@ public class MemberApiController {
     //이메일
     //회원 정보 업데이트
     @PostMapping("/api/updateMember")
-    public UpdateMember updateMember(@RequestBody @Valid UpdateMember updatemember) {
+    public UpdateMemberDto updateMember(@RequestBody @Valid UpdateMember updatemember) {
         Member member = memberService.updateMember(updatemember.getId(),
                 updatemember.getPassword(),
                 updatemember.getName(),
@@ -124,16 +128,28 @@ public class MemberApiController {
                 updatemember.isAgreeAge(),
                 updatemember.isAgreeMarketing());
 
-        UpdateMember newupdateMember = new UpdateMember();
+        UpdateMemberDto newupdateMember = new UpdateMemberDto();
         newupdateMember.setId(member.getId());
         newupdateMember.setName(member.getName());
-        newupdateMember.setAddress(member.getAddress());
-        newupdateMember.setEmail(member.getEmail());
+        newupdateMember.setGrade(member.getGrade());
+        newupdateMember.setPoint(member.getPoint());
         return  newupdateMember;
     }
 
     @Data
     private static class UpdateMemberDto{
+        String id;
+        String name;
+        Grade grade;
+        Long point;
+
+    }
+    @Data
+    private static class FindByIdDto{
+        String id;
+        String name;
+        Grade grade;
+        Long point;
 
     }
 
