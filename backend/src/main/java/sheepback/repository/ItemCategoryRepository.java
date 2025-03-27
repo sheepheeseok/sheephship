@@ -1,26 +1,73 @@
 package sheepback.repository;
 
+import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Repository;
+import sheepback.domain.Category;
+import sheepback.domain.item.Item;
+
+import java.util.List;
+
+@Repository
+@RequiredArgsConstructor
 public class ItemCategoryRepository {
     // 카테고리별 상품 페이지 검색기능 만들어야함ㅎㅎ
-    //페치 조인 선택
-    //
-    //연관된 단일 엔티티를 즉시 로딩해야 할 때 (예: 제품 + 판매자)
-    //
-    //N+1 문제가 명확히 예상되는 경우
-    //
-    //분리 조회 선택
-    //
-    //복수 컬렉션을 함께 조회해야 할 때 (예: 후기 + 문의)
-    //
-    //페이징이 필수적인 경우
-    //
-    //컬렉션 크기가 1,000건 이상일 때
-    //
-    //하이브리드 접근
-    //
-    //제품 기본 정보는 페치 조인 + 컬렉션은 별도 페이징
-    //
-    //대부분의 이커머스 상세 페이지에 최적화된 방식
-    //
-    //실제 쿠팡 상품 상세 API는 이 하이브리드 방식으로 구현되어 있으며, 초당 5만 요청에서도 95%의 응답이 200ms 이내에 처리됩니다.
+    private final EntityManager em;
+
+    //카테고리 저장
+    public void save (Category category) {
+        em.persist(category);
+    }
+
+    //이름을 검색하여 카테고리 가져오기
+    public Category findByName (String name) {
+        return em.createQuery("select c from Category c where c.name = :name",
+                Category.class).setParameter("name", name).getSingleResult();
+    }
+
+    //아이디을 이용해 카테고리 찾기
+    public Category findById (Long Id) {
+        Category category = em.find(Category.class, Id);
+        return category;
+    }
+
+    //카테고리 전부 가져오기
+    public List<Category> findAll() {
+        return em.createQuery("select c from Category c", Category.class)
+                .getResultList();
+    }
+
+    //카테고리별 아이템 가져오기 잔디심기
+    public Page<Item> findByCategory(String categoryName,@PageableDefault(size =10, page = 0) Pageable pageable) {
+        // 1. 페치 조인 쿼리 (Item + ItemCategory + Category)
+        List<Item> items = em.createQuery(
+                        "SELECT DISTINCT i FROM Item i " +
+                                "JOIN FETCH i.categories ic " +      // Item과 ItemCategory 페치 조인
+                                "JOIN FETCH ic.category c " +        // ItemCategory와 Category 페치 조인
+                                "WHERE c.name = :categoryName " +    // 카테고리 이름으로 필터링
+                                "ORDER BY i.id DESC", Item.class)    // 정렬 조건 (필수)
+                .setParameter("categoryName", categoryName)
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+
+        // 2. 전체 개수 조회 쿼리 (COUNT 사용)
+        Long total = em.createQuery(
+                        "SELECT COUNT(DISTINCT i) FROM Item i " +
+                                "JOIN i.categories ic " +
+                                "JOIN ic.category c " +
+                                "WHERE c.name = :categoryName", Long.class)
+                .setParameter("categoryName", categoryName)
+                .getSingleResult();
+
+        // 3. Page 객체 반환
+        return new PageImpl<>(items, pageable, total);
+    }
+
+
+
 }
