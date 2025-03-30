@@ -13,6 +13,20 @@
 }
 
 @font-face {
+  font-family: "NotoSansKR-Thin";
+  src: url('/fonts/NotoSansKR-Thin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSansKR-ExtraLight";
+  src: url('/fonts/NotoSansKR-ExtraLight.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "NotoSansKR-Light";
   src: url('/fonts/NotoSansKR-Light.ttf') format('truetype');
   font-weight: normal;
@@ -27,8 +41,29 @@
 }
 
 @font-face {
+  font-family: "NotoSansKR-Medium";
+  src: url('/fonts/NotoSansKR-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSansKR-SemiBold";
+  src: url('/fonts/NotoSansKR-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "NotoSansKR-Bold";
   src: url('/fonts/NotoSansKR-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSansKR-ExtraBold";
+  src: url('/fonts/NotoSansKR-ExtraBold.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -903,14 +938,23 @@ body {
 }
 
 .title {
-    font-size: 50pt;
-    font-family: "NotoSansKR-Light";
+    font-size: 55pt;
+    font-family: "NotoSansKR-Thin";
+    margin-bottom: 10px;
+}
+
+.title-underline {
+    width: 7em;  /* 선의 너비 (타이틀보다 작게 설정) */
+    height: 2px;  /* 선의 두께 */
+    background-color: #19B5FE;
+    margin: 2px auto; /* 중앙 정렬 및 여백 조정 */
 }
 
 .description {
-    color: #4a4a4a;
-    margin-top: 1rem;
+    color: #111111;
+    margin-top: 2rem;
     font-family: "NotoSansKR-Regular";
+    font-size: 13pt;
 }
 
 .contentGrid {
@@ -931,32 +975,41 @@ body {
 }
 
 .image {
-    max-width: 100%;
+    width: 100%;
+    max-width: none;
     height: auto;
 }
 
 .cardTitle {
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 13pt;
     margin-top: 1rem;
+    font-family: "NotoSansKR-bold";
 }
 
 .cardText {
-    color: #6b7280;
+    color: #111111;
+    font-family: "NotoSansKR-Regular";
+    font-size: 10pt;
+    margin-bottom: 2em;
 }
 
 .buttonBlue {
-    margin-top: 1rem;
     background-color: #3375B1;
     color: white;
-    padding: 0.5rem 1.5rem;
-    border: none;
+    padding: 0.7rem 2.2rem;
+    border-radius: 0;
     cursor: pointer;
+    font-family: "NotoSansKR-ExtraLight";
+    font-size: 10pt;
 }
 
 .productSection {
     text-align: center;
-    margin: 3rem 0;
+    margin: 4rem 0;
+}
+
+.productSection .cardText {
+    margin-bottom: 2em;
 }
 
 

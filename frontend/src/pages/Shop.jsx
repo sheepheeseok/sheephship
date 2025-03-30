@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom"; // Link 컴포넌트 import
+import { useEffect } from "react";
 
 const allProducts = [
     { id: 1, title: "와이드 턱 팬츠 스프링 믹스", price: "92,000원", img: "/imgs/shop/pants1-1.jpg", category: "BOTTOM"},
@@ -32,11 +33,14 @@ const allProducts = [
 ];
 
 const Shop = () => {
+    useEffect(() => {
+            window.scrollTo(0, 0); // 페이지 이동 시 최상단으로 스크롤
+        }, []);
     const [currentPage, setCurrentPage] = useState(1);
     const [activeMenu, setActiveMenu] = useState("ALL");
     const [setHoveredProduct] = useState(null);
     const productsPerPage = 16;
-
+    
     // 카테고리에 맞는 상품 필터링
     const filteredProducts = activeMenu === "ALL" ? allProducts : allProducts.filter(product => product.category === activeMenu);
 
