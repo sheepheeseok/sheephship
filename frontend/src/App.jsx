@@ -5,6 +5,7 @@ import Signup from "./pages/Signup.jsx";
 import Shop from "./pages/Shop.jsx";
 import Product from "./pages/Product.jsx"
 import Brand from "./pages/Brand.jsx";
+import QnA from "./pages/QnA.jsx";
 import Navbar from "./component/Navbar.jsx";
 import Footer from "./component/Footer.jsx";
 import FloatingButton from "./component/FloatingButton.jsx";
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/Product" element={<Product/>} /> { /* 제품 상세 */}
                 <Route path="/Shop" element={<Shop/>} /> {/* 샵 */}
                 <Route path="/Brand" element={<Brand/>} /> {/* 브랜드 */}
+                <Route path="/QnA" element={<QnA/>} /> {/* 질문 */}
             </Routes>
             <Footer/>
             <FloatingButton/>

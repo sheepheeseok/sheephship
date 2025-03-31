@@ -84,7 +84,7 @@ const Shop = () => {
                     ))}
                 </section>
 
-                <div className="pagination">
+                <div className="shop-pagination">
                     <button className="page-btn" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>«</button>
                     {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((num) => (
                         <button key={num} className={`page-btn ${currentPage === num ? 'active' : ''}`} onClick={() => setCurrentPage(num)}>

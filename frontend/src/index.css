@@ -570,7 +570,7 @@ body {
 
 
 /* 페이지네이션 */
-.pagination {
+.shop-pagination {
     display: flex;
     justify-content: center;
     gap: 8px;
@@ -1012,6 +1012,116 @@ body {
     margin-bottom: 2em;
 }
 
+{/* QnA 페이지 css */}
+.qna-container {
+    max-width: 1000px; /* 내용 너비 제한 */
+    min-height: 100vh;
+    margin: 87px auto 0; /* 네비게이션 바와의 간격 */
+    width: 1000px;
+    padding: 20px;
+}
+
+/* 타이틀 */
+.faq-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: "NotoSansKR-Bold";
+}
+
+/* 서브타이틀 */
+.faq-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+    font-family: "NotoSansKR-Regular";
+}
+
+/* 카테고리 버튼 */
+.faq-category-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-family: "NotoSansKR-Medium";
+}
+
+.faq-category-button {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.faq-category-button.active {
+    background-color: #000;
+    color: #fff;
+}
+
+/* FAQ 리스트 */
+.faq-container {
+    width: 100%;
+    border-top: 1px solid #ddd;
+}
+
+/* FAQ 아이템 */
+ .faq-item {
+     border-bottom: 1px solid #ddd;
+     padding: 15px 20px;
+     cursor: pointer;
+     text-align: left;
+     display: flex;
+     flex-direction: column;
+     overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+ }
+
+ /* 질문 (Q) */
+ .faq-question {
+     display: flex;
+     justify-content: space-between;
+     font-weight: bold;
+     font-size: 16px;
+     font-family: "NotoSansKR-Bold";
+ }
+
+ /* 답변 (A) */
+ .faq-answer {
+     margin-top: 10px;
+     font-size: 14px;
+     color: #333;
+     max-height: 0; /* 기본적으로 0으로 설정 */
+     overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+     transition: max-height 0.3s ease-out; /* 부드럽게 펼쳐짐 */
+     font-family: "NotoSansKR-Regular";
+ }
+
+ /* 활성화된 답변에 대한 스타일 */
+ .faq-item.open .faq-answer {
+     max-height: 500px; /* 충분히 큰 값으로 설정하여 내용이 모두 표시되도록 함 */
+ }
+
+ /* 화살표 */
+ .faq-arrow {
+     font-size: 14px;
+     transition: transform 0.3s ease-out;
+ }
+
+ .faq-arrow.open {
+     transform: rotate(90deg); /* 펼쳐졌을 때 화살표 방향이 변경되도록 */
+ }
+
+/* 페이지네이션 */
+.faq-pagination {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.faq-pagination span {
+    margin: 0 5px;
+    cursor: pointer;
+}
 
 {/* Footer css */}
 .footer {
