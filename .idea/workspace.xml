@@ -5,31 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3a0c40a4-086d-4962-9b79-4d7f94073d8c" name="변경" comment="강제로 집어넣기2">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/backend.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/backend.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/backend.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/backend.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__3__20___12_37__________.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gradle/8.10/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/8.10/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gradle/8.10/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/8.10/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gradle/8.10/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/8.10/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/config/webConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/config/webConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$FindByIdDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$FindPasswordRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$FindPasswordRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$LoginMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$LoginMember.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$LoginMemberRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$LoginMemberRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$MemberDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$MemberDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$MyPageDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$MyPageDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$RegisterRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$RegisterRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$UpdateMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$UpdateMember.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$UpdateMemberDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$UpdateMemberDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/domain/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/domain/Category.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/config/webConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/config/webConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemCategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemCategoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vite.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +187,7 @@
       <workItem from="1743221585708" duration="6941000" />
       <workItem from="1743239242139" duration="2107000" />
       <workItem from="1743310530550" duration="2837000" />
-      <workItem from="1743340585469" duration="2097000" />
+      <workItem from="1743340585469" duration="3418000" />
     </task>
     <task id="LOCAL-00001" summary="backend">
       <option name="closed" value="true" />
@@ -301,7 +277,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743073914309</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="강제로 집어넣기2">
+      <option name="closed" value="true" />
+      <created>1743385698429</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1743385698429</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
