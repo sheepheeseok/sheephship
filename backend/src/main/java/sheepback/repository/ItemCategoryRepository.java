@@ -41,7 +41,7 @@ public class ItemCategoryRepository {
                 .getResultList();
     }
 
-    //카테고리별 아이템 가져오기 잔디심기
+    //카테고리별 아이템 가져오기
     public Page<Item> findByCategory(String categoryName,@PageableDefault(size =10, page = 0) Pageable pageable) {
         // 1. 페치 조인 쿼리 (Item + ItemCategory + Category)
         List<Item> items = em.createQuery(
