@@ -21,6 +21,11 @@ public class ItemCategoryRepository {
     //카테고리 저장
     public void save (Category category) {
         em.persist(category);
+
+    }
+
+    public void delete (Category category) {
+        em.remove(category);
     }
 
     //이름을 검색하여 카테고리 가져오기
@@ -42,10 +47,11 @@ public class ItemCategoryRepository {
     }
 
     //카테고리별 아이템 가져오기
-    public Page<Item> findByCategory(String categoryName,@PageableDefault(size =10, page = 0) Pageable pageable) {
+    public Page<Item> findByCategory(String categoryName,
+                                     @PageableDefault(size =10, page = 0) Pageable pageable) {
         // 1. 페치 조인 쿼리 (Item + ItemCategory + Category)
         List<Item> items = em.createQuery(
-                        "SELECT DISTINCT i FROM Item i " +
+                        "SELECT DISTINCT i.id, i.itemImg, i.price, i.name FROM Item i " +
                                 "JOIN FETCH i.categories ic " +      // Item과 ItemCategory 페치 조인
                                 "JOIN FETCH ic.category c " +        // ItemCategory와 Category 페치 조인
                                 "WHERE c.name = :categoryName " +    // 카테고리 이름으로 필터링

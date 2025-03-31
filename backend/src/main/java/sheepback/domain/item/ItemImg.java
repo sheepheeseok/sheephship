@@ -14,7 +14,6 @@ public class ItemImg {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "itemImg")
     private Item item;
 
-    private String mainUrl;
 
     private String subUrl1;
 

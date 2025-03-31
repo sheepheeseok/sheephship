@@ -15,6 +15,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class MemberService {
 
+    //회원탈퇴
+
 
     private final MemberRepository memberRepository;
 
