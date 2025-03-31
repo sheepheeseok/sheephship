@@ -1046,17 +1046,17 @@ body {
 }
 
 .faq-category-button {
-    padding: 8px 15px;
+    padding: 5px 20px;
     border: 1px solid #ddd;
     border-radius: 20px;
     background-color: white;
-    font-size: 14px;
+    font-size: 12px;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .faq-category-button.active {
-    background-color: #000;
+    background-color: #3375B1;
     color: #fff;
 }
 
