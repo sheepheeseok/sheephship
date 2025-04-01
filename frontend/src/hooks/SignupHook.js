@@ -95,8 +95,7 @@ const SignupHook = () => {
         }
         setPasswordMatchError(false); // 비밀번호가 일치하면 오류 메시지 숨김
 
-        const { part1, part2, part3, email, domain, customDomain, address, detailAddress, ...rest } = formData;
-        const phoneNumber = `${part1}-${part2}-${part3}`;
+        const { email, domain, customDomain, address, detailAddress } = formData;
 
         // 이메일 주소 조합
         let fullEmail = email;

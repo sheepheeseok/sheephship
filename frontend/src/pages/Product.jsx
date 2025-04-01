@@ -33,7 +33,44 @@ const Product = () => {
                 <div className="Product-box">
                     <h1>쉽쉽 메탈립 초크백 그레이 (grey)</h1>
 
-                    <h2 style={{marginTop: "23px"}}>32,000원</h2>
+                    <div className="Product-priceinfo">
+                        <h2 style={{marginTop: "23px"}}>32,000원</h2>
+                        <div className="tooltip-container">
+                        <img src="/icons/info.svg" alt="info-icon" className="info-icon"
+                             style={{width: "20px", height: "20px", display: "flex"}}/>
+                            <div className="tooltip-box">
+                                <h1>등급별 할인</h1>
+                                <ul>
+                                    <li><img src="/imgs/grade/red_grade.png" alt="grade-icon" className="grade-icon"/>
+                                        RED 3%
+                                    </li>
+                                    <div className="grade-line"/>
+                                    <li><img src="/imgs/grade/yellow_grade.png" alt="grade-icon"
+                                             className="grade-icon"/>YELLOW 5%
+                                    </li>
+                                    <div className="grade-line"/>
+                                    <li><img src="/imgs/grade/navy_grade.png" alt="grade-icon" className="grade-icon"/>
+                                        NAVY 7%
+                                    </li>
+                                    <div className="grade-line"/>
+                                    <li><img src="/imgs/grade/purple_grade.png" alt="grade-icon"
+                                             className="grade-icon"/>
+                                        PURPLE 9%
+                                    </li>
+                                    <div className="grade-line"/>
+                                    <li><img src="/imgs/grade/brown_grade.png" alt="grade-icon"
+                                             className="grade-icon"/>
+                                        BROWN 12%
+                                    </li>
+                                    <div className="grade-line"/>
+                                    <li><img src="/imgs/grade/black_grade.png" alt="grade-icon"
+                                             className="grade-icon"/>
+                                        BLACK 15%
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
                     <h2 style={{marginTop: "28px"}}>메탈립 원단으로 제작된 초크백입니다.</h2>
 
@@ -43,7 +80,7 @@ const Product = () => {
                     <h2 style={{marginTop: "38px"}}>리드 등반 시 방해 받지 않도록 가볍고 심플하게 제작했습니다.</h2>
 
                     <div className="product-buyinfo" style={{marginTop: "27px"}}>
-                        <h1>적립금</h1>
+                    <h1>적립금</h1>
                         <h2>1%</h2>
                         <img src="/icons/info.svg" alt="info-icon" className="info-icon"/>
                     </div>
@@ -95,7 +132,7 @@ const Product = () => {
                 </div>
             </div>
             <div className="product-img-info">
-                <img src="/imgs/product1.png" alt="product1" className="info-product-img" onClick={() => changeImage("/imgs/product1.png")} onMouseEnter={() => handleImageHover("/imgs/product1.png")}/>
+            <img src="/imgs/product1.png" alt="product1" className="info-product-img" onClick={() => changeImage("/imgs/product1.png")} onMouseEnter={() => handleImageHover("/imgs/product1.png")}/>
                 <img src="/imgs/product2.png" alt="product2" className="info-product-img" onClick={() => changeImage("/imgs/product2.png")} onMouseEnter={() => handleImageHover("/imgs/product1.png")}/>
                 <img src="/imgs/product3.png" alt="product3" className="info-product-img" onClick={() => changeImage("/imgs/product3.png")} onMouseEnter={() => handleImageHover("/imgs/product1.png")}/>
                 <img src="/imgs/product4.png" alt="product4" className="info-product-img" onClick={() => changeImage("/imgs/product4.png")} onMouseEnter={() => handleImageHover("/imgs/product1.png")}/>

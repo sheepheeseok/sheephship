@@ -385,7 +385,6 @@ body {
 .f-icon:hover {
   transform: scale(1.2);
 }
-
 {/* 제품 상세 페이지 css */}
 .shop-container {
     max-width: 1800px; /* 적절한 폭 제한 */
@@ -397,7 +396,7 @@ body {
     display: flex;
     justify-content: center; /* 가운데 정렬 */
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -411,10 +410,12 @@ body {
     border-radius: 10px;
     padding: 0 10px;
     font-size: 15px;
+    transition: outline 0.3s ease-in-out, outline-offset 0.3s ease-in-out, padding 0.3s ease-in-out;
 }
 .shop-menu li:hover a {
-    outline: none;
-    padding: 0 10px;
+    outline: 1px solid rgba(0, 0, 0, 0.5);
+    outline-offset: 5px;
+    padding: 0 15px;
 }
 .shop-menu li.active a {
     outline: 1px solid rgba(0, 0, 0, 0.5); /* 외곽선 */
@@ -424,7 +425,7 @@ body {
 /* 상품 리스트 그리드 */
 .product-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 30px;
     padding: 20px 0;
 }
@@ -515,7 +516,7 @@ body {
     visibility: hidden;
 }
 /* 페이지네이션 */
-.pagination {
+.shop-pagination {
     display: flex;
     justify-content: center;
     gap: 8px;
@@ -586,7 +587,7 @@ body {
 .Product-img {
     width: 1110px;        /* 고정된 너비 */
     height: 1110px;       /* 고정된 높이 */
-    object-fit: contain;  /* 비율을 유지하면서 이미지가 잘리지 않도록 */
+    object-fit: contain;
 }
 .info-product-img:hover {
     transform: scale(1.1); /* 이미지를 살짝 확대 */
@@ -857,6 +858,248 @@ body {
 }
 .expand-btn:hover img {
     filter: brightness(0) invert(1);  /* 흰색으로 변환 */
+}
+.Product-priceinfo{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    position: relative;
+    cursor: pointer;
+}
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.tooltip-box {
+    position: absolute;
+    height: 45px;
+    bottom: -20px; /* 아이콘 아래로 위치 */
+    left: 280px;
+    transform: translateX(-50%);
+    width: 480px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 14px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+.tooltip-container:hover .tooltip-box {
+    opacity: 1;
+    visibility: visible;
+}
+.tooltip-container h1{
+    font-family: NotoSansKR-Bold;
+    font-size: 10px;
+    margin-bottom: 0;
+}
+.tooltip-container li{
+    font-family: NotoSansKR-Regular;
+    font-size: 9px;
+    margin-left: 2px;
+    display: flex;
+    align-items: center;
+    color: #333333;
+    white-space: nowrap;
+}
+.tooltip-container ul{
+    margin: 0;
+    margin-top: 6px;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+.grade-line {
+    height: 18px;
+    width: 1px;
+    margin-top: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: #333333;
+}
+.grade-icon {
+    width: 20px;
+    height: 23px;
+    margin-right: 2px;
+}
+
+{/* QnA 페이지 css */}
+.qna-container {
+    max-width: 1000px; /* 내용 너비 제한 */
+    min-height: 100vh;
+    margin: 60px auto 0; /* 네비게이션 바와의 간격 */
+    width: 1000px;
+    padding: 20px;
+}
+/* 타이틀 */
+.faq-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: "NotoSansKR-Bold";
+}
+/* 서브타이틀 */
+.faq-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+    font-family: "NotoSansKR-Regular";
+}
+/* 카테고리 버튼 */
+.faq-category-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-family: "NotoSansKR-Medium";
+}
+.faq-category-button {
+    padding: 5px 20px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: white;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.faq-category-button.active {
+    background-color: #3375B1;
+    color: #fff;
+}
+/* FAQ 리스트 */
+.faq-container {
+    width: 100%;
+    border-top: 1px solid #ddd;
+}
+/* FAQ 아이템 */
+.faq-item {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 20px;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+}
+/* 질문 (Q) */
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: "NotoSansKR-Bold";
+}
+/* 답변 (A) */
+.faq-answer {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+    max-height: 0; /* 기본적으로 0으로 설정 */
+    overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+    transition: max-height 0.3s ease-out; /* 부드럽게 펼쳐짐 */
+    font-family: "NotoSansKR-Regular";
+}
+/* 활성화된 답변에 대한 스타일 */
+.faq-item.open .faq-answer {
+    max-height: 500px; /* 충분히 큰 값으로 설정하여 내용이 모두 표시되도록 함 */
+}
+/* 화살표 */
+.faq-arrow {
+    font-size: 14px;
+    transition: transform 0.3s ease-out;
+}
+.faq-arrow.open {
+    transform: rotate(90deg); /* 펼쳐졌을 때 화살표 방향이 변경되도록 */
+}
+/* 페이지네이션 */
+.faq-pagination {
+    margin-top: 20px;
+    font-size: 14px;
+}
+.faq-pagination span {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+{/* 브랜드 페이지 css */}
+.banner {
+    position: relative;
+    width: 100%;
+    height: 24rem;
+    overflow: hidden;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+.bannerImage {
+    object-fit: cover;
+}
+.intro {
+    text-align: center;
+}
+.title {
+    font-size: 55pt;
+    font-family: "NotoSansKR-Thin";
+    margin-bottom: 10px;
+}
+.title-underline {
+    width: 7em;  /* 선의 너비 (타이틀보다 작게 설정) */
+    height: 2px;  /* 선의 두께 */
+    background-color: #19B5FE;
+    margin: 2px auto; /* 중앙 정렬 및 여백 조정 */
+}
+.description {
+    color: #111111;
+    margin-top: 2rem;
+    font-family: "NotoSansKR-Regular";
+    font-size: 13pt;
+}
+.contentGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 3em;
+}
+@media (min-width: 768px) {
+    .contentGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+.contentCard {
+    text-align: center;
+}
+.image {
+    width: 100%;
+    max-width: none;
+    height: auto;
+}
+.cardTitle {
+    font-size: 13pt;
+    margin-top: 1rem;
+    font-family: "NotoSansKR-bold";
+}
+.cardText {
+    color: #111111;
+    font-family: "NotoSansKR-Regular";
+    font-size: 10pt;
+    margin-bottom: 2em;
+}
+.buttonBlue {
+    background-color: #3375B1;
+    color: white;
+    padding: 0.7rem 2.2rem;
+    border-radius: 0;
+    cursor: pointer;
+    font-family: "NotoSansKR-ExtraLight";
+    font-size: 10pt;
+}
+.productSection {
+    text-align: center;
+    margin-top: 5em;
+}
+.productSection .cardText {
+    margin-bottom: 2em;
 }
 
 
