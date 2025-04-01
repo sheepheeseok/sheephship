@@ -1,9 +1,13 @@
 package sheepback.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,16 +46,17 @@ public class MemberApiController {
     }
 
     //이이디 중복체크
-    @GetMapping("/api/checkId/{id}")
-    public boolean checkMemberId(@PathVariable("id") String id){
-        boolean check = memberService.checkMemberId(id);
+    @PostMapping("/api/checkId")
+    public boolean checkMemberId(@RequestBody @Valid GetId id){
+        boolean check = memberService.checkMemberId(id.getId());
+        System.out.println("check = " + check);
         return check;
     }
 
-    //로그인 api 값확인후 로그인 필드 반환
-
+    //로그인 api 값확인후 Id 쿠키로 반환
     @PostMapping("/api/login")
-    public LoginMember login(@RequestBody @Valid LoginMemberRequest loginMemberRequest) {
+    public ResponseEntity<LoginMember> login(@RequestBody @Valid LoginMemberRequest loginMemberRequest,
+                                             HttpServletResponse response) {
 
         Member login = memberService.login(loginMemberRequest.getId()
                 , loginMemberRequest.getPassword());
@@ -60,23 +65,29 @@ public class MemberApiController {
         //로그인 객체가 null이아니라면 getId반환
         if (login != null) {
             loginMember.setId(login.getId());
-            loginMember.setName(login.getName());
+
+        Cookie cookie = new Cookie("loginId", String.valueOf(login.getId()));
+        cookie.setHttpOnly(false);
+        cookie.setSecure(false);
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 24 * 7);
+        response.addCookie(cookie);
+        }
+        if (login == null) {
+            return ResponseEntity.badRequest().build(); // 로그인 실패 시 상태 코드 400 반환
         }
 
-        return loginMember;
+        return ResponseEntity.ok(loginMember);
     }
 
 
-    //아이디 찾기 찾은후 id 반환 여러 id가 있을경우 생각하여 List 형태로 반환
-    @GetMapping("/api/findId")
-    public String findId(@RequestParam("name") String name,
-                               @RequestParam("phoneNumber") String phoneNumber) {
+    //아이디 찾기 찾은후 id 반환 없으면 null
+    @PostMapping("/api/findId")
+    public String findId(@RequestBody @Valid FindIdDto findIdDto) {
 
-        String id = memberService.findId(name, phoneNumber);
+        String id = memberService.findId(findIdDto.getName(), findIdDto.getPhoneNumber());
 
-
-
-            return id;
+        return id;
 
     }
 
@@ -96,30 +107,38 @@ public class MemberApiController {
         return memberDtos;
     }
 
-    //멤버정보 가져오기
+    //회원정보 수정시 멤버정보 가져오기
     @PostMapping("/api/updateMemberInfo")
-    public FindByIdDto getById(@RequestParam("id") String id) {
+    public MyPageDto getById(@CookieValue(name = "loginId", required = false) String id) {
+
+        //id반환 실패시 null반환
+        if (id == null) {
+            return null;
+        }
+
         Member member = memberService.getMemberById(id);
 
-        FindByIdDto findByIdDto = new FindByIdDto();
+        MyPageDto myPageDto = new MyPageDto(member.getId(), member.getName(),
+                member.getGrade(), member.getPoint());
 
-        return findByIdDto;
+        return myPageDto;
 
     }
 
-    //마이페이지 이름 등급 포인트
 
     //비밀번호 변경
     @PostMapping("/api/changePassword")
-    public String changePassword(@RequestBody @Valid ChangePw pw) {
-        String s = memberService.updatePassword(pw.getId(), pw.getNewPassword());
+    public String changePassword(@CookieValue(name = "loginId", required = false) String id,
+                                 @RequestBody @Valid ChangePw pw) {
+        String s = memberService.updatePassword(id, pw.getNewPassword());
         return s;
     }
     //이메일
     //회원 정보 업데이트
     @PostMapping("/api/updateMember")
-    public UpdateMemberDto updateMember(@RequestBody @Valid UpdateMember updatemember) {
-        Member member = memberService.updateMember(updatemember.getId(),
+    public UpdateMemberDto updateMember(@CookieValue(name = "loginId", required = false) String id,
+                                        @RequestBody @Valid UpdateMember updatemember) {
+        Member member = memberService.updateMember(id,
                 updatemember.getPassword(),
                 updatemember.getName(),
                 updatemember.getAddress(),
@@ -144,13 +163,20 @@ public class MemberApiController {
         Long point;
 
     }
+
     @Data
-    private static class FindByIdDto{
+    private static class MyPageDto{
         String id;
         String name;
         Grade grade;
         Long point;
 
+        public MyPageDto(String id, String name, Grade grade, Long point) {
+            this.id = id;
+            this.name = name;
+            this.grade = grade;
+            this.point = point;
+        }
     }
 
 
@@ -193,13 +219,11 @@ public class MemberApiController {
     @Data
     private static class LoginMember {
         String id;
-        String name;
     }
 
 
     @Data
     private static class UpdateMember {
-        String id;
         String name;
         String password;
         Address address;
@@ -223,7 +247,18 @@ public class MemberApiController {
 
     @Data
     private static class ChangePw {
-        String id;
         String newPassword;
+    }
+
+    @Data
+    private static class GetId {
+        String id;
+
+    }
+
+    @Data
+    private static class FindIdDto {
+        String name;
+        String phoneNumber;
     }
 }
