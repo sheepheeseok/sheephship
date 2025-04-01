@@ -33,6 +33,13 @@
   font-style: normal;
 }
 
+@font-face {
+    font-family: "NotoSansKR-Medium";
+    src: url('/fonts/NotoSansKR-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -925,6 +932,203 @@ body {
     height: 23px;
     margin-right: 2px;
 }
+
+{/* 결제 페이지 css */}
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1300px;
+    height: 100%;
+    margin-top: 32px;
+    border: 1px solid #888888;
+}
+.payment-header {
+    width: 100%;
+    height: 95px;
+    background-color: #000000;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.payment-header h1 {
+    font-family: NotoSansKR-Bold;
+    font-size: 24px;
+    color: #ffffff;
+}
+.payment-line {
+    width: 100%;
+    height: 10px;
+    background-color: #d9d9d9;
+}
+.p-address-box {
+    width: 100%;
+    height: 880px;
+}
+.p-address-title {
+    height: 68px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #888888;
+}
+.p-address-title h1 {
+    font-family: NotoSansKR-Medium;
+    font-size: 24px;
+    display: flex;
+    margin-left: 37px;
+}
+.p-address-tap {
+    display: flex;
+    flex-direction: row;
+}
+.p-address-tap button {
+    width: 649px;
+    height: 81px;
+    border: none;
+    font-family: NotoSansKR-Medium;
+    font-size: 24px;
+    background-color: #cccccc;
+    color: #888888;
+    cursor: pointer;
+    border-radius: 0;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+.p-address-tap button.active {
+    background-color: #ffffff;
+    color: #000000;
+}
+.p-recent-box {
+
+}
+.p-manual-box {
+    height: 731px;
+    width: 100%;
+}
+.p-checkbox-area {
+    display: flex;
+    flex-direction: row;
+    margin-left: 32px;
+    gap: 17px;
+    align-items: center;
+}
+.p-checkbox-box {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 6.5px; /* 체크박스들 간격 */
+}
+.p-checkbox-box input[type="checkbox"] {
+    width: 28px;
+    height: 28px;
+    appearance: none;
+    border-radius: 50%; /* 동그라미 형태 */
+    background-color: #ddd;
+    margin-top: 5px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease-in-out;
+}
+.p-checkbox-box input[type="checkbox"]:checked {
+    background-color: #3375B1; /* 체크 시 색깔 */
+}
+.p-checkbox-box input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 8px; /* 중앙 맞추기 */
+    left: 8px; /* 중앙 맞추기 */
+    width: 12px; /* 내부 원 크기 줄이기 */
+    height: 12px; /* 내부 원 크기 줄이기 */
+    border-radius: 50%;
+    background-color: white; /* 체크된 상태 내부 색 */
+}
+.p-checkbox-box label {
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    font-family: NotoSansKR-Regular;
+}
+.p-address-form input {
+    width: 1100px;
+    height: 50px;
+    padding-left: 20px;
+    border: 1px solid #888888;
+    border-radius: 0;
+    font-family: NotoSansKR-Regular;
+    font-size: 20px;
+    color: #888888;
+}
+.p-address-form input::placeholder {
+    color: #888;
+}
+.p-address-form {
+    margin-left: 45px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.p-address-form h1 {
+    font-family: NotoSansKR-Light;
+    font-size: 20px;
+    width: 74px;
+    margin-right: 30px;
+    color: #000000;
+}
+.p-recipient {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.p-address-formbox {
+    display: flex;
+    flex-direction: row;
+}
+.p-address-btn {
+    border: 1px solid #000000;
+    border-radius: 0;
+    width: 118px;
+    height: 55px;
+    font-size: 20px;
+    margin-left: 13px;
+    white-space: nowrap;
+    font-family: NotoSansKR-Regular;
+    color: #000000;
+    background-color: #ffffff;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.p-phone-box {
+    display: flex;
+    flex-direction: row;
+    width: 1124px;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+    gap: 10px;
+}
+.p-phone-input {
+    width: 341px; /* 각 입력 박스 가로 크기 통일 */
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+.p-phone-input::placeholder {
+    color: #888;
+}
+span {
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+    color: #333;
+    display: flex; /* span을 flex로 설정 */
+    align-items: center; /* 텍스트 중앙 정렬 */
+}
+
 
 {/* QnA 페이지 css */}
 .qna-container {

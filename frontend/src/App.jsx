@@ -9,6 +9,7 @@ import Footer from "./component/Footer.jsx";
 import FloatingButton from "./component/FloatingButton.jsx";
 import Brand from "./pages/Brand.jsx";
 import QnA from "./pages/QnA.jsx";
+import Payment from "./pages/Payment.jsx";
 
 
 // import React, {useEffect, useState} from 'react';
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/Signup" element={<Signup/>} /> {/* 회원가입 */}
                 <Route path="/Product" element={<Product/>} /> { /* 제품 상세 */}
                 <Route path="/Shop" element={<Shop/>} /> {/* 샵 */}
+                <Route path="/Payment" element={<Payment/>} /> {/* QnA */}
                 <Route path="/Brand" element={<Brand/>} /> {/* Brand */}
                 <Route path="/QnA" element={<QnA/>} /> {/* QnA */}
             </Routes>
