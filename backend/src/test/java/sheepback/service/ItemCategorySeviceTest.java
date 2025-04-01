@@ -8,6 +8,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -162,60 +165,67 @@ public class ItemCategorySeviceTest {
     @Test
     public void 카테고리별_페이지네이션(){//여기하면됨
 
+
+
         // given
-        Category category = new Category();
-        category.setName("test");
-        itemCategoryService.InsertCategory(category);
+        create100Item();
         em.flush();
         em.clear();
 
         // when
+        Pageable pageable = PageRequest.of(0, 20);
+        Page<Item> testCategory = itemService.findByCategory("testCategory", pageable);
 
-        itemCategoryService.UpdateCategory(category.getId(), "test2");
-        em.flush();
-        em.clear();
-        Category category1 = itemCategoryService.GetCategoryByName("test2");
 
         // then
-        Assert.assertNotNull(category1);
+        Assert.assertEquals(100, testCategory.getTotalElements());
+
     }
 
-    @Test
-    public void create100Item(){
+    public void create100Item() {
         List<Category> categories = new ArrayList<>();
-        List<Color> colors = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Category category = new Category();
-            category.setName("name"+i);
-            categories.add(category);
-            Color color = Color.builder()
-                    .color("red"+i)
-                    .stockQuantity(10L)
-                    .build();
-        }
-        ItemImg itemImg = ItemImg.builder()
-                .subUrl1("s1")
-                .subUrl2("s2")
-                .subUrl3("s3")
-                .detailUrl1("d1")
-                .detailUrl2("d2")
-                .detailUrl3("d3")
-                .detailUrl4("d4").build();
+
+        // 카테고리 생성
+        Category category = new Category();
+        category.setName("testCategory"); // 중복되지 않도록 이름을 다르게 설정
+        categories.add(category);
         for (int i = 0; i < 100; i++) {
-        Item item = Item.builder()
-                .name("name"+i)
-                .mainUrl("url"+i)
-                .deliveryFee(1L +i)
-                .produce("produce"+i)
-                .price(1L+i)
-                .build();
-            itemService.insertItem(item,categories,itemImg,colors);
+
+            List<Color> colors = new ArrayList<>();
+
+
+
+            // 색상 생성
+            for (int j = 0; j < 5; j++) {
+                Color color = Color.builder()
+                        .color("red" + i + j) // 중복되지 않도록 이름을 다르게 설정
+                        .stockQuantity(10L)
+                        .build();
+                colors.add(color);
+            }
+
+            // 이미지 생성
+            ItemImg itemImg = ItemImg.builder()
+                    .subUrl1("s1" + i)
+                    .subUrl2("s2" + i)
+                    .subUrl3("s3" + i)
+                    .detailUrl1("d1" + i)
+                    .detailUrl2("d2" + i)
+                    .detailUrl3("d3" + i)
+                    .detailUrl4("d4" + i)
+                    .build();
+
+            // 아이템 생성
+            Item item = Item.builder()
+                    .name("name" + i)
+                    .mainUrl("url" + i)
+                    .deliveryFee(1L + i)
+                    .produce("produce" + i)
+                    .price(1L + i)
+                    .build();
+
+            itemService.insertItem(item, categories, itemImg, colors);
         }
-
-
-
-
-
     }
 
 

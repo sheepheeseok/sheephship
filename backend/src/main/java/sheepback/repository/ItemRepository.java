@@ -2,10 +2,8 @@ package sheepback.repository;
 
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import sheepback.domain.Category;
 import sheepback.domain.ItemCategory;
@@ -15,6 +13,7 @@ import sheepback.domain.item.ItemImg;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @AllArgsConstructor
@@ -25,18 +24,26 @@ public class ItemRepository {
     public void save(Item item, List<Category> categories, ItemImg itemImg, List<Color> colors) {
         // 카테고리 추가
         for (Category category : categories) {
-            ItemCategory itemCategory = new ItemCategory();
-            itemCategory.setCategory(category);
-            itemCategory.setItem(item);
-            em.persist(itemCategory);
-            category.getCategories().add(itemCategory);
-            item.getCategories().add(itemCategory);
+            if(!categories.isEmpty()){
+                ItemCategory itemCategory = new ItemCategory();
+                itemCategory.setCategory(category);
+                itemCategory.setItem(item);
+                em.persist(itemCategory);
+                category.getCategories().add(itemCategory);
+                item.getCategories().add(itemCategory);
+            }else{
+                throw new ArrayIndexOutOfBoundsException();
+            }
         }
 
         // 색상 추가
         for (Color color : colors) {
-            color.setItem(item);
-            item.getColors().add(color);
+            if(!colors.isEmpty()) {
+                color.setItem(item);
+                item.getColors().add(color);
+            }else{
+                throw new ArrayIndexOutOfBoundsException();
+            }
         }
 
         item.setItemImg(itemImg);
@@ -94,7 +101,76 @@ public class ItemRepository {
         return items;
     }
 
+    public List<ItemByCategorySimpleDto> findItemsByCategory(String categoryName, Pageable pageable) {
+        return em.createQuery(
+                        "SELECT NEW sheepback.repository.ItemByCategorySimpleDto(i.id,i.name,i.price) FROM Item i " +
+                                "JOIN i.categories ic " +
+                                "JOIN ic.category c " +
+                                "WHERE c.name = :categoryName " +
+                                "ORDER BY " + getOrderByClause(pageable.getSort()), ItemByCategorySimpleDto.class)
+                .setParameter("categoryName", categoryName)
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+    }
+
+    // 전체 개수 조회
+    public Long countItemsByCategory(String categoryName) {
+        return em.createQuery(
+                        "SELECT COUNT(DISTINCT i) FROM Item i " +
+                                "JOIN i.categories ic " +
+                                "JOIN ic.category c " +
+                                "WHERE c.name = :categoryName", Long.class)
+                .setParameter("categoryName", categoryName)
+                .getSingleResult();
+    }
+
+    // 동적 정렬 조건 생성 (Sort → ORDER BY 문자열 변환)
+    private String getOrderByClause(Sort sort) {
+        if (sort.isUnsorted()) return "i.created DESC, i.price DESC";
+
+        return sort.stream()
+                .map(order -> "i." + order.getProperty() + " " + order.getDirection().name())
+                .collect(Collectors.joining(", "));
+    }
+
 
 
 
 }
+
+
+/*
+1. DTO를 활용한 다중 엔티티 반환 (권장)
+DTO 클래스 생성
+여러 엔티티의 데이터를 포함하는 DTO를 정의합니다.
+
+java
+@Getter
+@AllArgsConstructor
+public class ItemWithCategoryDto {
+    private Long itemId;
+    private String itemName;
+    private Long itemPrice;
+    private String categoryName; // Category 엔티티 데이터 포함
+    private String colorName;   // Color 엔티티 데이터 포함
+}
+JPQL 쿼리 작성
+SELECT NEW를 사용하여 필요한 데이터를 DTO로 반환합니다.
+
+java
+public List<ItemWithCategoryDto> findItemsWithCategoryAndColor(String categoryName, Pageable pageable) {
+    return em.createQuery(
+            "SELECT NEW sheepback.dto.ItemWithCategoryDto(i.id, i.name, i.price, c.name, col.colorName) " +
+            "FROM Item i " +
+            "JOIN i.categories ic " +
+            "JOIN ic.category c " +
+            "JOIN i.colors col " + // Color 엔티티 추가
+            "WHERE c.name = :categoryName " +
+            "ORDER BY i.price DESC", ItemWithCategoryDto.class)
+        .setParameter("categoryName", categoryName)
+        .setFirstResult((int) pageable.getOffset())
+        .setMaxResults(pageable.getPageSize())
+        .getResultList();
+}
+* */
