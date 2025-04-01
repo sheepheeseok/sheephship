@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 import sheepback.domain.item.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ItemCategory> categories;
+    private List<ItemCategory> categories = new ArrayList<>();
 
     @Builder
     public Category(String name) {

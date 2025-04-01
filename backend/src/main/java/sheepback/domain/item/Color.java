@@ -1,11 +1,14 @@
 package sheepback.domain.item;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Color {
 
     @Id
@@ -19,4 +22,18 @@ public class Color {
 
     @NotNull
     private String color;
+
+    @NotNull
+    @ColumnDefault("0")
+    private Long stockQuantity;
+
+    @Builder
+    public Color(String color, Long stockQuantity) {
+        this.color = color;
+        this.stockQuantity = stockQuantity;
+    }
+
+    public Color() {
+
+    }
 }

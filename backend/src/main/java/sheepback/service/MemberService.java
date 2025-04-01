@@ -15,10 +15,15 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class MemberService {
 
-    //회원탈퇴
-
 
     private final MemberRepository memberRepository;
+
+    //회원탈퇴
+    @Transactional
+    public void deleteMember(Member member) {
+        memberRepository.delete(member);
+    }
+
 
     //회원가입
     @Transactional

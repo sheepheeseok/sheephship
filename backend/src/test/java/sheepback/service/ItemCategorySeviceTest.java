@@ -13,9 +13,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import sheepback.domain.Category;
 import sheepback.domain.ItemCategory;
+import sheepback.domain.item.Color;
 import sheepback.domain.item.Item;
+import sheepback.domain.item.ItemImg;
 import sheepback.repository.ItemCategoryRepository;
+import sheepback.repository.ItemRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,11 +30,15 @@ import java.util.Optional;
 public class ItemCategorySeviceTest {
 
     @Autowired
+    private ItemService itemService;
+    @Autowired
     private ItemCategoryService itemCategoryService;
     @Autowired
     private ItemCategoryRepository itemCategoryRepository;
     @Autowired
     private EntityManager em;
+    @Autowired
+    private ItemRepository itemRepository;
 
     @Test
     public void 카테고리_저장() {
@@ -170,6 +178,44 @@ public class ItemCategorySeviceTest {
 
         // then
         Assert.assertNotNull(category1);
+    }
+
+    @Test
+    public void create100Item(){
+        List<Category> categories = new ArrayList<>();
+        List<Color> colors = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Category category = new Category();
+            category.setName("name"+i);
+            categories.add(category);
+            Color color = Color.builder()
+                    .color("red"+i)
+                    .stockQuantity(10L)
+                    .build();
+        }
+        ItemImg itemImg = ItemImg.builder()
+                .subUrl1("s1")
+                .subUrl2("s2")
+                .subUrl3("s3")
+                .detailUrl1("d1")
+                .detailUrl2("d2")
+                .detailUrl3("d3")
+                .detailUrl4("d4").build();
+        for (int i = 0; i < 100; i++) {
+        Item item = Item.builder()
+                .name("name"+i)
+                .mainUrl("url"+i)
+                .deliveryFee(1L +i)
+                .produce("produce"+i)
+                .price(1L+i)
+                .build();
+            itemService.insertItem(item,categories,itemImg,colors);
+        }
+
+
+
+
+
     }
 
 

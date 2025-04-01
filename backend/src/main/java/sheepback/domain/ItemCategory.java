@@ -2,10 +2,11 @@ package sheepback.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 import sheepback.domain.item.Item;
 
 @Entity
-@Getter
+@Getter @Setter
 public class ItemCategory {
 
     @Id
