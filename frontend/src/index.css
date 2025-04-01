@@ -963,7 +963,7 @@ body {
 }
 .p-address-box {
     width: 100%;
-    height: 880px;
+    height: 100%;
 }
 .p-address-title {
     height: 68px;
@@ -981,9 +981,12 @@ body {
 .p-address-tap {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
 .p-address-tap button {
-    width: 649px;
+    width: 650px;
     height: 81px;
     border: none;
     font-family: NotoSansKR-Medium;
@@ -1000,10 +1003,11 @@ body {
     color: #000000;
 }
 .p-recent-box {
-
+    height: 100%;
+    width: 100%;
 }
 .p-manual-box {
-    height: 731px;
+    height: 100%;
     width: 100%;
 }
 .p-checkbox-area {
@@ -1017,7 +1021,7 @@ body {
     margin-top: 28px;
     display: flex;
     align-items: center;
-    gap: 6.5px; /* 체크박스들 간격 */
+    gap: 7px; /* 체크박스들 간격 */
 }
 .p-checkbox-box input[type="checkbox"] {
     width: 28px;
@@ -1050,7 +1054,7 @@ body {
     font-family: NotoSansKR-Regular;
 }
 .p-address-form input {
-    width: 1100px;
+    width: 1085px;
     height: 50px;
     padding-left: 20px;
     border: 1px solid #888888;
@@ -1079,6 +1083,8 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
+    height: 100%;
 }
 .p-address-formbox {
     display: flex;
@@ -1102,7 +1108,7 @@ body {
 .p-phone-box {
     display: flex;
     flex-direction: row;
-    width: 1124px;
+    width: 1110px;
     height: 50px;
     padding: 0;
     margin: 0;
@@ -1115,7 +1121,6 @@ body {
     border-radius: 0;
     padding: 0;
     margin: 0;
-    text-align: center;
 }
 .p-phone-input::placeholder {
     color: #888;
@@ -1127,6 +1132,268 @@ span {
     color: #333;
     display: flex; /* span을 flex로 설정 */
     align-items: center; /* 텍스트 중앙 정렬 */
+    font-family: NotoSansKR-Bold;
+}
+.p-email-formbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 1124px;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+    gap: 12px;
+}
+.p-email-form {
+    width: 578px !important;
+    height: 50px;
+}
+.p-select-box {
+    width: 465px !important;
+    height: 50px;
+    font-family: NotoSansKR-Light;
+    font-size: 20px;
+    padding-left: 10px;
+}
+.p-address-line {
+    width: 100%;
+    height: 1px;
+    background-color: #888888;
+    margin-top: 45px;
+    margin-bottom: 31px;
+}
+.p-request-msg {
+    width: 1110px;
+    height: 50px;
+    font-family: NotoSansKR-Light;
+    font-size: 20px;
+    padding-left: 10px;
+    border-radius: 0;
+}
+.p-addressinfo-box {
+    margin-top: 22px;
+    margin-bottom: 31px;
+    margin-left: 33px;
+    display: flex;
+    align-items: center;
+    gap: 18px; /* 체크박스들 간격 */
+}
+.p-addressinfo-box input[type="checkbox"] {
+    appearance: none;
+    margin-top: 5px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+.p-addressinfo-box input[type="checkbox"]:checked {
+    background-color: #3375B1;
+}
+.p-addressinfo-box input[type="checkbox"]::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.p-addressinfo-box input[type="checkbox"]:checked::before {
+    opacity: 1;
+}
+.p-addressinfo-box label {
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    font-family: NotoSansKR-Regular;
+}
+.p-recent-address {
+    margin-top: 22px;
+    margin-bottom: 31px;
+    margin-left: 33px;
+    display: flex;
+    align-items: start;
+    gap: 15px; /* 체크박스들 간격 */
+}
+.p-recent-address input[type="checkbox"] {
+    appearance: none;
+    margin-top: 5px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+.p-recent-address input[type="checkbox"]:checked {
+    background-color: #3375B1;
+}
+.p-recent-address input[type="checkbox"]::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.p-recent-address input[type="checkbox"]:checked::before {
+    opacity: 1;
+}
+.p-recent-address label {
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    font-family: NotoSansKR-Regular;
+}
+.p-userAddress-box {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+.p-userAddress-box h1 {
+    font-family: NotoSansKR-Regular;
+    font-size: 24px;
+    color: #888888;
+    margin: 0;
+    padding: 0;
+}
+.recent-h1 {
+    font-family: NotoSansKR-Light;
+    font-size: 20px;
+    margin-left: 45px;
+    margin-right: 30px;
+}
+.p-request-area {
+    width: 1088px;
+    height: 112px;
+    margin-top: 10px;
+    padding: 10px;
+    font-family: NotoSansKR-Light;
+    font-size: 20px;
+    border: 1px solid #888888;
+    border-radius: 0;
+    color: #000000;
+    margin-left: 149px;
+}
+.p-request-area2 {
+    width: 1088px;
+    height: 112px;
+    margin-top: 10px;
+    padding: 10px;
+    font-family: NotoSansKR-Light;
+    font-size: 20px;
+    border: 1px solid #888888;
+    border-radius: 0;
+    color: #000000;
+    margin-left: 153px;
+}
+.payment-box {
+    width: 100%;
+    margin-top: 25px;
+}
+.payment-box h1 {
+    font-family: NotoSansKR-Medium;
+    font-size: 24px;
+    margin-left: 37px;
+}
+.payment-product-info {
+    width: 100%;
+    margin-top: 38px;
+    margin-left: 33px;
+    display: flex;
+    flex-direction: row;
+}
+.payment-product {
+    width: 143px;
+    height: 143px;
+}
+.payment-product-detail {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: start;
+    margin-left: 44px;
+    margin-bottom: 57px;
+}
+.payment-product-detail h1 {
+    font-family: NotoSansKR-Regular;
+    font-size: 20px;
+    margin: 0;
+}
+.payment-product-detail h2 {
+    font-family: NotoSansKR-Regular;
+    font-size: 16px;
+    color: #888888;
+    margin: 0;
+}
+.payment-deliverly-price {
+    width: 1226px;
+    height: 55px;
+    background-color: #d9d9d9;
+    display: flex;
+    align-items: center;
+    padding-left: 37px;
+    padding-right: 37px;
+    margin: 0;
+    justify-content: space-between;
+}
+.payment-deliverly-price h1 {
+    font-family: NotoSansKR-Medium;
+    font-size: 16px;
+    color: #000000;
+    margin: 0;
+}
+.p-address-content {
+    width: 100%;
+    height: 100%;
+}
+.payment-product-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 8px;
+    padding-right: 37px;
+    gap: 8px;
+    align-items: center;
+}
+.payment-product-price h1 {
+    font-family: NotoSansKR-Light;
+    font-size: 20px;
+    color: #000000;
+    margin-bottom: 0;
+}
+.payment-grade-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.payment-grade-info h2 {
+    font-family: NotoSansKR-Light;
+    font-size: 15px;
+    margin-top: 26px;
+    margin-left: 14px;
 }
 
 

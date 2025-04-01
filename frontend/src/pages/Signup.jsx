@@ -70,7 +70,6 @@ const Signup = () => {
                             <option value="gmail.com">gmail.com</option>
                             <option value="naver.com">naver.com</option>
                             <option value="daum.net">daum.net</option>
-                            <option value="yahoo.com">yahoo.com</option>
                             <option value="direct">직접 입력</option>
                         </select>
                     </div>
