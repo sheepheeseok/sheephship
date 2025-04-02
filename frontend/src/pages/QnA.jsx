@@ -130,26 +130,15 @@ const QnA = () => {
                 ))}
             </div>
 
-            {/* 페이지 네비게이션 (화살표로 변경) */}
-            <div className="pagination" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <button
-                    className="pagination-btn"
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                >
-                    &lt;
-                </button>
-                <span style={{ margin: "0 10px" }}>
-                    {currentPage} / {totalPages}
-                </span>
-                <button
-                    className="pagination-btn"
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                >
-                    &gt;
-                </button>
-            </div>
+           <div className="faq-pagination">
+               <button className="page-btn" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>«</button>
+               {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((num) => (
+                   <button key={num} className={`page-btn ${currentPage === num ? 'active' : ''}`} onClick={() => setCurrentPage(num)}>
+                       {num}
+                   </button>
+               ))}
+               <button className="page-btn" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>»</button>
+           </div>
         </div>
     );
 };

@@ -1023,7 +1023,7 @@ body {
 .qna-container {
   max-width: 1036px; /* 내용 너비 제한 */
   min-height: 100vh;
-  margin: 87px auto 0; /* 네비게이션 바와의 간격 */
+  margin: 174px auto 0; /* 네비게이션 바와의 간격 */
   width: 1036px;
   padding: 20px;
 }
@@ -1065,7 +1065,7 @@ body {
 
 .faq-category-button.active {
   background-color: #3375B1;
-  border: 1px solid #3375b1;
+  border: 1px solid #3375B1;
   color: #fff;
 }
 
@@ -1103,7 +1103,7 @@ body {
  }
 
 .faq-question.open {
-  color: #3375b1;
+  color: #3375B1;
 }
 
 .faq-q {
@@ -1157,13 +1157,10 @@ body {
 
 /* 페이지네이션 */
 .faq-pagination {
-  margin-top: 20px;
-  font-size: 14px;
-}
-
-.faq-pagination span {
-  margin: 0 5px;
-  cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 36px 0;
 }
 
 {/* Footer css */}
