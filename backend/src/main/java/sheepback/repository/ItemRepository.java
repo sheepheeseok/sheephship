@@ -5,11 +5,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import sheepback.domain.Category;
 import sheepback.domain.ItemCategory;
 import sheepback.domain.item.Color;
 import sheepback.domain.item.Item;
 import sheepback.domain.item.ItemImg;
+import sheepback.repository.ItemQuery.AllItemDto;
+import sheepback.repository.ItemQuery.ColorSimpleDto;
+import sheepback.repository.ItemQuery.ItemByCategorySimpleDto;
+import sheepback.repository.ItemQuery.ItemImgSimpleDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +108,7 @@ public class ItemRepository {
 
     public List<ItemByCategorySimpleDto> findItemsByCategory(String categoryName, Pageable pageable) {
         return em.createQuery(
-                        "SELECT NEW sheepback.repository.ItemByCategorySimpleDto(i.id,i.name,i.price) FROM Item i " +
+                        "SELECT NEW sheepback.repository.ItemQuery.ItemByCategorySimpleDto(i.id,i.name,i.price) FROM Item i " +
                                 "JOIN i.categories ic " +
                                 "JOIN ic.category c " +
                                 "WHERE c.name = :categoryName " +
@@ -132,6 +137,42 @@ public class ItemRepository {
         return sort.stream()
                 .map(order -> "i." + order.getProperty() + " " + order.getDirection().name())
                 .collect(Collectors.joining(", "));
+    }
+
+    //item 별로 색상 가져오기
+    private List<Color> getColors(Long id) {
+        return em.createQuery("select c from Item i join i.colors c where i.id = :id", Color.class)
+                .setParameter("id", id).getResultList();
+    }
+
+
+
+    @Transactional(readOnly = true)
+    public AllItemDto getAllItembyId(Long itemId){
+
+        Item item = em.createQuery("select i from Item i join fetch i.itemImg im where i.id = :id", Item.class)
+                .setParameter("id", itemId)
+                .getSingleResult();
+
+        List<Color> colors = getColors(itemId);
+
+        List<ColorSimpleDto> colorSimpleDtos = colors.stream()
+                .map(ColorSimpleDto::new).collect(Collectors.toList());
+
+        ItemImgSimpleDto itemImgSimpleDto = new ItemImgSimpleDto(item.getItemImg());
+
+        return new AllItemDto(
+                item.getId(),
+                item.getName(),
+                item.getProduce(),
+                item.getCreated(),
+                item.getPrice(),
+                item.getDeliveryFee(),
+                item.getMainUrl(),
+                item.getSalesVolume(),
+                colorSimpleDtos,
+                itemImgSimpleDto);
+
     }
 
 

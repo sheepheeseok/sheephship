@@ -25,6 +25,45 @@ public class InitService {
     private final ItemService itemService;
     private final EntityManager em;
 
+    public void create1Item() {
+        List<Category> categories = new ArrayList<>();
+        List<Color> colors = new ArrayList<>();
+            Color color = Color.builder()
+                    .color("blue") // 중복되지 않도록 이름을 다르게 설정
+                    .stockQuantity(10L)
+                    .build();
+            colors.add(color);
+
+        Color color2 = Color.builder()
+                .color("red") // 중복되지 않도록 이름을 다르게 설정
+                .stockQuantity(10L)
+                .build();
+        colors.add(color);
+
+        // 이미지 생성
+        ItemImg itemImg = ItemImg.builder()
+                .subUrl1("subUrl1" )
+                .subUrl2("subUrl2" )
+                .subUrl3("subUrl3")
+                .detailUrl1("detailUrl1" )
+                .detailUrl2("detailUrl2" )
+                .detailUrl3("detailUrl3")
+                .detailUrl4("detailUrl4")
+                .build();
+
+        // 아이템 생성
+        Item item = Item.builder()
+                .name("클라이밍 팬츠")
+                .mainUrl("메인사진 URL")
+                .deliveryFee(2500L)
+                .produce("클라이밍 제조사")
+                .price(33000L)
+                .build();
+
+        itemService.insertItem(item, categories, itemImg, colors);
+
+    }
+
     public void create100Item() {
         List<Category> categories = new ArrayList<>();
 

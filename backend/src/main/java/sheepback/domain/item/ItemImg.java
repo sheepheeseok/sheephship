@@ -30,7 +30,6 @@ public class ItemImg {
 
     private String detailUrl4;
 
-    private String detailUrl5;
 
     public ItemImg() {
 

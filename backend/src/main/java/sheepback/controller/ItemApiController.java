@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
-import sheepback.repository.ItemByCategorySimpleDto;
+import sheepback.repository.ItemQuery.ItemByCategorySimpleDto;
 import sheepback.service.ItemService;
 
 import java.util.List;

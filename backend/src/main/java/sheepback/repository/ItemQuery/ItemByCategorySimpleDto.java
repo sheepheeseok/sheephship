@@ -1,4 +1,4 @@
-package sheepback.repository;
+package sheepback.repository.ItemQuery;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
