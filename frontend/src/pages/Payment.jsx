@@ -17,9 +17,13 @@ const Payment = () => {
     };
 
     const [customMessage, setCustomMessage] = useState(false);
-
     const handleSelectChange = (event) => {
         setCustomMessage(event.target.value === "direct");
+    };
+
+    const [activeMethod, setActiveMethod] = useState(null);
+    const toggleMethod = (method) => {
+        setActiveMethod(activeMethod === method ? null : method);
     };
 
 
@@ -274,18 +278,103 @@ const Payment = () => {
                             <div className="payment-product-price">
                                 <div className="payment-grade-info">
                                     <h1>등급 할인</h1>
-                                        <img src="/icons/info.svg" alt="info-icon" className="info-icon"
-                                             style={{
-                                                 width: "25px",
-                                                 height: "25px",
-                                                 display: "flex",
-                                                 marginTop: "16px"
-                                             }}/>
-                                        <h2>나의 등급 : </h2>
-                                        <img src="/imgs/grade/red_grade.png" alt="grade-icon" className="grade-icon"
-                                             style={{marginTop: "18px", marginLeft: "5px"}}/>
+                                    <div className="info-tooltip-container">
+                                        <img
+                                            src="/icons/info.svg"
+                                            alt="info-icon"
+                                            className="info-icon"
+                                            style={{
+                                                width: "25px",
+                                                height: "25px",
+                                                display: "flex",
+                                                marginTop: "16px"
+                                            }}
+                                        />
+                                        <div className="info-tooltip-box">
+                                            <h1>등급별 할인</h1>
+                                            <ul>
+                                                <li><img src="/imgs/grade/red_grade.png" alt="grade-icon"
+                                                         className="grade-icon"/>
+                                                    RED 3%
+                                                </li>
+                                                <div className="grade-line"/>
+                                                <li><img src="/imgs/grade/yellow_grade.png" alt="grade-icon"
+                                                         className="grade-icon"/>YELLOW 5%
+                                                </li>
+                                                <div className="grade-line"/>
+                                                <li><img src="/imgs/grade/navy_grade.png" alt="grade-icon"
+                                                         className="grade-icon"/>
+                                                    NAVY 7%
+                                                </li>
+                                                <div className="grade-line"/>
+                                                <li><img src="/imgs/grade/purple_grade.png" alt="grade-icon"
+                                                         className="grade-icon"/>
+                                                    PURPLE 9%
+                                                </li>
+                                                <div className="grade-line"/>
+                                                <li><img src="/imgs/grade/brown_grade.png" alt="grade-icon"
+                                                         className="grade-icon"/>
+                                                    BROWN 12%
+                                                </li>
+                                                <div className="grade-line"/>
+                                                <li><img src="/imgs/grade/black_grade.png" alt="grade-icon"
+                                                         className="grade-icon"/>
+                                                    BLACK 15%
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h2>나의 등급 : </h2>
+                                    <img
+                                        src="/imgs/grade/red_grade.png"
+                                        alt="grade-icon"
+                                        className="grade-icon"
+                                        style={{marginTop: "18px", marginLeft: "5px"}}
+                                    />
                                 </div>
                                 <h1 style={{color: "#FF5F5F"}}>-1,500원</h1>
+                            </div>
+                            <div className="p-result-box">
+                                <div className="p-result-price">
+                                    <h1 style={{ marginTop:"10px", fontSize:"24px"}}>최종 결제 금액</h1>
+                                    <h1 style={{ fontSize:"32px", marginTop:"7px" }}>48,500원</h1>
+                                </div>
+                                <div className="p-result-price">
+                                    <h2 style={{ marginBottom:"2px"}}>적립 예정금액</h2>
+                                    <h2 style={{ fontSize:"24px" }}>485원</h2>
+                                </div>
+                            </div>
+
+                            <h1>결제 수단</h1>
+
+                            <div className="payment-method-item">
+                                <div className="payment-method-box">
+                                    <h1>결제 수단 선택</h1>
+                                    <div className="payment-method-easy" onClick={() => toggleMethod("easy")} style={{ marginTop:"22px" }}>
+                                        간편 결제
+                                    </div>
+                                    {activeMethod === "easy" && (
+                                        <div className="payment-method-detail">
+                                            <p>카카오페이, 네이버페이, 삼성페이 등 사용 가능</p>
+                                        </div>
+                                    )}
+                                    <div className="payment-method-easy" onClick={() => toggleMethod("card")} style={{marginTop: "6px"}}>
+                                        카드 결제
+                                    </div>
+                                    {activeMethod === "card" && (
+                                        <div className="payment-method-detail">
+                                            <p>신용카드 및 체크카드로 결제할 수 있습니다.</p>
+                                        </div>
+                                    )}
+                                    <div className="payment-method-easy"  onClick={() => toggleMethod("bank")} style={{marginTop: "6px"}}>
+                                        무통장 입금
+                                    </div>
+                                    {activeMethod === "bank" && (
+                                        <div className="payment-method-detail">
+                                            <p>입금 계좌 정보를 확인하고 입금 후 주문을 완료하세요.</p>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
 
                         </div>
