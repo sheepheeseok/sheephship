@@ -16,6 +16,16 @@ const Payment = () => {
         setAddressSelected(id);
     };
 
+    const [bankPayment, setbankPayment] = useState("Bankreceipt");
+    const BankPaymentSelect = (id) => {
+        setbankPayment(id);
+    };
+
+    const [easyPayment, seteasyPayment] = useState("kakaopay");
+    const EasyPaymentSelect = (id) => {
+        seteasyPayment(id);
+    };
+
     const [customMessage, setCustomMessage] = useState(false);
     const handleSelectChange = (event) => {
         setCustomMessage(event.target.value === "direct");
@@ -336,49 +346,201 @@ const Payment = () => {
                             </div>
                             <div className="p-result-box">
                                 <div className="p-result-price">
-                                    <h1 style={{ marginTop:"10px", fontSize:"24px"}}>최종 결제 금액</h1>
-                                    <h1 style={{ fontSize:"32px", marginTop:"7px" }}>48,500원</h1>
+                                    <h1 style={{marginTop: "10px", fontSize: "24px"}}>최종 결제 금액</h1>
+                                    <h1 style={{fontSize: "32px", marginTop: "7px"}}>48,500원</h1>
                                 </div>
                                 <div className="p-result-price">
-                                    <h2 style={{ marginBottom:"2px"}}>적립 예정금액</h2>
-                                    <h2 style={{ fontSize:"24px" }}>485원</h2>
+                                    <h2 style={{marginBottom: "2px"}}>적립 예정금액</h2>
+                                    <h2 style={{fontSize: "24px"}}>485원</h2>
                                 </div>
                             </div>
 
-                            <h1>결제 수단</h1>
+                            <h1 style={{marginTop: "25px"}}>결제 수단</h1>
 
                             <div className="payment-method-item">
                                 <div className="payment-method-box">
                                     <h1>결제 수단 선택</h1>
-                                    <div className="payment-method-easy" onClick={() => toggleMethod("easy")} style={{ marginTop:"22px" }}>
+                                    <div className={`payment-method-easy ${activeMethod === "easy" ? "selected" : ""}`}
+                                         onClick={() => toggleMethod("easy")} style={{marginTop: "22px"}}>
                                         간편 결제
                                     </div>
                                     {activeMethod === "easy" && (
                                         <div className="payment-method-detail">
-                                            <p>카카오페이, 네이버페이, 삼성페이 등 사용 가능</p>
+                                            <div className="p-checkbox-area" style={{marginLeft: "10px", gap: "45px"}}>
+                                                {/* 회원 정보와 동일 체크박스 */}
+                                                <div className="p-checkbox-box">
+                                                    <input
+                                                        type="checkbox"
+                                                        id="kakaopay"
+                                                        checked={easyPayment === "kakaopay"}
+                                                        onChange={() => EasyPaymentSelect("kakaopay")}
+                                                        className="custom-checkbox"
+                                                    />
+                                                    <div className="easy-payment-label">
+                                                        <img style={{marginLeft: "5px"}}
+                                                             src="/imgs/payment/kakaopay.png"/>
+                                                        <label htmlFor="kakaopay">카카오 페이</label>
+                                                    </div>
+                                                </div>
+
+                                                <div className="p-checkbox-box">
+                                                    <input
+                                                        type="checkbox"
+                                                        id="tosspay"
+                                                        checked={easyPayment === "tosspay"}
+                                                        onChange={() => EasyPaymentSelect("tosspay")}
+                                                        className="custom-checkbox"
+                                                    />
+                                                    <div className="easy-payment-label">
+                                                        <img style={{marginLeft: "5px"}}
+                                                             src="/imgs/payment/tosspay.png"/>
+                                                        <label htmlFor="tosspay">토스 페이</label>
+                                                    </div>
+                                                </div>
+
+                                                <div className="p-checkbox-box">
+                                                    <input
+                                                        type="checkbox"
+                                                        id="naverpay"
+                                                        checked={easyPayment === "naverpay"}
+                                                        onChange={() => EasyPaymentSelect("naverpay")}
+                                                        className="custom-checkbox"
+                                                    />
+                                                    <div className="easy-payment-label">
+                                                        <img style={{marginLeft: "5px"}}
+                                                             src="/imgs/payment/naverpay.png"/>
+                                                        <label htmlFor="naverpay">네이버 페이</label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     )}
-                                    <div className="payment-method-easy" onClick={() => toggleMethod("card")} style={{marginTop: "6px"}}>
+                                    <div className={`payment-method-easy ${activeMethod === "card" ? "selected" : ""}`}
+                                         onClick={() => toggleMethod("card")}
+                                         style={{marginTop: "6px"}}>
                                         카드 결제
                                     </div>
                                     {activeMethod === "card" && (
-                                        <div className="payment-method-detail">
-                                            <p>신용카드 및 체크카드로 결제할 수 있습니다.</p>
+                                        <div className="payment-method-detail" style={{marginTop: "20px"}}>
+
+                                            <div className="card-payment-box">
+                                                <h1 style={{marginRight: "17px"}}>카드 번호</h1>
+                                                <input type="text" name="firstCardNum" className="card-payment-input"/>
+                                                <input type="text" name="SecondCardNum" className="card-payment-input"/>
+                                                <input type="text" name="ThirdCardNum" className="card-payment-input"/>
+                                                <input type="text" name="FourthCardNum" className="card-payment-input"/>
+                                            </div>
+                                            <div className="card-payment-box" style={{marginTop: "28px"}}>
+                                                <h1 style={{marginRight: "17px"}}>유효 기간</h1>
+                                                <input type="text" name="firstCardYearNum" placeholder="MM"
+                                                       className="card-payment-input"/>
+                                                <input type="text" name="SecondCardYearNum" placeholder="YY"
+                                                       className="card-payment-input"/>
+                                            </div>
+                                            <div className="card-payment-box" style={{marginTop: "28px"}}>
+                                                <h1 style={{marginRight: "17px", width: "78px"}}>CVC</h1>
+                                                <input type="text" name="CardCVC" placeholder="3자리"
+                                                       className="card-payment-input"/>
+                                            </div>
+                                            <div className="card-payment-box" style={{marginTop: "28px"}}>
+                                                <h1 style={{marginRight: "17px", width: "78px"}}>비밀번호</h1>
+                                                <input type="password" name="CardPassword" maxLength="2"
+                                                       placeholder="앞 2자리"
+                                                       className="card-payment-input"/>
+                                            </div>
                                         </div>
                                     )}
-                                    <div className="payment-method-easy"  onClick={() => toggleMethod("bank")} style={{marginTop: "6px"}}>
+                                    <div className={`payment-method-easy ${activeMethod === "bank" ? "selected" : ""}`}
+                                         onClick={() => toggleMethod("bank")}
+                                         style={{marginTop: "6px"}}>
                                         무통장 입금
                                     </div>
                                     {activeMethod === "bank" && (
-                                        <div className="payment-method-detail">
-                                            <p>입금 계좌 정보를 확인하고 입금 후 주문을 완료하세요.</p>
+                                        <div className="payment-method-detail" style={{marginTop: "30px"}}>
+                                            <div className="card-payment-box">
+                                                <h1 style={{marginLeft: "20px", marginRight: "20px"}}>입금 은행</h1>
+                                                <h1>국민 439020-01-454679</h1>
+                                            </div>
+
+                                            <div className="card-payment-box"
+                                                 style={{marginTop: "15px", height: "60px"}}>
+                                                <h1 style={{marginLeft: "20px"}}>입금자명</h1>
+                                                <input type="password" name="bankSendName"
+                                                       className="bank-payment-input" style={{marginLeft: "20px"}}/>
+                                                <h1 style={{marginLeft: "27px"}}>※입금자와 입금자명이 다를시 결제 확인이 불가능 합니다.</h1>
+                                            </div>
+                                            <h1 style={{marginLeft: "20px", marginTop: "20px"}}>현금 영수증</h1>
+
+                                            <div className="card-payment-box" style={{marginTop: "20px"}}>
+                                                <div className="p-checkbox-box" style={{marginLeft: "16px"}}>
+                                                    <input
+                                                        type="checkbox"
+                                                        id="Bankreceipt"
+                                                        checked={bankPayment === "Bankreceipt"}
+                                                        onChange={() => BankPaymentSelect("Bankreceipt")}
+                                                        className="custom-checkbox"/>
+                                                    <div className="easy-payment-label">
+                                                        <label htmlFor="Bankreceipt">현금영수증 신청</label>
+                                                    </div>
+                                                </div>
+
+                                                <div className="p-checkbox-box" style={{marginLeft: "16px"}}>
+                                                    <input
+                                                        type="checkbox"
+                                                        id="Banknoreceipt"
+                                                        checked={bankPayment === "Banknoreceipt"}
+                                                        onChange={() => BankPaymentSelect("Banknoreceipt")}
+                                                        className="custom-checkbox"
+                                                    />
+                                                    <div className="easy-payment-label">
+                                                        <label htmlFor="Banknoreceipt">신청 안함</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {bankPayment === "Bankreceipt" && (
+                                                <div className="cash-receipt-box">
+                                                    <select
+                                                        className="cash-receipt-select"
+                                                        style={{
+                                                            width: "150px",
+                                                            padding: "8px",
+                                                            marginRight: "15px",
+                                                            borderRadius: "4px",
+                                                            border: "1px solid #ccc",
+                                                            fontFamily: "NotoSansKR-Regular",
+                                                        }}
+                                                    >
+                                                        <option value="personal">개인</option>
+                                                        <option value="business">기업</option>
+                                                    </select>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="휴대폰 번호 또는 사업자 번호"
+                                                        className="cash-receipt-input"
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
                                     )}
                                 </div>
                             </div>
+                            <div className="p-addressinfo-box">
+                                <input
+                                    type="checkbox"
+                                    id="SavePaymentinfo"
+                                />
+                                <label htmlFor="SavePaymentinfo">결제수단과 입력정보를 다음에도 사용</label>
+                            </div>
 
+                            <button className="payment-end-box">
+                                48,500원 결제
+                            </button>
+
+                            <ul className="payment-end-detail">
+                                <li>무이자할부가 적용되지 않은 상품과 무이자할부가 가능한 상품을 동시에 구매할 경우 전체 주문 상품 금액에 대해 무이자할부가 적용되지 않습니다. 무이자할부를 원하시는 경우 장바구니에서 무이자할부 상품만 선택하여 주문하여 주시기 바랍니다.</li>
+                                <li>최소 결제 가능 금액은 결제금액에서 배송비를 제외한 금액입니다.</li>
+                            </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
