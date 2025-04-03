@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom"; // Link 컴포넌트 import
+import { useNavigate } from "react-router-dom"; // Link 컴포넌트 import
 import { useEffect } from "react";
 
 const allProducts = [
@@ -33,6 +33,8 @@ const allProducts = [
 ];
 
 const Shop = () => {
+    const navigate = useNavigate();
+
     useEffect(() => {
         window.scrollTo(0, 0); // 페이지 이동 시 최상단으로 스크롤
     }, []);
@@ -66,10 +68,11 @@ const Shop = () => {
                         <div className="product-item"
                              key={product.id}
                              onMouseEnter={() => setHoveredProduct(product.id)}
-                             onMouseLeave={() => setHoveredProduct(null)}>
-                            <Link to={`/product/${product.id}`} className="product-link">
-                                <img src={product.img} alt={product.title} />
-                            </Link>
+                             onMouseLeave={() => setHoveredProduct(null)}
+                             onClick={() => navigate(`/product/${product.id}`)}
+                             style={{ cursor: "pointer" }}
+                        >
+                            <img src={product.img} alt={product.title}/>
                             <p>{product.title}</p>
                             {product.sale ? (
                                 <div className="price">

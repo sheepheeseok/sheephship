@@ -6,10 +6,10 @@ const Navbar = () => {
     return (
         <div className="navbar">
             <ul className="nav-list">
-                <li><a href="shop">SHOP</a></li>
-                <li><a href="#">CENTER</a></li>
-                <li><a href="#">ROOTFIND</a></li>
-                <li><a href="#">BRAND</a></li>
+                <li onClick={() => navigate("/Shop")}><a>SHOP</a></li>
+                <li onClick={() => navigate("/Center")}><a>CENTER</a></li>
+                <li onClick={() => navigate("/Rootfind")}><a>ROOTFIND</a></li>
+                <li onClick={() => navigate("/Brand")}><a>BRAND</a></li>
             </ul>
             <img src="/icons/MainIcon.svg" alt="MainIcon" className="MainIcon" onClick={() => navigate("/")} style={{ cursor: "pointer" }}/>
             <div className="nav-icons">
