@@ -32,6 +32,8 @@ public class Item {
     private Long deliveryFee;
 
 
+    private String contents;
+
     @NotNull
     @ColumnDefault("0")
     private Long price;
@@ -65,7 +67,7 @@ public class Item {
     private List<ItemQuestion> itemQuestions = new ArrayList<>();
 
     @Builder
-    public Item(String produce, String name, Long price, String mainUrl, Long deliveryFee) {
+    public Item(String produce, String name, Long price, String mainUrl,String contents, Long deliveryFee) {
         this.produce = produce;
         this.name = name;
         this.salesVolume = 0L;
@@ -73,6 +75,7 @@ public class Item {
         this.mainUrl = mainUrl;
         this.created = LocalDateTime.now();
         this.deliveryFee = deliveryFee;
+        this.contents = contents;
     }
 
     public Item() {

@@ -17,22 +17,17 @@ public class ItemApiController {
 
     @PostMapping("/api/getItemByCategory")
     public PageImpl<ItemByCategorySimpleDto> getItemByCategory(@RequestBody CategoryRequest request) {
-        // Sort 생성
-        List<Sort.Order> orders = request.getSort().stream()
-                .map(s -> {
-                    String[] parts = s.split(",");
-                    return new Sort.Order(
-                            Sort.Direction.fromString(parts[1]),
-                            parts[0]
-                    );
-                })
-                .toList();
+        // 단일 정렬 파라미터 처리
+        String[] sortParams = request.getSort().split(",");
+        Sort.Order order = new Sort.Order(
+                Sort.Direction.fromString(sortParams[1]),
+                sortParams[0]
+        );
 
-        // Pageable 생성
         Pageable pageable = PageRequest.of(
                 request.getPage(),
                 request.getSize(),
-                Sort.by(orders)
+                Sort.by(order)  // 단일 정렬 조건 사용
         );
 
         return itemService.findByCategory(request.getCategory(), pageable);
@@ -43,6 +38,6 @@ public class ItemApiController {
         private String category;
         private int page = 0;
         private int size = 10;
-        private List<String> sort = List.of("created,desc", "price,desc"); // 기본값
+        private String sort = "created,desc";  // List -> String으로 변경
     }
 }

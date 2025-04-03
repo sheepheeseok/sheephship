@@ -67,22 +67,22 @@ public class ItemRepository {
     }
 
     // 제목으로 검색
-    public List<Item> searchByName(String keyword, int page, int size) {
+    public List<Item> searchByName(String keyword, Pageable pageable) {
         return em.createQuery(
-                        "SELECT i FROM Item i WHERE i.name LIKE :keyword", Item.class)
+                        "SELECT i FROM Item i WHERE i.name LIKE :keyword ORDER BY " + getOrderByClause(pageable.getSort()), Item.class)
                 .setParameter("keyword", "%" + keyword + "%")
-                .setFirstResult(page * size)
-                .setMaxResults(size)
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
                 .getResultList();
     }
 
     // 브랜드로 검색
-    public List<Item> searchByProduce(String keyword, int page, int size) {
+    public List<Item> searchByProduce(String keyword, Pageable pageable) {
         return em.createQuery(
-                        "SELECT i FROM Item i WHERE i.produce LIKE :keyword", Item.class)
+                        "SELECT i FROM Item i WHERE i.produce LIKE :keyword ORDER BY " + getOrderByClause(pageable.getSort()), Item.class)
                 .setParameter("keyword", "%" + keyword + "%")
-                .setFirstResult(page * size)
-                .setMaxResults(size)
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
                 .getResultList();
     }
 
@@ -98,9 +98,9 @@ public class ItemRepository {
         List<Item> items = new ArrayList<>();
 
         if (searchType.equals("name")) {
-            items = searchByName(keyword,pageable.getPageSize(),pageable.getPageNumber());
+            items = searchByName(keyword,pageable);
         } else if (searchType.equals("produce")) {
-            items = searchByProduce(keyword,pageable.getPageSize(),pageable.getPageNumber());
+            items = searchByProduce(keyword,pageable);
         }
 
         return items;
@@ -165,6 +165,7 @@ public class ItemRepository {
                 item.getId(),
                 item.getName(),
                 item.getProduce(),
+                item.getContents(),
                 item.getCreated(),
                 item.getPrice(),
                 item.getDeliveryFee(),

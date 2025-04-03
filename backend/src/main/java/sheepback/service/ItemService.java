@@ -39,11 +39,26 @@ public class ItemService {
 
 
     //아이템 검색
-    public Page<Item> searchItemsPage(String keyword,String searchType, @PageableDefault(size = 10, page = 0) Pageable pageable) {
-        List<Item> items = itemRepository.searchItems(keyword,searchType,pageable);
+    public Page<Item> searchItemsPage(String keyword,String searchType,Pageable pageable) {
+        // 1. 기본 정렬 조건 설정
+        Sort defaultSort = Sort.by(
+                Sort.Order.desc("created"));
+
+        // 2. 요청 정렬 조건과 결합
+        Sort combinedSort = pageable.getSort().and(defaultSort);
+
+        // 3. 조정된 Pageable 생성
+        Pageable adjustedPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                combinedSort
+        );
+
+
+        List<Item> items = itemRepository.searchItems(keyword,searchType,adjustedPageable);
         Long total = itemRepository.countByName(keyword);
 
-        return new PageImpl<>(items, pageable, total);
+        return new PageImpl<>(items, adjustedPageable, total);
     }
 
     //카테고리로 아이템 찾기
