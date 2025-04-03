@@ -1,0 +1,19 @@
+<changelist name="25__4__1__오후_9_42,_업데이트_전에_커밋되지_않은_변경_내용_[변경]" date="1743511379622" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/25__4__1__오후_9_42,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" />
+  <option name="DESCRIPTION" value="25. 4. 1. 오후 9:42, 업데이트 전에 커밋되지 않은 변경 내용 [변경]" />
+  <binary>
+    <option name="BEFORE_PATH" value="backend/out/test/classes/sheepback/service/MemberServiceTest.class" />
+    <option name="AFTER_PATH" value="backend/out/test/classes/sheepback/service/MemberServiceTest.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/25__4__1__오후_9_42,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/MemberServiceTest.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="backend/out/production/classes/sheepback/domain/item/Item.class" />
+    <option name="AFTER_PATH" value="backend/out/production/classes/sheepback/domain/item/Item.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/25__4__1__오후_9_42,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/Item.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="backend/out/production/classes/sheepback/domain/item/ItemImg.class" />
+    <option name="AFTER_PATH" value="backend/out/production/classes/sheepback/domain/item/ItemImg.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/25__4__1__오후_9_42,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/ItemImg.class" />
+  </binary>
+</changelist>

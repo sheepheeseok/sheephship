@@ -1,17 +1,20 @@
 package sheepback.domain.item;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import sheepback.domain.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 @DynamicInsert
 public class Item {
 
@@ -22,13 +25,21 @@ public class Item {
 
     private String produce;//제조업체명
 
-    @NotNull
-    @ColumnDefault("0")
-    private Long stockQuantity;
+    private String name;
+
+    private LocalDateTime created;
+
+    private Long deliveryFee;
+
 
     @NotNull
     @ColumnDefault("0")
     private Long price;
+
+    private String mainUrl;
+
+    private Long salesVolume;
+
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "item")
     private List<Color> colors = new ArrayList<>();
@@ -53,4 +64,18 @@ public class Item {
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemQuestion> itemQuestions = new ArrayList<>();
 
+    @Builder
+    public Item(String produce, String name, Long price, String mainUrl, Long deliveryFee) {
+        this.produce = produce;
+        this.name = name;
+        this.salesVolume = 0L;
+        this.price = price;
+        this.mainUrl = mainUrl;
+        this.created = LocalDateTime.now();
+        this.deliveryFee = deliveryFee;
+    }
+
+    public Item() {
+
+    }
 }

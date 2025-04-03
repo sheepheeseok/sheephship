@@ -44,6 +44,12 @@ public class MemberApiController {
         memberService.joinMember(member);
         return "회원가입 성공";
     }
+    @PostMapping("/api/deleteMember")
+    public String deleteMeber(@RequestBody @Valid GetId id){
+        Member deleteMember = memberService.getMemberById(id.getId());
+        memberService.deleteMember(deleteMember);
+        return "삭제완료";
+    }
 
     //이이디 중복체크
     @PostMapping("/api/checkId")

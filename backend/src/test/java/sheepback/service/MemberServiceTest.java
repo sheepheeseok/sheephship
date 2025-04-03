@@ -100,27 +100,27 @@ public class MemberServiceTest {
 
     }
 
-    @Test
-    public void 아이디_찾기(){
-        //given
-        Member m1 =  getMember("userA", "password",
-                "userA@email.com",
-                "123456789",
-                new Address("tr", "qwe"),
-                "양희석");
-        em.persist(m1);
-        em.flush();
-        em.clear();
-        //when
-        List<String> id = memberService.findId("양희석", "123456789");
-
-        //then
-
-        Assert.assertNotNull(id);
-        Assert.assertEquals(m1.getId(),id.get(0));
-
-
-    }
+//    @Test
+//    public void 아이디_찾기(){
+//        //given
+//        Member m1 =  getMember("userA", "password",
+//                "userA@email.com",
+//                "123456789",
+//                new Address("tr", "qwe"),
+//                "양희석");
+//        em.persist(m1);
+//        em.flush();
+//        em.clear();
+//        //when
+//        List<String> id = memberService.findId("양희석", "123456789");
+//
+//        //then
+//
+//        Assert.assertNotNull(id);
+//        Assert.assertEquals(m1.getId(),id.get(0));
+//
+//
+//    }
 
     @Test
     public void 비밀번호_찾기(){

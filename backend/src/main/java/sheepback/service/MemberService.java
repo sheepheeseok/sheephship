@@ -18,6 +18,13 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    //회원탈퇴
+    @Transactional
+    public void deleteMember(Member member) {
+        memberRepository.delete(member);
+    }
+
+
     //회원가입
     @Transactional
     public void joinMember(Member member) {

@@ -1,0 +1,138 @@
+package sheepback.service;
+
+import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import sheepback.domain.Address;
+import sheepback.domain.Category;
+import sheepback.domain.Grade;
+import sheepback.domain.Member;
+import sheepback.domain.item.Color;
+import sheepback.domain.item.Item;
+import sheepback.domain.item.ItemImg;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+@RequiredArgsConstructor
+@Transactional
+public class InitService {
+
+
+
+    private final ItemService itemService;
+    private final EntityManager em;
+
+    public void create1Item() {
+        List<Category> categories = new ArrayList<>();
+        List<Color> colors = new ArrayList<>();
+            Color color = Color.builder()
+                    .color("blue") // 중복되지 않도록 이름을 다르게 설정
+                    .stockQuantity(10L)
+                    .build();
+            colors.add(color);
+
+        Color color2 = Color.builder()
+                .color("red") // 중복되지 않도록 이름을 다르게 설정
+                .stockQuantity(10L)
+                .build();
+        colors.add(color);
+
+        // 이미지 생성
+        ItemImg itemImg = ItemImg.builder()
+                .subUrl1("subUrl1" )
+                .subUrl2("subUrl2" )
+                .subUrl3("subUrl3")
+                .detailUrl1("detailUrl1" )
+                .detailUrl2("detailUrl2" )
+                .detailUrl3("detailUrl3")
+                .detailUrl4("detailUrl4")
+                .build();
+
+        // 아이템 생성
+        Item item = Item.builder()
+                .name("클라이밍 팬츠")
+                .mainUrl("메인사진 URL")
+                .deliveryFee(2500L)
+                .produce("클라이밍 제조사")
+                .price(33000L)
+                .build();
+
+        itemService.insertItem(item, categories, itemImg, colors);
+
+    }
+
+    public void create100Item() {
+        List<Category> categories = new ArrayList<>();
+
+        // 카테고리 생성
+        Category category = new Category();
+        category.setName("testCategory"); // 중복되지 않도록 이름을 다르게 설정
+        categories.add(category);
+        for (int i = 0; i < 100; i++) {
+
+            List<Color> colors = new ArrayList<>();
+
+
+
+            // 색상 생성
+            for (int j = 0; j < 5; j++) {
+                Color color = Color.builder()
+                        .color("red" + i + j) // 중복되지 않도록 이름을 다르게 설정
+                        .stockQuantity(10L)
+                        .build();
+                colors.add(color);
+            }
+
+            // 이미지 생성
+            ItemImg itemImg = ItemImg.builder()
+                    .subUrl1("s1" + i)
+                    .subUrl2("s2" + i)
+                    .subUrl3("s3" + i)
+                    .detailUrl1("d1" + i)
+                    .detailUrl2("d2" + i)
+                    .detailUrl3("d3" + i)
+                    .detailUrl4("d4" + i)
+                    .build();
+
+            // 아이템 생성
+            Item item = Item.builder()
+                    .name("name" + i)
+                    .mainUrl("url" + i)
+                    .deliveryFee(1L + i)
+                    .produce("produce" + i)
+                    .price(1L + i)
+                    .build();
+
+            itemService.insertItem(item, categories, itemImg, colors);
+        }
+    }
+
+
+    public void dbInit() {
+        Member member = createMember("UserA",
+                "12345678",
+                "배호준", "a@b.com",
+                new Address("qwe", "qweqwe"),
+                "010-1234-1234",
+                Grade.RED, 0L);
+        em.persist(member);
+    }
+
+
+
+    private static Member createMember(String id, String password, String name, String email, Address address, String phoneNumber, Grade grade, long point) {
+        Member member = new Member();
+        member.setId(id);
+        member.setPassword(password);
+        member.setName(name);
+        member.setEmail(email);
+        member.setAddress(address);
+        member.setPhoneNumber(phoneNumber);
+        member.setGrade(grade);
+        member.setPoint(point);
+        return member;
+    }
+}

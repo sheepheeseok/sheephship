@@ -5,8 +5,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    proxy: {
-      '/api': 'http://localhost:8080',  // Spring 서버 주소로 프록시 설정
-    },
+    allowedHosts: [
+        'sheepship.kro.kr',
+        '.sheepship.kro.kr'
+    ],
+    host: '0.0.0.0',
+    port: 5173,
   },
 });

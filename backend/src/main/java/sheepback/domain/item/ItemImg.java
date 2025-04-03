@@ -1,6 +1,7 @@
 package sheepback.domain.item;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
@@ -14,7 +15,6 @@ public class ItemImg {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "itemImg")
     private Item item;
 
-    private String mainUrl;
 
     private String subUrl1;
 
@@ -30,8 +30,24 @@ public class ItemImg {
 
     private String detailUrl4;
 
-    private String detailUrl5;
 
+    public ItemImg() {
+
+    }
+
+    @Builder
+    public ItemImg(String subUrl1, String subUrl2, String subUrl3, String detailUrl1,
+                   String detailUrl2, String detailUrl3, String detailUrl4) {
+
+        this.subUrl1 = subUrl1;
+        this.subUrl2 = subUrl2;
+        this.subUrl3 = subUrl3;
+        this.detailUrl1 = detailUrl1;
+        this.detailUrl2 = detailUrl2;
+        this.detailUrl3 = detailUrl3;
+        this.detailUrl4 = detailUrl4;
+
+    }
 
 
 }
