@@ -142,6 +142,45 @@ body {
   color: black;
   font-weight: bold;
 }
+
+.brand-dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: block; /* 기본적으로 드롭다운 메뉴가 표시되도록 설정 */
+  position: absolute;
+  top: 150%;
+  left: -20%;
+  width: 80px; /* 드롭다운 메뉴 너비 조정 */
+  background-color: white;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  text-align: left;
+  opacity: 0; /* 처음에는 투명 */
+  visibility: hidden; /* 처음에는 보이지 않음 */
+  transition: opacity 0.3s ease, visibility 0s 0.3s; /* 부드러운 전환 */
+}
+
+.brand-dropdown:hover .dropdown-menu {
+  opacity: 1; /* 보일 때 */
+  visibility: visible; /* 보이게 설정 */
+  transition: opacity 0.3s ease, visibility 0s 0s; /* 보일 때 부드러운 전환 */
+}
+
+.dropdown-menu li {
+  padding: 5px;
+}
+
+.dropdown-menu a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  display: block; /* 항목이 전체 너비를 차지하게 만들어 클릭 영역을 넓힘 */
+}
+
 .nav-icons {
   display: flex;
   gap: 34px;
