@@ -19,15 +19,18 @@ public class AllItemDto {
     private Long deliveryFee;
     private String mainUrl;
     private Long salesVolume;
+    private String contents;
     private List<ColorSimpleDto> colors;
     ItemImgSimpleDto itemImg;
 
-    public AllItemDto(Long id, String name, String produce, LocalDateTime created,
+
+    public AllItemDto(Long id, String name, String produce,String contents,  LocalDateTime created,
                       Long price, Long deliveryFee, String mainUrl,
                       Long salesVolume, List<ColorSimpleDto> colors, ItemImgSimpleDto itemImg) {
         this.id = id;
         this.name = name;
         this.produce = produce;
+        this.contents = contents;
         this.created = created;
         this.price = price;
         this.deliveryFee = deliveryFee;

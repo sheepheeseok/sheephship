@@ -4,31 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a0c40a4-086d-4962-9b79-4d7f94073d8c" name="변경" comment="ITEM찾는건 ITEM REPO와 ITEM SERVICE부분으로 바꾸고 item 저장 (CATEGORY와 COLOR,ITEM_IMG까지 저장됨) 카테고리 클릭(반환시) 정렬과 함께 페이지 네이션 적용">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/ItemDetailApiController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemQuery/AllItemDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemQuery/ColorSimpleDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemQuery/ItemImgSimpleDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__3__25___10_53__________.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__3__25___11_44__________.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__3__25__오후_10_53,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__3__25__오후_11_44,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__3__26___10_09__________.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__3__26__오전_10_09,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
+    <list default="true" id="3a0c40a4-086d-4962-9b79-4d7f94073d8c" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemQuery/SearchItemSimplDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/ItemApiController$CategoryRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/ItemApiController$CategoryRequest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/ItemApiController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/ItemApiController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/domain/item/ItemImg$ItemImgBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/domain/item/ItemImg$ItemImgBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/domain/item/ItemImg.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/domain/item/ItemImg.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/ItemQuery/AllItemDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/ItemQuery/AllItemDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/ItemQuery/ItemByCategorySimpleDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/ItemQuery/ItemByCategorySimpleDto.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/ItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/ItemRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/InitDb.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/InitDb.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/InitService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/InitService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/ItemService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/ItemService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/ItemApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/ItemApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/item/ItemImg.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/item/ItemImg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemByCategorySimpleDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemQuery/ItemByCategorySimpleDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/item/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/item/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemQuery/AllItemDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemQuery/AllItemDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemQuery/ItemByCategorySimpleDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemQuery/ItemByCategorySimpleDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/InitDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/InitDb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/InitService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/InitService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/ItemService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +81,7 @@
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/sheepheeseok/sheephship.git",
-    "accountId": "e9aba1f3-1e74-492a-8dba-c601fa67d4b7"
+    "accountId": "bd3437c1-472d-417b-b266-3e78e6fcec0d"
   }
 }]]></component>
   <component name="ProblemsViewState">
@@ -141,6 +133,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="sheepback.repository.ItemQuery" />
       <recent name="sheepback.domain" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -185,8 +178,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
-        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
       </set>
     </attachedChunks>
   </component>
@@ -217,6 +210,7 @@
       <workItem from="1743310530550" duration="2837000" />
       <workItem from="1743340585469" duration="3418000" />
       <workItem from="1743599892041" duration="6996000" />
+      <workItem from="1743914716650" duration="4461000" />
     </task>
     <task id="LOCAL-00001" summary="backend">
       <option name="closed" value="true" />

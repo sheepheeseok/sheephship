@@ -26,7 +26,7 @@ public class InitDb {
     @PostConstruct
     public void init() {
         initService.dbInit();
-        //initService.create100Item();
+        initService.create100Item();
         initService.create1Item();
     }
 

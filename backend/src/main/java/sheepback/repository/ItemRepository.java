@@ -2,6 +2,7 @@ package sheepback.repository;
 
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
@@ -11,10 +12,7 @@ import sheepback.domain.ItemCategory;
 import sheepback.domain.item.Color;
 import sheepback.domain.item.Item;
 import sheepback.domain.item.ItemImg;
-import sheepback.repository.ItemQuery.AllItemDto;
-import sheepback.repository.ItemQuery.ColorSimpleDto;
-import sheepback.repository.ItemQuery.ItemByCategorySimpleDto;
-import sheepback.repository.ItemQuery.ItemImgSimpleDto;
+import sheepback.repository.ItemQuery.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,22 +65,29 @@ public class ItemRepository {
     }
 
     // 제목으로 검색
-    public List<Item> searchByName(String keyword, int page, int size) {
+    public List<SearchItemSimplDto> searchByName(String keyword, Pageable pageable) {
         return em.createQuery(
-                        "SELECT i FROM Item i WHERE i.name LIKE :keyword", Item.class)
+                        "SELECT NEW sheepback.repository.ItemQuery.SearchItemSimplDto(i.id,i.name,i.price,i.mainUrl) " +
+                                "FROM Item i " +
+                                "WHERE i.name LIKE :keyword " +
+                                "Order by " + getOrderByClause(pageable.getSort()), SearchItemSimplDto.class)
                 .setParameter("keyword", "%" + keyword + "%")
-                .setFirstResult(page * size)
-                .setMaxResults(size)
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
                 .getResultList();
     }
 
     // 브랜드로 검색
-    public List<Item> searchByProduce(String keyword, int page, int size) {
+    public List<SearchItemSimplDto> searchByProduce(String keyword, Pageable pageable) {
         return em.createQuery(
-                        "SELECT i FROM Item i WHERE i.produce LIKE :keyword", Item.class)
+                        "SELECT NEW sheepback.repository.ItemQuery.ItemByCategorySimpleDto(i.id,i.name,i.price,i.mainUrl)" +
+                                " FROM Item i " +
+                                "WHERE i.produce " +
+                                "LIKE :keyword " +
+                                "ORDER BY " + getOrderByClause(pageable.getSort()), SearchItemSimplDto.class)
                 .setParameter("keyword", "%" + keyword + "%")
-                .setFirstResult(page * size)
-                .setMaxResults(size)
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
                 .getResultList();
     }
 
@@ -94,13 +99,13 @@ public class ItemRepository {
     }
 
     //아이템 키워드 확인후 검색
-    public List<Item> searchItems(String keyword, String searchType, Pageable pageable) {
-        List<Item> items = new ArrayList<>();
+    public List<SearchItemSimplDto> searchItems(String keyword, String searchType, Pageable pageable) {
+        List<SearchItemSimplDto> items = new ArrayList<>();
 
         if (searchType.equals("name")) {
-            items = searchByName(keyword,pageable.getPageSize(),pageable.getPageNumber());
+            items = searchByName(keyword,pageable);
         } else if (searchType.equals("produce")) {
-            items = searchByProduce(keyword,pageable.getPageSize(),pageable.getPageNumber());
+            items = searchByProduce(keyword,pageable);
         }
 
         return items;
@@ -108,7 +113,7 @@ public class ItemRepository {
 
     public List<ItemByCategorySimpleDto> findItemsByCategory(String categoryName, Pageable pageable) {
         return em.createQuery(
-                        "SELECT NEW sheepback.repository.ItemQuery.ItemByCategorySimpleDto(i.id,i.name,i.price) FROM Item i " +
+                        "SELECT NEW sheepback.repository.ItemQuery.ItemByCategorySimpleDto(i.id,i.name,i.price,i.mainUrl) FROM Item i " +
                                 "JOIN i.categories ic " +
                                 "JOIN ic.category c " +
                                 "WHERE c.name = :categoryName " +
@@ -165,6 +170,7 @@ public class ItemRepository {
                 item.getId(),
                 item.getName(),
                 item.getProduce(),
+                item.getContents(),
                 item.getCreated(),
                 item.getPrice(),
                 item.getDeliveryFee(),
