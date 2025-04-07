@@ -60,7 +60,7 @@ public class ItemRepository {
         return em.createQuery("select i from Item i", Item.class).getResultList();
     }
 
-    public Item findById(int id) {
+    public Item findById(Long id) {
         return em.find(Item.class, id);
     }
 
@@ -94,6 +94,13 @@ public class ItemRepository {
     public Long countByName(String keyword) {
         return (Long) em.createQuery(
                         "SELECT COUNT(i) FROM Item i WHERE i.name LIKE :keyword")
+                .setParameter("keyword", "%" + keyword + "%")
+                .getSingleResult();
+    }
+
+    public Long countByProduce(String keyword) {
+        return (Long) em.createQuery(
+                        "SELECT COUNT(i) FROM Item i WHERE i.produce LIKE :keyword")
                 .setParameter("keyword", "%" + keyword + "%")
                 .getSingleResult();
     }

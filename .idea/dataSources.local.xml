@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-242.22855.74">
+  <component name="dataSourceStorageLocal" created-in="IU-243.24978.46">
     <data-source name="sheepship" uuid="82c69268-a6f5-4580-a079-8a74f48154f0">
       <database-info product="MariaDB" version="11.5.2-MariaDB" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="3.3.3" dbms="MARIADB" exact-version="11.5.2" exact-driver-version="3.3">
         <extra-name-characters>#@</extra-name-characters>
@@ -14,6 +14,11 @@
           <node kind="schema" qname="@" />
         </introspection-scope>
       </schema-mapping>
+    </data-source>
+    <data-source name="sheepship@localhost" uuid="9155023d-cfd0-4d5e-9708-8ca683c5d1cf">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" />
+      <user-name>root</user-name>
+      <schema-mapping />
     </data-source>
   </component>
 </project>

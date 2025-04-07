@@ -20,7 +20,10 @@ public class MemberRepository {
     }
     //회원탈퇴
     public void delete(Member member) {
-        em.remove(member);
+        em.createQuery("delete from Member m " +
+                        "where m.id = :memberId")
+                .setParameter("memberId", member.getId())
+                .executeUpdate();
     }
 
     //로그인

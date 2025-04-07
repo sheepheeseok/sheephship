@@ -37,6 +37,12 @@ public class ItemService {
         return itemById;
     }
 
+    //업데이트 만들기
+//    public Item
+//    UpdateItem(Item item) {
+//
+//    }
+
 
 
     //아이템 검색
@@ -56,7 +62,7 @@ public class ItemService {
         );
 
         List<SearchItemSimplDto> searchItems = itemRepository.searchItems(keyword,searchType,adjustedPageable);
-        Long total = itemRepository.countByName(keyword);
+        Long total = (searchItems.equals("name")) ?itemRepository.countByName(keyword) : itemRepository.countByProduce(keyword);
 
         return new PageImpl<>(searchItems, adjustedPageable, total);
     }

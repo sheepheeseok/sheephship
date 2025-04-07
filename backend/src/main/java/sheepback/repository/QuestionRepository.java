@@ -15,15 +15,21 @@ public class QuestionRepository {
 
     public void save(ItemQuestion itemQuestion) {
         em.persist(itemQuestion);
+
+        em.flush();
+        em.clear();
     }
 
     public void delete(ItemQuestion itemQuestion) {
         em.remove(itemQuestion);
+
+        em.flush();
+        em.clear();
     }
 
-    public Page<ItemQuestion> findAll(Pageable pageable) {
-
-    }
+//    public Page<ItemQuestion> findAll(Pageable pageable) {
+//
+//    }
 
 
 }
