@@ -4,29 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a0c40a4-086d-4962-9b79-4d7f94073d8c" name="변경" comment="ITEM찾는건 ITEM REPO와 ITEM SERVICE부분으로 바꾸고 item 저장 (CATEGORY와 COLOR,ITEM_IMG까지 저장됨) 카테고리 클릭(반환시) 정렬과 함께 페이지 네이션 적용">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/ReviewApiController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ReviewQuery/ReviewAndAnswerDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/ReviewAndAnswerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="3a0c40a4-086d-4962-9b79-4d7f94073d8c" name="변경" comment="Review Api 완성">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/QuestionStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/QuestionQuery/QuestionAndAnswerDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/QuestionQuery/QuestionAnswerDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/QuestionQuery/QuestionDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/ItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/ItemRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/MemberRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/MemberRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/InitDb.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/InitDb.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/InitService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/InitService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/ItemService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/ItemService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/ItemQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/ItemQuestion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/Review.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/ReviewAnswer.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/ReviewAnswer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/MemberRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/QuestionAnswer.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/QuestionAnswer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/QuestionAnswerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/QuestionAnswerRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/QuestionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/QuestionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ReviewAnswerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ReviewAnswerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ReviewRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ReviewRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/InitDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/InitDb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/InitService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/InitService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/ItemService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,8 +50,8 @@
       <list>
         <option value="JavaScript File" />
         <option value="JSX File" />
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -138,8 +125,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="sheepback.repository.ReviewQuery" />
       <recent name="sheepback.domain" />
+      <recent name="sheepback.repository.ReviewQuery" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/frontend/public/icons" />
@@ -321,7 +308,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743521392133</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Review Api 완성">
+      <option name="closed" value="true" />
+      <created>1744038587590</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1744038587590</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,7 +356,8 @@
     <MESSAGE value="반 최종 MemberController완성" />
     <MESSAGE value="강제로 집어넣기2" />
     <MESSAGE value="ITEM찾는건 ITEM REPO와 ITEM SERVICE부분으로 바꾸고 item 저장 (CATEGORY와 COLOR,ITEM_IMG까지 저장됨) 카테고리 클릭(반환시) 정렬과 함께 페이지 네이션 적용" />
-    <option name="LAST_COMMIT_MESSAGE" value="ITEM찾는건 ITEM REPO와 ITEM SERVICE부분으로 바꾸고 item 저장 (CATEGORY와 COLOR,ITEM_IMG까지 저장됨) 카테고리 클릭(반환시) 정렬과 함께 페이지 네이션 적용" />
+    <MESSAGE value="Review Api 완성" />
+    <option name="LAST_COMMIT_MESSAGE" value="Review Api 완성" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
