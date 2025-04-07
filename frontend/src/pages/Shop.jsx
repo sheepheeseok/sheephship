@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom"; // Link 컴포넌트 import
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const allProducts = [
@@ -40,6 +40,7 @@ const Shop = () => {
     const [activeMenu, setActiveMenu] = useState("ALL");
     const [setHoveredProduct] = useState(null);
     const productsPerPage = 16;
+    const navigate = useNavigate();
     
     // 카테고리에 맞는 상품 필터링
     const filteredProducts = activeMenu === "ALL" ? allProducts : allProducts.filter(product => product.category === activeMenu);
@@ -67,9 +68,9 @@ const Shop = () => {
                              key={product.id}
                              onMouseEnter={() => setHoveredProduct(product.id)}
                              onMouseLeave={() => setHoveredProduct(null)}>
-                            <Link to={`/product/${product.id}`} className="product-link">
+                            <div className="product-link" onClick={() => navigate(`/product/${product.id}`)} style={{ cursor: 'pointer' }}>
                                 <img src={product.img} alt={product.title} />
-                            </Link>
+                            </div>
                             <p>{product.title}</p>
                             {product.sale ? (
                                 <div className="price">

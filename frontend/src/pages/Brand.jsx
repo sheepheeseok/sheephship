@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Brand = () => {
+    const navigate = useNavigate();
 
     return (
         <div className="container">
@@ -36,14 +37,14 @@ const Brand = () => {
                     <img src="/imgs/brand/shop_find.png" alt="클라이밍 위치 찾기" className="image" />
                     <h2 className="cardTitle">클라이밍짐 위치 찾기</h2>
                     <p className="cardText">클라이밍짐 위치를 한 눈에 찾아보기</p>
-                    <Link to="/center" className="buttonBlue">CENTER</Link>
+                    <button className="buttonBlue" onClick={() => navigate("/center")}>CENTER</button>
                 </div>
                 <div className="contentCard">
                     <img src="/imgs/brand/root_find.png" alt="루트파인딩" className="image" />
                     <h2 className="cardTitle">루트파인드(Route Find)</h2>
                     <p className="cardText">문제를 풀다가 정답이 궁금할때<br/>
                     ※루트파인드: 클라이밍 할 때, 올라가는 길을 미리 생각하는것</p>
-                    <Link to="/rootfind" className="buttonBlue">ROOTFIND</Link>
+                    <button className="buttonBlue" onClick={() => navigate("/rootfind")}>ROOTFIND</button>
                 </div>
             </div>
 
@@ -52,7 +53,7 @@ const Brand = () => {
                 <img src="/imgs/brand/Link.png" alt="클라이밍 용품" className="image" />
                 <h2 className="cardTitle">클라이밍 용품</h2>
                 <p className="cardText">암벽화와 클라이밍 용품을 할인된 가격에 구매할 수 있습니다.</p>
-                <Link to="/shop" className="buttonBlue">SHOP</Link>
+                <button className="buttonBlue" onClick={() => navigate("/shop")}>SHOP</button>
             </div>
         </div>
     )
