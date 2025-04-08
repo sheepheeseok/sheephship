@@ -29,6 +29,7 @@ public class InitDb {
         //initService.create100Item();
         // initService.create1Item();
         initService.createReviewandAnswer();
+        initService.createHasSizeItem();
     }
 
 

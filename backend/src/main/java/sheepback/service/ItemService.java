@@ -8,6 +8,8 @@ import sheepback.domain.Category;
 import sheepback.domain.item.Color;
 import sheepback.domain.item.Item;
 import sheepback.domain.item.ItemImg;
+import sheepback.domain.item.Size;
+import sheepback.repository.ItemQuery.HasSizeItemDto;
 import sheepback.repository.ItemQuery.NoHasSizeItemDto;
 import sheepback.repository.ItemQuery.ItemByCategorySimpleDto;
 import sheepback.repository.ItemCategoryRepository;
@@ -27,12 +29,22 @@ public class ItemService {
     //아이템 추가
     public void insertItem(Item item, List<Category> categories, ItemImg itemImg,
                            List<Color> colors) {
-        itemRepository.save(item, categories, itemImg, colors);
+        itemRepository.noSizeSave(item, categories, itemImg, colors);
+    }
+
+    public void inserthasSize(Item item, List<Category> categories, ItemImg itemImg,
+                           List<Color> colors, List<Size> sizes) {
+        itemRepository.hasSizeSave(item, categories, itemImg, colors, sizes);
     }
 
     //아이디 받아 상세 제품 전체 보내주기
     public NoHasSizeItemDto getItemById(Long id) {
         NoHasSizeItemDto itemById = itemRepository.getAllItembyId(id);
+        return itemById;
+    }
+
+    public HasSizeItemDto getItemById_size(Long id) {
+        HasSizeItemDto itemById = itemRepository.getAllItembyId_size(id);
         return itemById;
     }
 

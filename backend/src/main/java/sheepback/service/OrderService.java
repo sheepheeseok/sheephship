@@ -12,9 +12,12 @@ import sheepback.domain.item.Size;
 import sheepback.repository.ItemRepository;
 import sheepback.repository.MemberRepository;
 import sheepback.repository.OrderItemRepository;
+import sheepback.repository.OrderQuery.AddressDto;
 import sheepback.repository.OrderQuery.ItemsDto;
+import sheepback.repository.OrderQuery.SimpleOrderListDto;
 import sheepback.repository.OrderRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,11 +37,15 @@ public class OrderService {
 
     @Transactional
     public Long order(String memberId, List<ItemsDto> itemsDtos,
-                      String paymentMethod, String requireMents){
+                      String paymentMethod, String requireMents, AddressDto addressDto){
 
         Member member = memberRepository.insertToOrder(memberId);
         Delivery delivery  = new Delivery();
-        delivery.setAddress(member.getAddress());
+        if (addressDto.getAddress() != null) {
+            delivery.setAddress(addressDto.getAddress());
+        }else{
+            delivery.setAddress(member.getAddress());
+        }
         delivery.setDeliveryStatus(DeliveryStatus.ORDERCONFIRM);
         List<OrderItems> orderItems = new ArrayList<>();
         for (ItemsDto itemsDto : itemsDtos) {
@@ -60,6 +67,11 @@ public class OrderService {
         }
 
         return orderRepository.order(member, delivery, orderItems, paymentMethod, requireMents);
+    }
+
+    public List<SimpleOrderListDto> findOrderList(LocalDateTime begin,
+                                                  LocalDateTime end){
+
     }
 
     public void cancleOrder(Long orderId, String returnReason){

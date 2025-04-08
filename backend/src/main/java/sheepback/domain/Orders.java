@@ -27,8 +27,10 @@ public class Orders {
 
     private String returnReason;//환불사유
 
+    //결제수단
     private String paymentMethod;
 
+    //배송요청
     private String requireMents;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
