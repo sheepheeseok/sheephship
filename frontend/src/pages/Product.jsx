@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import useProduct from "../hooks/ProductHook";
 
 const Product = () => {
+    const { ProductData, loading, error } = useProduct();
+
     {/* 제품 개수 카운팅 버튼 */}
     const [quantity, setQuantity] = useState(1);
     const increaseQuantity = () => {
@@ -19,7 +22,13 @@ const Product = () => {
     };
 
     {/* 제품 메인 로고 변경 */}
-    const [currentImage, setCurrentImage] = useState("/imgs/product1.png");
+    const [currentImage, setCurrentImage] = useState(null); // 초기값 null
+    useEffect(() => {
+        if (ProductData.mainUrl) {
+            setCurrentImage(ProductData.mainUrl);
+        }
+    }, [ProductData]); // ProductData가 변경될 때 실행
+
     const changeImage = (imageSrc) => {
         setCurrentImage(imageSrc);
     };
@@ -31,9 +40,46 @@ const Product = () => {
                 <img src={currentImage} alt="Product-img" className="Product-img"/>
 
                 <div className="Product-box">
-                    <h1>쉽쉽 메탈립 초크백 그레이 (grey)</h1>
+                    <h1>{ProductData.name}</h1>
 
-                    <h2 style={{marginTop: "23px"}}>32,000원</h2>
+                    <div className="Product-priceinfo">
+                        <h2 style={{marginTop: "23px"}}>{ProductData.price?.toLocaleString()}원</h2>
+                        <div className="tooltip-container">
+                        <img src="/icons/info.svg" alt="info-icon" className="info-icon"
+                             style={{width: "20px", height: "20px", display: "flex"}}/>
+                            <div className="tooltip-box">
+                                <h1>등급별 할인</h1>
+                                <ul>
+                                    <li><img src="/imgs/grade/red_grade.png" alt="grade-icon" className="grade-icon"/>
+                                        RED 3%
+                                    </li>
+                                    <div className="grade-line"/>
+                                    <li><img src="/imgs/grade/yellow_grade.png" alt="grade-icon"
+                                             className="grade-icon"/>YELLOW 5%
+                                    </li>
+                                    <div className="grade-line"/>
+                                    <li><img src="/imgs/grade/navy_grade.png" alt="grade-icon" className="grade-icon"/>
+                                        NAVY 7%
+                                    </li>
+                                    <div className="grade-line"/>
+                                    <li><img src="/imgs/grade/purple_grade.png" alt="grade-icon"
+                                             className="grade-icon"/>
+                                        PURPLE 9%
+                                    </li>
+                                    <div className="grade-line"/>
+                                    <li><img src="/imgs/grade/brown_grade.png" alt="grade-icon"
+                                             className="grade-icon"/>
+                                        BROWN 12%
+                                    </li>
+                                    <div className="grade-line"/>
+                                    <li><img src="/imgs/grade/black_grade.png" alt="grade-icon"
+                                             className="grade-icon"/>
+                                        BLACK 15%
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
                     <h2 style={{marginTop: "28px"}}>메탈립 원단으로 제작된 초크백입니다.</h2>
 
@@ -43,14 +89,14 @@ const Product = () => {
                     <h2 style={{marginTop: "38px"}}>리드 등반 시 방해 받지 않도록 가볍고 심플하게 제작했습니다.</h2>
 
                     <div className="product-buyinfo" style={{marginTop: "27px"}}>
-                        <h1>적립금</h1>
+                    <h1>적립금</h1>
                         <h2>1%</h2>
                         <img src="/icons/info.svg" alt="info-icon" className="info-icon"/>
                     </div>
                     <div className="product-buyinfo" style={{marginTop: "15.5px"}}>
                         <h1>배송비</h1>
                         <div className="deliverly-info">
-                            <h2>3,000원 (50,000원 이상 구매 시 무료)</h2>
+                            <h2>{ProductData.deliveryFee?.toLocaleString()}원 (50,000원 이상 구매 시 무료)</h2>
                             <h2>제주 및 도서 산간 3,000원 추가</h2>
                         </div>
                     </div>
@@ -69,11 +115,11 @@ const Product = () => {
                     <div className="buy-result-box">
                         <div className="buy-per-box">
                             <h1>주문 수량</h1>
-                            <h2>1개</h2>
+                            <h2>{quantity}개</h2>
                         </div>
                         <div className="buy-per-box">
                             <h1>총 상품 금액</h1>
-                            <h2>32,000원</h2>
+                            <h2>{(ProductData.price  * quantity)?.toLocaleString()}원</h2>
                         </div>
                     </div>
 
@@ -95,10 +141,10 @@ const Product = () => {
                 </div>
             </div>
             <div className="product-img-info">
-                <img src="/imgs/product1.png" alt="product1" className="info-product-img" onClick={() => changeImage("/imgs/product1.png")} onMouseEnter={() => handleImageHover("/imgs/product1.png")}/>
-                <img src="/imgs/product2.png" alt="product2" className="info-product-img" onClick={() => changeImage("/imgs/product2.png")} onMouseEnter={() => handleImageHover("/imgs/product1.png")}/>
-                <img src="/imgs/product3.png" alt="product3" className="info-product-img" onClick={() => changeImage("/imgs/product3.png")} onMouseEnter={() => handleImageHover("/imgs/product1.png")}/>
-                <img src="/imgs/product4.png" alt="product4" className="info-product-img" onClick={() => changeImage("/imgs/product4.png")} onMouseEnter={() => handleImageHover("/imgs/product1.png")}/>
+            <img src={ProductData.mainUrl} alt="product1" className="info-product-img" onClick={() => changeImage(ProductData.mainUrl)} />
+                <img src={ProductData.itemImg.subUrl1} alt="product2" className="info-product-img" onClick={() => changeImage(ProductData.itemImg.subUrl1)}/>
+                <img src={ProductData.itemImg.subUrl2} alt="product3" className="info-product-img" onClick={() => changeImage(ProductData.itemImg.subUrl2)}/>
+                <img src={ProductData.itemImg.subUrl3} alt="product4" className="info-product-img" onClick={() => changeImage(ProductData.itemImg.subUrl3)}/>
             </div>
 
             <div className="product-info-title">
@@ -132,17 +178,17 @@ const Product = () => {
                 </button>
 
                 <div className="image-container" style={{maxHeight: isExpanded ? 'none' : '400px'}}>
-                    <img src="/imgs/product1.png" alt="p-detail-img" className="p-detail-img"
+                    <img src={ProductData.mainUrl} alt="p-detail-img" className="p-detail-img"
                          style={{marginTop: "96px"}}/>
                     <h1>DETAILS</h1>
-                    <img src="/imgs/p-detail-img2.png" alt="p-detail-img" className="p-detail-img"/>
-                    <img src="/imgs/p-detail-img3.png" alt="p-detail-img" className="p-detail-img"
+                    <img src={ProductData.itemImg.detailUrl1} alt="p-detail-img" className="p-detail-img"/>
+                    <img src={ProductData.itemImg.detailUrl2} alt="p-detail-img" className="p-detail-img"
                          style={{marginTop: "64px"}}/>
-                    <img src="/imgs/p-detail-img4.png" alt="p-detail-img" className="p-detail-img"
+                    <img src={ProductData.itemImg.detailUrl3} alt="p-detail-img" className="p-detail-img"
                          style={{marginTop: "64px"}}/>
                     <h2 style={{marginTop: "100px"}}>*상품의 색상은 모니터 해상도에 따라 실제 색상과 다소 차이가 있을 수 있으며 구매 전 상세 사진을 꼼꼼히 확인
                         바랍니다.</h2>
-                    <img src="/imgs/p-detail-img5.png" alt="p-detail-img" className="p-detail-img"
+                    <img src={ProductData.itemImg.detailUrl4} alt="p-detail-img" className="p-detail-img"
                          style={{marginTop: "5px"}}/>
                 </div>
 
