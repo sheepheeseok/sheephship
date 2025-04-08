@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a0c40a4-086d-4962-9b79-4d7f94073d8c" name="변경" comment="검색기능 완성 리뷰기능 시작">
+    <list default="true" id="3a0c40a4-086d-4962-9b79-4d7f94073d8c" name="변경" comment="상품문의 완성안하고 주문 서비스 제작중">
       <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/OrderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/DeliveryRepository.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/MemberQuery/OrderMemberDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/OrderItemRepository.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/OrderQuery/ItemsDto.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/OrderRepository.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/OrderService.java" afterDir="false" />
@@ -336,7 +334,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743921519208</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="상품문의 완성안하고 주문 서비스 제작중">
+      <option name="closed" value="true" />
+      <created>1744099266804</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1744099266804</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -377,7 +383,8 @@
     <MESSAGE value="강제로 집어넣기2" />
     <MESSAGE value="ITEM찾는건 ITEM REPO와 ITEM SERVICE부분으로 바꾸고 item 저장 (CATEGORY와 COLOR,ITEM_IMG까지 저장됨) 카테고리 클릭(반환시) 정렬과 함께 페이지 네이션 적용" />
     <MESSAGE value="검색기능 완성 리뷰기능 시작" />
-    <option name="LAST_COMMIT_MESSAGE" value="검색기능 완성 리뷰기능 시작" />
+    <MESSAGE value="상품문의 완성안하고 주문 서비스 제작중" />
+    <option name="LAST_COMMIT_MESSAGE" value="상품문의 완성안하고 주문 서비스 제작중" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
