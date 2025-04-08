@@ -2,7 +2,6 @@ package sheepback.repository;
 
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
@@ -12,6 +11,7 @@ import sheepback.domain.ItemCategory;
 import sheepback.domain.item.Color;
 import sheepback.domain.item.Item;
 import sheepback.domain.item.ItemImg;
+import sheepback.domain.item.Size;
 import sheepback.repository.ItemQuery.*;
 
 import java.util.ArrayList;
@@ -54,10 +54,6 @@ public class ItemRepository {
         em.persist(item);
     }
 
-    //재고확인후 재고 없으면 익셉션 출력
-    public
-
-
 
     public void delete(Item item) {
         em.remove(item);
@@ -68,6 +64,13 @@ public class ItemRepository {
 
     public Item findById(Long id) {
         return em.find(Item.class, id);
+    }
+
+    public Color findByColorId(Long colorId) {
+        return em.find(Color.class, colorId);
+    }
+    public Size findBySizeId(Long sizeId) {
+        return em.find(Size.class, sizeId);
     }
 
     // 제목으로 검색
@@ -166,7 +169,7 @@ public class ItemRepository {
 
 
     @Transactional(readOnly = true)
-    public AllItemDto getAllItembyId(Long itemId){
+    public NoHasSizeItemDto getAllItembyId(Long itemId){
 
         Item item = em.createQuery("select i from Item i join fetch i.itemImg im where i.id = :id", Item.class)
                 .setParameter("id", itemId)
@@ -179,7 +182,7 @@ public class ItemRepository {
 
         ItemImgSimpleDto itemImgSimpleDto = new ItemImgSimpleDto(item.getItemImg());
 
-        return new AllItemDto(
+        return new NoHasSizeItemDto(
                 item.getId(),
                 item.getName(),
                 item.getProduce(),

@@ -30,7 +30,7 @@ public class ItemQuestion {
     private QuestionStatus status;
 
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "question_answer_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "itemQuestion")
     private QuestionAnswer questionAnswers;
 
 

@@ -3,13 +3,12 @@ package sheepback.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import sheepback.domain.Category;
 import sheepback.domain.item.Color;
 import sheepback.domain.item.Item;
 import sheepback.domain.item.ItemImg;
-import sheepback.repository.ItemQuery.AllItemDto;
+import sheepback.repository.ItemQuery.NoHasSizeItemDto;
 import sheepback.repository.ItemQuery.ItemByCategorySimpleDto;
 import sheepback.repository.ItemCategoryRepository;
 import sheepback.repository.ItemQuery.SearchItemSimplDto;
@@ -32,8 +31,8 @@ public class ItemService {
     }
 
     //아이디 받아 상세 제품 전체 보내주기
-    public AllItemDto getItemById(Long id) {
-        AllItemDto itemById = itemRepository.getAllItembyId(id);
+    public NoHasSizeItemDto getItemById(Long id) {
+        NoHasSizeItemDto itemById = itemRepository.getAllItembyId(id);
         return itemById;
     }
 
