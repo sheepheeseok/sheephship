@@ -2,10 +2,11 @@ package sheepback.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 import sheepback.domain.item.Item;
 
 @Entity
-@Getter
+@Getter @Setter
 public class OrderItems {
 
     @Id
@@ -14,7 +15,7 @@ public class OrderItems {
     private Long id;//주문 상품 고유번호
 
 
-    private Long count;//갯수
+    private Long quentity;//갯수
 
     private Long orderPrice;//구매 가격
 
@@ -25,6 +26,7 @@ public class OrderItems {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private Orders order; //다대일 조인 ORDERS
+
 
 
 

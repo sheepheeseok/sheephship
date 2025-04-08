@@ -53,6 +53,12 @@ public class ItemRepository {
 
         em.persist(item);
     }
+
+    //재고확인후 재고 없으면 익셉션 출력
+    public
+
+
+
     public void delete(Item item) {
         em.remove(item);
     }

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 import sheepback.domain.Member;
+import sheepback.repository.MemberQuery.OrderMemberDto;
 
 import java.util.List;
 
@@ -55,6 +56,15 @@ public class MemberRepository {
         return result.stream().findFirst().orElse(null);
 
     }
+
+
+    public OrderMemberDto OrderfindbyId(String id){
+
+        Member member = em.find(Member.class, id);
+        return new OrderMemberDto(member);
+
+    }
+
     //회원 정보 출력
     public Member findbyId(String id) {
         Member member = em.find(Member.class, id);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import sheepback.domain.Address;
 import sheepback.domain.Grade;
 import sheepback.domain.Member;
+import sheepback.repository.MemberQuery.OrderMemberDto;
 import sheepback.service.MemberService;
 
 import java.util.List;
@@ -58,6 +59,9 @@ public class MemberApiController {
         System.out.println("check = " + check);
         return check;
     }
+
+    @GetMapping("/api/getAddress/{id}")
+
 
     //로그인 api 값확인후 Id 쿠키로 반환
     @PostMapping("/api/login")
@@ -129,6 +133,11 @@ public class MemberApiController {
 
         return myPageDto;
 
+    }
+
+    @GetMapping("/api/OrderMemberbyId/{id}")
+    public OrderMemberDto OrderMemberbyId(@PathVariable("id") String id) {
+        return memberService.getOrderMemberById(id);
     }
 
 
