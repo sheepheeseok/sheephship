@@ -72,6 +72,15 @@ public class MemberRepository {
 
     }
 
+    //회원 정보 출력
+    public Member insertToOrder(String id) {
+        return em.createQuery("select distinct m from Member m " +
+                "Left join fetch m.orders where m.id = :id", Member.class)
+                .setParameter("id", id)
+                .getSingleResult();
+
+    }
+
     //회원정보 찾기
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class).getResultList();

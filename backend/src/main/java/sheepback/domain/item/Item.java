@@ -82,4 +82,11 @@ public class Item {
     public Item() {
 
     }
+
+    public void addOrderItem(OrderItems orderItem) {
+        this.orderItems.add(orderItem); // 컬렉션 초기화 보장
+        orderItem.setItem(this);
+    }
+
+
 }

@@ -16,6 +16,7 @@ public class Delivery {
     @Embedded
     private Address address; //주소 임베디드 타입
 
+    @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus; // 배송현황
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "delivery")

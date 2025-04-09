@@ -1,14 +1,12 @@
 package sheepback.repository.ItemQuery;
 
 import lombok.Data;
-import sheepback.domain.item.ItemImg;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class AllItemDto {
-
+public class HasSizeItemDto {
 
 
     private Long id;
@@ -20,13 +18,12 @@ public class AllItemDto {
     private String mainUrl;
     private Long salesVolume;
     private String contents;
-    private List<ColorSimpleDto> colors;
+    private List<ColorSizeSimpleDto> colors;
     ItemImgSimpleDto itemImg;
 
-
-    public AllItemDto(Long id, String name, String produce,String contents,  LocalDateTime created,
-                      Long price, Long deliveryFee, String mainUrl,
-                      Long salesVolume, List<ColorSimpleDto> colors, ItemImgSimpleDto itemImg) {
+    public HasSizeItemDto(Long id, String name, String produce, String contents, LocalDateTime created,
+                            Long price, Long deliveryFee, String mainUrl,
+                            Long salesVolume, List<ColorSizeSimpleDto> colors, ItemImgSimpleDto itemImg) {
         this.id = id;
         this.name = name;
         this.produce = produce;
@@ -39,9 +36,6 @@ public class AllItemDto {
         this.colors = colors;
         this.itemImg = itemImg;
     }
-
-
-
 
 
 }

@@ -2,7 +2,6 @@ package sheepback.repository;
 
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
@@ -12,6 +11,7 @@ import sheepback.domain.ItemCategory;
 import sheepback.domain.item.Color;
 import sheepback.domain.item.Item;
 import sheepback.domain.item.ItemImg;
+import sheepback.domain.item.Size;
 import sheepback.repository.ItemQuery.*;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class ItemRepository {
 
     private final EntityManager em;
     //제품 상세페이지 후기와 상품문의 따로 만들어 batch결합
-    public void save(Item item, List<Category> categories, ItemImg itemImg, List<Color> colors) {
+    public void noSizeSave(Item item, List<Category> categories, ItemImg itemImg, List<Color> colors) {
         // 카테고리 추가
         for (Category category : categories) {
             if(!categories.isEmpty()){
@@ -53,10 +53,39 @@ public class ItemRepository {
 
         em.persist(item);
     }
+    public void hasSizeSave(Item item, List<Category> categories, ItemImg itemImg, List<Color> colors, List<Size> sizes) {
+        // 카테고리 추가
+        for (Category category : categories) {
+            if(!categories.isEmpty()){
+                ItemCategory itemCategory = new ItemCategory();
+                itemCategory.setCategory(category);
+                itemCategory.setItem(item);
+                em.persist(itemCategory);
+                category.getCategories().add(itemCategory);
+                item.getCategories().add(itemCategory);
+            }else{
+                throw new ArrayIndexOutOfBoundsException();
+            }
+        }
 
-    //재고확인후 재고 없으면 익셉션 출력
-    public
+        // 색상 추가
+        for (Color color : colors) {
+            if(!colors.isEmpty()) {
+                color.setItem(item);
+                for (Size size : sizes) {
+                    size.setColor(color);
+                    color.getSizes().add(size);
+                }
+                item.getColors().add(color);
+            }else{
+                throw new ArrayIndexOutOfBoundsException();
+            }
+        }
 
+        item.setItemImg(itemImg);
+
+        em.persist(item);
+    }
 
 
     public void delete(Item item) {
@@ -68,6 +97,13 @@ public class ItemRepository {
 
     public Item findById(Long id) {
         return em.find(Item.class, id);
+    }
+
+    public Color findByColorId(Long colorId) {
+        return em.find(Color.class, colorId);
+    }
+    public Size findBySizeId(Long sizeId) {
+        return em.find(Size.class, sizeId);
     }
 
     // 제목으로 검색
@@ -163,10 +199,17 @@ public class ItemRepository {
                 .setParameter("id", id).getResultList();
     }
 
+    private List<Color> getColorsWithSizes(Long itemId) {
+        return em.createQuery(
+                        "SELECT DISTINCT c FROM Color c " +
+                                "JOIN FETCH c.sizes WHERE c.item.id = :itemId", Color.class)
+                .setParameter("itemId", itemId)
+                .getResultList();
+    }
 
 
     @Transactional(readOnly = true)
-    public AllItemDto getAllItembyId(Long itemId){
+    public NoHasSizeItemDto getAllItembyId(Long itemId){
 
         Item item = em.createQuery("select i from Item i join fetch i.itemImg im where i.id = :id", Item.class)
                 .setParameter("id", itemId)
@@ -179,7 +222,7 @@ public class ItemRepository {
 
         ItemImgSimpleDto itemImgSimpleDto = new ItemImgSimpleDto(item.getItemImg());
 
-        return new AllItemDto(
+        return new NoHasSizeItemDto(
                 item.getId(),
                 item.getName(),
                 item.getProduce(),
@@ -190,6 +233,35 @@ public class ItemRepository {
                 item.getMainUrl(),
                 item.getSalesVolume(),
                 colorSimpleDtos,
+                itemImgSimpleDto);
+
+    }
+
+    @Transactional(readOnly = true)
+    public HasSizeItemDto getAllItembyId_size(Long itemId){
+
+        Item item = em.createQuery("select i from Item i join fetch i.itemImg im where i.id = :id", Item.class)
+                .setParameter("id", itemId)
+                .getSingleResult();
+
+        List<Color> colors = getColorsWithSizes(itemId);
+
+        List<ColorSizeSimpleDto> ColorSizeSimpleDtos = colors.stream()
+                .map(ColorSizeSimpleDto::new).collect(Collectors.toList());
+
+        ItemImgSimpleDto itemImgSimpleDto = new ItemImgSimpleDto(item.getItemImg());
+
+        return new HasSizeItemDto(
+                item.getId(),
+                item.getName(),
+                item.getProduce(),
+                item.getContents(),
+                item.getCreated(),
+                item.getPrice(),
+                item.getDeliveryFee(),
+                item.getMainUrl(),
+                item.getSalesVolume(),
+                ColorSizeSimpleDtos,
                 itemImgSimpleDto);
 
     }
