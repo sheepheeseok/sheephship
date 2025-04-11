@@ -3,12 +3,11 @@ package sheepback.controller;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sheepback.domain.Address;
 import sheepback.repository.OrderQuery.AddressDto;
 import sheepback.repository.OrderQuery.ItemsDto;
+import sheepback.repository.OrderQuery.OrderDetailDto;
 import sheepback.repository.OrderQuery.SimpleOrderListDto;
 import sheepback.service.OrderService;
 
@@ -35,6 +34,12 @@ public class OrderController {
     public List<SimpleOrderListDto> getItemByDate(@RequestBody orderListRequest request){
         List<SimpleOrderListDto> orderList = orderService.findOrderList(request.getStart(), request.getEnd(), request.getMemberId());
         return orderList;
+    }
+
+    @GetMapping("/api/getOrderDetail/{id}")
+    public OrderDetailDto getOrderDetail(@PathVariable("id") Long id){
+        OrderDetailDto orderDetail = orderService.getOrderDetail(id);
+        return orderDetail;
     }
 
     //주문 취소

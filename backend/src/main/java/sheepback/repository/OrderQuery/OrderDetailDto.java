@@ -1,20 +1,22 @@
 package sheepback.repository.OrderQuery;
 
 import lombok.Data;
+import sheepback.domain.Address;
 import sheepback.domain.DeliveryStatus;
 import sheepback.domain.Status;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
 public class OrderDetailDto {
 
     private String name;
-    private AddressDto address;
+    private Address address;
     private String phoneNumber;
     private String requirements;
     private DeliveryStatus deliveryStatus;
-    private String orderId;
+    private Long orderId;
     private String mainUrl;
     private String title;
     private Long count;
@@ -23,11 +25,11 @@ public class OrderDetailDto {
     private String paymentMethod;
     private Long point;
     private Status status;
-    private LocalDateTime orderDate;
+    private LocalDate orderDate;
 
-    public OrderDetailDto(String name, AddressDto address,
+    public OrderDetailDto(String name, Address address,
                           String phoneNumber, String requirements,
-                          DeliveryStatus deliveryStatus, String orderId,
+                          DeliveryStatus deliveryStatus, Long orderId,
                           String mainUrl, String title, Long count, Long orderPrice,
                           Long deliveryFee, String paymentMethod,
                           Long point, Status status, LocalDateTime orderDate) {
@@ -45,6 +47,6 @@ public class OrderDetailDto {
         this.paymentMethod = paymentMethod;
         this.point = point;
         this.status = status;
-        this.orderDate = orderDate;
+        this.orderDate = orderDate.toLocalDate();
     }
 }

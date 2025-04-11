@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import sheepback.domain.*;
+import sheepback.repository.OrderQuery.OrderDetailDto;
 import sheepback.repository.OrderQuery.SimpleOrderListDto;
 
 import java.sql.Timestamp;
@@ -22,17 +23,22 @@ public class OrderRepository {
 
     public Long order(Member member, Delivery delivery, List<OrderItems> orderItems, String paymentMethod, String requireMents) {
 
+        double point = 0L;
         //멤버 추가
+
         Orders orders = new Orders();
         orders.setMember(member);
+
         //배송정보 추가
         orders.setDelivery(delivery);
         //오더 아이템 추가
         for (OrderItems orderItem : orderItems) {
             orders.setOrderItems(orderItems);
             orderItem.setOrder(orders);
+           point += orderItem.getOrderPrice() * 0.05;
         }
-
+        member.setPoint( (member.getPoint() +(long) point));
+        orders.setPoint((long) point);
         orders.setPaymentMethod(paymentMethod);
         orders.setRequireMents(requireMents);
         orders.setOrderDate(LocalDateTime.now());
@@ -61,6 +67,23 @@ public class OrderRepository {
                 .getResultList();
         return resultList;
 
+    }
+
+    public OrderDetailDto getOrderDetail(Long id) {
+       OrderDetailDto orderDetail = em.createQuery("select new " +
+                "sheepback.repository.OrderQuery.OrderDetailDto(m.name, d.address," +
+                " m.phoneNumber, o.requireMents, d.deliveryStatus, o.id" +
+                ", i.mainUrl, i.name, oi.quantity, oi.orderPrice, i.deliveryFee, o.paymentMethod" +
+                ", o.point, o.status, o.orderDate)" +
+                " from Orders o " +
+                "join o.orderItems oi " +
+                "join o.delivery d " +
+                "join oi.item i " +
+                "join o.member m " +
+                "where o.id = :id", OrderDetailDto.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        return orderDetail;
     }
 
     public String refund(Orders order, String reason) {

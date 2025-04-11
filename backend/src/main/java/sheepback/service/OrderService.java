@@ -85,7 +85,12 @@ public class OrderService {
     }
 
     public OrderDetailDto getOrderDetail(Long orderId){
-
+        OrderDetailDto orderDetail = orderRepository.getOrderDetail(orderId);
+        if (orderDetail == null) {
+            return null;
+        }else{
+            return orderDetail;
+        }
     }
 
     public void cancleOrder(Long orderId, String returnReason){
