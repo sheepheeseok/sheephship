@@ -14,6 +14,7 @@ import sheepback.repository.MemberRepository;
 import sheepback.repository.OrderItemRepository;
 import sheepback.repository.OrderQuery.AddressDto;
 import sheepback.repository.OrderQuery.ItemsDto;
+import sheepback.repository.OrderQuery.OrderDetailDto;
 import sheepback.repository.OrderQuery.SimpleOrderListDto;
 import sheepback.repository.OrderRepository;
 
@@ -70,7 +71,20 @@ public class OrderService {
     }
 
     public List<SimpleOrderListDto> findOrderList(LocalDateTime begin,
-                                                  LocalDateTime end){
+                                                  LocalDateTime end, String memberId){
+
+
+        List<SimpleOrderListDto> simpleOrderListDtos = orderRepository.findbyDate(begin, end, memberId);
+        if (simpleOrderListDtos.size() > 0) {
+            return simpleOrderListDtos;
+        }else {
+            return null;
+        }
+
+
+    }
+
+    public OrderDetailDto getOrderDetail(Long orderId){
 
     }
 

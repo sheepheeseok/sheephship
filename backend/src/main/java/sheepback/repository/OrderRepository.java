@@ -2,12 +2,15 @@ package sheepback.repository;
 
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.Order;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import sheepback.domain.*;
+import sheepback.repository.OrderQuery.SimpleOrderListDto;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,6 +42,24 @@ public class OrderRepository {
         return orders.getId();
 
 
+
+    }
+    public List<SimpleOrderListDto> findbyDate(LocalDateTime startDate, LocalDateTime endDate, String memberId) {
+
+
+        List<SimpleOrderListDto> resultList = em.createQuery("select new " +
+                        "sheepback.repository.OrderQuery.SimpleOrderListDto( o.id, " +
+                        "i.mainUrl, i.name, d.deliveryStatus, o.orderDate, oi.quantity, oi.orderPrice) " +
+                        " from Orders o join o.member m" +
+                        " join o.delivery d " +
+                        " join o.orderItems oi" +
+                        " join oi.item i " +
+                        " where m.id = :memberId and o.orderDate between :startDate and :endDate", SimpleOrderListDto.class)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .setParameter("memberId", memberId)
+                .getResultList();
+        return resultList;
 
     }
 

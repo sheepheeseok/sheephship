@@ -6,6 +6,14 @@
         <webroots />
       </configuration>
     </facet>
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping />
+        <naming-strategy-map />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager">
     <output-test url="file://$MODULE_DIR$/../../backend/out/test/classes" />
@@ -14,7 +22,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../backend/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../backend/src/test/resources" type="java-test-resource" />
     </content>
-    <orderEntry type="jdk" jdkName="21" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="20" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="backend.main" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-jpa:3.4.3" level="project" />

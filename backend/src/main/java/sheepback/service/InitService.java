@@ -53,11 +53,11 @@ public class InitService {
 
         // 아이템 생성
         Item item = Item.builder()
-                .name("클라이밍 팬츠")
-                .mainUrl("메인사진 URL")
+                .name("클라이밍 티셔츠")
+                .mainUrl("메인사진 URL123")
                 .deliveryFee(2500L)
-                .produce("클라이밍 제조사")
-                .price(33000L)
+                .produce("클라이밍 제조사ㅂㅈㄷ")
+                .price(220000L)
                 .build();
 
         Member member = createMember("UserA",
