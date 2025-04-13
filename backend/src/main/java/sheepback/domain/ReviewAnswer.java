@@ -2,11 +2,12 @@ package sheepback.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
+@Getter @Setter
 public class ReviewAnswer {
     @Id
     @GeneratedValue
@@ -26,4 +27,5 @@ public class ReviewAnswer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     private Admin admin;
+
 }

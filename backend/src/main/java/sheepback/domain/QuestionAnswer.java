@@ -22,7 +22,7 @@ public class QuestionAnswer {
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private ItemQuestion itemQuestion;
 }

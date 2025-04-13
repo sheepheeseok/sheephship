@@ -1,0 +1,14 @@
+<changelist name="25__4__5__오후_5_09,_업데이트_전에_커밋되지_않은_변경_내용_[변경]" date="1743840570881" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/25__4__5__오후_5_09,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" />
+  <option name="DESCRIPTION" value="25. 4. 5. 오후 5:09, 업데이트 전에 커밋되지 않은 변경 내용 [변경]" />
+  <binary>
+    <option name="BEFORE_PATH" value="backend/out/production/classes/sheepback/service/ItemService.class" />
+    <option name="AFTER_PATH" value="backend/out/production/classes/sheepback/service/ItemService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/25__4__5__오후_5_09,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/ItemService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="backend/out/production/classes/sheepback/repository/ItemRepository.class" />
+    <option name="AFTER_PATH" value="backend/out/production/classes/sheepback/repository/ItemRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/25__4__5__오후_5_09,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/ItemRepository.class" />
+  </binary>
+</changelist>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sheepback.domain.Address;
 import sheepback.domain.Member;
+import sheepback.repository.MemberQuery.OrderMemberDto;
 import sheepback.repository.MemberRepository;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public class MemberService {
     public void deleteMember(Member member) {
         memberRepository.delete(member);
     }
+
+
 
 
     //회원가입
@@ -51,6 +54,10 @@ public class MemberService {
     public Member getMemberById(String id) {
         Member member = memberRepository.findbyId(id);
         return member;
+    }
+
+    public OrderMemberDto getOrderMemberById(String id) {
+        return memberRepository.OrderfindbyId(id);
     }
 
     //아이디 찾기
