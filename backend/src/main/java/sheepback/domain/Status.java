@@ -1,5 +1,5 @@
 package sheepback.domain;
 
 public enum Status {
-    ORDER,CANCLE
+    ORDER, REFUND, CANCLE
 }

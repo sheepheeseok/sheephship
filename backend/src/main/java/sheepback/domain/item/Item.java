@@ -36,6 +36,8 @@ public class Item {
     @ColumnDefault("0")
     private Long price;
 
+    private String contents;
+
     private String mainUrl;
 
     private Long salesVolume;
@@ -65,7 +67,8 @@ public class Item {
     private List<ItemQuestion> itemQuestions = new ArrayList<>();
 
     @Builder
-    public Item(String produce, String name, Long price, String mainUrl, Long deliveryFee) {
+    public Item(String produce, String name, Long price, String mainUrl,
+                String contents, Long deliveryFee) {
         this.produce = produce;
         this.name = name;
         this.salesVolume = 0L;
@@ -73,9 +76,17 @@ public class Item {
         this.mainUrl = mainUrl;
         this.created = LocalDateTime.now();
         this.deliveryFee = deliveryFee;
+        this.contents = contents;
     }
 
     public Item() {
 
     }
+
+    public void addOrderItem(OrderItems orderItem) {
+        this.orderItems.add(orderItem); // 컬렉션 초기화 보장
+        orderItem.setItem(this);
+    }
+
+
 }

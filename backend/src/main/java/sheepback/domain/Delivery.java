@@ -2,9 +2,10 @@ package sheepback.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Delivery {
 
     @Id
@@ -12,9 +13,10 @@ public class Delivery {
     @Column(name = "delivery_id")
     private Long id; //DELIVERY 고유번호
 
-    @Enumerated(EnumType.STRING)
+    @Embedded
     private Address address; //주소 임베디드 타입
 
+    @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus; // 배송현황
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "delivery")
@@ -22,6 +24,8 @@ public class Delivery {
 
 
 }
+
+
 
 //Order order = new Order();
 //order.setStatus(DeliveryStatus.SHIPPED);

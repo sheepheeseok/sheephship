@@ -221,6 +221,7 @@ public class ItemCategorySeviceTest {
                     .mainUrl("url" + i)
                     .deliveryFee(1L + i)
                     .produce("produce" + i)
+                    .contents("콘텐츠"+ i)
                     .price(1L + i)
                     .build();
 

@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.ColumnDefault;
+import sheepback.domain.OrderItems;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -27,6 +31,16 @@ public class Color {
     @ColumnDefault("0")
     private Long stockQuantity;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "color")
+    private List<Size> sizes  = new ArrayList<>();
+
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "selectedColor")
+    private List<OrderItems> orderItems = new ArrayList<>();
+
+
+
+
     @Builder
     public Color(String color, Long stockQuantity) {
         this.color = color;
@@ -35,5 +49,9 @@ public class Color {
 
     public Color() {
 
+    }
+    public void addOrderItem(OrderItems orderItem) {
+        this.orderItems.add(orderItem); // 컬렉션 초기화 보장
+        orderItem.setSelectedColor(this);
     }
 }

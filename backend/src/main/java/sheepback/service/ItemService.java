@@ -3,15 +3,17 @@ package sheepback.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import sheepback.domain.Category;
 import sheepback.domain.item.Color;
 import sheepback.domain.item.Item;
 import sheepback.domain.item.ItemImg;
-import sheepback.repository.ItemQuery.AllItemDto;
+import sheepback.domain.item.Size;
+import sheepback.repository.ItemQuery.HasSizeItemDto;
+import sheepback.repository.ItemQuery.NoHasSizeItemDto;
 import sheepback.repository.ItemQuery.ItemByCategorySimpleDto;
 import sheepback.repository.ItemCategoryRepository;
+import sheepback.repository.ItemQuery.SearchItemSimplDto;
 import sheepback.repository.ItemRepository;
 
 import java.util.List;
@@ -27,33 +29,60 @@ public class ItemService {
     //아이템 추가
     public void insertItem(Item item, List<Category> categories, ItemImg itemImg,
                            List<Color> colors) {
-        itemRepository.save(item, categories, itemImg, colors);
+        itemRepository.noSizeSave(item, categories, itemImg, colors);
+    }
+
+    public void inserthasSize(Item item, List<Category> categories, ItemImg itemImg,
+                           List<Color> colors, List<Size> sizes) {
+        itemRepository.hasSizeSave(item, categories, itemImg, colors, sizes);
     }
 
     //아이디 받아 상세 제품 전체 보내주기
-    public AllItemDto getItemById(Long id) {
-        AllItemDto itemById = itemRepository.getAllItembyId(id);
+    public NoHasSizeItemDto getItemById(Long id) {
+        NoHasSizeItemDto itemById = itemRepository.getAllItembyId(id);
         return itemById;
     }
+
+    public HasSizeItemDto getItemById_size(Long id) {
+        HasSizeItemDto itemById = itemRepository.getAllItembyId_size(id);
+        return itemById;
+    }
+
+    //업데이트 만들기
+//    public Item
+//    UpdateItem(Item item) {
+//
+//    }
 
 
 
     //아이템 검색
-    public Page<Item> searchItemsPage(String keyword,String searchType, @PageableDefault(size = 10, page = 0) Pageable pageable) {
-        List<Item> items = itemRepository.searchItems(keyword,searchType,pageable);
-        Long total = itemRepository.countByName(keyword);
+    public Page<SearchItemSimplDto> searchItemsPage(String keyword, String searchType, Pageable pageable) {
+        // 1. 기본 정렬 조건 설정
+        Sort defaultSort = Sort.by(
+                Sort.Order.desc("created"));
 
-        return new PageImpl<>(items, pageable, total);
+        // 2. 요청 정렬 조건과 결합
+        Sort combinedSort = pageable.getSort().and(defaultSort);
+
+        // 3. 조정된 Pageable 생성
+        Pageable adjustedPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                combinedSort
+        );
+
+        List<SearchItemSimplDto> searchItems = itemRepository.searchItems(keyword,searchType,adjustedPageable);
+        Long total = (searchItems.equals("name")) ?itemRepository.countByName(keyword) : itemRepository.countByProduce(keyword);
+
+        return new PageImpl<>(searchItems, adjustedPageable, total);
     }
 
     //카테고리로 아이템 찾기
     public PageImpl<ItemByCategorySimpleDto> findByCategory(String categoryName, Pageable pageable) {
         // 1. 기본 정렬 조건 설정
         Sort defaultSort = Sort.by(
-                Sort.Order.desc("created"),
-                Sort.Order.desc("price"),
-                Sort.Order.desc("salesVolume")
-        );
+                Sort.Order.desc("created"));
 
         // 2. 요청 정렬 조건과 결합
         Sort combinedSort = pageable.getSort().and(defaultSort);

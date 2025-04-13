@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 import sheepback.domain.Member;
+import sheepback.repository.MemberQuery.OrderMemberDto;
 
 import java.util.List;
 
@@ -20,7 +21,10 @@ public class MemberRepository {
     }
     //회원탈퇴
     public void delete(Member member) {
-        em.remove(member);
+        em.createQuery("delete from Member m " +
+                        "where m.id = :memberId")
+                .setParameter("memberId", member.getId())
+                .executeUpdate();
     }
 
     //로그인
@@ -52,10 +56,28 @@ public class MemberRepository {
         return result.stream().findFirst().orElse(null);
 
     }
+
+
+    public OrderMemberDto OrderfindbyId(String id){
+
+        Member member = em.find(Member.class, id);
+        return new OrderMemberDto(member);
+
+    }
+
     //회원 정보 출력
     public Member findbyId(String id) {
         Member member = em.find(Member.class, id);
         return member;
+
+    }
+
+    //회원 정보 출력
+    public Member insertToOrder(String id) {
+        return em.createQuery("select distinct m from Member m " +
+                "Left join fetch m.orders where m.id = :id", Member.class)
+                .setParameter("id", id)
+                .getSingleResult();
 
     }
 
