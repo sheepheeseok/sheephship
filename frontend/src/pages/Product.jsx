@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import useProduct from "../hooks/ProductHook";
+import { useNavigate } from "react-router-dom";
 
 const Product = () => {
+    const navigate = useNavigate();
     const { ProductData, loading, error } = useProduct();
 
     {/* 제품 개수 카운팅 버튼 */}
@@ -124,7 +126,7 @@ const Product = () => {
                     </div>
 
                     <div className="product-btn-box">
-                        <button className="buy-btn">구매하기</button>
+                        <button className="buy-btn" onClick={() => navigate("/Payment")}>구매하기</button>
                         <button className="product-cart-btn">장바구니</button>
                     </div>
 

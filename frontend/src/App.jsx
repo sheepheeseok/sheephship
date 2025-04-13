@@ -10,6 +10,9 @@ import FloatingButton from "./component/FloatingButton.jsx";
 import Brand from "./pages/Brand.jsx";
 import QnA from "./pages/QnA.jsx";
 import Payment from "./pages/Payment.jsx";
+import Center from "./pages/Center.jsx";
+import MyPage from "./pages/MyPage.jsx";
+import PrivateRoute from "./hooks/PrivateRoute.js";
 
 
 // import React, {useEffect, useState} from 'react';
@@ -33,9 +36,12 @@ function App() {
                 <Route path="/" element={<Home/>} /> {/* 홈 */}
                 <Route path="/Login" element={<Login/>} /> {/* 로그인 */}
                 <Route path="/Signup" element={<Signup/>} /> {/* 회원가입 */}
+                <Route path="/Mypage"
+                       element={<PrivateRoute><MyPage/></PrivateRoute>}/>{" "} { /* 마이페이지 */}
                 <Route path="/Product/:id" element={<Product/>} /> { /* 제품 상세 */}
                 <Route path="/Shop" element={<Shop/>} /> {/* 샵 */}
                 <Route path="/Payment" element={<Payment/>} /> {/* QnA */}
+                <Route path="/Center" element={<Center/>} /> {/* Center */}
                 <Route path="/Brand" element={<Brand/>} /> {/* Brand */}
                 <Route path="/QnA" element={<QnA/>} /> {/* QnA */}
             </Routes>

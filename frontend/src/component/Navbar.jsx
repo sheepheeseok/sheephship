@@ -2,6 +2,22 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const isLoggedIn = document.cookie.includes("loginId");
+
+    const handleProfileClick = () => {
+        if (isLoggedIn) {
+            navigate("/Mypage"); // 로그인 상태면 마이페이지 이동
+        } else {
+            navigate("/Login"); // 로그인 안 되어 있으면 로그인 페이지 이동
+        }
+    };
+
+    const handleLogout = () => {
+        // 쿠키 삭제 (expires를 과거로 설정)
+        document.cookie = "loginId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        alert("로그아웃 되었습니다.");
+        window.location.reload(); // 새로고침하여 로그인 상태 반영
+    };
 
     return (
         <div className="navbar">
@@ -15,7 +31,20 @@ const Navbar = () => {
             <div className="nav-icons">
                 <img src="/icons/search.svg" alt="searchIcon"/>
                 <img src="/icons/market.svg" alt="marketIcon"/>
-                <img src="/icons/profile.svg" alt="profileIcon" onClick={() => navigate("/login")} style={{ cursor: "pointer" }}/>
+                <img
+                    src="/icons/profile.svg"
+                    alt="profileIcon"
+                    onClick={handleProfileClick} // 클릭 시 로그인 상태 체크 후 이동
+                    style={{cursor: "pointer"}}
+                />
+                {isLoggedIn && (
+                    <img
+                        src="/icons/logout.svg" // 추가 아이콘 이미지
+                        alt="extraIcon"
+                        style={{cursor: "pointer"}}
+                        onClick={handleLogout}
+                    />
+                )}
             </div>
         </div>
     )
