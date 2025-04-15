@@ -65,7 +65,7 @@ const QnA = () => {
 
     return (
         <div className="qna-container">
-            <h1 className="faq-title">고객센터</h1>
+            <h1 className="faq-title">Q&A</h1>
             <p className="faq-subtitle">어려움이나 궁금한 점이 있으신가요?</p>
 
             {/* 카테고리 버튼 */}
@@ -102,7 +102,7 @@ const QnA = () => {
                 </button>
             </div>
 
-            {/* FAQ 리스트 */}
+            {/* SERVICE 리스트 */}
             <div className="faq-container">
                 {currentItems.map((faq, index) => (
                     <div
@@ -130,17 +130,18 @@ const QnA = () => {
                 ))}
             </div>
 
-           <div className="faq-pagination">
-               <button className="page-btn" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>«</button>
-               {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((num) => (
-                   <button key={num} className={`page-btn ${currentPage === num ? 'active' : ''}`} onClick={() => setCurrentPage(num)}>
-                       {num}
-                   </button>
-               ))}
-               <button className="page-btn" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>»</button>
-           </div>
+            <div className="faq-pagination">
+                <button className="page-btn" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>«</button>
+                {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((num) => (
+                    <button key={num} className={`page-btn ${currentPage === num ? 'active' : ''}`} onClick={() => setCurrentPage(num)}>
+                        {num}
+                    </button>
+                ))}
+                <button className="page-btn" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>»</button>
+            </div>
         </div>
     );
 };
 
 export default QnA;
+
