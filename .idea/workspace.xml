@@ -4,18 +4,50 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a0c40a4-086d-4962-9b79-4d7f94073d8c" name="변경" comment="날짜기간 검색 완성">
+    <list default="true" id="3a0c40a4-086d-4962-9b79-4d7f94073d8c" name="변경" comment="주문 상세 페이지 데이터 보내기 만드는중 getsingleresult인데 지금 Order에 주문한 제품이 두개라 오류남">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/OrderQuery/OrderItemByItemIdDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/OrderQuery/SimpleItemAndCountDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__4__5___5_09__________.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__4__5__오후_5_09,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/ItemRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__4__5__오후_5_09,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/ItemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__4__5__오후_5_09,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__4__7___7_00__________.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__4__7__오후_7_00,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__4__8___1_41__________.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__4__8__오후_1_41,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/config/webConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/config/webConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/ItemDetailApiController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/ItemDetailApiController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$ChangePw.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$ChangePw.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$FindIdDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$FindIdDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$FindPasswordRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$FindPasswordRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$GetId.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$GetId.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$LoginMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$LoginMember.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$LoginMemberRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$LoginMemberRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$MemberDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$MemberDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$MyPageDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$MyPageDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$RegisterRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$RegisterRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$UpdateMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$UpdateMember.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$UpdateMemberDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController$UpdateMemberDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/MemberApiController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/OrderController$OrderRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/OrderController$OrderRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/OrderController$orderListRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/OrderController$orderListRequest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/controller/OrderController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/domain/Orders.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/domain/Orders.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/OrderQuery/ItemsDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/OrderQuery/ItemsDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/domain/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/domain/Member.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/ItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/ItemRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/OrderQuery/SimpleOrderListDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/OrderQuery/SimpleOrderListDto.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/repository/OrderRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/ItemService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/ItemService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/out/production/classes/sheepback/service/OrderService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/config/webConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/config/webConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/ItemDetailApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/ItemDetailApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/MemberApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/MemberApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/Orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/Orders.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/OrderQuery/OrderDetailDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/OrderQuery/OrderDetailDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/domain/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/ItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/OrderQuery/SimpleOrderListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/OrderQuery/SimpleOrderListDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/repository/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/ItemService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/sheepback/service/OrderService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,6 +169,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="sheepback.repository.OrderQuery" />
       <recent name="sheepback.repository.ItemQuery" />
       <recent name="sheepback.domain" />
     </key>
@@ -216,7 +249,10 @@
       <workItem from="1743599892041" duration="6996000" />
       <workItem from="1743914716650" duration="5801000" />
       <workItem from="1744255559036" duration="373000" />
-      <workItem from="1744347958273" duration="8461000" />
+      <workItem from="1744347958273" duration="8601000" />
+      <workItem from="1744537832308" duration="2010000" />
+      <workItem from="1744691966204" duration="957000" />
+      <workItem from="1744693216055" duration="13388000" />
     </task>
     <task id="LOCAL-00001" summary="backend">
       <option name="closed" value="true" />
@@ -354,7 +390,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744353550407</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="주문 상세 페이지 데이터 보내기 만드는중 getsingleresult인데 지금 Order에 주문한 제품이 두개라 오류남">
+      <option name="closed" value="true" />
+      <created>1744357291701</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1744357291701</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -397,7 +441,8 @@
     <MESSAGE value="검색기능 완성 리뷰기능 시작" />
     <MESSAGE value="상품문의 완성안하고 주문 서비스 제작중" />
     <MESSAGE value="날짜기간 검색 완성" />
-    <option name="LAST_COMMIT_MESSAGE" value="날짜기간 검색 완성" />
+    <MESSAGE value="주문 상세 페이지 데이터 보내기 만드는중 getsingleresult인데 지금 Order에 주문한 제품이 두개라 오류남" />
+    <option name="LAST_COMMIT_MESSAGE" value="주문 상세 페이지 데이터 보내기 만드는중 getsingleresult인데 지금 Order에 주문한 제품이 두개라 오류남" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

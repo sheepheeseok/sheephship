@@ -60,8 +60,12 @@ public class MemberApiController {
         return check;
     }
 
-    @GetMapping("/api/getAddress/{id}")
 
+    @GetMapping("/api/getAddress/{id}")
+    public OrderMemberDto getmemberAddressById(@PathVariable("id") String id){
+        OrderMemberDto orderMemberById = memberService.getOrderMemberById(id);
+        return orderMemberById;
+    }
 
     //로그인 api 값확인후 Id 쿠키로 반환
     @PostMapping("/api/login")

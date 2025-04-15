@@ -16,10 +16,12 @@ public class SimpleOrderListDto {
     private Long count;
     private Long orderPrice;
     private LocalDate date;
+    private Long orderItemId;
 
 
     public SimpleOrderListDto(Long orderId, String mainUrl, String title,
-                              DeliveryStatus status, LocalDateTime orderDate, Long count, Long orderPrice) {
+                              DeliveryStatus status, LocalDateTime orderDate,
+                              Long count, Long orderPrice, Long orderItemId) {
         this.orderId = orderId; // Long을 String으로 변환
         this.mainUrl = mainUrl;
         this.title = title;
@@ -27,5 +29,6 @@ public class SimpleOrderListDto {
         this.date = orderDate.toLocalDate();
         this.count = count;
         this.orderPrice = orderPrice;
+        this.orderItemId = orderItemId;
     }
 }

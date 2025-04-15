@@ -199,6 +199,16 @@ public class ItemRepository {
                 .setParameter("id", id).getResultList();
     }
 
+    public boolean getCountHasSize(Long id){
+        Long id1 = em.createQuery("select count(s) from Item i join i.colors c join c.sizes s where i.id = :id", Long.class)
+                .setParameter("id", id).getSingleResult();
+        if(id1 != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     private List<Color> getColorsWithSizes(Long itemId) {
         return em.createQuery(
                         "SELECT DISTINCT c FROM Color c " +

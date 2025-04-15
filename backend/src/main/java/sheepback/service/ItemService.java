@@ -54,7 +54,10 @@ public class ItemService {
 //
 //    }
 
-
+    public boolean getCountByItemId(Long id) {
+        boolean check = itemRepository.getCountHasSize(id);
+        return check;
+    }
 
     //아이템 검색
     public Page<SearchItemSimplDto> searchItemsPage(String keyword, String searchType, Pageable pageable) {

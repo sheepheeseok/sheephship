@@ -90,10 +90,6 @@ public class Member {
     public Member() {
 
     }
-    public void addOrder(Orders order) {
-        this.orders.add(order);
-        order.setMember(this);
-    }
 
 
 }
