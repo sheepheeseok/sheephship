@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import PaymentHook from '../hooks/PaymentHook';
 
 const Payment = () => {
     const [activeTab, setActiveTab] = useState("manual"); // 기본값: 최근 배송지
@@ -9,6 +10,12 @@ const Payment = () => {
         } else {
             setUseSameAddress(false);
         }
+    };
+    const { processPayment } = PaymentHook();
+
+    const [requestMessage, setRequestMessage] = useState("");
+    const handleRequestChange = (e) => {
+        setRequestMessage(e.target.value);
     };
 
     const [Addressselected, setAddressSelected] = useState("userAddress1");
@@ -35,6 +42,14 @@ const Payment = () => {
     const toggleMethod = (method) => {
         setActiveMethod(activeMethod === method ? null : method);
     };
+
+    const handleSubmit = () => {
+        const paymentData = {
+            paymentMethod: activeMethod,
+            requireMents: requestMessage,
+        };
+        processPayment(paymentData);
+    }
 
 
     return (<div className="container">
@@ -246,6 +261,8 @@ const Payment = () => {
                                         <textarea
                                             className="p-request-area"
                                             placeholder="요청 사항을 입력하세요."
+                                            value={requestMessage} // 상태 값으로 바인딩
+                                            onChange={handleRequestChange} // 입력값이 변경될 때마다 상태 업데이트
                                         />
                                     )}
                                 <div className="p-addressinfo-box">
@@ -532,7 +549,7 @@ const Payment = () => {
                                 <label htmlFor="SavePaymentinfo">결제수단과 입력정보를 다음에도 사용</label>
                             </div>
 
-                            <button className="payment-end-box">
+                            <button className="payment-end-box" onClick={handleSubmit}>
                                 48,500원 결제
                             </button>
 

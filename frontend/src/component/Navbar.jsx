@@ -40,11 +40,11 @@ const Navbar = () => {
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >
-                    <a onClick={() => navigate("/BRAND")}>BRAND</a>
+                    <a>BRAND</a>
                     <ul className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
-                        <li><a href="#" onClick={() => navigate("/BRAND")}>ABOUT</a></li>
-                        <li><a href="#" onClick={() => navigate("/QnA")}>Q&A</a></li>
-                        <li><a href="#" onClick={() => navigate("/SERVICE")}>SERVICE</a></li>
+                        <li><a onClick={() => navigate("/BRAND")}>ABOUT</a></li>
+                        <li><a onClick={() => navigate("/QnA")}>Q&A</a></li>
+                        <li><a onClick={() => navigate("/SERVICE")}>SERVICE</a></li>
                     </ul>
                 </li>
             </ul>
