@@ -41,7 +41,8 @@ public class OrderRepository {
         for (OrderItems orderItem : orderItems) {
             orders.setOrderItems(orderItems);
             orderItem.setOrder(orders);
-           point += orderItem.getOrderPrice() * 0.05;
+            System.out.println("orderItem.getOrderPrice()* 0.005 = " + orderItem.getOrderPrice()* 0.005);
+           point += orderItem.getOrderPrice() * 0.005;
         }
         member.setPoint( (member.getPoint() +(long) point));
         orders.setPoint((long) point);
@@ -79,7 +80,7 @@ public class OrderRepository {
     public List<OrderItemByItemIdDto> findBaseData(List<Long> itemIds, List<Long> colorIds, List<Long> sizeIds) {
         return em.createQuery(
                         "SELECT new sheepback.repository.OrderQuery.OrderItemByItemIdDto(" +
-                                "i.id, i.name, i.mainUrl, i.price, c.id, s.id) " +
+                                "i.id, i.name, i.mainUrl, i.price, c.id, s.id, c.color, s.size) " +
                                 "FROM Item i " +
                                 "JOIN i.colors c " +
                                 "LEFT JOIN c.sizes s " +

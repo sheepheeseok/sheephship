@@ -68,12 +68,12 @@ public class OrderService {
 
     public List<OrderItemByItemIdDto> findOrderItemByItemId(List<SimpleItemAndCountDto> dtos){
 
+        System.out.println("dtos = " + dtos);
         List<Long> itemIds = dtos.stream().map(dto -> dto.getId()).collect(Collectors.toList());
-        List<Long> counts = dtos.stream().map(dto -> dto.getCount()).collect(Collectors.toList());
-        List<Long> colorIds = dtos.stream().map(dto -> dto.getColor_id()).collect(Collectors.toList());
+        // List<Long> counts = dtos.stream().map(dto -> dto.getCount()).collect(Collectors.toList());
+        List<Long> colorIds = dtos.stream().map(dto -> dto.getColorId()).collect(Collectors.toList());
         List<Long> sizeIds = dtos.stream()
-                .filter(dto -> dto.getSize_id() != null)
-                .map(dto -> dto.getSize_id())
+                .map(dto -> dto.getSizeId())
                 .collect(Collectors.toList());
 
         List<OrderItemByItemIdDto> orderItemByItemId = orderRepository.findBaseData(itemIds, colorIds, sizeIds);
