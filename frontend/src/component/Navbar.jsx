@@ -1,8 +1,18 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Navbar = () => {
     const navigate = useNavigate();
     const isLoggedIn = document.cookie.includes("loginId");
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+
+    const handleMouseEnter = () => {
+        setDropdownVisible(true);
+    };
+
+    const handleMouseLeave = () => {
+        setDropdownVisible(false);
+    };
 
     const handleProfileClick = () => {
         if (isLoggedIn) {
@@ -25,9 +35,21 @@ const Navbar = () => {
                 <li onClick={() => navigate("/Shop")}><a>SHOP</a></li>
                 <li onClick={() => navigate("/Center")}><a>CENTER</a></li>
                 <li onClick={() => navigate("/Rootfind")}><a>ROOTFIND</a></li>
-                <li onClick={() => navigate("/Brand")}><a>BRAND</a></li>
+                <li
+                    className="brand-dropdown"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                >
+                    <a onClick={() => navigate("/BRAND")}>BRAND</a>
+                    <ul className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
+                        <li><a href="#" onClick={() => navigate("/BRAND")}>ABOUT</a></li>
+                        <li><a href="#" onClick={() => navigate("/QnA")}>Q&A</a></li>
+                        <li><a href="#" onClick={() => navigate("/SERVICE")}>SERVICE</a></li>
+                    </ul>
+                </li>
             </ul>
-            <img src="/icons/MainIcon.svg" alt="MainIcon" className="MainIcon" onClick={() => navigate("/")} style={{ cursor: "pointer" }}/>
+            <img src="/icons/MainIcon.svg" alt="MainIcon" className="MainIcon" onClick={() => navigate("/")}
+                 style={{cursor: "pointer"}}/>
             <div className="nav-icons">
                 <img src="/icons/search.svg" alt="searchIcon"/>
                 <img src="/icons/market.svg" alt="marketIcon"/>

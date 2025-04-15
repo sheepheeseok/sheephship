@@ -57,6 +57,7 @@ const OrderHistory = () => {
                         </div>
                         <div className="OrderContent-Line"/>
                         <h1 style={{marginTop: "10px"}}>주문 내역</h1>
+
                     </div>
                 ) : (
                     <p>여기에 취소/반품/교환 내역 표시</p>

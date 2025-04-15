@@ -23,5 +23,4 @@ public class ItemDetailApiController {
     public HasSizeItemDto getItemById_size(@PathVariable("id") Long id) {
         return itemService.getItemById_size(id);
     }
-
 }

@@ -14,6 +14,7 @@ public class webConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:5173") // 프론트엔드 주소
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
                 .allowedHeaders("*")
-                .allowCredentials(true);  // 자격 증명(쿠키 등)을 포함하려면 true
+                .allowCredentials(true)  // 자격 증명(쿠키 등)을 포함하려면 true
+                .maxAge(3600);
     }
 }

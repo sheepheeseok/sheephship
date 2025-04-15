@@ -26,6 +26,12 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
+    @GetMapping("/api/getAddress/{id}")
+    public OrderMemberDto getmemberAddressById(@PathVariable("id") String id){
+        OrderMemberDto orderMemberById = memberService.getOrderMemberById(id);
+        return orderMemberById;
+    }
+
     //회원가입 api
     @PostMapping("/api/signup")
     public String signup(@RequestBody @Valid RegisterRequest registerRequest) {
@@ -60,7 +66,6 @@ public class MemberApiController {
         return check;
     }
 
-    @GetMapping("/api/getAddress/{id}")
 
 
     //로그인 api 값확인후 Id 쿠키로 반환
