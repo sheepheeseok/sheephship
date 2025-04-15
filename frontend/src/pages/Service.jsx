@@ -64,7 +64,7 @@ const SERVICE = () => {
   return (
     <div className="container">
       <div className="customerService">
-        <h1 className="title">고객센터</h1>
+        <h1 className="service-title">고객센터</h1>
         <p className="subtitle">어려움이나 궁금한 점이 있으신가요?</p>
 
         <div className="questionList">
