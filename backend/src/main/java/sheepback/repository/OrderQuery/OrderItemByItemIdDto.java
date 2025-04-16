@@ -3,7 +3,7 @@ package sheepback.repository.OrderQuery;
 import lombok.Data;
 
 @Data
-public class    OrderItemByItemIdDto {
+public class OrderItemByItemIdDto {
     private Long itemId;
     private String name;
     private String mainUrl;
@@ -25,5 +25,10 @@ public class    OrderItemByItemIdDto {
         this.sizeId = sizeId;
         this.color = color;
         this.size = size;
+    }
+
+    public void setCoount(Long count) {
+        this.count = count;
+        orderItemPrice = itemPrice * count;
     }
 }

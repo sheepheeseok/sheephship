@@ -70,13 +70,18 @@ public class OrderService {
 
         System.out.println("dtos = " + dtos);
         List<Long> itemIds = dtos.stream().map(dto -> dto.getId()).collect(Collectors.toList());
-        // List<Long> counts = dtos.stream().map(dto -> dto.getCount()).collect(Collectors.toList());
+        List<Long> counts = dtos.stream().map(dto -> dto.getCount()).collect(Collectors.toList());
         List<Long> colorIds = dtos.stream().map(dto -> dto.getColorId()).collect(Collectors.toList());
         List<Long> sizeIds = dtos.stream()
                 .map(dto -> dto.getSizeId())
                 .collect(Collectors.toList());
 
         List<OrderItemByItemIdDto> orderItemByItemId = orderRepository.findBaseData(itemIds, colorIds, sizeIds);
+        for (int i = 0; i < counts.size(); i++) {
+            if (counts.get(i) != null) {
+                orderItemByItemId.get(i).setCoount(counts.get(i));
+            }
+        }
 
         return orderItemByItemId;
     }
