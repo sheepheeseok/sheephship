@@ -26,12 +26,6 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
-    @GetMapping("/api/getAddress/{id}")
-    public OrderMemberDto getmemberAddressById(@PathVariable("id") String id){
-        OrderMemberDto orderMemberById = memberService.getOrderMemberById(id);
-        return orderMemberById;
-    }
-
     //회원가입 api
     @PostMapping("/api/signup")
     public String signup(@RequestBody @Valid RegisterRequest registerRequest) {
@@ -67,6 +61,11 @@ public class MemberApiController {
     }
 
 
+    @GetMapping("/api/getAddress/{id}")
+    public OrderMemberDto getmemberAddressById(@PathVariable("id") String id){
+        OrderMemberDto orderMemberById = memberService.getOrderMemberById(id);
+        return orderMemberById;
+    }
 
     //로그인 api 값확인후 Id 쿠키로 반환
     @PostMapping("/api/login")
@@ -80,13 +79,21 @@ public class MemberApiController {
         //로그인 객체가 null이아니라면 getId반환
         if (login != null) {
             loginMember.setId(login.getId());
+            //등급도 저장해주기
+            Cookie cookie = new Cookie("loginId", String.valueOf(login.getId()));
+            Cookie cookie2 = new Cookie("Grade", String.valueOf(login.getGrade()));
 
-        Cookie cookie = new Cookie("loginId", String.valueOf(login.getId()));
-        cookie.setHttpOnly(false);
-        cookie.setSecure(false);
-        cookie.setPath("/");
-        cookie.setMaxAge(60 * 60 * 24 * 7);
-        response.addCookie(cookie);
+            cookie2.setHttpOnly(false);
+            cookie2.setSecure(false);
+            cookie2.setPath("/");
+            cookie2.setMaxAge(60 * 60 * 24 * 7);
+            response.addCookie(cookie2);
+
+            cookie.setHttpOnly(false);
+            cookie.setSecure(false);
+            cookie.setPath("/");
+            cookie.setMaxAge(60 * 60 * 24 * 7);
+            response.addCookie(cookie);
         }
         if (login == null) {
             return ResponseEntity.badRequest().build(); // 로그인 실패 시 상태 코드 400 반환
