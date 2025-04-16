@@ -12,16 +12,14 @@ import sheepback.domain.item.Size;
 import sheepback.repository.ItemRepository;
 import sheepback.repository.MemberRepository;
 import sheepback.repository.OrderItemRepository;
-import sheepback.repository.OrderQuery.AddressDto;
-import sheepback.repository.OrderQuery.ItemsDto;
-import sheepback.repository.OrderQuery.OrderDetailDto;
-import sheepback.repository.OrderQuery.SimpleOrderListDto;
+import sheepback.repository.OrderQuery.*;
 import sheepback.repository.OrderRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -38,15 +36,11 @@ public class OrderService {
 
     @Transactional
     public Long order(String memberId, List<ItemsDto> itemsDtos,
-                      String paymentMethod, String requireMents, AddressDto addressDto){
+                      String paymentMethod, String requireMents, Address address){
 
         Member member = memberRepository.insertToOrder(memberId);
         Delivery delivery  = new Delivery();
-        if (addressDto.getAddress() != null) {
-            delivery.setAddress(addressDto.getAddress());
-        }else{
-            delivery.setAddress(member.getAddress());
-        }
+        delivery.setAddress(new Address(address.getFirstAddress(), address.getSecondAddress()));
         delivery.setDeliveryStatus(DeliveryStatus.ORDERCONFIRM);
         List<OrderItems> orderItems = new ArrayList<>();
         for (ItemsDto itemsDto : itemsDtos) {
@@ -70,6 +64,24 @@ public class OrderService {
         return orderRepository.order(member, delivery, orderItems, paymentMethod, requireMents);
     }
 
+
+
+    public List<OrderItemByItemIdDto> findOrderItemByItemId(List<SimpleItemAndCountDto> dtos){
+
+        System.out.println("dtos = " + dtos);
+        List<Long> itemIds = dtos.stream().map(dto -> dto.getId()).collect(Collectors.toList());
+        // List<Long> counts = dtos.stream().map(dto -> dto.getCount()).collect(Collectors.toList());
+        List<Long> colorIds = dtos.stream().map(dto -> dto.getColorId()).collect(Collectors.toList());
+        List<Long> sizeIds = dtos.stream()
+                .map(dto -> dto.getSizeId())
+                .collect(Collectors.toList());
+
+        List<OrderItemByItemIdDto> orderItemByItemId = orderRepository.findBaseData(itemIds, colorIds, sizeIds);
+
+        return orderItemByItemId;
+    }
+
+    //날짜별 주문조회
     public List<SimpleOrderListDto> findOrderList(LocalDateTime begin,
                                                   LocalDateTime end, String memberId){
 
@@ -84,8 +96,8 @@ public class OrderService {
 
     }
 
-    public OrderDetailDto getOrderDetail(Long orderId){
-        OrderDetailDto orderDetail = orderRepository.getOrderDetail(orderId);
+    public OrderDetailDto getOrderDetail(Long orderId, Long orderItemId){
+        OrderDetailDto orderDetail = orderRepository.getOrderDetail(orderId, orderItemId);
         if (orderDetail == null) {
             return null;
         }else{

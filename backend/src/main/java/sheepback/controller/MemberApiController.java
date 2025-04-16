@@ -79,21 +79,21 @@ public class MemberApiController {
         //로그인 객체가 null이아니라면 getId반환
         if (login != null) {
             loginMember.setId(login.getId());
-            //등급도 저장해주기
-            Cookie cookie = new Cookie("loginId", String.valueOf(login.getId()));
-            Cookie cookie2 = new Cookie("Grade", String.valueOf(login.getGrade()));
+        //등급도 저장해주기
+        Cookie cookie = new Cookie("loginId", String.valueOf(login.getId()));
+        Cookie cookie2 = new Cookie("Grade", String.valueOf(login.getGrade()));
 
-            cookie2.setHttpOnly(false);
-            cookie2.setSecure(false);
-            cookie2.setPath("/");
-            cookie2.setMaxAge(60 * 60 * 24 * 7);
-            response.addCookie(cookie2);
+        cookie2.setHttpOnly(false);
+        cookie2.setSecure(false);
+        cookie2.setPath("/");
+        cookie2.setMaxAge(60 * 60 * 24 * 7);
+        response.addCookie(cookie2);
 
-            cookie.setHttpOnly(false);
-            cookie.setSecure(false);
-            cookie.setPath("/");
-            cookie.setMaxAge(60 * 60 * 24 * 7);
-            response.addCookie(cookie);
+        cookie.setHttpOnly(false);
+        cookie.setSecure(false);
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 24 * 7);
+        response.addCookie(cookie);
         }
         if (login == null) {
             return ResponseEntity.badRequest().build(); // 로그인 실패 시 상태 코드 400 반환
@@ -288,4 +288,5 @@ public class MemberApiController {
         String name;
         String phoneNumber;
     }
+
 }

@@ -8,12 +8,18 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import sheepback.domain.*;
+import sheepback.domain.item.Item;
 import sheepback.repository.OrderQuery.OrderDetailDto;
+import sheepback.repository.OrderQuery.OrderItemByItemIdDto;
+import sheepback.repository.OrderQuery.SimpleItemAndCountDto;
 import sheepback.repository.OrderQuery.SimpleOrderListDto;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -35,7 +41,8 @@ public class OrderRepository {
         for (OrderItems orderItem : orderItems) {
             orders.setOrderItems(orderItems);
             orderItem.setOrder(orders);
-           point += orderItem.getOrderPrice() * 0.05;
+            System.out.println("orderItem.getOrderPrice()* 0.005 = " + orderItem.getOrderPrice()* 0.005);
+           point += orderItem.getOrderPrice() * 0.005;
         }
         member.setPoint( (member.getPoint() +(long) point));
         orders.setPoint((long) point);
@@ -55,7 +62,7 @@ public class OrderRepository {
 
         List<SimpleOrderListDto> resultList = em.createQuery("select new " +
                         "sheepback.repository.OrderQuery.SimpleOrderListDto( o.id, " +
-                        "i.mainUrl, i.name, d.deliveryStatus, o.orderDate, oi.quantity, oi.orderPrice) " +
+                        "i.mainUrl, i.name, d.deliveryStatus, o.orderDate, oi.quantity, oi.orderPrice, oi.id) " +
                         " from Orders o join o.member m" +
                         " join o.delivery d " +
                         " join o.orderItems oi" +
@@ -69,7 +76,25 @@ public class OrderRepository {
 
     }
 
-    public OrderDetailDto getOrderDetail(Long id) {
+
+    public List<OrderItemByItemIdDto> findBaseData(List<Long> itemIds, List<Long> colorIds, List<Long> sizeIds) {
+        return em.createQuery(
+                        "SELECT new sheepback.repository.OrderQuery.OrderItemByItemIdDto(" +
+                                "i.id, i.name, i.mainUrl, i.price, c.id, s.id, c.color, s.size) " +
+                                "FROM Item i " +
+                                "JOIN i.colors c " +
+                                "LEFT JOIN c.sizes s " +
+                                "WHERE i.id IN :itemIds " +
+                                "AND c.id IN :colorIds " +
+                                "AND (s.id IN :sizeIds OR s.id IS NULL)",
+                        OrderItemByItemIdDto.class)
+                .setParameter("itemIds", itemIds)
+                .setParameter("colorIds", colorIds)
+                .setParameter("sizeIds", sizeIds.isEmpty() ? Collections.singletonList(null) : sizeIds)
+                .getResultList();
+    }
+
+    public OrderDetailDto getOrderDetail(Long orderId, Long orderItemId) {
        OrderDetailDto orderDetail = em.createQuery("select new " +
                 "sheepback.repository.OrderQuery.OrderDetailDto(m.name, d.address," +
                 " m.phoneNumber, o.requireMents, d.deliveryStatus, o.id" +
@@ -80,8 +105,9 @@ public class OrderRepository {
                 "join o.delivery d " +
                 "join oi.item i " +
                 "join o.member m " +
-                "where o.id = :id", OrderDetailDto.class)
-                .setParameter("id", id)
+                "where o.id = :id and oi.id =:orderItemId", OrderDetailDto.class)
+                .setParameter("id", orderId)
+               .setParameter("orderItemId", orderItemId)
                 .getSingleResult();
         return orderDetail;
     }
