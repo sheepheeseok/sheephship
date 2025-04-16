@@ -289,5 +289,4 @@ public class MemberApiController {
         String phoneNumber;
     }
 
-    // 병합 해결용
 }
