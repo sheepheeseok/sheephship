@@ -26,4 +26,9 @@ public class    OrderItemByItemIdDto {
         this.color = color;
         this.size = size;
     }
+
+    public void setCoount(Long count) {
+        this.count = count;
+        orderItemPrice = itemPrice * count;
+    }
 }
