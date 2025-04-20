@@ -1704,18 +1704,23 @@ body {
     flex-direction: row;
     width: 100%;
     padding: 0;
-    margin: 0;
+    margin-top: 20px;
+    gap: 10px;
 }
 .p-address-tap button {
-    width: 650px;
-    height: 81px;
-    border: none;
+    width: 500px;
+    height: 60px;
+    border: 1px solid #ccc;
+    align-items: center;
+    display: flex;
+    justify-content: center;
     font-family: NotoSansKR-Medium;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     font-size: 24px;
     background-color: #cccccc;
     color: #888888;
     cursor: pointer;
-    border-radius: 0;
+    border-radius: 50px;
     font-weight: bold;
     transition: background-color 0.3s ease-in-out;
 }
@@ -1769,15 +1774,14 @@ body {
     background-color: white; /* 체크된 상태 내부 색 */
 }
 .p-checkbox-box label {
-    font-size: 24px;
+    font-size: 22px;
     color: #333;
     cursor: pointer;
     font-family: NotoSansKR-Regular;
 }
 .p-address-form input {
-    width: 1110px;
+    width: 1000px;
     height: 50px;
-    padding-left: 20px;
     border: 1px solid #888888;
     border-radius: 0;
     font-family: NotoSansKR-Regular;
@@ -1794,11 +1798,12 @@ body {
     gap: 20px;
 }
 .p-address-form h1 {
-    font-family: NotoSansKR-Light;
-    font-size: 20px;
-    width: 74px;
-    margin-right: 30px;
-    color: #000000;
+    font-family: NotoSansKR-Light !important;
+    white-space: nowrap;
+    font-size: 20px !important;
+    width: 74px !important;
+    margin-right: 30px !important;
+    color: #000000 !important;
 }
 .p-recipient {
     display: flex;
@@ -1815,7 +1820,7 @@ body {
     border: 1px solid #000000;
     border-radius: 0;
     width: 118px;
-    height: 55px;
+    height: 50px;
     font-size: 20px;
     margin-left: 13px;
     white-space: nowrap;
@@ -1829,7 +1834,7 @@ body {
 .p-phone-box {
     display: flex;
     flex-direction: row;
-    width: 1110px;
+    width: 850px;
     height: 50px;
     padding: 0;
     margin: 0;
@@ -1859,7 +1864,7 @@ span {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 1124px;
+    width: 850px;
     height: 50px;
     padding: 0;
     margin: 0;
@@ -1884,7 +1889,7 @@ span {
     margin-bottom: 31px;
 }
 .p-request-msg {
-    width: 1110px;
+    width: 885px;
     height: 50px;
     font-family: NotoSansKR-Light;
     font-size: 20px;
@@ -1894,7 +1899,6 @@ span {
 .p-addressinfo-box {
     margin-top: 22px;
     margin-bottom: 31px;
-    margin-left: 33px;
     display: flex;
     align-items: center;
     gap: 18px; /* 체크박스들 간격 */
@@ -1941,11 +1945,13 @@ span {
 }
 .p-recent-address {
     margin-top: 22px;
-    margin-bottom: 31px;
-    margin-left: 33px;
+    margin-bottom: 20px;
     display: flex;
+    border: 1px solid #ccc;
+    padding: 15px;
     align-items: start;
     gap: 15px; /* 체크박스들 간격 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* x, y, blur, color */
 }
 .p-recent-address input[type="checkbox"] {
     appearance: none;
@@ -1982,10 +1988,10 @@ span {
     opacity: 1;
 }
 .p-recent-address label {
-    font-size: 24px;
+    font-size: 20px;
     color: #333;
     cursor: pointer;
-    font-family: NotoSansKR-Regular;
+    font-family: NotoSansKR-bold;
 }
 .p-userAddress-box {
     display: flex;
@@ -1994,11 +2000,11 @@ span {
     padding: 0;
 }
 .p-userAddress-box h1 {
-    font-family: NotoSansKR-Regular;
-    font-size: 24px;
-    color: #888888;
-    margin: 0;
-    padding: 0;
+    font-family: NotoSansKR-Regular !important;
+    font-size: 18px !important;
+    color: #888888 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 .recent-h1 {
     font-family: NotoSansKR-Light;
@@ -2019,7 +2025,7 @@ span {
     margin-left: 149px;
 }
 .p-request-area2 {
-    width: 1088px;
+    width: 881px;
     height: 112px;
     margin-top: 10px;
     padding: 10px;
@@ -2028,7 +2034,7 @@ span {
     border: 1px solid #888888;
     border-radius: 0;
     color: #000000;
-    margin-left: 153px;
+    margin-left: 119px;
 }
 .payment-box {
     width: 100%;
@@ -2041,14 +2047,20 @@ span {
 }
 .payment-product-info {
     width: 100%;
-    margin-top: 38px;
-    margin-left: 33px;
+    margin-top: 20px;
     display: flex;
+    border-radius: 30px;
     flex-direction: row;
+    align-items: center;
+    padding: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* x, y, blur, color */
+    background-color: #FAFAFA;
 }
 .payment-product {
-    width: 143px;
-    height: 143px;
+    width: 250px;
+    height: 250px;
+    border-radius: 30px;
+    background-color: #F2F2F2;
 }
 .payment-product-detail {
     display: flex;
@@ -2056,7 +2068,6 @@ span {
     width: 100%;
     text-align: start;
     margin-left: 44px;
-    margin-bottom: 57px;
 }
 .payment-product-detail h1 {
     font-family: NotoSansKR-Regular;
@@ -2072,19 +2083,18 @@ span {
 .payment-deliverly-price {
     width: 100%;
     height: 55px;
-    background-color: #d9d9d9;
     display: flex;
     align-items: center;
     padding-left: 37px;
     padding-right: 37px;
-    margin: 0;
+    margin-top: 20px;
     justify-content: space-between;
 }
 .payment-deliverly-price h1 {
-    font-family: NotoSansKR-Medium;
-    font-size: 16px;
-    color: #000000;
-    margin: 0;
+    font-family: NotoSansKR-Medium !important;
+    font-size: 20px !important;
+    color: #000000 !important;
+    margin: 0 !important;
 }
 .p-address-content {
     width: 100%;
@@ -2092,16 +2102,18 @@ span {
 }
 .payment-product-price {
     display: flex;
+    width: 100%;
     flex-direction: row;
-    justify-content: space-between;
-    padding-left: 8px;
+    padding-left: 37px;
     padding-right: 37px;
+    justify-content: space-between;
+    margin-top: 10px;
     gap: 8px;
     align-items: center;
 }
 .payment-product-price h1 {
-    font-family: NotoSansKR-Light;
-    font-size: 20px;
+    font-family: NotoSansKR-Light !important;
+    font-size: 20px !important;
     color: #000000;
     margin-bottom: 0;
 }
@@ -2123,9 +2135,9 @@ span {
 }
 .info-tooltip-box {
     position: absolute;
-    height: 60px;
-    bottom: 10px;
-    left: 260px;
+    height: 80px;
+    bottom: -45px;
+    left: 280px;
     transform: translateX(-50%);
     width: 480px;
     background-color: white;
@@ -2166,8 +2178,6 @@ span {
 .p-result-box {
     width: 100%;
     height: 104px;
-    background-color: #E0F0FF;
-    margin-top: 90px;
 }
 .p-result-price {
     display: flex;
@@ -2191,7 +2201,6 @@ span {
 .payment-method-box {
     width: 100%;
     height: 100%;
-    padding-left: 37px;
 }
 .payment-method-box h1 {
     font-family: NotoSansKR-Light;
@@ -2200,7 +2209,7 @@ span {
     color: #000000;
 }
 .payment-method-item {
-    width: 1260px;
+    width: 1000px;
     margin-top: 10px;
 }
 .payment-method-easy {
@@ -2258,9 +2267,14 @@ span {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 1190px;
+    width: 1000px;
     height: 32px;
     gap: 11px;
+}
+.card-payment-box h1 {
+    font-family: NotoSansKR-Medium !important;
+    font-size: 20px !important;
+
 }
 .card-payment-input {
     width: 171px;
@@ -2291,25 +2305,25 @@ span {
 }
 .payment-end-box {
     width: 100%;
-    height: 95px;
+    height: 80px;
     background-color: #000000;
     color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 0;
+    margin-top: 35px;
+    margin-bottom: 50px;
+    border-radius: 50px;
     font-family: NotoSansKR-bold;
     font-size: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* x, y, blur, color */
 }
 .payment-end-detail {
-    width: 1130px;
-    height: 105px;
+    width: 1000px;
+    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 49px;
-    margin-top: 44px;
-    margin-bottom: 68px;
     gap: 28px;
 }
 .payment-end-detail li{
@@ -2317,6 +2331,33 @@ span {
     font-size: 20px;
     margin: 0;
     color: #888888;
+}
+
+.payment-userInfobox {
+    width: 1100px;
+    height: 100%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+.payment-userInfobox h1 {
+    font-family: NotoSansKR-Bold;
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+}
+.payment-productBox {
+    width: 730px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+.payment-productBox h1{
+    font-family: NotoSansKR-Bold;
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
 }
 
 {/* QnA 페이지 css */}

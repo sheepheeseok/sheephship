@@ -13,6 +13,7 @@ import Payment from "./pages/Payment.jsx";
 import Center from "./pages/Center.jsx";
 import MyPage from "./pages/MyPage.jsx";
 import PrivateRoute from "./hooks/PrivateRoute.js";
+import Payment2 from "./pages/Payment3.jsx";
 
 
 // import React, {useEffect, useState} from 'react';
@@ -40,7 +41,8 @@ function App() {
                        element={<PrivateRoute><MyPage/></PrivateRoute>}/>{" "} { /* 마이페이지 */}
                 <Route path="/Product/:id" element={<Product/>} /> { /* 제품 상세 */}
                 <Route path="/Shop" element={<Shop/>} /> {/* 샵 */}
-                <Route path="/Payment" element={<Payment/>} /> {/* QnA */}
+                <Route path="/Payment" element={<Payment/>} /> {/* Payment */}
+                <Route path="/Payment2" element={<Payment2/>} /> {/* Payment */}
                 <Route path="/Center" element={<Center/>} /> {/* Center */}
                 <Route path="/Brand" element={<Brand/>} /> {/* Brand */}
                 <Route path="/QnA" element={<QnA/>} /> {/* QnA */}
