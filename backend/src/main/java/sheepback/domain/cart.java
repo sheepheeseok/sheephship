@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-import sheepback.domain.item.Color;
 import sheepback.domain.item.Item;
 
 import java.time.LocalDate;
@@ -33,8 +31,5 @@ public class cart {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "color_id")
-    private Color color;
 
 }

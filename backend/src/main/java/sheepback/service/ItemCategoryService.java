@@ -1,67 +1,63 @@
 package sheepback.service;
 
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sheepback.Dtos.ItemListByCategoryDto;
 import sheepback.domain.Category;
 import sheepback.domain.item.Item;
-import sheepback.repository.ItemCategoryRepository;
+import sheepback.mapper.ItemMapper;
+
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class ItemCategoryService {
 
-    private final ItemCategoryRepository itemCategoryRepository;
+    @Autowired
+    private ItemMapper itemMapper;
+
+    //카테고리클릭시 동작하는 아이템 리스트
+    public List<ItemListByCategoryDto> getListByCategory(String category) {
+        return itemMapper.getItemListByCategory(category);
+    }
+
+    //검색시에 동작하는 아이템 리스트
+    public List<ItemListByCategoryDto> getListBySearchKeyword(String keyword) {
+        return itemMapper.getItemListBySearchKeyword(keyword);
+    }
+
+
+    public void saveCategory(String category) {
+        itemMapper.addCategory(category);
+    }
+
+    public void updateCategory(String newCategoryName, String categoryName) {
+        itemMapper.updateCategory(newCategoryName, categoryName);
+
+    }
+
+
+    public void deleteCategory(String category) {
+        itemMapper.deleteCategory(category);
+    }
 
     //카테고리 저장
-    @Transactional
-    public void InsertCategory(Category category) {
-        itemCategoryRepository.save(category);
-    }
 
     //id로 찾아 삭제
-    @Transactional
-    public void DeleteCategory(Long id) {
-        Category category = GetCategoryById(id);
-        itemCategoryRepository.delete(category);
-    }
 
     //id를 입력받아 업데이트
-    @Transactional
-    public void UpdateCategory(Long id, String name) {
-        Category byId = itemCategoryRepository.findById(id);
-        byId.setName(name);
-    }
+
 
     //id를 입력받아 카테고리 반환
-    public Category GetCategoryById(Long id) {
-        Category byId = itemCategoryRepository.findById(id);
-        return byId;
-    }
+
 
     //모든 카테고리 반환
-    public List<Category> GetAllCategories() {
-        return itemCategoryRepository.findAll();
-    }
 
     //이름으로 찾아 카테고리 반환
-    public Category GetCategoryByName(String name) {
-        return itemCategoryRepository.findByName(name);
-    }
-
-
-
-
-
-
-
-
-
-
 
 
 }

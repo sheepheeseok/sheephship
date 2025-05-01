@@ -13,7 +13,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import sheepback.domain.Category;
-import sheepback.domain.item.Color;
 import sheepback.domain.item.Item;
 import sheepback.domain.item.ItemImg;
 
