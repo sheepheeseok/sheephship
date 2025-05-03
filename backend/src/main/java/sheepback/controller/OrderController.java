@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sheepback.Dtos.BuyItemListDto;
 import sheepback.Dtos.DeliveryInfoDto;
 import sheepback.domain.Address;
 import sheepback.service.OrderService;
@@ -23,6 +24,12 @@ public class OrderController {
         return deliveryInfoById;
     }
 
+
+    @PostMapping("/buy-items")
+    public List<BuyItemListDto> getBuyItems(@RequestBody List<BuyItemListDto> items) {
+        List<BuyItemListDto> result = OrderService.enrichItems(items);
+        return result;
+    }
 
 
 
