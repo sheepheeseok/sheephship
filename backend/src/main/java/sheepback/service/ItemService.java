@@ -45,6 +45,12 @@ public class ItemService {
         );
     }
 
+    public void insertItem(ItemDto insetItemDto) {
+
+        itemMapper.insertItemImg(insetItemDto.getImage());
+        itemMapper.insertItem(insetItemDto);
+    }
+
 }
 
     //아이템 추가

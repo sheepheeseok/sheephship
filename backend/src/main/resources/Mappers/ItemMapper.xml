@@ -52,6 +52,14 @@
         order by
             i.created
     </select>
+
+    <insert id="insertItem" parameterType="sheepback.Dtos.ItemDto">
+
+
+    </insert>
+
+
+
     <insert id="addCategory" parameterType="string">
         insert into
             category (name)

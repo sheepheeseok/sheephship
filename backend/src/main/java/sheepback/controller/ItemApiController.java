@@ -1,74 +1,33 @@
 package sheepback.controller;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sheepback.repository.ItemQuery.ItemByCategorySimpleDto;
-import sheepback.repository.ItemQuery.SearchItemSimplDto;
+import sheepback.Dtos.ItemDto;
 import sheepback.service.ItemService;
 
-import java.util.List;
-
 @RestController
-@RequiredArgsConstructor
 public class ItemApiController {
 
-    private final ItemService itemService;
+    @Autowired
+    private ItemService itemService;
 
-    @PostMapping("/api/searchItems")
-    public Page<SearchItemSimplDto> searchItems(@RequestBody SearchRequest request) {
+    @PostMapping
+    public ResponseEntity<String> createItem(@RequestBody ItemDto itemDto) {
+        // 여기서 itemDto로 필요한 로직 처리 (예: DB 저장 등)
+        // 예: itemService.save(itemDto);
 
-        String[] sortParams = request.getSort().split(",");
-        Sort.Order order = new Sort.Order(
-                Sort.Direction.fromString(sortParams[1]),
-                sortParams[0]
-        );
+        // 디버깅용 로그
+        System.out.println("받은 아이템: " + itemDto);
 
-        // Pageable 생성
-        Pageable pageable = PageRequest.of(
-                request.getPage(),
-                request.getSize(),
-                Sort.by(order)
-        );
-        return itemService.searchItemsPage(request.getKeyword(), request.getSearchType(), pageable);
+        // 성공 응답 반환
+        return ResponseEntity.ok("아이템 등록 성공");
     }
 
 
-
-    @PostMapping("/api/getItemByCategory")
-    public PageImpl<ItemByCategorySimpleDto> getItemByCategory(@RequestBody CategoryRequest request) {
-        // 단일 정렬 파라미터 처리
-        String[] sortParams = request.getSort().split(",");
-        Sort.Order order = new Sort.Order(
-                Sort.Direction.fromString(sortParams[1]),
-                sortParams[0]
-        );
-        // Pageable 생성
-        Pageable pageable = PageRequest.of(
-                request.getPage(),
-                request.getSize(),
-                Sort.by(order)
-        );
-
-        return itemService.findByCategory(request.getCategory(), pageable);
-    }
-
-    @Data
-    private static class SearchRequest {
-        private String keyword;
-        private String searchType;
-        private int page;
-        private int size;
-        private String sort = "created,desc";  // List -> String으로 변경
-    }
-
-
-    @Data
-    static class CategoryRequest {
-        private String category;
-        private int page = 0;
-        private int size = 10;
-        private String sort = "created,desc";  // List -> String으로 변경
+    @GetMapping("/api/showItem/{id}")
+    public ItemDto getItemById(@PathVariable("id") Long id) {
+        ItemDto itemById = itemService.getItemById(id);
+        return itemById;
     }
 }

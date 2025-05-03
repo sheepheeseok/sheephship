@@ -6,9 +6,9 @@ import lombok.Data;
 public class ItemDetailSimpleDto {
 
 
-    private String Color;
+    private String color;
     private String size;
-    private Long StockQuantity;
+    private Long stockQuantity;
 
 
 }

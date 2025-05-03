@@ -2,16 +2,22 @@ package sheepback.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import sheepback.Dtos.ItemDetailSimpleDto;
-import sheepback.Dtos.ItemImgSimpleDto;
-import sheepback.Dtos.ItemListByCategoryDto;
+import sheepback.Dtos.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 @Mapper
 public interface ItemMapper {
+    void insertItemDetail(List<ItemDetailSimpleDto> itemDetailSimpleDtoList);
+    void updateItemDetail(List<ItemDetailSimpleDto> itemDetailSimpleDtoList);
+    void deleteItemDetail(List<ItemDetailSimpleDto> itemDetailSimpleDtoList);
+    void insertItemImg(ItemImgSimpleDto insetItemImgSimpleDto);
+    void updateItemImg(ItemImgSimpleDto insetItemImgSimpleDto);
+    void deleteItemImg(ItemImgSimpleDto insetItemImgSimpleDto);
+    void insertItem(ItemDto insetItemDto);
+    void updateItem(ItemDto insetItemDto);
+    void deleteItem(ItemDto insetItemDto);
     List<ItemListByCategoryDto> getItemListBySearchKeyword(@Param("keyword") String keyword);
     List<ItemListByCategoryDto> getItemListByCategory(@Param("category") String category);
     HashMap<String, Object>  getItemById(@Param("id") Long id);
