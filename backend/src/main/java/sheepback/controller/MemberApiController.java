@@ -141,7 +141,7 @@ public class MemberApiController {
         Member member = memberService.getMemberById(id);
 
         MyPageDto myPageDto = new MyPageDto(member.getId(), member.getName(),
-                member.getGrade(), member.getPoint());
+                member.getGrade());
 
         return myPageDto;
 
@@ -178,7 +178,6 @@ public class MemberApiController {
         newupdateMember.setId(member.getId());
         newupdateMember.setName(member.getName());
         newupdateMember.setGrade(member.getGrade());
-        newupdateMember.setPoint(member.getPoint());
         return  newupdateMember;
     }
 
@@ -196,13 +195,11 @@ public class MemberApiController {
         String id;
         String name;
         Grade grade;
-        Long point;
 
-        public MyPageDto(String id, String name, Grade grade, Long point) {
+        public MyPageDto(String id, String name, Grade grade) {
             this.id = id;
             this.name = name;
             this.grade = grade;
-            this.point = point;
         }
     }
 
@@ -226,7 +223,6 @@ public class MemberApiController {
             this.phoneNumber = member.getPhoneNumber();
             this.email = member.getEmail();
             this.grade = member.getGrade();
-            this.point = member.getPoint();
         }
     }
 

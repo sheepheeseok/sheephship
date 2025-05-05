@@ -35,7 +35,7 @@ public class InitService {
         member.setAddress(address);
         member.setPhoneNumber(phoneNumber);
         member.setGrade(grade);
-        member.setPoint(point);
+
         return member;
     }
 }

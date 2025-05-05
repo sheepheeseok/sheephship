@@ -2,10 +2,13 @@ package sheepback.controller;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sheepback.Dtos.BuyItemListDto;
 import sheepback.Dtos.DeliveryInfoDto;
+import sheepback.Dtos.OrderDto;
 import sheepback.domain.Address;
 import sheepback.service.OrderService;
 
@@ -13,10 +16,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderService orderService;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/api/MemberDeliveryInfo/{id}")
     public DeliveryInfoDto getDeliveryInfoById(@PathVariable("id") String memberId) {
@@ -25,10 +28,16 @@ public class OrderController {
     }
 
 
-    @PostMapping("/buy-items")
+    @PostMapping("/api/buy-items")
     public List<BuyItemListDto> getBuyItems(@RequestBody List<BuyItemListDto> items) {
-        List<BuyItemListDto> result = OrderService.enrichItems(items);
+        List<BuyItemListDto> result = orderService.enrichItems(items);
         return result;
+    }
+
+    @PostMapping("/api/order")
+    public String order(@RequestBody List<OrderDto> orderDto) {
+        orderService.ordered(orderDto);
+        return "Order successful";
     }
 
 

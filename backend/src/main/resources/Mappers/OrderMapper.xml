@@ -10,4 +10,23 @@
 
 </select>
 
+
+    <insert id="saveOrder" useGeneratedKeys="true" keyProperty="orderId">
+        INSERT INTO orders (
+            member_id,
+            order_date,
+            payment_method,
+            status,
+            require_ments
+        )
+        VALUES (
+                   #{memberId},
+                   #{orderDate},
+                   #{paymentMethod},
+                   #{status},
+                   #{requireMents}
+
+
+        )
+    </insert>
 </mapper>

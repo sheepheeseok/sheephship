@@ -18,6 +18,7 @@ public interface ItemMapper {
     void insertItem(ItemDto insetItemDto);
     void updateItem(ItemDto insetItemDto);
     void deleteItem(ItemDto insetItemDto);
+    List<ItemInfo> getBuyItemListById(@Param("list") List<Long> id);
     List<ItemListByCategoryDto> getItemListBySearchKeyword(@Param("keyword") String keyword);
     List<ItemListByCategoryDto> getItemListByCategory(@Param("category") String category);
     HashMap<String, Object>  getItemById(@Param("id") Long id);
@@ -26,5 +27,7 @@ public interface ItemMapper {
     void addCategory(@Param("category") String category);
     void updateCategory(@Param("newCategoryName") String newCategoryName, @Param("categoryName") String CategoryName);
     void deleteCategory(@Param("category") String category);
+    ItemInfoForOrderDto getItemInfoForOrderDto(@Param("id") Long id);
+    void changeQuantity(@Param("id") Long id, @Param("quantity") Long quantity, @Param("color") String color, @Param("size") String size);
 
 }

@@ -38,6 +38,15 @@
 
     </select>
 
+    <select id="getBuyItemListById" resultType="sheepback.Dtos.ItemInfo">
+        SELECT item_id, name as itemName, price, main_url, delivery_fee as deliveryFee
+        FROM item
+        WHERE item_id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
     <select id="getItemListByCategory" parameterType="string">
         SELECT
             i.item_id as itemId, i.name, i.price, i.main_url
@@ -57,7 +66,7 @@
 
 
     </insert>
-
+    
 
 
     <insert id="addCategory" parameterType="string">
@@ -74,4 +83,17 @@
         from category
         where name = #{category};
     </delete>
+
+    <select id="getItemInfoForOrderDto" resultType="sheepback.Dtos.ItemInfoForOrderDto">
+        select i.item_id, i.price, i.name
+        from item i
+        where i.item_id = #{id}
+
+
+    </select>
+
+    <update id="changeQuantity">
+        update item_detail set stock_quantity = stock_quantity - #{quantity}
+        where item_id = #{id} and color = #{color} and size = #{size}
+    </update>
 </mapper>
