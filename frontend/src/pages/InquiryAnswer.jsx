@@ -55,7 +55,7 @@ const InquiryAnswerPage = () => {
         </div>
 
         <a href="#" className="back-link">
-          ＜ 상품페이지로 돌아가기
+          ＜ 마이페이지로 돌아가기
         </a>
       </div>
     </div>

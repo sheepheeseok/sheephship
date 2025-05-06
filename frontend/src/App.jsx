@@ -11,9 +11,11 @@ import Brand from "./pages/Brand.jsx";
 import QnA from "./pages/QnA.jsx";
 import Payment from "./pages/Payment.jsx";
 import Center from "./pages/Center.jsx";
+import Rootfind from "./pages/Rootfind.jsx";
 import MyPage from "./pages/MyPage.jsx";
 import Service from "./pages/Service.jsx";
 import Inquiry from "./pages/Inquiry.jsx";
+import InquiryAnswer from "./pages/InquiryAnswer.jsx";
 import PrivateRoute from "./hooks/PrivateRoute.js";
 
 
@@ -44,10 +46,12 @@ function App() {
                 <Route path="/Shop" element={<Shop/>} /> {/* 샵 */}
                 <Route path="/Payment" element={<Payment/>} /> {/* Payment */}
                 <Route path="/Center" element={<Center/>} /> {/* Center */}
+                <Route path="/Rootfind" element={<Rootfind/>} /> {/* Rootfind */}
                 <Route path="/Brand" element={<Brand/>} /> {/* Brand */}
                 <Route path="/QnA" element={<QnA/>} /> {/* QnA */}
                 <Route path="/Service" element={<Service/>} /> {/* Service */}
                 <Route path="/Inquiry" element={<Inquiry/>} /> {/* Inquiry */}
+                <Route path="/InquiryAnswer" element={<InquiryAnswer/>} /> {/* InquiryAnswer */}
             </Routes>
             <Footer/>
             <FloatingButton/>

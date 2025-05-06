@@ -2496,6 +2496,93 @@ span {
   margin: 36px 0;
 }
 
+{/* 루트파인드 페이지 css */}
+.rootfind-page {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 0 0 0;
+  min-height: 100vh;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 2px;
+}
+
+.rootfind-title {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  color: #000;
+  margin-top: 74px;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.rootfind-desc {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  color: #000;
+  margin-bottom: 60px;
+}
+
+.rootfind-gyms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px 80px;
+  width: 1400px;
+  margin-top: 40px;
+}
+
+.gym-group {
+  width: 250px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.gym-name {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 22px;
+  color: #000;
+  margin-bottom: 16px;
+  letter-spacing: -0.54px;
+}
+
+.gym-instagram {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.insta-icon {
+  width: 24px;
+  height: 24px;
+  background: #19B5FE;
+  border-radius: 6px;
+  display: inline-block;
+  margin-right: 4px;
+  /* 인스타그램 아이콘 대신 파란 네모로 표시, 실제 아이콘은 이미지로 교체 가능 */
+}
+
+.insta-text {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  color: #19B5FE;
+  display: flex;
+  align-items: center;
+}
+
 {/* 브랜드 페이지 css */}
 .banner {
     position: relative;
@@ -2892,7 +2979,7 @@ span {
   align-items: center;
   margin: 15px 0;
   padding-top: 24px;
-  border-top: 2px solid #000000;
+  border-top: 2px solid #888888;
 }
 
 .section-title {
@@ -2928,6 +3015,7 @@ span {
 .answer-content {
   font-weight: 500;
   font-size: 16px;
+  border-bottom: 1px solid #888888;
 }
 
 .content-section, .answer-section {
