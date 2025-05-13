@@ -3,10 +3,10 @@ package sheepback.Dtos;
 import lombok.Data;
 
 @Data
-public class SaveOrderItemDto {
-    private Long orderId;
+public class SimpleOrderItemDto {
     private Long itemId;
-    private Long orderPrice;
+    private String color;
+    private String size;
     private Long quantity;
     private Long itemDetailId;
 }

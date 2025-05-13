@@ -35,7 +35,7 @@ public class OrderController {
     }
 
     @PostMapping("/api/order")
-    public String order(@RequestBody List<OrderDto> orderDto) {
+    public String order(@RequestBody OrderDto orderDto) {
         orderService.ordered(orderDto);
         return "Order successful";
     }

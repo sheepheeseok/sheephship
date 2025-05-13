@@ -64,31 +64,37 @@ public class OrderService {
         return items;
     }
 
-    public void ordered(List<OrderDto> orderDto) {
+    public void ordered(OrderDto orderDto) {
         LocalDateTime now = LocalDateTime.now();
-        for (OrderDto orderDtos : orderDto) {
-            ItemInfoForOrderDto itemInfoForOrderDto = itemMapper.getItemInfoForOrderDto(orderDtos.getItemId());
             SaveOrderDto saveOrderDto = new SaveOrderDto();
-            saveOrderDto.setMemberId(orderDtos.getMemberId());
+            saveOrderDto.setMemberId(orderDto.getMemberId());
             saveOrderDto.setOrderDate(now);
             saveOrderDto.setStatus(Status.ORDER);
-            saveOrderDto.setPaymentMethod(orderDtos.getPaymentMethod());
-            saveOrderDto.setRequireMents(orderDtos.getRequireMents());
+            saveOrderDto.setPaymentMethod(orderDto.getPaymentMethod());
+            saveOrderDto.setRequireMents(orderDto.getRequireMents());
             orderMapper.saveOrder(saveOrderDto);
-            SaveOrderItemDto saveOrderItemDto = new SaveOrderItemDto();
-            saveOrderItemDto.setItemId(orderDtos.getItemId());
-            saveOrderItemDto.setOrderId(saveOrderDto.getOrderId());
-            saveOrderItemDto.setQuantity(orderDtos.getQuantity());
-            saveOrderItemDto.setOrderPrice(totalPrice(itemInfoForOrderDto.getPrice(), orderDtos.getQuantity()));
-            orderItemMapper.saveOrderItem(saveOrderItemDto);
+            List<SaveOrderItemDto> saveOrderItemDtos = new ArrayList<>();
+            for(OrderItemDetailDto orderItemDetailDto : orderDto.getOrderItemDetailDtos()) {
+                ItemInfoForOrderDto itemInfoForOrderDto = itemMapper.getItemInfoForOrderDto(orderItemDetailDto.getItemId(), orderItemDetailDto.getColor(), orderItemDetailDto.getSize());
+                SaveOrderItemDto saveOrderItemDto = new SaveOrderItemDto();
+                saveOrderItemDto.setItemId(orderItemDetailDto.getItemId());
+                saveOrderItemDto.setOrderId(saveOrderDto.getOrderId());
+                saveOrderItemDto.setQuantity(orderItemDetailDto.getQuantity());
+                saveOrderItemDto.setOrderPrice(totalPrice(itemInfoForOrderDto.getPrice(), orderItemDetailDto.getQuantity()));
+                saveOrderItemDto.setItemDetailId(itemInfoForOrderDto.getItemDetailId());
+                saveOrderItemDtos.add(saveOrderItemDto);
+                itemMapper.changeQuantity(orderItemDetailDto.getItemId(), orderItemDetailDto.getQuantity(), orderItemDetailDto.getColor(), orderItemDetailDto.getSize());
+            }
+            orderItemMapper.saveOrderItem(saveOrderItemDtos);
+
             SaveDeliveryDto saveDeliveryDto = new SaveDeliveryDto();
             saveDeliveryDto.setOrderId(saveOrderDto.getOrderId());
-            saveDeliveryDto.setFirstAddress(orderDtos.getFirstAddress());
-            saveDeliveryDto.setSecondAddress(orderDtos.getSecondAddress());
+            saveDeliveryDto.setFirstAddress(orderDto.getFirstAddress());
+            saveDeliveryDto.setSecondAddress(orderDto.getSecondAddress());
             saveDeliveryDto.setDeliveryStatus(DeliveryStatus.ORDERCONFIRM);
             deliveryMapper.addDelivery(saveDeliveryDto);
-            itemMapper.changeQuantity(orderDtos.getItemId(), orderDtos.getQuantity(), orderDtos.getColor(), orderDtos.getSize());
-        }
+
+
 
     }
 
@@ -124,7 +130,15 @@ public class OrderService {
     return discount;
     }
 
-    public void cancelOrder() {
+/*
+    //order 상태 취소로 변경
+    //배송도 취소로 변경
+    //item 재고 추가
+    public void cancelOrder(Long orderId, Long orderItemId) {
+        SimpleOrderItemDto orderItem = orderItemMapper.getOrderItembyOrderId(orderId, orderItemId);
+        deliveryMapper.changeDeliveryStatus(orderId, DeliveryStatus.CANCELLED);
+        itemMapper.cancelQuantity(orderItem.getItemId(), orderItem.getQuantity(), orderItem.getColor(), orderItem.getSize());
+        orderMapper.changeOrderStatus(orderId,Status.CANCLE);
 
     }
 
@@ -134,7 +148,7 @@ public class OrderService {
     public getOrderDetail(){
 
     }
-
+*/
 
 }
 
