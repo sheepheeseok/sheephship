@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sheepback.mapper.OrderMapper">
+
+<select id="getDeliveryInfoByMemberId" parameterType="string">
+    select m.name, m.phone_number, m.email, m.first_address as firstAddress, m.second_address as secondAddress
+    from member m
+    where m.member_id = #{id}
+
+</select>
+
+
+    <insert id="saveOrder" useGeneratedKeys="true" keyProperty="orderId">
+        INSERT INTO orders (
+            member_id,
+            order_date,
+            payment_method,
+            status,
+            require_ments
+        )
+        VALUES (
+                   #{memberId},
+                   #{orderDate},
+                   #{paymentMethod},
+                   #{status},
+                   #{requireMents}
+
+
+        )
+    </insert>
+</mapper>
