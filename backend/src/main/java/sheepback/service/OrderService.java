@@ -64,6 +64,8 @@ public class OrderService {
         return items;
     }
 
+
+    //판매량 추가 배송비는 계산해서 30000원 이하면 2500원 빼고 2500원 이상이면 추가
     public void ordered(OrderDto orderDto) {
         LocalDateTime now = LocalDateTime.now();
             SaveOrderDto saveOrderDto = new SaveOrderDto();
@@ -130,26 +132,46 @@ public class OrderService {
     return discount;
     }
 
-/*
-    //order 상태 취소로 변경
-    //배송도 취소로 변경
-    //item 재고 추가
-    public void cancelOrder(Long orderId, Long orderItemId) {
-        SimpleOrderItemDto orderItem = orderItemMapper.getOrderItembyOrderId(orderId, orderItemId);
+
+    //판매량 추가하는거 넣기
+    public void cancelOrder(Long orderId, List<Long> orderItemIds) {
+
+        List<SimpleOrderItemDto> orderItem = orderItemMapper.getOrderItembyOrderId(orderId, orderItemIds);
         deliveryMapper.changeDeliveryStatus(orderId, DeliveryStatus.CANCELLED);
-        itemMapper.cancelQuantity(orderItem.getItemId(), orderItem.getQuantity(), orderItem.getColor(), orderItem.getSize());
         orderMapper.changeOrderStatus(orderId,Status.CANCLE);
+        for(SimpleOrderItemDto orderItemDto : orderItem) {
+            itemMapper.cancelQuantity(orderItemDto.getQuantity(),orderItemDto.getItemDetailId());
+
+        }
+
 
     }
 
-    public List getOrderList(){
-
+    /*
+    1+N문제 해결전
+    public List<OrderInquiryListDto> getOrderList(String memberId) {
+        List<OrderInquiryListDto> orderInquiryListDtos = new ArrayList<>();
+        List<Long> orderIdByMemberId = orderMapper.getOrderIdByMemberId(memberId);
+        for(Long orderId : orderIdByMemberId) {
+            OrderInquiryListDto orderInquiryListDto = new OrderInquiryListDto();
+            orderInquiryListDto.setOrderId(orderId);
+            List<OrderInquiryItemDto> orderInquiryByOrderId = orderItemMapper.getOrderInquiryByOrderId(orderId);
+            orderInquiryListDto.setOrderInquiryItemDtoList(orderInquiryByOrderId);
+            orderInquiryListDtos.add(orderInquiryListDto);
+        }
+        return orderInquiryListDtos;
     }
+    */
+    //해결후
+    public List<OrderInquiryListDto> getOrderList(String memberId) {
+        return orderItemMapper.getOrderListWithItems(memberId);
+    }
+
+/*
     public getOrderDetail(){
 
     }
 */
-
 }
 
 

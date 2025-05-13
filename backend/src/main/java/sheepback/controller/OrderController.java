@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import sheepback.Dtos.BuyItemListDto;
 import sheepback.Dtos.DeliveryInfoDto;
 import sheepback.Dtos.OrderDto;
+import sheepback.Dtos.OrderInquiryListDto;
 import sheepback.domain.Address;
 import sheepback.service.OrderService;
 
@@ -40,7 +41,21 @@ public class OrderController {
         return "Order successful";
     }
 
+    @PostMapping("/api/cancelorder")
+    public String cancel(@RequestBody getIdsDto request) {
+        orderService.cancelOrder(request.getOrderId(),request.getOrderItemIds());
+        return "cancel successful";
+    }
 
+    @GetMapping("/api/orderList/{id}")
+    public List<OrderInquiryListDto> getOrderList(@PathVariable("id") String memberId) {
+        List<OrderInquiryListDto> result = orderService.getOrderList(memberId);
+        return result;
+    }
 
-
+    @Data
+    private static class getIdsDto {
+        private Long orderId;
+        private List<Long> orderItemIds;
+    }
 }

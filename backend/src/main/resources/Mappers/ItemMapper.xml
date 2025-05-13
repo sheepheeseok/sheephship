@@ -83,6 +83,10 @@
         from category
         where name = #{category};
     </delete>
+    <update id="cancelQuantity">
+        update item_detail set stock_quantity = stock_quantity + #{quantity}
+        where item_detail_id = #{itemDetailId}
+    </update>
 
     <select id="getItemInfoForOrderDto" resultType="sheepback.Dtos.ItemInfoForOrderDto">
         SELECT
@@ -107,7 +111,15 @@
     </select>
 
     <update id="changeQuantity">
-        update item_detail set stock_quantity = stock_quantity - #{quantity}
-        where item_id = #{id} and color = #{color} and size = #{size}
+        UPDATE item_detail
+        SET stock_quantity = stock_quantity - #{quantity}
+        WHERE item_id = #{id}
+        AND color = #{color}
+        <if test="size == null">
+            AND size IS NULL
+        </if>
+        <if test="size != null">
+            AND size = #{size}
+        </if>
     </update>
 </mapper>

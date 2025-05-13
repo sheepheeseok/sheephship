@@ -29,6 +29,6 @@ public interface ItemMapper {
     void deleteCategory(@Param("category") String category);
     ItemInfoForOrderDto getItemInfoForOrderDto(@Param("id") Long id, @Param("color") String color, @Param("size") String size);
     void changeQuantity(@Param("id") Long id, @Param("quantity") Long quantity, @Param("color") String color, @Param("size") String size);
-    void cancelQuantity(@Param("id") Long id, @Param("quantity") Long quantity, @Param("color") String color, @Param("size") String size);
+    void cancelQuantity(@Param("quantity") Long quantity, @Param("itemDetailId") Long itemDetailId);
 
 }

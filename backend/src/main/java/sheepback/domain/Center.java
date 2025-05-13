@@ -11,6 +11,7 @@ import java.util.List;
 public class Center {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "center_id")
     private String id;
 

@@ -11,10 +11,11 @@ import sheepback.domain.item.Item;
 public class OrderItems {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_item_id")
     private Long id;//주문 상품 고유번호
 
+    private Long itemDetailId;
 
     private Long quantity;//갯수
 

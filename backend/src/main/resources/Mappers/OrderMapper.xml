@@ -12,6 +12,9 @@
     where m.member_id = #{id}
 
 </select>
+    <select id="getOrderIdByMemberId">
+        select o.order_id from orders o where o.member_id = #{id}
+    </select>
 
 
     <insert id="saveOrder" useGeneratedKeys="true" keyProperty="orderId">

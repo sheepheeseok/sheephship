@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class cart {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")
     private Long id;
 
