@@ -33,8 +33,6 @@ public class Orders {
     //배송요청
     private String requireMents;
 
-    private Long point;
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;//다대일 멤버조인
@@ -42,8 +40,8 @@ public class Orders {
     @OneToMany(mappedBy = "order",  cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItems> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "delivery_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "order")
+
     private Delivery delivery;//일대일 Delivery 조인
 
 

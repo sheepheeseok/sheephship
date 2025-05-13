@@ -52,7 +52,7 @@ const Navbar = () => {
                  style={{cursor: "pointer"}}/>
             <div className="nav-icons">
                 <img src="/icons/search.svg" alt="searchIcon"/>
-                <img src="/icons/market.svg" alt="marketIcon"/>
+                <img src="/icons/market.svg" alt="marketIcon" onClick={() => navigate("/Cart")}/>
                 <img
                     src="/icons/profile.svg"
                     alt="profileIcon"

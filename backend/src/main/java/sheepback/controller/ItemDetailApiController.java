@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sheepback.repository.ItemQuery.HasSizeItemDto;
-import sheepback.repository.ItemQuery.NoHasSizeItemDto;
+
+import sheepback.Dtos.ItemDto;
 import sheepback.service.ItemService;
 
 @RestController
@@ -15,15 +15,11 @@ public class ItemDetailApiController {
     @Autowired
     private ItemService itemService;
 
-    @GetMapping("/api/Product/{id}")
-    public ResponseEntity<?> etItemById(@PathVariable("id") Long id) {
-        boolean countSizeByItemId = itemService.getCountByItemId(id);
-        if (countSizeByItemId){
-            return ResponseEntity.ok(itemService.getItemById_size(id));
-         }else{
-            return ResponseEntity.ok(itemService.getItemById(id));
-        }
-
+    @GetMapping("/api/showItem/{id}")
+    public ItemDto getItemById(@PathVariable("id") Long id) {
+        ItemDto itemById = itemService.getItemById(id);
+        return itemById;
     }
+
 
 }

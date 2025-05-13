@@ -15,6 +15,7 @@
       <module name="backend" target="21" />
       <module name="backend.main" target="21" />
       <module name="backend.test" target="21" />
+      <module name="sheepship.backend" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

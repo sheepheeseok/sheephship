@@ -39,8 +39,6 @@ public class Member {
     @Embedded
     private Address address; //주소 임베디드타입
 
-    private Long point;//포인트
-
     @Column(unique = true)
     private String phoneNumber;
 
@@ -79,7 +77,6 @@ public class Member {
         this.email = email;
         this.grade = Grade.RED;
         this.address = address;
-        this.point = 0L;
         this.agreeTerms = agreeTerms;
         this.agreeAge = agreeAge;
         this.agreeMarketing = agreeMarketing;

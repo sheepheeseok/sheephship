@@ -5,10 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import sheepback.domain.item.Item;
-import sheepback.repository.QuestionAnswerRepository;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Getter @Setter

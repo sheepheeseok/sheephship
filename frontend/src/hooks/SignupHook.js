@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 
 const SignupHook = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         part1: "",
         part2: "",
@@ -125,6 +127,7 @@ const SignupHook = () => {
         try {
             const response = await axios.post("http://localhost:8080/api/signup", userData);
             alert(response.data);
+            navigate("/");
         } catch (error) {
             console.error("회원가입 실패:", error);
             alert("회원가입에 실패했습니다."); // 에러 발생 시 알림창 표시

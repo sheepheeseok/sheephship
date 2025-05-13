@@ -19,7 +19,6 @@ import java.util.List;
 public class Item {
 
     @Id
-    @GeneratedValue
     @Column(name = "item_id")
     private Long id;//상품 고유번호
 
@@ -42,15 +41,13 @@ public class Item {
 
     private Long salesVolume;
 
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "item")
-    private List<Color> colors = new ArrayList<>();
+    private List<ItemDetail> details = new ArrayList<>();
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItems> orderItems = new ArrayList<>();;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "item_img_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "item")
     private ItemImg itemImg;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -83,10 +80,6 @@ public class Item {
 
     }
 
-    public void addOrderItem(OrderItems orderItem) {
-        this.orderItems.add(orderItem); // 컬렉션 초기화 보장
-        orderItem.setItem(this);
-    }
 
 
 }

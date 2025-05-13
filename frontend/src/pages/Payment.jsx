@@ -463,7 +463,7 @@ const Payment = () => {
             <div className="payment-productBox">
                 <h1>구매 상품</h1>
                 <div className="payment-product-info">
-                    <img src="/imgs/products/2-pants (1).jpg" alt="payment-product"
+                    <img src="/imgs/products/2-pants(1).jpg" alt="payment-product"
                          className="payment-product"/>
                     <div className="payment-product-detail">
                         <h1 style={{marginBottom: "5px"}}>Stealth XPAC™ Deluxe Chalk Bucket- Mag Closure</h1>

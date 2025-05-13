@@ -13,7 +13,7 @@ const ProductHook = () => {
 
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`/api/NoSizeProduct/${id}`);
+                const response = await axios.get(`/api/Product/${id}`);
                 console.log(response.data);
                 setProductData(response.data);
             } catch (err) {
