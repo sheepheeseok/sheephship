@@ -167,11 +167,11 @@ public class OrderService {
         return orderItemMapper.getOrderListWithItems(memberId);
     }
 
-/*
-    public getOrderDetail(){
+    public OrderDetailDto getOrderDetail(Long orderId) {
+        return orderMapper.getOrderDetailByOrderId(orderId);
 
     }
-*/
+
 }
 
 

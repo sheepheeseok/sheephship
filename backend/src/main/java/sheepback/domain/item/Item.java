@@ -28,7 +28,6 @@ public class Item {
 
     private LocalDateTime created;
 
-    private Long deliveryFee;
 
 
     @NotNull
@@ -72,7 +71,6 @@ public class Item {
         this.price = price;
         this.mainUrl = mainUrl;
         this.created = LocalDateTime.now();
-        this.deliveryFee = deliveryFee;
         this.contents = contents;
     }
 

@@ -4,6 +4,7 @@ package sheepback.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import sheepback.Dtos.DeliveryInfoDto;
+import sheepback.Dtos.OrderDetailDto;
 import sheepback.Dtos.SaveOrderDto;
 import sheepback.domain.Status;
 
@@ -16,4 +17,5 @@ public interface OrderMapper {
     void saveOrder(SaveOrderDto saveOrderDto);
     void changeOrderStatus(@Param("id") Long orderId, @Param("status") Status status);
     List<Long> getOrderIdByMemberId(@Param("id") String memberId);
+    OrderDetailDto getOrderDetailByOrderId(@Param("orderId") Long orderId);
 }

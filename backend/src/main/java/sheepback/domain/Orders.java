@@ -33,6 +33,9 @@ public class Orders {
     //배송요청
     private String requireMents;
 
+    private Long deliveryFee;
+
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;//다대일 멤버조인

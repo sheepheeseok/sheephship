@@ -17,4 +17,7 @@
                    #{deliveryStatus}
                )
     </insert>
+    <update id="changeDeliveryStatus">
+        update delivery set delivery_status = #{status} where order_id = #{id}
+    </update>
 </mapper>

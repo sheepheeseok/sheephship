@@ -35,4 +35,101 @@
 
         )
     </insert>
+
+    <resultMap id="OrderDetailMap" type="sheepback.Dtos.OrderDetailDto">
+
+        <id property="orderId" column="order_id"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="ordererName" column="orderer_name"/>
+        <result property="firstAddress" column="first_address"/>
+        <result property="secondAddress" column="second_address"/>
+        <result property="requireMents" column="require_ments"/>
+        <result property="deliveryFee" column="delivery_fee"/>
+
+        <collection property="orderDetailItems"
+                    ofType="sheepback.Dtos.OrderDetailItemDto"
+                    resultMap="OrderDetailItemMap"/>
+
+
+    </resultMap>
+
+    <resultMap id="OrderDetailItemMap" type="sheepback.Dtos.OrderDetailItemDto">
+
+        <id property="orderItemId" column="order_item_id"/>
+        <result property="itemId" column="item_id"/>
+        <result property="itemName" column="name"/>
+        <result property="mainUrl" column="main_url"/>
+        <result property="quantity" column="quantity"/>
+        <result property="orderPrice" column="order_price"/>
+
+
+    </resultMap>
+
+    <select id="getOrderDetailByOrderId" resultMap="OrderDetailMap">
+        SELECT
+            o.order_id,
+            o.order_date,
+            d.orderer_name,
+            d.first_address,
+            d.second_address,
+            o.require_ments,
+            o.delivery_fee,
+            oi.order_item_id,
+            oi.item_id,
+            i.name,
+            i.main_url,
+            oi.quantity,
+            oi.order_price
+
+        FROM
+            orders o
+                INNER JOIN order_items oi ON o.order_id = oi.order_id
+                INNER JOIN item i ON oi.item_id = i.item_id
+                INNER JOIN item_detail id ON oi.item_detail_id = id.item_detail_id
+                INNER JOIN delivery d ON d.order_id = o.order_id
+        WHERE
+            o.order_id = #{orderId}
+    </select>
+
+
+    <resultMap id="OrderInquiryListMap" type="sheepback.Dtos.OrderInquiryListDto">
+        <!-- 주문 기본 정보 -->
+        <id property="orderId" column="order_id"/>
+
+        <!-- 주문 상품 목록 (컬렉션) -->
+        <collection
+                property="orderInquiryItemDtoList"
+                ofType="sheepback.Dtos.OrderInquiryItemDto"
+                resultMap="OrderInquiryItemMap"
+        />
+    </resultMap>
+
+    <!-- 주문 상품 정보 매핑 -->
+    <resultMap id="OrderInquiryItemMap" type="sheepback.Dtos.OrderInquiryItemDto">
+        <id property="orderItemId" column="order_item_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="itemDetailId" column="item_detail_id"/>
+        <result property="itemId" column="item_id"/>
+        <result property="orderPrice" column="order_price"/>
+        <result property="name" column="item_name"/>
+        <result property="mainUrl" column="main_url"/>
+    </resultMap>
+    <select id="getOrderListWithItems" resultMap="OrderInquiryListMap">
+        SELECT
+            o.order_id,
+            oi.order_item_id,
+            oi.quantity,
+            oi.item_detail_id,
+            oi.item_id,
+            oi.order_price,
+            i.name AS item_name,
+            i.main_url
+        FROM
+            orders o
+                INNER JOIN order_items oi ON o.order_id = oi.order_id
+                INNER JOIN item i ON oi.item_id = i.item_id
+                INNER JOIN item_detail id ON oi.item_detail_id = id.item_detail_id
+        WHERE
+            o.member_id = #{memberId}
+    </select>
 </mapper>
