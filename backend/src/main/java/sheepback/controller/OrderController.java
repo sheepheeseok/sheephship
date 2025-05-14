@@ -6,10 +6,7 @@ import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sheepback.Dtos.BuyItemListDto;
-import sheepback.Dtos.DeliveryInfoDto;
-import sheepback.Dtos.OrderDto;
-import sheepback.Dtos.OrderInquiryListDto;
+import sheepback.Dtos.*;
 import sheepback.domain.Address;
 import sheepback.service.OrderService;
 
@@ -51,6 +48,11 @@ public class OrderController {
     public List<OrderInquiryListDto> getOrderList(@PathVariable("id") String memberId) {
         List<OrderInquiryListDto> result = orderService.getOrderList(memberId);
         return result;
+    }
+
+    @GetMapping("/api/orderDetail/{id}")
+    public OrderDetailDto getOrderDetail(@PathVariable("id") Long orderId) {
+      return orderService.getOrderDetail(orderId);
     }
 
     @Data
