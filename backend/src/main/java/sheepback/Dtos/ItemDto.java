@@ -42,4 +42,5 @@ public class ItemDto {
     private List<ItemDetailSimpleDto> colors;
     private ItemImgSimpleDto image;
 
+
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sheepback.mapper.stockReservationMapper">
+
+
+    <insert id="insertReservation"
+            parameterType="sheepback.Dtos.StockReservation"
+            useGeneratedKeys="true"
+            keyProperty="reservationId">
+        INSERT INTO stock_reservation (item_detail_id, member_id, quantity, expire_at)
+        VALUES (#{StockReservation.itemDetailId}, #{StockReservation.memberId},
+                #{StockReservation.quantity}, #{StockReservation.expireAt})
+    </insert>
+    <update id="confirmReservation">
+    UPDATE stock_reservation
+    SET status = 'CONFIRMED'
+    WHERE resevation_id = #{resevationId}
+    AND status = 'HOLD';
+    </update>
+    <delete id="cancelReservation">
+        UPDATE stock_reservation
+        SET status = 'CANCELED'
+        WHERE  resevation_id = #{reservationId}
+          AND status = 'HOLD';
+    </delete>
+    <select id="findReservation" resultType="java.lang.String">
+        select st.status
+        from stock_reservation st
+        where st.resevation_id IN
+              <foreach collection="reservationId" item="id" open="(" separator="," close=")">
+                  #{id}
+              </foreach>
+    </select>
+    <select id="findReservationItemDetailId" resultType="java.lang.Long">
+        select st.item_detail_id
+        from stock_reservation st
+        where st.resevation_id = #{reservationId}
+    </select>
+
+</mapper>

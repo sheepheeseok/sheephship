@@ -9,4 +9,5 @@ public class OrderItemDetailDto {
     private Long itemId;
     private String size;
     private String color;
+    private Long resevationId;
 }

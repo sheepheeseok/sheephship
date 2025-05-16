@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sheepback.mapper.ReviewMapper">
+
+    <insert id="addReview" parameterType="sheepback.Dtos.AddReviewDto">
+        INSERT INTO review (
+            item_id, title, content, member_id, img_url1, img_url2, img_url3, like_count, order_id, write_date
+        ) VALUES (
+            #{Dto.itemId}, #{Dto.title}, #{Dto.content}, #{Dto.memberId}, #{Dto.imgUrl1},
+                  #{Dto.imgUrl2}, #{Dto.imgUrl3}, #{Dto.likeCount}, #{Dto.orderId}, #{addDate}
+                 )
+    </insert>
+    <update id="editReview" parameterType="sheepback.Dtos.EditReviewDto">
+        UPDATE review
+        SET
+            title = #{title},
+            content = #{content},
+            img_url1 = #{imgUrl1},
+            img_url2 = #{imgUrl2},
+            img_url3 = #{imgUrl3}
+        WHERE
+            review_id = #{reviewId}
+    </update>
+    <select id="getReviewList" resultType="sheepback.Dtos.ReviewResponse">
+            SELECT review_id, write_date, title, content,img_url1,img_url2,img_url3,like_count
+            FROM review
+            where item_id = #{itemId}
+            ORDER BY write_date DESC
+            LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+
+    <delete id="deleteReview">
+        delete from review
+        where review_id = #{reviewId}
+    </delete>
+
+    <select id="mypagehasPurchased" resultType="java.lang.Long">
+        SELECT EXISTS(
+            SELECT 1
+            FROM review
+            WHERE order_id = #{orderId}
+        )
+    </select>
+    <select id="getItemReviewPagesize">
+        select count(*)
+        from review
+        where item_id = #{itemId}
+    </select>
+
+</mapper>

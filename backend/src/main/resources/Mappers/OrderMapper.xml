@@ -23,14 +23,16 @@
             order_date,
             payment_method,
             status,
-            require_ments
+            require_ments,
+            delivery_fee
         )
         VALUES (
                    #{memberId},
                    #{orderDate},
                    #{paymentMethod},
                    #{status},
-                   #{requireMents}
+                   #{requireMents},
+                   #{deliveryFee}
 
 
         )
@@ -132,4 +134,16 @@
         WHERE
             o.member_id = #{memberId}
     </select>
+    <select id="hasPurchased" resultType="java.lang.Long">
+        SELECT o.order_id
+        FROM orders o
+                 INNER JOIN order_items oi ON oi.order_id = o.order_id
+                 LEFT JOIN review r ON r.order_id = o.order_id AND r.item_id = oi.item_id
+        WHERE o.member_id = #{memberId}
+          AND oi.item_id = #{itemId}
+          AND o.status = 'CONFIRMED'
+          AND r.review_id IS NULL
+
+    </select>
+
 </mapper>

@@ -12,6 +12,7 @@ import sheepback.service.OrderService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class OrderController {
@@ -25,11 +26,32 @@ public class OrderController {
         return deliveryInfoById;
     }
 
+    @PostMapping("/api/cancelStockReservation")
+    public void cancelStockReservation(@RequestBody List<CancelReserveRequest> requests) {
+        orderService.cancelStockReservation(requests);
+
+    }
+
+    @PostMapping("/api/reserveMultipleStocks")
+    public List<Long> reserveMultipleStocks(@RequestBody List<StockReserveRequest> requests) {
+        List<Long> longs = orderService.reserveMultipleStocks(requests);
+        return longs;
+
+    }
+
+
+
+
 
     @PostMapping("/api/buy-items")
-    public List<BuyItemListDto> getBuyItems(@RequestBody List<BuyItemListDto> items) {
+    public BuyItemListAndDeliveryFeeDto getBuyItems(@RequestBody List<BuyItemListDto> items) {
+        List<Long> prices = items.stream().map(BuyItemListDto::getPrice).collect(Collectors.toList());
+        Long deliveryFee = orderService.calculateTotalDeliveryFee(prices);
         List<BuyItemListDto> result = orderService.enrichItems(items);
-        return result;
+        BuyItemListAndDeliveryFeeDto dto = new BuyItemListAndDeliveryFeeDto();
+        dto.setItemListDtos(result);
+        dto.setDeliveryFee(deliveryFee);
+        return dto;
     }
 
     @PostMapping("/api/order")
@@ -53,6 +75,12 @@ public class OrderController {
     @GetMapping("/api/orderDetail/{id}")
     public OrderDetailDto getOrderDetail(@PathVariable("id") Long orderId) {
       return orderService.getOrderDetail(orderId);
+    }
+
+    @Data
+    private static class BuyItemListAndDeliveryFeeDto {
+        private Long deliveryFee;
+        private List<BuyItemListDto> itemListDtos;
     }
 
     @Data
