@@ -4,4 +4,50 @@
 
 <mapper namespace="sheepback.mapper.QuestionMapper">
 
+    <insert id="insertQuestion" parameterType="sheepback.Dtos.FinalQuestionCreateDto">
+        INSERT INTO question
+        (item_id, write_date_time, content, img_url, member_id, title, question_type, answer_status)
+        VALUES
+            (#{itemId}, #{writeDateTime}, #{content}, #{imgUrl}, #{memberId}, #{title}, #{questionType}, #{answerStatus})
+    </insert>
+    <delete id="deleteQuestion">
+        delete from question
+        where question_id = #{questionId}
+    </delete>
+    <delete id="deleteQuestionAnswerById">
+        delete from question_answer
+        where question_answer_id = #{questionAnswerId}
+    </delete>
+    <delete id="deleteQuestionAnswerByQuestionId">
+        delete from question_answer
+        where question_id = #{questionId}
+    </delete>
+
+    <update id="updateQuestion" parameterType="sheepback.Dtos.QuestionUpdateRequest">
+        UPDATE question
+        SET
+            title = #{title},
+            content = #{content},
+            img_url = #{imgUrl}
+        WHERE question_id = #{questionId}
+    </update>
+
+    <insert id="insertQuestionAnswer" parameterType="sheepback.Dtos.QuestionAnswerRequest">
+        INSERT INTO question_answer
+            (question_id, write_date_time, admin_id, content, title)
+        VALUES
+            (#{questionId}, NOW(), #{adminId}, #{content}, #{title})
+    </insert>
+
+    <select id="countByQuestionId" resultType="int">
+        SELECT COUNT(*) FROM question_answer WHERE question_id = #{questionId}
+    </select>
+    <update id="updateQuestionAnswer" parameterType="sheepback.Dtos.QuestionAnswerUpdateRequest">
+        UPDATE question_answer
+        SET
+            content = #{content},
+            title = #{title}
+        WHERE
+            question_answer_id = #{questionAnswerId} and admin_id = #{adminId}
+    </update>
 </mapper>
