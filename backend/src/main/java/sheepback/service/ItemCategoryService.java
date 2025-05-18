@@ -2,7 +2,6 @@ package sheepback.service;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
