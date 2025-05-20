@@ -23,7 +23,7 @@
     <select id="getItemById" parameterType="long">
         select
             i.item_id, i.name, i.produce, i.contents, i.main_url,
-            i.created, i.delivery_fee, i.price, i.sales_volume
+            i.created, i.price, i.sales_volume
         from item i
         where i.item_id = #{id}
 
