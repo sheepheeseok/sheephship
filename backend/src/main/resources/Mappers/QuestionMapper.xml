@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sheepback.mapper.QuestionMapper">
+
+    <insert id="insertQuestion" parameterType="sheepback.Dtos.FinalQuestionCreateDto">
+        INSERT INTO question
+        (item_id, write_date_time, content, img_url, member_id, title, question_type, answer_status)
+        VALUES
+            (#{itemId}, #{writeDateTime}, #{content}, #{imgUrl}, #{memberId}, #{title}, #{questionType}, #{answerStatus})
+    </insert>
+    <delete id="deleteQuestion">
+        delete from question
+        where question_id = #{questionId}
+    </delete>
+    <delete id="deleteQuestionAnswerById">
+        delete from question_answer
+        where question_answer_id = #{questionAnswerId}
+    </delete>
+    <delete id="deleteQuestionAnswerByQuestionId">
+        delete from question_answer
+        where question_id = #{questionId}
+    </delete>
+
+    <update id="updateQuestion" parameterType="sheepback.Dtos.QuestionUpdateRequest">
+        UPDATE question
+        SET
+            title = #{title},
+            content = #{content},
+            img_url = #{imgUrl}
+        WHERE question_id = #{questionId}
+    </update>
+
+    <insert id="insertQuestionAnswer" parameterType="sheepback.Dtos.QuestionAnswerRequest">
+        INSERT INTO question_answer
+            (question_id, write_date_time, admin_id, content, title)
+        VALUES
+            (#{questionId}, NOW(), #{adminId}, #{content}, #{title})
+    </insert>
+
+    <select id="countByQuestionId" resultType="int">
+        SELECT COUNT(*) FROM question_answer WHERE question_id = #{questionId}
+    </select>
+    <update id="updateQuestionAnswer" parameterType="sheepback.Dtos.QuestionAnswerUpdateRequest">
+        UPDATE question_answer
+        SET
+            content = #{content},
+            title = #{title}
+        WHERE
+            question_answer_id = #{questionAnswerId} and admin_id = #{adminId}
+    </update>
+
+    <update id="changeCompleteAnswerStatus" parameterType="Long">
+        update question
+        set
+            answer_status = 'COMPLETE'
+        where question_id = #{questionId}
+    </update>
+    <update id="changeWaitingAnswerStatus" parameterType="Long">
+        update question
+        set
+            answer_status = 'WAITING'
+        where question_id = #{questionId}
+    </update>
+
+    <select id="getquestionIdByAnswerId" resultType="java.lang.Long">
+        select question_id
+        from question_answer
+        where question_answer_id = #{questionAnswerId}
+    </select>
+
+    <select id="getQuestionListByitemId" resultType="sheepback.Dtos.ItemQuestionAndAnswerDto">
+        SELECT
+            q.question_id      AS questionId,
+            q.write_date_time  AS writeDateTime,
+            q.title,
+            q.content,
+            q.img_url          AS imgUrl,
+            q.member_id        AS memberId,
+            q.question_type    AS questionType,
+            q.answer_status    AS answerStatus,
+            q.item_id          AS itemId,
+            qa.question_id as answerQuestionId,
+            qa.question_answer_id as questionAnswerId,
+            qa.write_date_time as answerWriteDateTime,
+            qa.admin_id as adminId,
+            qa.title as answerTitle,
+            qa.content as answerContent
+        FROM question q
+            LEFT JOIN question_answer qa ON qa.question_id = q.question_id
+        WHERE q.item_id = #{itemId}
+    </select>
+
+    <select id="getQuestionListBymemberId" resultType="sheepback.Dtos.MemberQuestionListDto">
+        SELECT
+            q.question_id      AS questionId,
+            q.write_date_time  AS writeDateTime,
+            q.title,
+            q.member_id        AS memberId,
+            q.answer_status    AS answerStatus,
+            q.item_id          AS itemId
+        FROM question q
+        WHERE q.member_id = #{memberId}
+
+    </select>
+
+    <select id="getQuestionAndAnswerByQuestionId" resultType="sheepback.Dtos.MemberQuestionAndAnswerDto">
+
+        SELECT
+            q.question_id      AS questionId,
+            q.write_date_time  AS writeDateTime,
+            q.title,
+            q.content,
+            q.img_url          AS imgUrl,
+            q.member_id        AS memberId,
+            q.question_type    AS questionType,
+            q.answer_status    AS answerStatus,
+            q.item_id          AS itemId,
+            qa.question_id as answerQuestionId,
+            qa.question_answer_id as questionAnswerId,
+            qa.write_date_time as answerWriteDateTime,
+            qa.admin_id as adminId,
+            qa.title as answerTitle,
+            qa.content as answerContent
+        FROM question q
+                 LEFT JOIN question_answer qa ON qa.question_id = q.question_id
+        WHERE q.question_id = #{questionId}
+    </select>
+</mapper>

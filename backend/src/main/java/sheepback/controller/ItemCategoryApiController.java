@@ -21,15 +21,27 @@ public class ItemCategoryApiController {
 
 
     //카테고리별 아이템 찾기
-    @GetMapping("/api/getItembyCategory/{category}")
-    public List<ItemListByCategoryDto> getItemListbyCategory(@PathVariable("category") String category){
-        return itemCategoryService.getListByCategory(category);
+    @GetMapping("/api/getItembyCategory/{category}/{page}")
+    public ItemListDto getItemListbyCategory(@PathVariable("category") String category,
+                                                             @PathVariable("page") int page){
+        ItemListDto itemListDto = new ItemListDto();
+        List<ItemListByCategoryDto> listByCategory = itemCategoryService.getListByCategory(category, page);
+        int countItemListByCategory = itemCategoryService.getCountItemListByCategory(category);
+        itemListDto.setListByCategory(listByCategory);
+        itemListDto.setPage(countItemListByCategory);
+        return itemListDto;
     }
 
     //검색 결과 찾기
-    @GetMapping("/api/searchItem/{keyword}")
-    public List<ItemListByCategoryDto> getItemListByCategory(@PathVariable("keyword") String keyword){
-        return itemCategoryService.getListBySearchKeyword(keyword);
+    @GetMapping("/api/searchItem/{keyword}/{page}")
+    public List<ItemListByCategoryDto> getItemListBySearchKeyword(@PathVariable("keyword") String keyword,
+                                                             @PathVariable("page") int page){
+        ItemListDto itemListDto = new ItemListDto();
+        List<ItemListByCategoryDto> listBySearchKeyword = itemCategoryService.getListBySearchKeyword(keyword, page);
+        int countItemListBySearchKeyword = itemCategoryService.getCountItemListBySearchKeyword(keyword);
+        itemListDto.setListByCategory(listBySearchKeyword);
+        itemListDto.setPage(countItemListBySearchKeyword);
+        return  listBySearchKeyword;
     }
 
     @PostMapping("/api/saveCategory/{category}")
@@ -50,5 +62,10 @@ public class ItemCategoryApiController {
     private static class ChangeCategoryRequset {
         private String CategoryName;
         private String newCategoryName;
+    }
+    @Data
+    private static class ItemListDto {
+       private List<ItemListByCategoryDto> listByCategory;
+       private int page;
     }
 }

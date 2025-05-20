@@ -5,15 +5,14 @@ import sheepback.domain.Grade;
 import sheepback.domain.Status;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class OrderDto {
 
-    private Long quantity;
-    private Long itemId;
+
+    private List<OrderItemDetailDto> orderItemDetailDtos;
     private String memberId;
-    private String size;
-    private String color;
     private String paymentMethod;
     private String requireMents;
     private String firstAddress;

@@ -14,7 +14,7 @@ import java.util.List;
 @Getter @Setter
 public class Orders {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Long id;//오더 ID
 
@@ -32,6 +32,9 @@ public class Orders {
 
     //배송요청
     private String requireMents;
+
+    private Long deliveryFee;
+
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")

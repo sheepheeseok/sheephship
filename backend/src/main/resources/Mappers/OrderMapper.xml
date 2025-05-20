@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="sheepback.mapper.OrderMapper">
+    <update id="changeOrderStatus">
+        update orders set status = #{status} where order_id = #{id}
+    </update>
 
-<select id="getDeliveryInfoByMemberId" parameterType="string">
+    <select id="getDeliveryInfoByMemberId" parameterType="string">
     select m.name, m.phone_number, m.email, m.first_address as firstAddress, m.second_address as secondAddress
     from member m
     where m.member_id = #{id}
 
 </select>
+    <select id="getOrderIdByMemberId">
+        select o.order_id from orders o where o.member_id = #{id}
+    </select>
 
 
     <insert id="saveOrder" useGeneratedKeys="true" keyProperty="orderId">
@@ -17,16 +23,127 @@
             order_date,
             payment_method,
             status,
-            require_ments
+            require_ments,
+            delivery_fee
         )
         VALUES (
                    #{memberId},
                    #{orderDate},
                    #{paymentMethod},
                    #{status},
-                   #{requireMents}
+                   #{requireMents},
+                   #{deliveryFee}
 
 
         )
     </insert>
+
+    <resultMap id="OrderDetailMap" type="sheepback.Dtos.OrderDetailDto">
+
+        <id property="orderId" column="order_id"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="ordererName" column="orderer_name"/>
+        <result property="firstAddress" column="first_address"/>
+        <result property="secondAddress" column="second_address"/>
+        <result property="requireMents" column="require_ments"/>
+        <result property="deliveryFee" column="delivery_fee"/>
+
+        <collection property="orderDetailItems"
+                    ofType="sheepback.Dtos.OrderDetailItemDto"
+                    resultMap="OrderDetailItemMap"/>
+
+
+    </resultMap>
+
+    <resultMap id="OrderDetailItemMap" type="sheepback.Dtos.OrderDetailItemDto">
+
+        <id property="orderItemId" column="order_item_id"/>
+        <result property="itemId" column="item_id"/>
+        <result property="itemName" column="name"/>
+        <result property="mainUrl" column="main_url"/>
+        <result property="quantity" column="quantity"/>
+        <result property="orderPrice" column="order_price"/>
+
+
+    </resultMap>
+
+    <select id="getOrderDetailByOrderId" resultMap="OrderDetailMap">
+        SELECT
+            o.order_id,
+            o.order_date,
+            d.orderer_name,
+            d.first_address,
+            d.second_address,
+            o.require_ments,
+            o.delivery_fee,
+            oi.order_item_id,
+            oi.item_id,
+            i.name,
+            i.main_url,
+            oi.quantity,
+            oi.order_price
+
+        FROM
+            orders o
+                INNER JOIN order_items oi ON o.order_id = oi.order_id
+                INNER JOIN item i ON oi.item_id = i.item_id
+                INNER JOIN item_detail id ON oi.item_detail_id = id.item_detail_id
+                INNER JOIN delivery d ON d.order_id = o.order_id
+        WHERE
+            o.order_id = #{orderId}
+    </select>
+
+
+    <resultMap id="OrderInquiryListMap" type="sheepback.Dtos.OrderInquiryListDto">
+        <!-- 주문 기본 정보 -->
+        <id property="orderId" column="order_id"/>
+
+        <!-- 주문 상품 목록 (컬렉션) -->
+        <collection
+                property="orderInquiryItemDtoList"
+                ofType="sheepback.Dtos.OrderInquiryItemDto"
+                resultMap="OrderInquiryItemMap"
+        />
+    </resultMap>
+
+    <!-- 주문 상품 정보 매핑 -->
+    <resultMap id="OrderInquiryItemMap" type="sheepback.Dtos.OrderInquiryItemDto">
+        <id property="orderItemId" column="order_item_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="itemDetailId" column="item_detail_id"/>
+        <result property="itemId" column="item_id"/>
+        <result property="orderPrice" column="order_price"/>
+        <result property="name" column="item_name"/>
+        <result property="mainUrl" column="main_url"/>
+    </resultMap>
+    <select id="getOrderListWithItems" resultMap="OrderInquiryListMap">
+        SELECT
+            o.order_id,
+            oi.order_item_id,
+            oi.quantity,
+            oi.item_detail_id,
+            oi.item_id,
+            oi.order_price,
+            i.name AS item_name,
+            i.main_url
+        FROM
+            orders o
+                INNER JOIN order_items oi ON o.order_id = oi.order_id
+                INNER JOIN item i ON oi.item_id = i.item_id
+                INNER JOIN item_detail id ON oi.item_detail_id = id.item_detail_id
+        WHERE
+            o.member_id = #{memberId}
+    </select>
+    <select id="hasPurchased" resultType="java.lang.Long">
+        SELECT o.order_id
+        FROM orders o
+                 INNER JOIN order_items oi ON oi.order_id = o.order_id
+                 LEFT JOIN review r ON r.order_id = o.order_id AND r.item_id = oi.item_id
+        WHERE o.member_id = #{memberId}
+          AND oi.item_id = #{itemId}
+          AND o.status = 'CONFIRMED'
+          AND r.review_id IS NULL
+
+    </select>
+
 </mapper>

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class cart {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")
     private Long id;
 
@@ -23,13 +23,17 @@ public class cart {
 
     private LocalDate addDate;
 
+    private Long item_detail_id;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_num")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id")
     private Item item;
+
+
 
 
 }

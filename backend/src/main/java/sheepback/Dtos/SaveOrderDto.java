@@ -14,6 +14,7 @@ public class SaveOrderDto {
     private String paymentMethod;
     private Status status;
     private String requireMents;
+    private Long deliveryFee;
 
 
 }

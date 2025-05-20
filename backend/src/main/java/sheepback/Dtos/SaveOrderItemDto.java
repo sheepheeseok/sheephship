@@ -8,4 +8,5 @@ public class SaveOrderItemDto {
     private Long itemId;
     private Long orderPrice;
     private Long quantity;
+    private Long itemDetailId;
 }
