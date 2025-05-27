@@ -22,7 +22,6 @@ public class ItemDto {
         this.produce = produce;
         this.created = created;
         this.price = price;
-        this.deliveryFee = deliveryFee;
         this.mainUrl = mainUrl;
         this.salesVolume = salesVolume;
         this.contents = contents;
@@ -35,7 +34,6 @@ public class ItemDto {
     private String produce;
     private LocalDateTime created;
     private Long price;
-    private Long deliveryFee;
     private String mainUrl;
     private Long salesVolume;
     private String contents;
