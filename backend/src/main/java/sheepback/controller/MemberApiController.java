@@ -102,6 +102,27 @@ public class MemberApiController {
         return ResponseEntity.ok(loginMember);
     }
 
+    // 로그아웃 API
+    @PostMapping("/api/logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        // loginId 쿠키 삭제
+        Cookie loginIdCookie = new Cookie("loginId", null);
+        loginIdCookie.setPath("/");
+        loginIdCookie.setMaxAge(0); // 즉시 만료
+
+        // Grade 쿠키 삭제
+        Cookie gradeCookie = new Cookie("Grade", null);
+        gradeCookie.setPath("/");
+        gradeCookie.setMaxAge(0); // 즉시 만료
+
+        response.addCookie(loginIdCookie);
+        response.addCookie(gradeCookie);
+
+        // 필요시 세션 무효화 또는 토큰 삭제 로직 추가
+
+        return ResponseEntity.ok().build();
+    }
+
 
     //아이디 찾기 찾은후 id 반환 없으면 null
     @PostMapping("/api/findId")
