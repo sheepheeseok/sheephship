@@ -14,6 +14,9 @@ import Center from "./pages/Center.jsx";
 import MyPage from "./pages/MyPage.jsx";
 import PrivateRoute from "./hooks/PrivateRoute.js";
 import Cart from "./pages/Cart.jsx";
+import Service from "./pages/Service.jsx";
+import Inquiry from "./pages/Inquiry.jsx";
+import InquiryAnwser from "./pages/InquiryAnwser.jsx";
 
 
 // import React, {useEffect, useState} from 'react';
@@ -46,6 +49,9 @@ function App() {
                 <Route path="/Center" element={<Center/>} /> {/* Center */}
                 <Route path="/Brand" element={<Brand/>} /> {/* Brand */}
                 <Route path="/QnA" element={<QnA/>} /> {/* QnA */}
+                <Route path="/Service" element={<Service/>} /> {/* 서비스 */}
+                <Route path="/Inquiry" element={<Inquiry/>} /> {/* 포스트 */}
+                <Route path="/InquiryAnwser" element={<InquiryAnwser/>} /> {/* 포스트 */}
             </Routes>
             <Footer/>
             <FloatingButton/>
