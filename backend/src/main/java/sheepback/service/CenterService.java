@@ -16,8 +16,8 @@ public class CenterService {
         centerMapper.insert(center);
     }
 
-    public void updateCenter(Long center_id,SaveCenterDto dto) {
-        centerMapper.update(dto);
+    public void updateCenter(Long centerId ,SaveCenterDto dto) {
+        centerMapper.update(centerId, dto);
     }
 
     public void deleteCenter(Long centerId) {

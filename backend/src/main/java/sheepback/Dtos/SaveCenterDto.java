@@ -3,8 +3,7 @@ package sheepback.Dtos;
 import lombok.Data;
 
 @Data
-public class CenterDto {
-    private Long centerId;
+public class SaveCenterDto {
     private String address;
     private String closeHour;
     private String content;
@@ -18,6 +17,4 @@ public class CenterDto {
     private Long chainCenterId;
     private String routeFindLink;
     private String facilities;
-
-
 }

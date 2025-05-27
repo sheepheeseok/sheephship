@@ -6,31 +6,30 @@
 
 <insert id="insert" parameterType="sheepback.Dtos.SaveCenterDto">
     INSERT INTO center (
-        address, admin_id, close_hour, content, grade_img,
+        address, close_hour, content, grade_img,
         img1, name, open_hour, phonenumber, price, rep_img,
-        chainName, route_find_link, facilities
+        chain_center_id, route_find_link, facilities
     ) VALUES (
-        #{address}, #{adminId}, #{closeHour}, #{content}, #{gradeImg},
+        #{address}, #{closeHour}, #{content}, #{gradeImg},
         #{img1}, #{name}, #{openHour}, #{phonenumber}, #{price}, #{repImg},
-        #{chainName}, #{routeFindLink}, #{facilities}
+        #{chainCenterId}, #{routeFindLink}, #{facilities}
     )
 </insert>
     <update id="update" parameterType="sheepback.Dtos.SaveCenterDto">
         UPDATE center SET
-                          address = #{address},
-                          admin_id = #{adminId},
-                          close_hour = #{closeHour},
-                          content = #{content},
-                          grade_img = #{gradeImg},
-                          img1 = #{img1},
-                          name = #{name},
-                          open_hour = #{openHour},
-                          phonenumber = #{phonenumber},
-                          price = #{price},
-                          rep_img = #{repImg},
-                          chainName = #{chainName},
-                          route_find_link = #{routeFindLink},
-                          facilities = #{facilities}
+                          address = #{dto.address},
+                          close_hour = #{dto.closeHour},
+                          content = #{dto.content},
+                          grade_img = #{dto.gradeImg},
+                          img1 = #{dto.img1},
+                          name = #{dto.name},
+                          open_hour = #{dto.openHour},
+                          phonenumber = #{dto.phonenumber},
+                          price = #{dto.price},
+                          rep_img = #{dto.repImg},
+                          chain_center_id = #{dto.chainCenterId},
+                          route_find_link = #{dto.routeFindLink},
+                          facilities = #{dto.facilities}
         WHERE center_id = #{centerId}
     </update>
     <delete id="delete">
@@ -39,8 +38,8 @@
 
     <select id="findAll" resultType="sheepback.Dtos.CenterDto">
         SELECT
-            center_id,address,admin_id,close_hour,ontent,grade_img,
-            img1,name,open_hour,phonenumber,price,rep_img,chainName,
+            center_id,address,close_hour,content,grade_img,
+            img1,name,open_hour,phonenumber,price,rep_img,chain_center_id,
             route_find_link,facilities
         FROM center
     </select>
@@ -77,7 +76,7 @@
             c.chain_center_id, ctr.center_id
     </select>
 
-    <resultMap id="ChainCenterListMap" type="sheepback.Dtos.ChainCenterListDto">
+    <resultMap id="ChainCenterDetailListMap" type="sheepback.Dtos.ChainCenterListDto">
         <id property="chainCenterId" column="chain_center_id"/>
         <result property="chainName" column="chain_name"/>
         <collection property="centers"
@@ -88,7 +87,6 @@
     <resultMap id="CenterMap" type="sheepback.Dtos.CenterDto">
         <id property="centerId" column="center_id"/>
         <result property="address" column="address"/>
-        <result property="adminId" column="admin_id"/>
         <result property="closeHour" column="close_hour"/>
         <result property="content" column="content"/>
         <result property="gradeImg" column="grade_img"/>
@@ -98,18 +96,17 @@
         <result property="phonenumber" column="phonenumber"/>
         <result property="price" column="price"/>
         <result property="repImg" column="rep_img"/>
-        <result property="chainName" column="chain_name"/>
+        <result property="chainCenterId" column="chain_center_id"/>
         <result property="routeFindLink" column="route_find_link"/>
         <result property="facilities" column="facilities"/>
     </resultMap>
 
-    <select id="findChainCenterDetailList" resultMap="ChainCenterListMap">
+    <select id="findChainCenterDetailList" resultMap="ChainCenterDetailListMap">
         SELECT
             c.chain_center_id,
             c.chain_name,
             ctr.center_id,
             ctr.address,
-            ctr.admin_id,
             ctr.close_hour,
             ctr.content,
             ctr.grade_img,
@@ -119,11 +116,11 @@
             ctr.phonenumber,
             ctr.price,
             ctr.rep_img,
-            ctr.chain_name,
+            ctr.chain_center_id,
             ctr.route_find_link,
             ctr.facilities
         FROM
-            chain c
+            chain_center c
                 LEFT JOIN
             center ctr ON c.chain_center_id = ctr.chain_center_id
         WHERE
