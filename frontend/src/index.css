@@ -792,6 +792,27 @@ body {
     margin-top: 5px;
 }
 
+.orderh-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.page-number {
+    font-size: 16px;
+    color: #333;
+}
+
+.page-number.active {
+    color: black;
+    font-weight: bold;
+}
+
+
 {/* 메인 토글 버튼 css */}
 .floating-box {
   position: fixed;
