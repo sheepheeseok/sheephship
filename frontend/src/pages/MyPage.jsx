@@ -1,5 +1,6 @@
 import { useState } from "react";
 import OrderHistory from "./MyPage/OrderHistory.jsx";
+import PasswordChange from "./MyPage/PasswordChange.jsx";
 
 const MyPage = () => {
     const [selectedTab, setSelectedTab] = useState("default");
@@ -7,7 +8,9 @@ const MyPage = () => {
     const renderContent = () => {
         switch (selectedTab) {
             case "OrderHistory":
-                return <OrderHistory/>
+                return <OrderHistory/>;
+            case "PasswordChange":
+                return <PasswordChange/>;
             default:
                 return (
                     <>
@@ -148,7 +151,7 @@ const MyPage = () => {
                         <h1 style={{marginTop: "40px"}}>나의 정보</h1>
                         <ul>
                             <li style={{marginTop: "15px"}}>회원정보 수정</li>
-                            <li>비밀번호 변경</li>
+                            <li className={selectedTab === "PasswordChange" ? "selected" : ""} onClick={() => setSelectedTab("PasswordChange")}>비밀번호 변경</li>
                             <li>회원 탈퇴</li>
                         </ul>
                     </div>

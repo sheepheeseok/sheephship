@@ -1,10 +1,19 @@
 import { useState, useEffect, useRef } from "react";
+import OrderContentCard from "../../component/OrderContentCard";
 
 const OrderHistory = () => {
     const [orderTab, setOrderTab] = useState("order");
     const [selectedFilter, setSelectedFilter] = useState("오늘");
     const filters = ["오늘", "1개월", "3개월", "6개월"];
     const sliderRef = useRef(null);
+    const mockOrder = {
+        date: "25.03.26",
+        image: "https://sheephship.com/web/upload/NNEditor/20240307/0075_BLACK.png", // 이미지 링크 예시
+        name: "Stealth XPAC™ Deluxe Chalk Bucket · Mag Closure",
+        option: "컬러: 검정",
+        quantity: 1,
+        price: 48500
+    };
 
     useEffect(() => {
         const index = filters.indexOf(selectedFilter);
@@ -57,6 +66,17 @@ const OrderHistory = () => {
                         </div>
                         <div className="OrderContent-Line"/>
                         <h1 style={{marginTop: "10px"}}>주문 내역</h1>
+                        <OrderContentCard product={mockOrder} />
+
+                        <div className="OrderNotice">
+                            <p>
+                                ※ 주문취소는 배송 전 상태에서만 가능합니다.<br />
+                                ※ 상품 수령(배송완료) 후 7일 이내 교환/반품 신청이 가능합니다. 단, 상품에 착용 흔적이나 훼손이 있을 경우 불가합니다.<br />
+                                ※ 상품의 교환/반품은 Q&A 또는 고객센터(카카오 채널)를 통해 접수 후 처리해드립니다.<br />
+                                ※ 비회원 주문의 경우 [비회원 주문조회]를 통해 접수해 주세요.<br />
+                                ※ 취소/교환/반품 신청은 마이페이지 &gt; 주문내역에서만 가능합니다.
+                            </p>
+                        </div>
 
                     </div>
                 ) : (
