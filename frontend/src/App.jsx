@@ -18,6 +18,7 @@ import Service from "./pages/Service.jsx";
 import Inquiry from "./pages/Inquiry.jsx";
 import InquiryAnwser from "./pages/InquiryAnwser.jsx";
 import RootFind from "./pages/RootFind.jsx";
+import OrderDetail from "./pages/MyPage/OrderDetail.jsx";
 
 
 // import React, {useEffect, useState} from 'react';
@@ -54,6 +55,7 @@ function App() {
                 <Route path="/Inquiry" element={<Inquiry/>} /> {/* 포스트 */}
                 <Route path="/InquiryAnwser" element={<InquiryAnwser/>} /> {/* 포스트 답변 */}
                 <Route path="/RootFind" element={<RootFind/>} /> {/* 루트파인드 */}
+                <Route path="/OrderDetail" element={<OrderDetail/>} /> {/* 주문상세 */}
             </Routes>
             <Footer/>
             <FloatingButton/>
