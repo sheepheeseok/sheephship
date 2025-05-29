@@ -20,7 +20,4 @@ public class Admin {
 
     private AUTHORITY authority;
 
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Notice> notices = new ArrayList<>();
-
 }

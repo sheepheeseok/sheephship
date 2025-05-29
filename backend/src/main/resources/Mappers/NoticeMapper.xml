@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-</beans>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sheepback.mapper.NoticeMapper">
+
+
+    <insert id="insert">
+        INSERT INTO notice (write_date_time, content, file_address, img, title)
+        VALUES (#{writeDateTime}, #{content}, #{fileAddress}, #{imgAddress}, #{title})
+    </insert>
+
+    <update id="update" parameterType="sheepback.Dtos.SaveNoticeDto">
+        UPDATE notice
+        SET content = #{UpdateNoticeDto.content},
+            file_address = #{UpdateNoticeDto.fileAddress},
+            img = #{UpdateNoticeDto.imgAddress},
+            title = #{UpdateNoticeDto.title}
+        WHERE notice_id = #{noticeId}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM notice WHERE notice_id = #{noticeId}
+    </delete>
+
+    <select id="getNoticeList" resultType="sheepback.Dtos.NoticeListDto">
+        select notice_id, title, write_date_time
+        from notice
+
+    </select>
+
+
+    <select id="getNotice" resultType="sheepback.Dtos.NoticeDto">
+
+    select notice_id, title, img as imgAddress, file_address, write_date_time, content
+    from notice
+    where notice_id = #{noticeId}
+
+    </select>
+
+
+
+</mapper>
