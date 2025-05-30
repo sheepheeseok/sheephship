@@ -1,16 +1,23 @@
 import { useState } from "react";
 import OrderHistory from "./MyPage/OrderHistory.jsx";
 import PasswordChange from "./MyPage/PasswordChange.jsx";
+import OrderDetail from "./MyPage/OrderDetail.jsx";
 
 const MyPage = () => {
     const [selectedTab, setSelectedTab] = useState("default");
+    const [selectedOrder, setSelectedOrder] = useState(null);
 
     const renderContent = () => {
         switch (selectedTab) {
             case "OrderHistory":
-                return <OrderHistory/>;
+                return <OrderHistory
+                            setSelectedTab={setSelectedTab}
+                            setSelectedOrder={setSelectedOrder}
+                       />;
             case "PasswordChange":
                 return <PasswordChange/>;
+            case "OrderDetail":
+                return <OrderDetail order={selectedOrder} />;
             default:
                 return (
                     <>

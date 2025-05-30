@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const OrderContentCard = ({ product }) => {
+const OrderContentCard = ({ product,onDetailClick }) => {
   const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
 
   const handleClick = (buttonName) => {
     setActiveButton(buttonName);
     if (buttonName === "주문상세") {
-      navigate("/orderdetail");
+      onDetailClick?.();
     }
   };
 
@@ -29,7 +29,12 @@ const OrderContentCard = ({ product }) => {
             <button
               key={btn}
               className={activeButton === btn ? "active" : ""}
-              onClick={() => handleClick(btn)}
+              onClick={() => {
+                handleClick(btn); // 공통 실행
+                if (btn === "주문상세") {
+                  onDetailClick?.(); // 주문상세일 경우 추가 실행
+                }
+              }}
             >
               {btn}
             </button>

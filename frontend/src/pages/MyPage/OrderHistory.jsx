@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import OrderContentCard from "../../component/OrderContentCard";
 
-const OrderHistory = () => {
+const OrderHistory = ({ setSelectedTab, setSelectedOrder }) => {
     const [orderTab, setOrderTab] = useState("order");
     const [selectedFilter, setSelectedFilter] = useState("오늘");
     const [currentPage, setCurrentPage] = useState(1);
@@ -84,7 +84,14 @@ const OrderHistory = () => {
 
                         {/* 주문 카드 렌더링 */}
                         {currentOrders.map((order, index) => (
-                            <OrderContentCard key={index} product={order} />
+                             <OrderContentCard
+                                key={index}
+                                product={order}
+                                onDetailClick={() => {
+                                    setSelectedOrder(order); // 선택된 주문 저장
+                                    setSelectedTab("OrderDetail"); // 탭 전환
+                                }}
+                            />
                         ))}
 
                         {/* 페이지네이션 */}
