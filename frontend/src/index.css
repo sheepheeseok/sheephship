@@ -3254,6 +3254,264 @@ span {
     margin-bottom: 2em;
 }
 
+/* 적립금 내역 css */
+.savings-root {
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.savings-content {
+  position: relative;
+  width: 1100px;
+  min-width: 900px;
+}
+
+.savings-title {
+  position: absolute;
+  top: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #000;
+  height: 52px;
+  display: flex;
+  align-items: center;
+}
+
+.savings-title-underline {
+  position: absolute;
+  top: 62px;
+  left: 0;
+  width: 1059px;
+  border-bottom: 2px solid #000;
+  z-index: 1;
+}
+
+.savings-summary-box {
+  box-sizing: border-box;
+  position: absolute;
+  top: 63px;
+  width: 423px;
+  height: 200px;
+  border-width: 0 1px 1px 1px;
+  border-style: solid;
+  border-color: #888;
+  background: #fff;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.savings-summary-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+  height: 37px;
+  margin: 0 32px;
+  margin-top: 8px;
+}
+
+.savings-summary-row span:last-child {
+  min-width: 40px;
+  text-align: right;
+}
+
+.savings-info {
+  position: absolute;
+  left: 440px;
+  top: 104px;
+  width: 604px;
+  height: 127px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #000;
+  display: flex;
+  align-items: center;
+}
+
+.savings-info ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.savings-info li {
+  margin-bottom: 8px;
+}
+
+.savings-tab-row {
+  position: absolute;
+  top: 310px;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  width: 700px;
+  height: 70px;
+  background: #fff;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  border-top: 1px solid #000;
+  z-index: 2;
+}
+
+.savings-tab-row button {
+  flex: 1;
+  background: none;
+  border: none;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #888;
+  height: 100%;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  transition: color 0.2s, font-weight 0.2s;
+  background: transparent;
+  z-index: 1;
+  border-radius: 0px;
+  border-bottom: 1px solid #000;
+}
+
+.savings-tab-row button.active {
+  color: #000;
+  font-weight: 500;
+  background: #fff;
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+  border-top: 2px solid #000;
+  border-bottom: none;
+  position: relative;
+  z-index: 2;
+  border-radius: 0px;
+  /* 아래로 살짝 띄워서 선 위에 올라온 느낌 */
+  margin-bottom: -1px;
+}
+
+.savings-tab-row button:first-child.active {
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+
+}
+
+.savings-tab-row button:last-child.active {
+  border-right: 2px solid #000;
+}
+
+.savings-tab-underline {
+  position: absolute;
+  top: 421px;
+  width: 1059px;
+  height: 0;
+  border-bottom: 2px solid #000;
+}
+
+.savings-empty {
+  position: absolute;
+  left: 350px;
+  top: 460px;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.savings-empty-icon {
+  margin-bottom: 16px;
+}
+
+.savings-empty-text {
+  color: #888;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.savings-bottom-line {
+  position: absolute;
+  top: 825px;
+  width: 1059px;
+  height: 0;
+  border-bottom: 1px solid #888;
+}
+
+.savings-list {
+  margin-top: 40px;
+  border-top: 4px solid #222;
+}
+
+.savings-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 24px 0 16px 0;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.savings-item-title {
+  font-weight: 700;
+  font-size: 20px;
+  margin-right: 32px;
+  min-width: 90px;
+  color: #222;
+}
+
+.savings-item-name {
+  font-size: 18px;
+  color: #222;
+  margin-right: 32px;
+  flex: 1;
+}
+
+.savings-item-date {
+  font-size: 15px;
+  color: #888;
+  margin-right: 32px;
+  min-width: 260px;
+}
+
+.savings-item-point {
+  font-size: 20px;
+  color: #2196f3;
+  font-weight: 500;
+  min-width: 80px;
+  text-align: right;
+}
+
+.savings-pagination {
+  margin: 32px 0 0 0;
+  text-align: center;
+}
+
+.savings-pagination span {
+  display: inline-block;
+  margin: 0 8px;
+  font-size: 18px;
+  color: #888;
+  cursor: pointer;
+  font-weight: 400;
+  padding: 2px 8px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.savings-pagination span.active {
+  color: #2196f3;
+  font-weight: 700;
+  background: #f0f7ff;
+}
+
 /* 비번 변경 CSS */
 .pwchange-container {
   width: 400px;

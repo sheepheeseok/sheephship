@@ -8,7 +8,7 @@ const OrderContentCard = ({ product,onDetailClick }) => {
   const handleClick = (buttonName) => {
     setActiveButton(buttonName);
     if (buttonName === "주문상세") {
-      onDetailClick?.();
+      onDetailClick?.(product);
     }
   };
 
@@ -32,7 +32,7 @@ const OrderContentCard = ({ product,onDetailClick }) => {
               onClick={() => {
                 handleClick(btn); // 공통 실행
                 if (btn === "주문상세") {
-                  onDetailClick?.(); // 주문상세일 경우 추가 실행
+                  onDetailClick?.(product); // 주문상세일 경우 추가 실행
                 }
               }}
             >

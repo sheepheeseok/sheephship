@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import OrderContentCard from "../../component/OrderContentCard";
 
-const OrderHistory = ({ setSelectedTab, setSelectedOrder }) => {
+const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) => {
     const [orderTab, setOrderTab] = useState("order");
     const [selectedFilter, setSelectedFilter] = useState("오늘");
     const [currentPage, setCurrentPage] = useState(1);
@@ -10,21 +10,9 @@ const OrderHistory = ({ setSelectedTab, setSelectedOrder }) => {
 
     const filters = ["오늘", "1개월", "3개월", "6개월"];
 
-    const mockOrder = {
-        date: "25.03.26",
-        image: "https://sheephship.com/web/upload/NNEditor/20240307/0075_BLACK.png",
-        name: "Stealth XPAC™ Deluxe Chalk Bucket · Mag Closure",
-        option: "컬러: 검정",
-        quantity: 1,
-        price: 48500
-    };
-
-    // 주문 내역 mock 데이터 배열 (4개 이상 넣어야 페이지네이션 확인 가능)
-    const mockOrders = Array.from({ length: 7 }, () => ({ ...mockOrder }));
-
-    const totalPages = Math.ceil(mockOrders.length / ordersPerPage);
+    const totalPages = Math.ceil(orders.length / ordersPerPage);
     const startIndex = (currentPage - 1) * ordersPerPage;
-    const currentOrders = mockOrders.slice(startIndex, startIndex + ordersPerPage);
+    const currentOrders = orders.slice(startIndex, startIndex + ordersPerPage);
 
     useEffect(() => {
         const index = filters.indexOf(selectedFilter);
@@ -41,7 +29,7 @@ const OrderHistory = ({ setSelectedTab, setSelectedOrder }) => {
 
             <div className="OrderHistory-Tab">
                 <span className={orderTab === "order" ? "selected" : ""} onClick={() => setOrderTab("order")}>
-                    주문내역 조회 ({mockOrders.length})
+                    주문내역 조회 ({orders.length})
                 </span>
                 <span className={orderTab === "returns" ? "selected" : ""} onClick={() => setOrderTab("returns")}>
                     취소/반품/교환 내역 (0)
@@ -85,10 +73,10 @@ const OrderHistory = ({ setSelectedTab, setSelectedOrder }) => {
                         {/* 주문 카드 렌더링 */}
                         {currentOrders.map((order, index) => (
                              <OrderContentCard
-                                key={index}
+                                key={order.id || index}
                                 product={order}
-                                onDetailClick={() => {
-                                    setSelectedOrder(order); // 선택된 주문 저장
+                                onDetailClick={(orderObj) => {
+                                    setSelectedOrder(orderObj); // 선택된 주문 저장
                                     setSelectedTab("OrderDetail"); // 탭 전환
                                 }}
                             />
