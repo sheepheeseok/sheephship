@@ -8,6 +8,7 @@ const OrderContentCard = ({ product,onDetailClick }) => {
   const handleClick = (buttonName) => {
     setActiveButton(buttonName);
     if (buttonName === "주문상세") {
+        console.log("OrderContentCard product:", product);
       onDetailClick?.(product);
     }
   };

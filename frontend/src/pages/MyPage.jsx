@@ -14,8 +14,10 @@ const MyPage = () => {
             case "OrderHistory":
             case "Savings":
                 return <OrderSection
-                        selectedTab={selectedTab}
-                        setSelectedTab={setSelectedTab}
+                          selectedTab={selectedTab}
+                          setSelectedTab={setSelectedTab}
+                          selectedOrder={selectedOrder}
+                          setSelectedOrder={setSelectedOrder}
                        />;
             case "PasswordChange":
                 return <PasswordChange/>;

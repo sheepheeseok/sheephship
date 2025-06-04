@@ -12,18 +12,19 @@ const mockOrder = {
   price: 48500,
   point: 428,
   expire: "26.03.26",
-  id: 1
+  id: 1,
+  type: "적립", // "적립", "사용", "미가용"
 };
 
-const mockOrders = Array.from({ length: 7 }, (_, i) => ({
-  ...mockOrder,
+const myProducts = [mockOrder];
+const mockOrders = myProducts.map((product, i) => ({
+  ...product,
   id: i + 1,
   point: 428 + i * 100
 }));
 
-const OrderSection = ({ selectedTab, setSelectedTab }) => {
+const OrderSection = ({ selectedTab, setSelectedTab, selectedOrder, setSelectedOrder }) => {
   const [orders, setOrders] = useState(mockOrders);
-  const [selectedOrder, setSelectedOrder] = useState(null);
 
   return (
     <>
@@ -35,10 +36,9 @@ const OrderSection = ({ selectedTab, setSelectedTab }) => {
           setSelectedOrder={setSelectedOrder}
         />
       )}
-      {selectedTab === "OrderDetail" && (
+      {selectedTab === "OrderDetail" && selectedOrder && (
         <OrderDetail
           order={selectedOrder}
-          setSelectedTab={setSelectedTab}
         />
       )}
       {selectedTab === "Savings" && (

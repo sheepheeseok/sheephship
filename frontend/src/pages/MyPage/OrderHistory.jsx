@@ -77,7 +77,7 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
                                 product={order}
                                 onDetailClick={(orderObj) => {
                                     setSelectedOrder(orderObj); // 선택된 주문 저장
-                                    setSelectedTab("OrderDetail"); // 탭 전환
+                                    setTimeout(() => setSelectedTab("OrderDetail"), 0); // 탭 전환
                                 }}
                             />
                         ))}

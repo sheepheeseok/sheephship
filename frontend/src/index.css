@@ -128,7 +128,7 @@ body {
     text-align: center;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 살짝 그림자 효과 */
     box-sizing: border-box; /* 패딩 포함된 너비로 계산 */
-    z-index: 1;
+    z-index: 1000;
 }
 .nav-list {
     display: flex;
@@ -3417,7 +3417,7 @@ span {
 .savings-empty {
   position: absolute;
   left: 350px;
-  top: 460px;
+  top: 490px;
   width: 320px;
   height: 320px;
   display: flex;
@@ -3438,21 +3438,20 @@ span {
 }
 
 .savings-bottom-line {
-  position: absolute;
   top: 825px;
   width: 1059px;
   height: 0;
   border-bottom: 1px solid #888;
+  margin-top: 85px;
 }
 
 .savings-list {
-  margin-top: 40px;
-  border-top: 4px solid #222;
+  margin-top: 430px;
 }
 
 .savings-item {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   padding: 24px 0 16px 0;
   border-bottom: 1px solid #eee;
@@ -3482,6 +3481,9 @@ span {
 }
 
 .savings-item-point {
+  position: absolute;
+  right: 0;
+  top: 50px;
   font-size: 20px;
   color: #2196f3;
   font-weight: 500;
@@ -3507,9 +3509,8 @@ span {
 }
 
 .savings-pagination span.active {
-  color: #2196f3;
+  color: #000000;
   font-weight: 700;
-  background: #f0f7ff;
 }
 
 /* 비번 변경 CSS */
@@ -3669,7 +3670,7 @@ span {
     border-radius: 0;
 }
 
-.order-card-button-wrap button.active {
+.order-card-button-wrap button:hover {
     background-color: black;
     color: white;
 }
