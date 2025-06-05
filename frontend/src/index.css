@@ -3513,6 +3513,126 @@ span {
   font-weight: 700;
 }
 
+/* 위시 리스트 css */
+.WishList-title h1 {
+  font-family: NotoSansKR-Medium;
+  font-size: 18pt;
+}
+
+.WishList-NoneIcon {
+  width: 179px;
+  height: 179px;
+  display: flex;
+  margin-left: 400px;
+  margin-top: 100px;
+}
+
+.WishList-Line {
+  width: 100%;
+  height: 5px;
+  background-color: #888888;
+  margin-top: 15px;
+}
+
+.WishList-Area {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.WishList-Area h1 {
+  margin-top: 30px;
+  margin-left: 375px;
+  margin-bottom: 50px;
+  font-family: NotoSansKR-Medium;
+  font-size: 20px;
+  color: #888888;
+}
+
+.WishList-Line2 {
+  width: 100%;
+  height: 1px;
+  background-color: #888888;
+  margin-top: 40px;
+}
+
+.WishList-Items {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.WishList-Item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #888888;
+  padding: 22px 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.wishlist-item-img {
+  width: 150px;
+  height: 150px;
+
+  border: 1px solid #ccc;
+  margin: 0 10px;
+}
+
+.WishList-Item-Info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.WishList-Item-Delete {
+  background: transparent;
+  border: 1px solid #aaa;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #444;
+  margin-left: 10px;
+}
+
+.WishList-Actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+  gap: 8px;
+  padding-right: 10px;
+}
+
+.WishList-Actions button {
+  border-radius: 0px;
+  border: 1px solid #000;
+  background: none;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 6px;
+}
+
+.pagination button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #888888;
+}
+
+.pagination button.active {
+  font-weight: bold;
+  color: #000000;
+}
+
+
 /* 비번 변경 CSS */
 .pwchange-container {
   width: 400px;

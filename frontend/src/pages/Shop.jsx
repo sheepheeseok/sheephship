@@ -52,6 +52,20 @@ const Shop = () => {
 
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
+    const handleAddToWishList = (product) => {
+      const existing = JSON.parse(localStorage.getItem("wishItems")) || [];
+      const isDuplicate = existing.find(item => item.id === product.id);
+
+      if (!isDuplicate) {
+        const updated = [...existing, product];
+        localStorage.setItem("wishItems", JSON.stringify(updated));
+        alert("위시리스트에 추가되었습니다!");
+      } else {
+        alert("이미 위시리스트에 있습니다.");
+      }
+    };
+
+
     return (
         <div className="container">
             <div className="shop-container">
@@ -81,7 +95,10 @@ const Shop = () => {
                             ) : (
                                 <strong>{product.price}</strong>
                             )}
-                            <button className="wish-btn">WISH</button>
+                            <button className="wish-btn" onClick={(e) => {
+                              e.stopPropagation(); // navigate 방지
+                              handleAddToWishList(product);
+                            }}>WISH</button>
                             <button className="add-btn">ADD</button>
                         </div>
                     ))}
