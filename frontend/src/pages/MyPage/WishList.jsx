@@ -20,10 +20,14 @@ const WishList = () => {
     );
   };
 
-  const handleDeleteSelected = () => {
-    setWishItems((prev) => prev.filter((item) => !selectedItems.includes(item.id)));
-    setSelectedItems([]);
+  const handleSelectAll = () => {
+    if (selectedItems.length === wishItems.length) {
+      setSelectedItems([]); // 모두 해제
+    } else {
+      setSelectedItems(wishItems.map((item) => item.id)); // 모두 선택
+    }
   };
+
 
   const handleDeleteAll = () => {
     setWishItems([]);
@@ -88,14 +92,20 @@ const WishList = () => {
             </div>
 
             <div className="WishList-Actions">
+              <button onClick={handleSelectAll}>
+                  {selectedItems.length === wishItems.length ? "선택 해제" : "전체 선택"}
+              </button>
               <button onClick={handleDeleteAll}>전체 삭제</button>
-              <button onClick={handleDeleteSelected}>선택 삭제</button>
+            </div>
+
+            <div className="WishList-order">
+                <button>전체 상품 주문</button>
             </div>
           </>
         )}
 
         {totalPages > 1 && (
-          <div className="pagination">
+          <div className="WishList-pagination">
             {Array.from({ length: totalPages }, (_, i) => (
               <button
                 key={i + 1}

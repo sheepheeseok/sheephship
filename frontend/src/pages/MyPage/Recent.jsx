@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 const Recent = () => {
-  const [wishItems, setWishItems] = useState(() => {
-    const saved = localStorage.getItem("wishItems");
+  const [recentItems, setRecentItems] = useState(() => {
+    const saved = localStorage.getItem("recentItems");
     return saved ? JSON.parse(saved) : [];
   });
 
@@ -11,8 +11,8 @@ const Recent = () => {
   const itemsPerPage = 5;
 
   useEffect(() => {
-    localStorage.setItem("wishItems", JSON.stringify(wishItems));
-  }, [wishItems]);
+    localStorage.setItem("recentItems", JSON.stringify(recentItems));
+  }, [recentItems]);
 
   const handleSelect = (id) => {
     setSelectedItems((prev) =>
@@ -21,81 +21,71 @@ const Recent = () => {
   };
 
   const handleDeleteSelected = () => {
-    setWishItems((prev) => prev.filter((item) => !selectedItems.includes(item.id)));
+    setRecentItems((prev) => prev.filter((item) => !selectedItems.includes(item.id)));
     setSelectedItems([]);
   };
 
   const handleDeleteAll = () => {
-    setWishItems([]);
+    setRecentItems([]);
     setSelectedItems([]);
   };
 
   const handleDeleteOne = (id) => {
-    setWishItems((prev) => prev.filter((item) => item.id !== id));
+    setRecentItems((prev) => prev.filter((item) => item.id !== id));
     setSelectedItems((prev) => prev.filter((itemId) => itemId !== id));
   };
 
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
-  const currentItems = wishItems.slice(indexOfFirst, indexOfLast);
+  const currentItems = recentItems.slice(indexOfFirst, indexOfLast);
 
-  const totalPages = Math.ceil(wishItems.length / itemsPerPage);
+  const totalPages = Math.ceil(recentItems.length / itemsPerPage);
 
   return (
     <>
-      <div className="WishList-title">
-        <h1>나의 위시리스트</h1>
+      <div className="Recent-title">
+        <h1>최근 본 상품</h1>
       </div>
-      <div className="WishList-Line" />
-      <div className="WishList-Area">
-        {wishItems.length === 0 ? (
+      <div className="Recent-Line" />
+      <div className="Recent-Area">
+        {recentItems.length === 0 ? (
           <>
             <img
               src="/icons/mypage-noneIcon.svg"
               alt="noneIcon"
-              className="WishList-NoneIcon"
+              className="Recent-NoneIcon"
             />
-            <h1>관심 상품 내역이 없습니다.</h1>
-            <div className="WishList-Line2" />
+            <h1>최근 본 상품 내역이 없습니다.</h1>
+            <div className="Recent-Line2" />
           </>
         ) : (
           <>
-            <div className="WishList-Items">
+            <div className="Recent-Items">
               {currentItems.map((item) => (
-                <div key={item.id} className="WishList-Item">
-                  <input
-                    type="checkbox"
-                    checked={selectedItems.includes(item.id)}
-                    onChange={() => handleSelect(item.id)}
-                  />
+                <div key={item.id} className="Recent-Item">
                   <img
                     src={item.img}
                     alt={item.title}
-                    className="wishlist-item-img"
+                    className="recent-item-img"
                   />
-                  <div className="WishList-Item-Info">
+                  <div className="Recent-Item-Info">
                     <p>{item.title}</p>
                     <p>{item.price}</p>
                   </div>
-                  <button
-                    className="WishList-Item-Delete"
-                    onClick={() => handleDeleteOne(item.id)}
-                  >
-                    삭제
-                  </button>
+
+                  <div className="Recent-Actions">
+                      <button className="btn-cart">장바구니</button>
+                      <button className="btn-order">주문하기</button>
+                      <button className="btn-delete" onClick={() => handleDeleteOne(item.id)}>삭제</button>
+                  </div>
                 </div>
               ))}
-            </div>
-
-            <div className="WishList-Actions">
-              <button onClick={handleDeleteAll}>전체 삭제</button>
-              <button onClick={handleDeleteSelected}>선택 삭제</button>
             </div>
           </>
         )}
 
         {totalPages > 1 && (
-          <div className="pagination">
+          <div className="Recent-pagination">
             {Array.from({ length: totalPages }, (_, i) => (
               <button
                 key={i + 1}

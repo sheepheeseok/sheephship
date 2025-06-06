@@ -5,6 +5,8 @@ import PasswordChange from "./MyPage/PasswordChange.jsx";
 import OrderDetail from "./MyPage/OrderDetail.jsx";
 import Savings from "./MyPage/Savings.jsx";
 import WishList from "./MyPage/WishList.jsx";
+import Recent from "./MyPage/Recent.jsx";
+
 
 
 const MyPage = () => {
@@ -27,6 +29,8 @@ const MyPage = () => {
                 return <OrderDetail order={selectedOrder} setSelectedTab={setSelectedTab} />;
             case "WishList":
                 return <WishList/>;
+            case "Recent":
+                return <Recent/>;
             default:
                 return (
                     <>
@@ -162,7 +166,7 @@ const MyPage = () => {
 
                         <h1 style={{marginTop: "40px"}}>활동 정보</h1>
                         <ul>
-                            <li style={{marginTop: "15px"}}>최근 본 상품</li>
+                            <li style={{marginTop: "15px"}} className={selectedTab === "Recent" ? "selected" : ""} onClick={() => setSelectedTab("Recent")}>최근 본 상품</li>
                             <li className={selectedTab === "WishList" ? "selected" : ""} onClick={() => setSelectedTab("WishList")}>나의 위시리스트</li>
                             <li>저장한 클라이밍 짐</li>
                         </ul>
