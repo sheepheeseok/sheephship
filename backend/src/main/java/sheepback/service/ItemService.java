@@ -36,7 +36,6 @@ public class ItemService {
                 (String) itemById.get("produce"),
                 (LocalDateTime) itemById.get("created"),
                 (Long) itemById.get("price"),
-                (Long) itemById.get("delivery_fee"),
                 (String) itemById.get("main_url"),
                 (Long) itemById.get("sales_volume"),
                 (String) itemById.get("contents"),

@@ -25,9 +25,5 @@ public class Notice {
 
     private String img;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "admin_id")
-    private Admin admin;
-
 
 }

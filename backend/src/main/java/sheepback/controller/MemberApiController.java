@@ -3,6 +3,7 @@ package sheepback.controller;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -67,10 +68,11 @@ public class MemberApiController {
         return orderMemberById;
     }
 
-    //로그인 api 값확인후 Id 쿠키로 반환
+    //로그인 api 값확인후 Id 쿠키로 반환 de
     @PostMapping("/api/login")
     public ResponseEntity<LoginMember> login(@RequestBody @Valid LoginMemberRequest loginMemberRequest,
-                                             HttpServletResponse response) {
+                                             HttpServletResponse response
+    , HttpServletRequest req) {
 
         Member login = memberService.login(loginMemberRequest.getId()
                 , loginMemberRequest.getPassword());
@@ -82,6 +84,14 @@ public class MemberApiController {
         //등급도 저장해주기
         Cookie cookie = new Cookie("loginId", String.valueOf(login.getId()));
         Cookie cookie2 = new Cookie("Grade", String.valueOf(login.getGrade()));
+
+        HttpSession session = req.getSession(false);
+        if(session != null) {
+            session.invalidate();
+        }
+        session = req.getSession(true);
+        session.setAttribute("loginId", String.valueOf(login.getId()));
+        session.setAttribute("Grade", String.valueOf(login.getGrade()));
 
         cookie2.setHttpOnly(false);
         cookie2.setSecure(false);
@@ -100,6 +110,27 @@ public class MemberApiController {
         }
 
         return ResponseEntity.ok(loginMember);
+    }
+
+    // 로그아웃 API
+    @PostMapping("/api/logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        // loginId 쿠키 삭제
+        Cookie loginIdCookie = new Cookie("loginId", null);
+        loginIdCookie.setPath("/");
+        loginIdCookie.setMaxAge(0); // 즉시 만료
+
+        // Grade 쿠키 삭제
+        Cookie gradeCookie = new Cookie("Grade", null);
+        gradeCookie.setPath("/");
+        gradeCookie.setMaxAge(0); // 즉시 만료
+
+        response.addCookie(loginIdCookie);
+        response.addCookie(gradeCookie);
+
+        // 필요시 세션 무효화 또는 토큰 삭제 로직 추가
+
+        return ResponseEntity.ok().build();
     }
 
 

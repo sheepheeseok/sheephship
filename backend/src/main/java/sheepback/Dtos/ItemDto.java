@@ -14,7 +14,7 @@ public class ItemDto {
     }
 
     public ItemDto(Long itemId, String name, String produce,
-                   LocalDateTime created, Long price, Long deliveryFee,
+                   LocalDateTime created, Long price,
                    String mainUrl, Long salesVolume, String contents,
                    List<ItemDetailSimpleDto> colors, ItemImgSimpleDto image) {
         this.itemId = itemId;
@@ -22,7 +22,6 @@ public class ItemDto {
         this.produce = produce;
         this.created = created;
         this.price = price;
-        this.deliveryFee = deliveryFee;
         this.mainUrl = mainUrl;
         this.salesVolume = salesVolume;
         this.contents = contents;
@@ -35,7 +34,6 @@ public class ItemDto {
     private String produce;
     private LocalDateTime created;
     private Long price;
-    private Long deliveryFee;
     private String mainUrl;
     private Long salesVolume;
     private String contents;

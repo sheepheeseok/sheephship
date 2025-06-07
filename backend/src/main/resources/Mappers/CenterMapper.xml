@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sheepback.mapper.CenterMapper">
+
+<insert id="insert" parameterType="sheepback.Dtos.SaveCenterDto">
+    INSERT INTO center (
+        address, close_hour, content, grade_img,
+        img1, name, open_hour, phonenumber, price, rep_img,
+        chain_center_id, route_find_link, facilities
+    ) VALUES (
+        #{address}, #{closeHour}, #{content}, #{gradeImg},
+        #{img1}, #{name}, #{openHour}, #{phonenumber}, #{price}, #{repImg},
+        #{chainCenterId}, #{routeFindLink}, #{facilities}
+    )
+</insert>
+    <update id="update" parameterType="sheepback.Dtos.SaveCenterDto">
+        UPDATE center SET
+                          address = #{dto.address},
+                          close_hour = #{dto.closeHour},
+                          content = #{dto.content},
+                          grade_img = #{dto.gradeImg},
+                          img1 = #{dto.img1},
+                          name = #{dto.name},
+                          open_hour = #{dto.openHour},
+                          phonenumber = #{dto.phonenumber},
+                          price = #{dto.price},
+                          rep_img = #{dto.repImg},
+                          chain_center_id = #{dto.chainCenterId},
+                          route_find_link = #{dto.routeFindLink},
+                          facilities = #{dto.facilities}
+        WHERE center_id = #{centerId}
+    </update>
+    <delete id="delete">
+        DELETE FROM center WHERE center_id = #{centerId}
+    </delete>
+
+    <select id="findAll" resultType="sheepback.Dtos.CenterDto">
+        SELECT
+            center_id,address,close_hour,content,grade_img,
+            img1,name,open_hour,phonenumber,price,rep_img,chain_center_id,
+            route_find_link,facilities
+        FROM center
+    </select>
+
+
+    <resultMap id="ChainCenterListMap" type="sheepback.Dtos.ChainCenterListDto">
+        <id property="chainCenterId" column="chain_center_id"/>
+        <result property="chainName" column="chain_name"/>
+
+        <collection property="centers"
+                    ofType="sheepback.Dtos.SimpleCenterDtos"
+                    resultMap="SimpleCenterMap"/>
+
+    </resultMap>
+
+    <resultMap id="SimpleCenterMap" type="sheepback.Dtos.SimpleCenterDtos">
+        <id property="centerId" column="center_id"/>
+        <result property="name" column="name"/>
+        <result property="routeFindLink" column="route_find_link"/>
+
+    </resultMap>
+    <select id="findChainCenterList" resultMap="ChainCenterListMap">
+        SELECT
+            c.chain_center_id,
+            c.chain_name,
+            ctr.center_id,
+            ctr.name,
+            ctr.route_find_link
+        FROM
+            chain_center c
+                LEFT JOIN
+            center ctr ON c.chain_center_id = ctr.chain_center_id
+        ORDER BY
+            c.chain_center_id, ctr.center_id
+    </select>
+
+    <resultMap id="ChainCenterDetailListMap" type="sheepback.Dtos.ChainCenterListDto">
+        <id property="chainCenterId" column="chain_center_id"/>
+        <result property="chainName" column="chain_name"/>
+        <collection property="centers"
+                    ofType="sheepback.Dtos.CenterDto"
+                    resultMap="CenterMap"/>
+    </resultMap>
+
+    <resultMap id="CenterMap" type="sheepback.Dtos.CenterDto">
+        <id property="centerId" column="center_id"/>
+        <result property="address" column="address"/>
+        <result property="closeHour" column="close_hour"/>
+        <result property="content" column="content"/>
+        <result property="gradeImg" column="grade_img"/>
+        <result property="img1" column="img1"/>
+        <result property="name" column="name"/>
+        <result property="openHour" column="open_hour"/>
+        <result property="phonenumber" column="phonenumber"/>
+        <result property="price" column="price"/>
+        <result property="repImg" column="rep_img"/>
+        <result property="chainCenterId" column="chain_center_id"/>
+        <result property="routeFindLink" column="route_find_link"/>
+        <result property="facilities" column="facilities"/>
+    </resultMap>
+
+    <select id="findChainCenterDetailList" resultMap="ChainCenterDetailListMap">
+        SELECT
+            c.chain_center_id,
+            c.chain_name,
+            ctr.center_id,
+            ctr.address,
+            ctr.close_hour,
+            ctr.content,
+            ctr.grade_img,
+            ctr.img1,
+            ctr.name,
+            ctr.open_hour,
+            ctr.phonenumber,
+            ctr.price,
+            ctr.rep_img,
+            ctr.chain_center_id,
+            ctr.route_find_link,
+            ctr.facilities
+        FROM
+            chain_center c
+                LEFT JOIN
+            center ctr ON c.chain_center_id = ctr.chain_center_id
+        WHERE
+            c.chain_name = #{chainName}
+        ORDER BY
+            c.chain_center_id, ctr.center_id
+    </select>
+    <select id="finAllChainList" resultType="sheepback.Dtos.ChainListDto">
+        select chain_center_id, chain_name
+        from chain_center
+    </select>
+</mapper>
