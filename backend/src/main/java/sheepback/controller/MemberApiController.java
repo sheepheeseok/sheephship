@@ -68,7 +68,7 @@ public class MemberApiController {
         return orderMemberById;
     }
 
-    //로그인 api 값확인후 Id 쿠키로 반환 d
+    //로그인 api 값확인후 Id 쿠키로 반환 de
     @PostMapping("/api/login")
     public ResponseEntity<LoginMember> login(@RequestBody @Valid LoginMemberRequest loginMemberRequest,
                                              HttpServletResponse response
