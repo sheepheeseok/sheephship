@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Link 컴포넌트 import
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const allProducts = [
     { id: 1, title: "와이드 턱 팬츠 스프링 믹스", price: "92,000원", img: "/imgs/shop/pants1-1.jpg", category: "BOTTOM"},
@@ -18,7 +17,7 @@ const allProducts = [
     { id: 13, title: "상품13", price: "60,000원", img: "/imgs/shop/cap1-3.jpg", category: "ACC" },
     { id: 14, title: "상품14", price: "70,000원", img: "/imgs/shop/hoodie1-1.jpg", category: "TOP" },
     { id: 15, title: "상품15", price: "80,000원", img: "/imgs/shop/hoodie1-2.jpg", category: "TOP" },
-    { id: 16, title: "상품16", price: "60,000원", img: "/imgs/shop/pants1-2.jpg",category: "BOTTOM" },
+    { id: 16, title: "상품16", price: "60,000원", img: "/imgs/shop/pants1-2.jpg", category: "BOTTOM" },
     { id: 17, title: "상품17", price: "70,000원", img: "/imgs/shop/pants1-3.jpg", category: "BOTTOM" },
     { id: 18, title: "상품18", price: "80,000원", img: "/imgs/shop/pants1-4.jpg", category: "BOTTOM" },
     { id: 19, title: "상품19", price: "60,000원", img: "/imgs/shop/oil.jpg", category: "SKIN CARE" },
@@ -34,23 +33,51 @@ const allProducts = [
 
 const Shop = () => {
     const navigate = useNavigate();
-
-    useEffect(() => {
-        window.scrollTo(0, 0); // 페이지 이동 시 최상단으로 스크롤
-    }, []);
     const [currentPage, setCurrentPage] = useState(1);
     const [activeMenu, setActiveMenu] = useState("ALL");
-    const [setHoveredProduct] = useState(null);
     const productsPerPage = 16;
 
-    // 카테고리에 맞는 상품 필터링
-    const filteredProducts = activeMenu === "ALL" ? allProducts : allProducts.filter(product => product.category === activeMenu);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    const filteredProducts = activeMenu === "ALL"
+        ? allProducts
+        : allProducts.filter(product => product.category === activeMenu);
 
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+    const handleAddToWishList = (product) => {
+        const existing = JSON.parse(localStorage.getItem("wishItems")) || [];
+        const isDuplicate = existing.find(item => item.id === product.id);
+
+        if (!isDuplicate) {
+            const updated = [...existing, product];
+            localStorage.setItem("wishItems", JSON.stringify(updated));
+            alert("위시리스트에 추가되었습니다!");
+        } else {
+            alert("이미 위시리스트에 있습니다.");
+        }
+    };
+
+    const handleProductClick = (product) => {
+        const stored = localStorage.getItem("recentItems");
+        let recentItems = stored ? JSON.parse(stored) : [];
+
+        recentItems = recentItems.filter((item) => item.id !== product.id);
+        recentItems.unshift(product);
+
+        if (recentItems.length > 20) {
+            recentItems = recentItems.slice(0, 20);
+        }
+
+        localStorage.setItem("recentItems", JSON.stringify(recentItems));
+        navigate(`/product/${product.id}`);
+    };
 
     return (
         <div className="container">
@@ -65,23 +92,19 @@ const Shop = () => {
 
                 <section className="product-list">
                     {currentProducts.map((product) => (
-                        <div className="product-item"
-                             key={product.id}
-                             onMouseEnter={() => setHoveredProduct(product.id)}
-                             onMouseLeave={() => setHoveredProduct(null)}
-                             onClick={() => navigate(`/product/${product.id}`)}
-                             style={{ cursor: "pointer" }}
+                        <div
+                            className="product-item"
+                            key={product.id}
+                            onClick={() => handleProductClick(product)}
+                            style={{ cursor: "pointer" }}
                         >
-                            <img src={product.img} alt={product.title}/>
+                            <img src={product.img} alt={product.title} />
                             <p>{product.title}</p>
-                            {product.sale ? (
-                                <div className="price">
-                                    <span className="sale-price">{product.price}</span>
-                                </div>
-                            ) : (
-                                <strong>{product.price}</strong>
-                            )}
-                            <button className="wish-btn">WISH</button>
+                            <strong>{product.price}</strong>
+                            <button className="wish-btn" onClick={(e) => {
+                                e.stopPropagation();
+                                handleAddToWishList(product);
+                            }}>WISH</button>
                             <button className="add-btn">ADD</button>
                         </div>
                     ))}

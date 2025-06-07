@@ -13,6 +13,20 @@
 }
 
 @font-face {
+  font-family: "NotoSansKR-Thin";
+  src: url('/fonts/NotoSansKR-Thin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSansKR-ExtraLight";
+  src: url('/fonts/NotoSansKR-ExtraLight.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "NotoSansKR-Light";
   src: url('/fonts/NotoSansKR-Light.ttf') format('truetype');
   font-weight: normal;
@@ -22,6 +36,27 @@
 @font-face {
   font-family: "NotoSansKR-Regular";
   src: url('/fonts/NotoSansKR-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSansKR-SemiBold";
+  src: url('/fonts/NotoSansKR-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSansKR-ExtraBold";
+  src: url('/fonts/NotoSansKR-ExtraBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSansKR-Black";
+  src: url('/fonts/NotoSansKR-Black.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -93,7 +128,7 @@ body {
     text-align: center;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 살짝 그림자 효과 */
     box-sizing: border-box; /* 패딩 포함된 너비로 계산 */
-    z-index: 1;
+    z-index: 1000;
 }
 .nav-list {
     display: flex;
@@ -115,9 +150,9 @@ body {
 .dropdown-menu {
     display: block; /* 기본적으로 드롭다운 메뉴가 표시되도록 설정 */
     position: absolute;
-    top: 170%;
+    top: 130%;
     left: -20%;
-    width: 150px; /* 드롭다운 메뉴 너비 조정 */
+    width: 100px; /* 드롭다운 메뉴 너비 조정 */
     background-color: white;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     list-style: none;
@@ -482,8 +517,9 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    margin-left: 100px;
-    padding-top: 30px;
+    margin-left: 50px;
+    padding-top: 10px;
+    padding-left: 50px;
 }
 .mypage-paymentBox h1 {
     font-family: NotoSansKR-Medium;
@@ -756,6 +792,77 @@ body {
     background-color: #000000;
     margin-top: 5px;
 }
+
+.orderh-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.page-number {
+    font-size: 16px;
+    color: #333;
+}
+
+.page-number.active {
+    color: black;
+    font-weight: bold;
+}
+
+/* 주문 상세 css */
+.order-detail-container {
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  width: 800px;
+  margin: 0 auto;
+}
+.order-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+.order-detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.order-detail-row {
+  display: flex;
+  gap: 32px;
+}
+.order-detail-label {
+  width: 120px;
+  font-weight: bold;
+}
+.order-detail-value {
+  flex: 1;
+}
+.order-detail-product {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.order-detail-product-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+.order-detail-payment > div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
 
 {/* 메인 토글 버튼 css */}
 .floating-box {
@@ -1654,6 +1761,290 @@ body {
     margin-left: 40px !important;
 }
 
+{/* 서비스 페이지 css */}
+  .customerService {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    margin-top: 78px;
+  }
+
+  .service-title {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    color: #000000;
+    text-align: left;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+    text-align: left;
+    margin-bottom: 48px;
+  }
+  .questionList {
+    width: 100%;
+    border-top: 1px solid rgba(136, 136, 136, 0.3);
+  }
+  .questionItem {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(136, 136, 136, 0.3);
+    cursor: pointer;
+  }
+  .qMark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: #888888;
+    margin-right: 42px;
+    min-width: 15px;
+    margin-left: 42px;
+    margin-top: 10px;
+  }
+  .questionContent {
+    flex: 1;
+    padding-right: 24px;
+  }
+  .questionTitle {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #333333;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .lock-icon {
+    font-size: 12px;
+    color: #333333;
+  }
+
+  .productName {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 19px;
+    color: #333333;
+  }
+
+  .questionInfo {
+    display: flex;
+    align-items: center;
+    min-width: 200px; /* 더 넓게 수정 */
+    justify-content: flex-end;
+  }
+  .author, .date {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    color: #333333;
+    margin-right: 42px;
+    margin-top: 10px;
+  }
+  .author {
+    margin-right: 64px; /* 간격 더 넓게 수정 */
+  }
+  .searchArea {
+    display: flex;
+    gap: 8px;
+    margin: 32px 0;
+    justify-content: flex-start; /* 왼쪽 정렬로 수정 */
+  }
+  .searchInput {
+    width: 240px;
+    height: 40px;
+    border: 1px solid #DDDDDD;
+    padding: 0 16px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    outline: none;
+  }
+  .searchButton, .postButton {
+    height: 40px;
+    background: #3375B1;
+    border: none;
+    color: #FFFFFF;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 0; /* 각진 모서리로 수정 */
+    text-transform: uppercase;
+  }
+  .searchButton {
+    width: 80px;
+    margin-right: 4px; /* 버튼 사이 간격 조정 */
+  }
+  .postButton {
+    width: 140px;
+    margin-left: 700px;
+  }
+  /* hover 효과도 각진 모서리 유지 */
+  .searchButton:hover, .postButton:hover {
+    background: #2964A0;
+    border-radius: 0;
+  }
+  .service-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 40px;
+    margin-bottom: 60px;
+  }
+  .service-pagination span {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #888888;
+    cursor: pointer;
+    transition: color 0.2s;
+    min-width: 10px;
+    text-align: center;
+  }
+  .service-pagination span:hover {
+    color: #333333;
+  }
+  .service-pagination span.active {
+    color: #333333;
+    font-weight: 500;
+  }
+  .service-pagination .next {
+    color: #888888;
+  }
+
+ /* 인쿼리 페이지지 css */
+ .inquiry-page {
+     background: #fff;
+     min-height: 100vh;
+     width: 100vw;
+   }
+
+   .inquiry-form {
+     max-width: 1135px;
+     margin: 86px auto 0 auto;
+     padding: 40px 0;
+     position: relative;
+   }
+   .inquiry-title {
+     font-size: 32px;
+     margin-bottom: 32px;
+     border-bottom: 2px solid black;
+     padding-bottom: 25px;
+     font-family: "NotoSansKR-Bold";
+     color: #000000;
+   }
+   .inquiry-label {
+     font-size: 20px;
+     font-family: "NotoSansKR-Medium";
+     margin: 24px 0 8px 0;
+   }
+   .inquiry-textarea {
+     width: 100%;
+     height: 259px;
+     border: 1px solid #888;
+     border-radius: 2px;
+     font-size: 20px;
+     padding: 16px;
+     resize: none;
+     color: #888888;
+     font-family: "NotoSansKR-Regular";
+   }
+   .inquiry-text-info {
+     display: flex;
+     justify-content: space-between;
+     margin: 8px 0 24px 0;
+     border-bottom: 1px solid #888888;
+     padding-bottom: 18px;
+   }
+   .min-length, .text-count {
+     font-family: "NotoSansKR-Medium";
+     font-size: 16px;
+     color: #888888;
+   }
+   .photo-upload-area {
+     margin: 16px 0 32px 0;
+     border-bottom: 1px solid #888888;
+     padding-bottom: 24px;
+   }
+   .photo-upload-box {
+     width: 170px;
+     height: 186px;
+     border: 1px solid #888;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 48px;
+     color: #888;
+     cursor: pointer;
+     background: #fafafa;
+   }
+   .photo-upload-box img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+   }
+   .plus-icon {
+     font-size: 48px;
+   }
+   .inquiry-buttons {
+     display: flex;
+     gap: 9px;
+     margin-top: 32px;
+     margin-left: 800px;
+   }
+   .cancel-btn, .submit-btn {
+     width: 170px;
+     height: 56px;
+     font-size: 20px;
+     border-radius: 2px;
+     border: 1px solid #888;
+     background: #fff;
+     cursor: pointer;
+
+   }
+   .submit-btn {
+     background: #000;
+     color: #fff;
+     border: none;
+     font-family: "NotoSansKR-Bold";
+   }
+   .cancel-btn {
+     color: #000;
+     font-family: "NotoSansKR-Medium";
+   }
+
+   /* Notice Section */
+   .notice-section {
+     max-width: 1135px;
+     margin: 60px auto 0 auto;
+     padding: 40px 0;
+   }
+   .notice-title {
+     font-size: 20px;
+     font-family: "NotoSansKR-Medium";
+     margin-bottom: 16px;
+     border-bottom: 1px solid #888888;
+     padding-bottom: 16px;
+   }
+   .notice-list {
+     color: #888;
+     font-size: 20px;
+     font-family: "NotoSansKR-Light";
+     line-height: 1.7;
+     padding-left: 20px;
+   }
+
 {/* 결제 페이지 css */}
 .payment-container {
     display: flex;
@@ -2359,6 +2750,93 @@ span {
     padding: 0;
 }
 
+{/* 루트파인드 페이지 css */}
+.rootfind-page {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 0 0 0;
+  min-height: 100vh;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 2px;
+}
+
+.rootfind-title {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  color: #000;
+  margin-top: 74px;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.rootfind-desc {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  color: #000;
+  margin-bottom: 60px;
+}
+
+.rootfind-gyms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px 80px;
+  width: 1400px;
+  margin-top: 40px;
+}
+
+.gym-group {
+  width: 250px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.gym-name {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 22px;
+  color: #000;
+  margin-bottom: 16px;
+  letter-spacing: -0.54px;
+}
+
+.gym-instagram {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.insta-icon {
+  width: 24px;
+  height: 24px;
+  background: #19B5FE;
+  border-radius: 6px;
+  display: inline-block;
+  margin-right: 4px;
+  /* 인스타그램 아이콘 대신 파란 네모로 표시, 실제 아이콘은 이미지로 교체 가능 */
+}
+
+.insta-text {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  color: #19B5FE;
+  display: flex;
+  align-items: center;
+}
+
 {/* Cart 페이지 css */}
 .cart-productBox {
     width: 1000px;
@@ -2464,122 +2942,237 @@ span {
 }
 
 
+/* 문의 답변 페이지 css */
+.inquiry-answer-page {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 100px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  overflow-y: scroll;
+}
+
+.inquiry-answer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.page-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+  color: #000000;
+  margin-bottom: 25px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  padding-top: 24px;
+  border-top: 2px solid #888888;
+}
+
+.section-title {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 18px;
+  color: #000000;
+}
+
+.writer-date {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 18px;
+  color: #000000;
+  font-size: 16px;
+}
+
+.inquiry-content, .answer-content {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  line-height: 29px;
+  color: #0D0D0D;
+  padding: 30px;
+  margin-bottom: 40px;
+}
+
+.inquiry-content {
+  font-weight: 400;
+}
+
+.answer-content {
+  font-weight: 500;
+  font-size: 16px;
+  border-bottom: 1px solid #888888;
+}
+
+.content-section, .answer-section {
+  margin-bottom: 40px;
+}
+
+.back-link {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 18px;
+  color: #000000;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
 {/* QnA 페이지 css */}
 .qna-container {
-    max-width: 1000px; /* 내용 너비 제한 */
-    min-height: 100vh;
-    margin: 60px auto 0; /* 네비게이션 바와의 간격 */
-    width: 1000px;
-    padding: 20px;
+  max-width: 1036px; /* 내용 너비 제한 */
+  min-height: 100vh;
+  margin: 87px auto 0; /* 네비게이션 바와의 간격 */
+  width: 1036px;
+  padding: 20px;
 }
 /* 타이틀 */
 .faq-title {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    font-family: "NotoSansKR-Bold";
-}
-.faq-q {
-    color: #888888;
-    margin-right: 64px;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: "NotoSansKR-Bold";
 }
 /* 서브타이틀 */
 .faq-subtitle {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 20px;
-    font-family: "NotoSansKR-Regular";
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 20px;
+  font-family: "NotoSansKR-Regular";
 }
 /* 카테고리 버튼 */
 .faq-category-buttons {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    font-family: "NotoSansKR-Medium";
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-family: "NotoSansKR-Medium";
 }
 .faq-category-button {
-    padding: 5px 20px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    background-color: white;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 5px 20px;
+  border: 1px solid #888888;
+  border-radius: 20px;
+  background-color: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #888888;
 }
+
 .faq-category-button.active {
-    background-color: #3375B1;
-    color: #fff;
+  background-color: #3375B1;
+  border: 1px solid #3375B1;
+  color: #fff;
 }
+
 /* FAQ 리스트 */
 .faq-container {
-    width: 100%;
-    border-top: 1px solid #ddd;
+  width: 100%;
+  border-top: 1px solid #ddd;
 }
 /* FAQ 아이템 */
-.faq-item {
-    border-bottom: 1px solid #ddd;
-    padding: 15px 20px;
-    cursor: pointer;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+ .faq-item {
+   border-bottom: 1px solid #ddd;
+   padding: 15px 20px;
+   cursor: pointer;
+   text-align: left;
+   display: flex;
+   flex-direction: column;
+   overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+ }
+ /* 질문 (Q) */
+ .faq-question {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   font-weight: bold;
+   cursor: pointer;
+   font-family: "NotoSansKR-Bold";
+   transition: color 0.3s ease-in-out;
+   background: none;
+   font-size: 18px;
+   color: #888888;
+ }
+
+.faq-question.open {
+  color: #3375B1;
 }
-/* 질문 (Q) */
-.faq-question {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    font-size: 16px;
-    font-family: "NotoSansKR-Bold";
+
+.faq-question.open span {
+  color: inherit; /* 자식에게 색상 상속 */
 }
-/* 답변 (A) */
-.faq-answer {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #000000;
-    max-height: 0; /* 기본적으로 0으로 설정 */
-    overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
-    padding: 0;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: max-height 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease-in-out, padding 0.3s ease-in-out, transform 0.5s ease-in-out;
-    font-family: "NotoSansKR-Regular";
-    margin-left: 103px;
+
+.faq-q {
+  color: #888888;
+  margin-right: 64px;
 }
+
+ .faq-answer {
+   margin-top: 5px;
+   font-size: 14px;
+   color: #000000;
+   max-height: 0; /* 기본적으로 0으로 설정 */
+   overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+   padding: 0;
+   opacity: 0;
+   transform: translateY(-10px);
+   transition: max-height 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease-in-out, padding 0.3s ease-in-out, transform 0.5s ease-in-out;
+   font-family: "NotoSansKR-Regular";
+   margin-left: 103px;
+ }
+
 .faq-answer.open {
-    max-height: 500px;
-    opacity: 1;
-    padding: 1px;
-    transform: translateY(0);
+  max-height: 500px;
+  opacity: 1;
+  padding: 1px;
+  transform: translateY(0);
 }
-.faq-item.open .faq-answer {
-    max-height: 500px; /* 충분히 큰 값으로 설정하여 내용이 모두 표시되도록 함 */
-}
-.faq-arrow {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-left: 4px solid rgb(136, 136, 136);
-    border-bottom: 4px solid #888888;
-    transform: rotate(225deg);
-    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
-}
-.faq-arrow.open {
-    transform: rotate(315deg); /* 펼쳐졌을 때 화살표 방향이 변경되도록 */
-    border-left: 4px solid rgb(51, 117, 177);
-    border-bottom: 4px solid #3375b1;
-}
+
+/* 활성화된 답변에 대한 스타일 */
+ .faq-item.open .faq-answer {
+   max-height: 500px; /* 충분히 큰 값으로 설정하여 내용이 모두 표시되도록 함 */
+ }
+
+ /* 화살표 */
+ .faq-arrow {
+   display: inline-block;
+   width: 12px;
+   height: 12px;
+   border-left: 4px solid rgb(136, 136, 136);
+   border-bottom: 4px solid #888888;
+   transform: rotate(225deg);
+   transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+ }
+
+ .faq-arrow.open {
+   transform: rotate(315deg); /* 펼쳐졌을 때 화살표 방향이 변경되도록 */
+   border-left: 4px solid rgb(51, 117, 177);
+   border-bottom: 4px solid #3375b1;
+ }
+
 /* 페이지네이션 */
 .faq-pagination {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin: 36px 0;
-}
-.faq-pagination span {
-    margin: 0 5px;
-    cursor: pointer;
+  margin-top: 20px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 36px 0;
 }
 
 {/* 브랜드 페이지 css */}
@@ -2659,6 +3252,704 @@ span {
 }
 .productSection .cardText {
     margin-bottom: 2em;
+}
+
+/* 적립금 내역 css */
+.savings-root {
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.savings-content {
+  position: relative;
+  width: 1100px;
+  min-width: 900px;
+}
+
+.savings-title {
+  position: absolute;
+  top: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #000;
+  height: 52px;
+  display: flex;
+  align-items: center;
+}
+
+.savings-title-underline {
+  position: absolute;
+  top: 62px;
+  left: 0;
+  width: 1059px;
+  border-bottom: 2px solid #000;
+  z-index: 1;
+}
+
+.savings-summary-box {
+  box-sizing: border-box;
+  position: absolute;
+  top: 63px;
+  width: 423px;
+  height: 200px;
+  border-width: 0 1px 1px 1px;
+  border-style: solid;
+  border-color: #888;
+  background: #fff;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.savings-summary-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+  height: 37px;
+  margin: 0 32px;
+  margin-top: 8px;
+}
+
+.savings-summary-row span:last-child {
+  min-width: 40px;
+  text-align: right;
+}
+
+.savings-info {
+  position: absolute;
+  left: 440px;
+  top: 104px;
+  width: 604px;
+  height: 127px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #000;
+  display: flex;
+  align-items: center;
+}
+
+.savings-info ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.savings-info li {
+  margin-bottom: 8px;
+}
+
+.savings-tab-row {
+  position: absolute;
+  top: 310px;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  width: 700px;
+  height: 70px;
+  background: #fff;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  border-top: 1px solid #000;
+  z-index: 2;
+}
+
+.savings-tab-row button {
+  flex: 1;
+  background: none;
+  border: none;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #888;
+  height: 100%;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  transition: color 0.2s, font-weight 0.2s;
+  background: transparent;
+  z-index: 1;
+  border-radius: 0px;
+  border-bottom: 1px solid #000;
+}
+
+.savings-tab-row button.active {
+  color: #000;
+  font-weight: 500;
+  background: #fff;
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+  border-top: 2px solid #000;
+  border-bottom: none;
+  position: relative;
+  z-index: 2;
+  border-radius: 0px;
+  /* 아래로 살짝 띄워서 선 위에 올라온 느낌 */
+  margin-bottom: -1px;
+}
+
+.savings-tab-row button:first-child.active {
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+
+}
+
+.savings-tab-row button:last-child.active {
+  border-right: 2px solid #000;
+}
+
+.savings-tab-underline {
+  position: absolute;
+  top: 421px;
+  width: 1059px;
+  height: 0;
+  border-bottom: 2px solid #000;
+}
+
+.savings-empty {
+  position: absolute;
+  left: 350px;
+  top: 490px;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.savings-empty-icon {
+  margin-bottom: 16px;
+}
+
+.savings-empty-text {
+  color: #888;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.savings-bottom-line {
+  top: 825px;
+  width: 1059px;
+  height: 0;
+  border-bottom: 1px solid #888;
+  margin-top: 85px;
+}
+
+.savings-list {
+  margin-top: 430px;
+}
+
+.savings-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px 0 16px 0;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.savings-item-title {
+  font-weight: 700;
+  font-size: 20px;
+  margin-right: 32px;
+  min-width: 90px;
+  color: #222;
+}
+
+.savings-item-name {
+  font-size: 18px;
+  color: #222;
+  margin-right: 32px;
+  flex: 1;
+}
+
+.savings-item-date {
+  font-size: 15px;
+  color: #888;
+  margin-right: 32px;
+  min-width: 260px;
+}
+
+.savings-item-point {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  font-size: 20px;
+  color: #2196f3;
+  font-weight: 500;
+  min-width: 80px;
+  text-align: right;
+}
+
+.savings-pagination {
+  margin: 32px 0 0 0;
+  text-align: center;
+}
+
+.savings-pagination span {
+  display: inline-block;
+  margin: 0 8px;
+  font-size: 18px;
+  color: #888;
+  cursor: pointer;
+  font-weight: 400;
+  padding: 2px 8px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.savings-pagination span.active {
+  color: #000000;
+  font-weight: 700;
+}
+
+/* 위시 리스트 css */
+.WishList-title h1 {
+  font-family: NotoSansKR-Medium;
+  font-size: 18pt;
+}
+
+.WishList-NoneIcon {
+  width: 179px;
+  height: 179px;
+  display: flex;
+  margin-left: 400px;
+  margin-top: 100px;
+}
+
+.WishList-Line {
+  width: 100%;
+  height: 5px;
+  background-color: #888888;
+  margin-top: 15px;
+}
+
+.WishList-Area {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.WishList-Area h1 {
+  margin-top: 30px;
+  margin-left: 375px;
+  margin-bottom: 50px;
+  font-family: NotoSansKR-Medium;
+  font-size: 20px;
+  color: #888888;
+}
+
+.WishList-Line2 {
+  width: 100%;
+  height: 1px;
+  background-color: #888888;
+  margin-top: 40px;
+}
+
+.WishList-Items {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.WishList-Item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #888888;
+  padding: 22px 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.wishlist-item-img {
+  width: 150px;
+  height: 150px;
+
+  border: 1px solid #ccc;
+  margin: 0 10px;
+}
+
+.WishList-Item-Info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.WishList-Item-Delete {
+  background: transparent;
+  border: 1px solid #aaa;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #444;
+  margin-right: 10px;
+
+}
+
+.WishList-Actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+  gap: 8px;
+  padding-right: 10px;
+}
+
+.WishList-Actions button {
+  border-radius: 0px;
+  border: 1px solid #000;
+  background: none;
+  font-size: 14px;
+  padding: 6px 25px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.WishList-Actions button:hover {
+  background: #000;
+  color: #fff;
+}
+
+.WishList-order {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+.WishList-order button {
+  border-radius: 0px;
+  color: #fff;
+  background: #000;
+  font-size: 15px;
+  font-family: NotoSansKR-Medium;
+}
+
+.WishList-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 6px;
+}
+
+.WishList-pagination button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #888888;
+}
+
+.WishList-pagination button.active {
+  font-weight: bold;
+  color: #000000;
+}
+
+/* 최근 본 상품 css */
+.Recent-title h1 {
+  font-family: NotoSansKR-Medium;
+  font-size: 18pt;
+}
+
+.Recent-NoneIcon {
+  width: 179px;
+  height: 179px;
+  display: flex;
+  margin-left: 400px;
+  margin-top: 100px;
+}
+
+.Recent-Line {
+  width: 100%;
+  height: 5px;
+  background-color: #888888;
+  margin-top: 15px;
+}
+
+.Recent-Area {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.Recent-Area h1 {
+  margin-top: 30px;
+  margin-left: 375px;
+  margin-bottom: 50px;
+  font-family: NotoSansKR-Medium;
+  font-size: 20px;
+  color: #888888;
+}
+
+.Recent-Line2 {
+  width: 100%;
+  height: 1px;
+  background-color: #888888;
+  margin-top: 40px;
+}
+
+.Recent-Items {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.Recent-Item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #888888;
+  padding: 22px 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.recent-item-img {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #ccc;
+  margin: 0 10px;
+}
+
+.Recent-Item-Info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Recent-Item-Delete {
+  background: transparent;
+  border: 1px solid #aaa;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #444;
+
+}
+
+.Recent-Actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 110px;
+  gap: 8px;
+  padding-right: 10px;
+}
+
+.Recent-Actions button {
+  border-radius: 0px;
+  border: 1px solid #000;
+  background: none;
+  font-size: 13px;
+  padding: 6px 20px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.Recent-Actions button:hover {
+  background: #000;
+  color: #fff;
+}
+
+.Recent-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 6px;
+}
+
+.Recent-pagination button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #888888;
+}
+
+.Recent-pagination button.active {
+  font-weight: bold;
+  color: #000000;
+}
+
+
+/* 비번 변경 CSS */
+.pwchange-container {
+  width: 400px;
+  margin: 50px auto;
+  padding: 32px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.pwchange-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.pwchange-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.pwchange-input-group {
+  margin-bottom: 18px;
+}
+
+.pwchange-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.pwchange-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.pwchange-input:focus {
+  border-color: #2684ff;
+  box-shadow: 0 0 0 2px rgba(38, 132, 255, 0.2);
+}
+
+.pwchange-button {
+  margin-top: 12px;
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pwchange-button:hover {
+  background-color: #0056b3;
+}
+
+.pwchange-error {
+  color: red;
+  font-size: 13px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.pwchange-success {
+  color: green;
+  font-size: 13px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+
+/* OrderContentCard.css */
+.order-card-container {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+.order-card-date {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.order-card-box {
+    position: relative;
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.order-card-image-wrap {
+    width: 141px;
+    height: 143px;
+    flex-shrink: 0;
+}
+
+.order-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.order-card-info-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.order-card-name {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.order-card-detail {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.order-card-price {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.order-card-button-wrap {
+     position: absolute;
+     bottom: 0px;
+     right: 10px;
+     display: flex;
+     flex-direction: row;
+     gap: 5px;
+}
+
+.order-card-button-wrap button {
+    width: 115px;
+    height: 38px;
+    border: 1px solid #000;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 0; /* 네모 모양 */
+    transition: background-color 0.2s, color 0.2s;
+    border-radius: 0;
+}
+
+.order-card-button-wrap button:hover {
+    background-color: black;
+    color: white;
+}
+
+.OrderNotice {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #555;
+    margin-top: 30px;
 }
 
 
