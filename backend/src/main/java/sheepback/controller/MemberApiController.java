@@ -172,7 +172,7 @@ public class MemberApiController {
         Member member = memberService.getMemberById(id);
 
         MyPageDto myPageDto = new MyPageDto(member.getId(), member.getName(),
-                member.getGrade());
+                member.getGrade(), member.getEmail(), member.getPhoneNumber(),member.getAddress());
 
         return myPageDto;
 
@@ -223,15 +223,23 @@ public class MemberApiController {
 
     @Data
     private static class MyPageDto{
-        String id;
-        String name;
-        Grade grade;
-
-        public MyPageDto(String id, String name, Grade grade) {
+        public MyPageDto(String id, String name, Grade grade, String email, String phoneNumber, Address address) {
             this.id = id;
             this.name = name;
             this.grade = grade;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+            this.address = address;
         }
+
+        String id;
+        String name;
+        Grade grade;
+        String email;
+        String phoneNumber;
+        Address address;
+
+
     }
 
 

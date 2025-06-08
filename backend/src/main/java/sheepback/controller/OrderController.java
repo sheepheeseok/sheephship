@@ -29,8 +29,8 @@ public class OrderController {
     }
 
     @PostMapping("/api/cancelStockReservation")
-    public void cancelStockReservation(@RequestBody List<CancelReserveRequest> requests) {
-        orderService.cancelStockReservation(requests);
+    public void cancelStockReservation(@RequestBody List<CancelReserveRequest> requests, @CookieValue("loginId") String memberId) {
+        orderService.cancelStockReservation(requests, memberId);
 
     }
 
