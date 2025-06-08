@@ -72,7 +72,7 @@ public class MemberApiController {
     @PostMapping("/api/login")
     public ResponseEntity<LoginMember> login(@RequestBody @Valid LoginMemberRequest loginMemberRequest,
                                              HttpServletResponse response
-    , HttpServletRequest req) {
+    /*, HttpServletRequest req*/) {
 
         Member login = memberService.login(loginMemberRequest.getId()
                 , loginMemberRequest.getPassword());
@@ -85,14 +85,14 @@ public class MemberApiController {
         Cookie cookie = new Cookie("loginId", String.valueOf(login.getId()));
         Cookie cookie2 = new Cookie("Grade", String.valueOf(login.getGrade()));
 
-        HttpSession session = req.getSession(false);
+      /*  HttpSession session = req.getSession(false);
         if(session != null) {
             session.invalidate();
         }
         session = req.getSession(true);
         session.setAttribute("loginId", String.valueOf(login.getId()));
         session.setAttribute("Grade", String.valueOf(login.getGrade()));
-
+*/
         cookie2.setHttpOnly(false);
         cookie2.setSecure(false);
         cookie2.setPath("/");

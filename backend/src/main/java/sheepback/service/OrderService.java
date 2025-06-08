@@ -50,6 +50,8 @@ public class OrderService {
                 .stream()
                 .collect(Collectors.toMap(ItemInfo::getItemId, Function.identity()));
 
+
+
         // 3. 조합
         for (BuyItemListDto dto : items) {
             ItemInfo info = itemInfoMap.get(dto.getItemId());
@@ -57,7 +59,6 @@ public class OrderService {
                 dto.setItemName(info.getItemName());
                 dto.setPrice(info.getPrice());
                 dto.setMainUrl(info.getMainUrl());
-                dto.setDeliveryFee(info.getDeliveryFee());
             }
         }
         return items;

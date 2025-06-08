@@ -1,5 +1,7 @@
 package sheepback.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import sheepback.domain.Address;
 import sheepback.service.OrderService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +34,6 @@ public class OrderController {
 
     }
 
-    @PostMapping("/api/reserveMultipleStocks")
     public List<Long> reserveMultipleStocks(@RequestBody List<StockReserveRequest> requests) {
         List<Long> longs = orderService.reserveMultipleStocks(requests);
         return longs;
@@ -39,14 +41,22 @@ public class OrderController {
     }
 
 
-
-
-
     @PostMapping("/api/buy-items")
-    public BuyItemListAndDeliveryFeeDto getBuyItems(@RequestBody List<BuyItemListDto> items) {
+    public BuyItemListAndDeliveryFeeDto getBuyItems(@RequestBody List<BuyItemListDto> items, @CookieValue("loginId") String rmemberId) {
+        List<StockReserveRequest> reserveInfo = items.stream()
+                .map(item -> {
+                    StockReserveRequest req = new StockReserveRequest();
+                    req.setItemDetailId(item.getItemDetailId());
+                    req.setMemberId(rmemberId);
+                    // stockQuantity가 String이므로 Long으로 변환
+                    req.setQuantity(item.getStockQuantity());
+                    return req;
+                })
+                .collect(Collectors.toList());
+        List<Long> longs = reserveMultipleStocks(reserveInfo);
+        List<BuyItemListDto> result = orderService.enrichItems(items);
         List<Long> prices = items.stream().map(BuyItemListDto::getPrice).collect(Collectors.toList());
         Long deliveryFee = orderService.calculateTotalDeliveryFee(prices);
-        List<BuyItemListDto> result = orderService.enrichItems(items);
         BuyItemListAndDeliveryFeeDto dto = new BuyItemListAndDeliveryFeeDto();
         dto.setItemListDtos(result);
         dto.setDeliveryFee(deliveryFee);
@@ -86,5 +96,6 @@ public class OrderController {
     private static class getIdsDto {
         private Long orderId;
         private List<Long> orderItemIds;
+
     }
 }
