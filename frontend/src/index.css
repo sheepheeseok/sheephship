@@ -947,6 +947,107 @@ body {
     margin: 0 auto;
     padding: 20px;
 }
+.select-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.select-container select {
+    padding: 6px 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100px;
+}
+
+.add-option-btn {
+    padding: 6px 14px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.option-list {
+    margin-top: 20px;
+}
+.option-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.85); /* 반투명 */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);     /* 그림자 */
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.option-info {
+    flex: 1;
+    min-width: 140px;
+    max-width: 160px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.option-quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 120px;
+}
+
+.option-quantity button {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.option-quantity button:hover {
+    background-color: #f0f0f0;
+}
+
+.option-quantity span {
+    display: inline-block;
+    width: 32px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.option-price {
+    min-width: 100px;
+    font-weight: bold;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.remove-btn {
+    border: none;
+    background: transparent;
+    color: #c00;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 18px;
+}
 .shop-menu {
     display: flex;
     justify-content: center; /* 가운데 정렬 */

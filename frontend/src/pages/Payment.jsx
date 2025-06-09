@@ -11,8 +11,7 @@ const Payment = () => {
             setUseSameAddress(false);
         }
     };
-    const { processPayment } = PaymentHook();
-
+    const { processPayment, productData, loading,error } = PaymentHook();
     const [requestMessage, setRequestMessage] = useState("");
     const handleRequestChange = (e) => {
         setRequestMessage(e.target.value);
@@ -463,19 +462,19 @@ const Payment = () => {
             <div className="payment-productBox">
                 <h1>구매 상품</h1>
                 <div className="payment-product-info">
-                    <img src="/imgs/products/2-pants(1).jpg" alt="payment-product"
+                    <img src={productData.mainUrl} alt="payment-product"
                          className="payment-product"/>
                     <div className="payment-product-detail">
-                        <h1 style={{marginBottom: "5px"}}>Stealth XPAC™ Deluxe Chalk Bucket- Mag Closure</h1>
+                        <h1 style={{marginBottom: "5px"}}>{productData.name}</h1>
                         <h2>사이즈 : L</h2>
                         <h2 style={{marginTop: "5px"}}>수량: 1개</h2>
-                        <h2 style={{marginTop: "5px"}}>컬러 : GRAY</h2>
+                        <h2 style={{marginTop: "5px"}}>컬러 : {productData.color}</h2>
                         <h1 style={{
                             textAlign: "end",
                             marginRight: "10px",
                             fontSize: "30px",
                             marginTop: "35px"
-                        }}>50,000원</h1>
+                        }}>{productData.price?.toLocaleString()}원</h1>
                     </div>
                 </div>
 
@@ -488,7 +487,7 @@ const Payment = () => {
                 <h1 style={{ fontFamily: "NotoSansKR-Medium", marginLeft: "37px", marginBottom: "10px"}}>결제 정보</h1>
                 <div className="payment-product-price">
                     <h1>주문상품</h1>
-                    <h1>50,000원</h1>
+                    <h1>{productData.price?.toLocaleString()}원</h1>
                 </div>
                 <div className="payment-product-price">
                     <h1>배송비</h1>

@@ -1,8 +1,35 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import useCookie from "../hooks/useCookie.js";
+import axios from "axios";
 
 const PaymentHook = () => {
     const loginId = useCookie("loginId");
+    const location = useLocation();
+    const { productId } = location.state || {};
+    const [productData, setproductdata] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if(!productId) return;
+
+        const fetchProduct = async () => {
+            try {
+                const res = await axios.get(`/api/showItem/${productId}`);
+                setproductdata(res.data);
+                console.log("상품 정보:",res.data);
+            } catch(err) {
+                setError(err);
+                console.log("상품 불러오기 오류");
+                console.error("❌ 상품 불러오기 오류:", err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProduct();
+    }, [productId]);
 
     const processPayment = async (paymentData) => {
             try {
@@ -38,7 +65,7 @@ const PaymentHook = () => {
             }
         };
 
-    return {processPayment};
+    return {processPayment, productData, loading, error};
 }
 
 export default PaymentHook;
