@@ -9,6 +9,7 @@ import WishList from "./MyPage/WishList.jsx";
 import Recent from "./MyPage/Recent.jsx";
 import UserEdit from "./MyPage/UserEdit.jsx";
 import UserOut from "./MyPage/UserOut.jsx";
+import MyClimb from "./MyPage/MyClimb.jsx";
 
 
 
@@ -34,6 +35,8 @@ const MyPage = () => {
                 return <WishList/>;
             case "Recent":
                 return <Recent/>;
+            case "MyClimb":
+                return <MyClimb/>;
             case "UserEdit":
                 return <UserEdit/>;
             case "UserOut":
@@ -175,7 +178,7 @@ const MyPage = () => {
                         <ul>
                             <li style={{marginTop: "15px"}} className={selectedTab === "Recent" ? "selected" : ""} onClick={() => setSelectedTab("Recent")}>최근 본 상품</li>
                             <li className={selectedTab === "WishList" ? "selected" : ""} onClick={() => setSelectedTab("WishList")}>나의 위시리스트</li>
-                            <li>저장한 클라이밍 짐</li>
+                            <li className={selectedTab === "MyClimb" ? "selected" : ""} onClick={() => setSelectedTab("MyClimb")}>저장한 클라이밍 짐</li>
                         </ul>
 
                         <h1 style={{marginTop: "40px"}}>나의 정보</h1>

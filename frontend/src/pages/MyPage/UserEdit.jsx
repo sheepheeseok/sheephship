@@ -108,6 +108,7 @@ const UserEdit = () => {
     <div className="container">
       <div className="UserEdit-container">
         <h1>회원정보 수정</h1>
+        <div className="UserEdit-title-bar" /> {/* 이 줄이 정확한 위치입니다. */}
         <div className="useredit-greeting-box">
           <div className="useredit-greeting-img">
             <img src="/imgs/profile_greeting.png" alt="greeting" style={{height: 80}} />
@@ -119,13 +120,16 @@ const UserEdit = () => {
           </div>
         </div>
 
+        <div className="UserEdit-section-bar" /> {/* 이 줄이 정확한 위치입니다. */}
+
         <form onSubmit={handleSubmit} className="useredit-form">
+            <div className="UserEdit-form-bar" /> {/* 이 줄이 정확한 위치입니다. */}
           <h2>기본정보</h2>
           <label>아이디</label>
           <input type="text" value={formData.userId} readOnly className="UserEdit-input" />
 
           <label>이메일</label>
-          <div style={{display: "flex", alignItems: "center"}}>
+          <div className="useredit-row"> {/* 이 줄 추가: 이메일 가로 정렬을 위해 */}
             <input
               type="text"
               value={formData.email}
@@ -147,31 +151,32 @@ const UserEdit = () => {
           <input type="text" value={formData.name} onChange={handleChange("name")} className="UserEdit-input" />
 
           <label>주소</label>
-          <div style={{display: "flex", alignItems: "center"}}>
+          <div className="useredit-row"> {/* 이 줄 추가: 주소 가로 정렬을 위해 */}
             <input type="text" value={formData.address} readOnly className="UserEdit-input" style={{width: 300}} />
             <button type="button" className="useredit-address-btn" style={{marginLeft: 8}}>주소 찾기</button>
           </div>
           <input type="text" value={formData.detailAddress} onChange={handleChange("detailAddress")} className="UserEdit-input" placeholder="상세 주소 입력" style={{marginTop: 8}} />
 
           <label>휴대폰 번호</label>
-          <div style={{display: "flex", alignItems: "center"}}>
+          <div className="useredit-row"> {/* 이 줄 추가: 휴대폰 번호 가로 정렬을 위해 */}
             <input type="tel" value={formData.part1} onChange={handleChange("part1")} className="UserEdit-input" style={{width: 60}} maxLength={3} /> -
             <input type="tel" value={formData.part2} onChange={handleChange("part2")} className="UserEdit-input" style={{width: 80, marginLeft: 8}} maxLength={4} /> -
             <input type="tel" value={formData.part3} onChange={handleChange("part3")} className="UserEdit-input" style={{width: 80, marginLeft: 8}} maxLength={4} />
           </div>
 
-          <div style={{marginTop: 16}}>
+          <div style={{marginTop: 16}}> {/* 이 div의 style은 CSS에서 .useredit-form > div[style*="marginTop: 16px"]로 재정의됨 */}
             <label>
               <input type="checkbox" checked={formData.smsConsent} onChange={handleCheck("smsConsent")} />
               SMS 수신동의
             </label>
-            <label style={{marginLeft: 24}}>
+            <label style={{marginLeft: 24}}> {/* 이 label의 style은 CSS에서 .useredit-form > div[style*="marginTop: 16px"] label:last-of-type 로 재정의됨 */}
               <input type="checkbox" checked={formData.emailConsent} onChange={handleCheck("emailConsent")} />
               이메일 수신동의
             </label>
           </div>
 
-          <div style={{marginTop: 32, display: "flex", justifyContent: "center", gap: 16}}>
+          <div className="UserEdit-bottom-bar" /> {/* 이 줄이 정확한 위치입니다. */}
+          <div style={{marginTop: 32, display: "flex", justifyContent: "center", gap: 16}}> {/* 이 div의 style은 CSS에서 .useredit-form > div[style*="justifyContent: center"] 로 재정의됨 */}
             <button type="button" className="UserEdit-cancel-btn" onClick={() => window.location.reload()}>취소</button>
             <button type="submit" className="UserEdit-submit-btn">수정</button>
           </div>

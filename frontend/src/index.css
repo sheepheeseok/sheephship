@@ -3784,59 +3784,306 @@ span {
 
 /* 회원 정보 수정 css */
 .UserEdit-container {
-  max-width: 1060px;
-  margin: 0 auto;
+  width: 600px;
   background: #fff;
-  padding: 40px 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
+
+.UserEdit-container h1 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0 0 16px 0;
+  letter-spacing: -1px;
+  text-align: left;
+  line-height: 1;
+  border-bottom: none;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.UserEdit-title-bar {
+  width: 100%;
+  height: 2px;
+  background: #222;
+  margin-bottom: 32px;
+  margin-top: 0;
+}
+
 .useredit-greeting-box {
   display: flex;
   align-items: center;
   border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 24px;
-  margin: 32px 0 24px 0;
+  border-radius: 0;
+  padding: 32px 0;
+  margin: 0 24px 24px 24px;
   background: #fafafa;
+  justify-content: center;
+  width: auto;
+  box-sizing: border-box;
 }
-.useredit-greeting-img {
-  margin-right: 24px;
+
+.useredit-greeting-img img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-right: 32px;
 }
+
 .useredit-greeting-text h2 {
+  font-size: 20px;
+  font-weight: 700;
   margin: 0 0 8px 0;
+  letter-spacing: -1px;
 }
+
+.useredit-greeting-text span {
+  font-size: 15px;
+  color: #222;
+}
+
+.useredit-greeting-text > div {
+  font-size: 14px;
+  color: #888;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.UserEdit-section-bar {
+  width: 100%;
+  height: 1px;
+  background: #888;
+  margin: 0 0 32px 0;
+}
+
 .useredit-form {
-  margin-top: 24px;
+  margin-top: 0;
+  padding: 0 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
+
+.UserEdit-form-bar {
+  width: calc(100% + 48px);
+  height: 1px;
+  background: #888;
+  margin-bottom: 32px;
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+.useredit-form h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 24px 0;
+  border-bottom: none;
+  padding-bottom: 0;
+  letter-spacing: -1px;
+}
+
+.useredit-form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  color: #222;
+}
+
 .UserEdit-input {
   width: 100%;
-  padding: 8px 12px;
-  margin: 8px 0 16px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 10px 12px;
+  margin: 0 0 16px 0;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  font-size: 15px;
+  background: #fafafa;
+  transition: border 0.2s;
 }
+
+.UserEdit-input:focus {
+  border: 1.5px solid #222;
+  outline: none;
+  background: #fff;
+}
+
+.useredit-form .useredit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+.useredit-form .useredit-row input {
+  margin: 0;
+}
+.useredit-form .useredit-row span {
+  font-size: 15px;
+  color: #222;
+  white-space: nowrap;
+}
+
 .useredit-address-btn {
-  padding: 8px 16px;
-  background: #222;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.UserEdit-cancel-btn {
-  padding: 10px 32px;
+  padding: 10px 18px;
   background: #fff;
   color: #222;
   border: 1px solid #222;
-  border-radius: 4px;
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
+  margin-left: 0;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
 }
+
+.useredit-address-btn:hover {
+  background: #222;
+  color: #fff;
+}
+
+.useredit-form > div[style*="marginTop: 16px"] {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 40px;
+}
+.useredit-form > div[style*="marginTop: 16px"] label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #444;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.useredit-form > div[style*="marginTop: 16px"] label:last-of-type {
+    margin-left: 24px;
+}
+.useredit-form input[type="checkbox"] {
+  accent-color: #222;
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+
+.useredit-form input[type="tel"] {
+  text-align: center;
+  font-size: 15px;
+  border-radius: 0;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  margin: 0;
+  padding: 10px 0;
+  flex-shrink: 0;
+}
+
+.useredit-form input[type="tel"]:focus {
+  border: 1.5px solid #222;
+  background: #fff;
+}
+.useredit-row > input[type="tel"]:nth-child(1) {
+  width: 60px;
+}
+.useredit-row > input[type="tel"]:nth-child(3) {
+  width: 80px;
+}
+.useredit-row > input[type="tel"]:nth-child(5) {
+  width: 80px;
+}
+
+.UserEdit-bottom-bar {
+  width: calc(100% + 48px);
+  height: 1px;
+  background: #888;
+  margin-bottom: 32px;
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+.useredit-form > div[style*="justifyContent: center"] {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 0;
+}
+
+.UserEdit-cancel-btn,
 .UserEdit-submit-btn {
-  padding: 10px 32px;
+  padding: 12px 48px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 0;
+  cursor: pointer;
+  margin: 0;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+
+.UserEdit-cancel-btn:hover {
+  background: #f5f5f5;
+}
+
+.UserEdit-submit-btn {
   background: #222;
   color: #fff;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+}
+
+.UserEdit-submit-btn:hover {
+  background: #444;
+}
+
+@media (max-width: 700px) {
+  .UserEdit-container {
+    width: 95vw;
+    min-width: 0;
+    padding: 0 8px;
+  }
+  .UserEdit-container h1,
+  .useredit-form {
+      padding-left: 0;
+      padding-right: 0;
+  }
+  .useredit-greeting-box {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 24px 8px;
+  }
+  .UserEdit-title-bar,
+  .UserEdit-section-bar,
+  .UserEdit-form-bar,
+  .UserEdit-bottom-bar {
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+  }
+
+  .useredit-greeting-img img {
+    width: 80px;
+    height: 80px;
+    margin-right: 16px;
+  }
+  .useredit-form .useredit-row {
+      flex-wrap: wrap;
+      gap: 4px;
+  }
+  .useredit-address-btn {
+      margin-left: 0;
+  }
+  .useredit-form input[type="tel"] {
+      width: calc(33% - 8px);
+  }
+  .UserEdit-cancel-btn,
+  .UserEdit-submit-btn {
+      padding: 10px 24px;
+  }
 }
 
 
