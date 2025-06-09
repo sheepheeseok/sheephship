@@ -8,5 +8,4 @@ public class ItemInfo {
     private String itemName;
     private Long price;
     private String mainUrl;
-    private Long deliveryFee;
 }

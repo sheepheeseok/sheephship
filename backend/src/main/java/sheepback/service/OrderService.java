@@ -50,6 +50,8 @@ public class OrderService {
                 .stream()
                 .collect(Collectors.toMap(ItemInfo::getItemId, Function.identity()));
 
+
+
         // 3. 조합
         for (BuyItemListDto dto : items) {
             ItemInfo info = itemInfoMap.get(dto.getItemId());
@@ -57,36 +59,49 @@ public class OrderService {
                 dto.setItemName(info.getItemName());
                 dto.setPrice(info.getPrice());
                 dto.setMainUrl(info.getMainUrl());
-                dto.setDeliveryFee(info.getDeliveryFee());
             }
         }
         return items;
     }
 
     @Transactional
-    public void cancelStockReservation(List<CancelReserveRequest> requests) {
-        // 1. 예약 정보 조회
-        List<Long> getReservationIds = requests.stream().map(CancelReserveRequest::getResevationId).collect(Collectors.toList());
-        List<String> status = reservationMapper.findReservation(getReservationIds);
-        // 2. 권한/상태 체크 (이미 취소, 확정된 예약은 취소 불가)
-        for(String statusId : status) {
-            if(statusId.equals("CANCELLED")) {
-                throw new RuntimeException("이미 취소된 예약");
-            }if(statusId.equals("CONFIRMED")) {
-                throw new RuntimeException("이미 구매 완료된 예약");
-            }
-        }
-        // 3. 재고 복구, 예약 상태를 취소로 변경
+    public void cancelStockReservation(List<CancelReserveRequest> requests, String memberId) {
         for (CancelReserveRequest req : requests) {
-
-            Long reservationItemDetailId = reservationMapper.findReservationItemDetailId(req.getResevationId());
-            int updated = itemMapper.repairStock(reservationItemDetailId, req.getQuantity());
-            if (updated == 0) throw new RuntimeException("재고 복구 실패: " + req.getResevationId());
-
-            reservationMapper.cancelReservation(
-                    req.getResevationId()
+            // 1. 예약 상태 조회 (최근 1개)
+            String status = reservationMapper.findReservationStatus(
+                    req.getItemDetailId(),
+                    memberId,
+                    req.getQuantity()
             );
 
+            // 2. 예약 존재 여부 확인
+            if (status == null) {
+                throw new RuntimeException("예약 내역이 존재하지 않음");
+            }
+
+            // 3. 상태 체크
+            if ("CANCELLED".equals(status)) {
+                throw new RuntimeException("이미 취소된 예약");
+            }
+            if ("CONFIRMED".equals(status)) {
+                throw new RuntimeException("이미 구매 완료된 예약");
+            }
+
+            // 4. 재고 복구
+            int updated = itemMapper.repairStock(req.getItemDetailId(), req.getQuantity());
+            if (updated == 0) {
+                throw new RuntimeException("재고 복구 실패: " + req.getItemDetailId());
+            }
+
+            // 5. 예약 상태 취소로 변경
+            int cancelled = reservationMapper.cancelReservation(
+                    req.getItemDetailId(),
+                    memberId,
+                    req.getQuantity()
+            );
+            if (cancelled == 0) {
+                throw new RuntimeException("예약 취소 실패: " + req.getItemDetailId());
+            }
         }
     }
 
@@ -160,7 +175,7 @@ public class OrderService {
                 saveOrderItemDto.setItemDetailId(itemInfoForOrderDto.getItemDetailId());
                 saveOrderItemDtos.add(saveOrderItemDto);
                 reservationMapper.confirmReservation(
-                        orderItemDetailDto.getResevationId());
+                        orderItemDetailDto.getItemDetailId(), orderDto.getMemberId(), orderItemDetailDto.getQuantity());
 
             }
         Long deliveryFee = calculateTotalDeliveryFee(totalPrice);

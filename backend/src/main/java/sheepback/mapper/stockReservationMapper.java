@@ -4,19 +4,19 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import sheepback.Dtos.StockReservation;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Mapper
 public interface stockReservationMapper {
 
     void insertReservation(@Param("StockReservation") StockReservation stockReservation);
 
-    void confirmReservation(@Param("resevationId") Long resevationId);
+    void confirmReservation(@Param("itemDetailId") Long itemDetailId, @Param("memberId")String memberId,
+                            @Param("stockQuantity") Long stockQuantity);
 
-    void cancelReservation(@Param("reservationId") Long reservationId);
+    int cancelReservation(@Param("itemDetailId") Long itemDetailId, @Param("memberId")String memberId,
+                          @Param("quantity") Long stockQuantity);
 
-    List<String> findReservation(@Param("reservationId") List<Long> reservationId);
+    String findReservationStatus(@Param("itemDetailId") Long itemDetailId, @Param("memberId")String memberId,
+                                       @Param("quantity") Long quantity);
 
     Long findReservationItemDetailId(@Param("reservationId") Long reservationId);
 }

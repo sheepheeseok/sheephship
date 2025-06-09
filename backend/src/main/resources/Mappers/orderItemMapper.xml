@@ -39,6 +39,7 @@
     </select>
 
 
+
     <!-- 주문과 주문 상품 리스트 매핑 -->
     <resultMap id="OrderInquiryListMap" type="sheepback.Dtos.OrderInquiryListDto">
         <!-- 주문 기본 정보 -->
