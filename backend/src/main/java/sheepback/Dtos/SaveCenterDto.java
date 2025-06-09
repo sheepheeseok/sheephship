@@ -4,7 +4,9 @@ import lombok.Data;
 
 @Data
 public class SaveCenterDto {
+
     private String address;
+    private String adminId;
     private String closeHour;
     private String content;
     private String gradeImg;
@@ -14,7 +16,9 @@ public class SaveCenterDto {
     private String phonenumber;
     private String price;
     private String repImg;
-    private Long chainCenterId;
+    private String chainName;
     private String routeFindLink;
     private String facilities;
+
+
 }

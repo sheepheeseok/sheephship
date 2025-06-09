@@ -39,7 +39,7 @@
     </select>
 
     <select id="getBuyItemListById" resultType="sheepback.Dtos.ItemInfo">
-        SELECT item_id, name as itemName, price, main_url, delivery_fee as deliveryFee
+        SELECT item_id, name as itemName, price, main_url
         FROM item
         WHERE item_id IN
         <foreach item="id" collection="list" open="(" separator="," close=")">
