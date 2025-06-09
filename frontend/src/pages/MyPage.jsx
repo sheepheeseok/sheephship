@@ -3,9 +3,12 @@ import OrderSection from "./MyPage/OrderSection";
 import OrderHistory from "./MyPage/OrderHistory.jsx";
 import PasswordChange from "./MyPage/PasswordChange.jsx";
 import OrderDetail from "./MyPage/OrderDetail.jsx";
+import OrderCancel from "./MyPage/OrderCancel.jsx";
 import Savings from "./MyPage/Savings.jsx";
 import WishList from "./MyPage/WishList.jsx";
 import Recent from "./MyPage/Recent.jsx";
+import UserEdit from "./MyPage/UserEdit.jsx";
+import UserOut from "./MyPage/UserOut.jsx";
 
 
 
@@ -31,6 +34,10 @@ const MyPage = () => {
                 return <WishList/>;
             case "Recent":
                 return <Recent/>;
+            case "UserEdit":
+                return <UserEdit/>;
+            case "UserOut":
+                return <UserOut/>;
             default:
                 return (
                     <>
@@ -173,9 +180,9 @@ const MyPage = () => {
 
                         <h1 style={{marginTop: "40px"}}>나의 정보</h1>
                         <ul>
-                            <li style={{marginTop: "15px"}}>회원정보 수정</li>
+                            <li style={{marginTop: "15px"}} className={selectedTab === "UserEdit" ? "selected" : ""} onClick={() => setSelectedTab("UserEdit")}>회원정보 수정</li>
                             <li className={selectedTab === "PasswordChange" ? "selected" : ""} onClick={() => setSelectedTab("PasswordChange")}>비밀번호 변경</li>
-                            <li>회원 탈퇴</li>
+                            <li className={selectedTab === "UserOut" ? "selected" : ""} onClick={() => setSelectedTab("UserOut")}>회원 탈퇴</li>
                         </ul>
                     </div>
 

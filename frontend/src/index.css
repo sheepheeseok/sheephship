@@ -3782,82 +3782,374 @@ span {
   color: #000000;
 }
 
+/* 회원 정보 수정 css */
+.UserEdit-container {
+  max-width: 1060px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 40px 0;
+}
+.useredit-greeting-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 24px;
+  margin: 32px 0 24px 0;
+  background: #fafafa;
+}
+.useredit-greeting-img {
+  margin-right: 24px;
+}
+.useredit-greeting-text h2 {
+  margin: 0 0 8px 0;
+}
+.useredit-form {
+  margin-top: 24px;
+}
+.UserEdit-input {
+  width: 100%;
+  padding: 8px 12px;
+  margin: 8px 0 16px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.useredit-address-btn {
+  padding: 8px 16px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.UserEdit-cancel-btn {
+  padding: 10px 32px;
+  background: #fff;
+  color: #222;
+  border: 1px solid #222;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.UserEdit-submit-btn {
+  padding: 10px 32px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 
 /* 비번 변경 CSS */
-.pwchange-container {
-  width: 400px;
-  margin: 50px auto;
-  padding: 32px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.pwchange-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 24px;
-}
-
-.pwchange-form {
+.pwchange-outer {
+  background: #fff;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
 
+.pwchange-inner {
+  width: 600px;
+  background: #fff;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pwchange-title-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.pwchange-title {
+  font-size: 24px;
+  border-bottom: 5px solid #888;
+  padding-bottom: 15px;
+  margin-bottom: 24px;
+  margin-top: 0;
+  width: 100%;
+  font-family: NotoSansKR-Medium;
+  color: #000;
+}
+
+.pwchange-desc {
+  width: 100%;
+  text-align: center;
+  color: #444;
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+.pwchange-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
 .pwchange-input-group {
-  margin-bottom: 18px;
+  margin-bottom: 24px;
+  width: 100%;
 }
 
 .pwchange-label {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   display: block;
+  color: #222;
 }
 
 .pwchange-input {
   width: 100%;
-  padding: 10px 12px;
-  font-size: 14px;
+  padding: 14px 12px;
+  font-size: 15px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 0;
   outline: none;
+  background: #fff;
+  box-sizing: border-box;
 }
 
 .pwchange-input:focus {
-  border-color: #2684ff;
-  box-shadow: 0 0 0 2px rgba(38, 132, 255, 0.2);
+  border-color: #222;
 }
 
-.pwchange-button {
-  margin-top: 12px;
-  padding: 12px;
-  background-color: #007bff;
-  color: #fff;
-  font-weight: bold;
-  font-size: 15px;
-  border: none;
-  border-radius: 8px;
+.pwchange-line {
+  width: 1060px;
+  height: 1px;
+  background-color: #ccc;
+  margin: 30px 0;
+  position: relative;
+  left: calc(-30vw + 50%); /* 중앙 정렬 보정 */
+}
+
+.pwchange-btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.pwchange-btn-cancel {
+  padding: 14px 48px;
+  background: #fff;
+  color: #222;
+  border: 1.5px solid #222;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 0;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
-.pwchange-button:hover {
-  background-color: #0056b3;
+.pwchange-btn-submit {
+  padding: 14px 48px;
+  background: #222;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pwchange-btn-cancel:hover {
+  background: #f5f5f5;
+}
+
+.pwchange-btn-submit:hover {
+  background: #000;
 }
 
 .pwchange-error {
-  color: red;
-  font-size: 13px;
-  margin-bottom: 12px;
+  color: #e74c3c;
+  font-size: 14px;
+  margin-bottom: 8px;
   text-align: center;
 }
 
 .pwchange-success {
-  color: green;
-  font-size: 13px;
-  margin-bottom: 12px;
+  color: #27ae60;
+  font-size: 14px;
+  margin-bottom: 8px;
   text-align: center;
+}
+
+/* 회원 탈퇴 css */
+.userout-outer {
+  width: 100%;
+  min-height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.userout-title-row {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.userout-title {
+  font-size: 24px;
+  font-family: NotoSansKR-Medium;
+  color: #000;
+  margin-left: 0;
+  margin-bottom: 0;
+  display: block;
+  padding-bottom: 15px;
+}
+
+.userout-title-underline {
+  width: 100%;
+  max-width: 1200px;
+  height: 0;
+  border-bottom: 5px solid #888;
+  margin: 0 auto 32px auto;
+}
+
+.userout-inner {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userout-desc {
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  color: #444;
+  font-size: 15px;
+  margin-top: 0;
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+.userout-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: center;
+}
+
+.userout-input-group {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.userout-label {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+  color: #222;
+}
+
+.userout-input {
+  width: 100%;
+  padding: 14px 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  outline: none;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.userout-input:focus {
+  border-color: #222;
+}
+
+.userout-btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+  width: 100%;
+}
+
+.userout-btn-cancel {
+  flex: 1;
+  padding: 14px 0;
+  background: #fff;
+  color: #222;
+  border: 1.5px solid #222;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.userout-btn-submit {
+  flex: 1;
+  padding: 14px 0;
+  background: #222;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.userout-btn-cancel:hover {
+  background: #f5f5f5;
+}
+
+.userout-btn-submit:hover {
+  background: #000;
+}
+
+.userout-error {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.userout-success {
+  color: #27ae60;
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.userout-bottom-line {
+  width: 100%;
+  max-width: 1200px;
+  border-bottom: 1.5px solid #888;
+  margin: 48px auto 0 auto;
+}
+
+.userout-btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 40px auto 0 auto;
+  width: 100%;
+  max-width: 400px;
 }
 
 
