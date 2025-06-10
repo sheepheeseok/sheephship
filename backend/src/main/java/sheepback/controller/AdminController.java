@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sheepback.Dtos.AdminDto;
 import sheepback.Dtos.AdminLoginInfo;
-import sheepback.domain.Member;
 import sheepback.service.AdminService;
 
 @RestController

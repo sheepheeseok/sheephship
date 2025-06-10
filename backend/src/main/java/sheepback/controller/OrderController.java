@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sheepback.Dtos.*;
 import sheepback.domain.Address;
+import sheepback.domain.Grade;
 import sheepback.service.OrderService;
 
 import java.time.LocalDateTime;
@@ -63,7 +64,9 @@ public class OrderController {
     }
 
     @PostMapping("/api/order")
-    public String order(@RequestBody OrderDto orderDto) {
+    public String order(@RequestBody OrderDto orderDto,@CookieValue("loginId") String memberId, @CookieValue("Grade") Grade grade) {
+        orderDto.setGrade(grade);
+        orderDto.setMemberId(memberId);
         orderService.ordered(orderDto);
         return "Order successful";
     }
