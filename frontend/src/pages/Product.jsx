@@ -8,6 +8,7 @@ const Product = () => {
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
     };
+    console.log("colors 배열 확인:", ProductData.colors);
 
     const [currentImage, setCurrentImage] = useState(null);
     useEffect(() => {
@@ -24,15 +25,56 @@ const Product = () => {
     const [selectedSize, setSelectedSize] = useState("");
     const [selectedOptions, setSelectedOptions] = useState([]);
 
+    // 🧠 사이즈/컬러 필터링
+    const availableSizes = [...new Set(
+        ProductData.colors
+            ?.filter(opt => selectedColor ? opt.color === selectedColor : true)
+            .map(opt => opt.size)
+    )].filter(Boolean);
+
+    const availableColors = [...new Set(
+        ProductData.colors
+            ?.filter(opt => selectedSize ? opt.size === selectedSize : true)
+            .map(opt => opt.color)
+    )].filter(Boolean);
+
+// 💡 선택된 값이 유효하지 않으면 초기화
+    useEffect(() => {
+        if (selectedColor && !availableSizes.includes(selectedSize)) {
+            setSelectedSize("");
+        }
+    }, [selectedColor]);
+
+    useEffect(() => {
+        if (selectedSize && !availableColors.includes(selectedColor)) {
+            setSelectedColor("");
+        }
+    }, [selectedSize]);
+
     const handleOptionAdd = () => {
         if (!selectedColor || !selectedSize) return;
         const exists = selectedOptions.find(
             (opt) => opt.color === selectedColor && opt.size === selectedSize
         );
         if (exists) return;
+
+        const matched = ProductData.colors.find(
+            (opt) => opt.color === selectedColor && opt.size === selectedSize
+        );
+
+        if (!matched || !matched.itemDetailId) {
+            alert("선택한 옵션을 찾을 수 없습니다.");
+            return;
+        }
+
         setSelectedOptions([
             ...selectedOptions,
-            { color: selectedColor, size: selectedSize, quantity: 1 },
+            {
+                itemDetailId: matched.itemDetailId, // ✅ 필수
+                color: selectedColor,
+                size: selectedSize,
+                quantity: 1,
+            },
         ]);
     };
 
@@ -59,21 +101,34 @@ const Product = () => {
                     <div className="Product-priceinfo">
                         <h2 style={{marginTop: "23px"}}>{ProductData.price?.toLocaleString()}원</h2>
                         <div className="tooltip-container">
-                            <img src="/icons/info.svg" alt="info-icon" className="info-icon" style={{width: "20px", height: "20px", display: "flex"}}/>
+                            <img src="/icons/info.svg" alt="info-icon" className="info-icon"
+                                 style={{width: "20px", height: "20px", display: "flex"}}/>
                             <div className="tooltip-box">
                                 <h1>등급별 할인</h1>
                                 <ul>
-                                    <li><img src="/imgs/grade/red_grade.png" alt="grade-icon" className="grade-icon"/> RED 3%</li>
+                                    <li><img src="/imgs/grade/red_grade.png" alt="grade-icon"
+                                             className="grade-icon"/> RED 3%
+                                    </li>
                                     <div className="grade-line"/>
-                                    <li><img src="/imgs/grade/yellow_grade.png" alt="grade-icon" className="grade-icon"/> YELLOW 5%</li>
+                                    <li><img src="/imgs/grade/yellow_grade.png" alt="grade-icon"
+                                             className="grade-icon"/> YELLOW 5%
+                                    </li>
                                     <div className="grade-line"/>
-                                    <li><img src="/imgs/grade/navy_grade.png" alt="grade-icon" className="grade-icon"/> NAVY 7%</li>
+                                    <li><img src="/imgs/grade/navy_grade.png" alt="grade-icon"
+                                             className="grade-icon"/> NAVY 7%
+                                    </li>
                                     <div className="grade-line"/>
-                                    <li><img src="/imgs/grade/purple_grade.png" alt="grade-icon" className="grade-icon"/> PURPLE 9%</li>
+                                    <li><img src="/imgs/grade/purple_grade.png" alt="grade-icon"
+                                             className="grade-icon"/> PURPLE 9%
+                                    </li>
                                     <div className="grade-line"/>
-                                    <li><img src="/imgs/grade/brown_grade.png" alt="grade-icon" className="grade-icon"/> BROWN 12%</li>
+                                    <li><img src="/imgs/grade/brown_grade.png" alt="grade-icon"
+                                             className="grade-icon"/> BROWN 12%
+                                    </li>
                                     <div className="grade-line"/>
-                                    <li><img src="/imgs/grade/black_grade.png" alt="grade-icon" className="grade-icon"/> BLACK 15%</li>
+                                    <li><img src="/imgs/grade/black_grade.png" alt="grade-icon"
+                                             className="grade-icon"/> BLACK 15%
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -101,15 +156,15 @@ const Product = () => {
                         <label>사이즈: </label>
                         <select value={selectedSize} onChange={(e) => setSelectedSize(e.target.value)}>
                             <option value="">선택</option>
-                            {[...new Set(ProductData.colors?.map((c) => c.size))].filter(Boolean).map((size, idx) => (
+                            {availableSizes.map((size, idx) => (
                                 <option key={idx} value={size}>{size}</option>
                             ))}
                         </select>
 
-                        <label style={{ marginLeft: "10px" }}>컬러: </label>
+                        <label style={{marginLeft: "10px"}}>컬러: </label>
                         <select value={selectedColor} onChange={(e) => setSelectedColor(e.target.value)}>
                             <option value="">선택</option>
-                            {[...new Set(ProductData.colors?.map((c) => c.color))].filter(Boolean).map((color, idx) => (
+                            {availableColors.map((color, idx) => (
                                 <option key={idx} value={color}>{color}</option>
                             ))}
                         </select>
@@ -136,7 +191,8 @@ const Product = () => {
 
                     <div className="product-btn-box">
                         <button className="buy-btn" onClick={() => handleSubmit(selectedOptions)}>
-                            구매하기</button>
+                            구매하기
+                        </button>
                         <button className="product-cart-btn">장바구니</button>
                     </div>
 
@@ -154,10 +210,14 @@ const Product = () => {
             </div>
 
             <div className="product-img-info">
-                <img src={ProductData.mainUrl} alt="product1" className="info-product-img" onClick={() => changeImage(ProductData.mainUrl)} />
-                <img src={ProductData.image?.subUrl1 ?? "기본이미지.png"} alt="product2" className="info-product-img" onClick={() => changeImage(ProductData.itemImg.subUrl1)} />
-                <img src={ProductData.image?.subUrl2 ?? "기본이미지.png"} alt="product3" className="info-product-img" onClick={() => changeImage(ProductData.itemImg.subUrl2)} />
-                <img src={ProductData.image?.subUrl3 ?? "기본이미지.png"} alt="product4" className="info-product-img" onClick={() => changeImage(ProductData.itemImg.subUrl3)} />
+                <img src={ProductData.mainUrl} alt="product1" className="info-product-img"
+                     onClick={() => changeImage(ProductData.mainUrl)}/>
+                <img src={ProductData.image?.subUrl1 ?? "기본이미지.png"} alt="product2" className="info-product-img"
+                     onClick={() => changeImage(ProductData.itemImg.subUrl1)}/>
+                <img src={ProductData.image?.subUrl2 ?? "기본이미지.png"} alt="product3" className="info-product-img"
+                     onClick={() => changeImage(ProductData.itemImg.subUrl2)}/>
+                <img src={ProductData.image?.subUrl3 ?? "기본이미지.png"} alt="product4" className="info-product-img"
+                     onClick={() => changeImage(ProductData.itemImg.subUrl3)} />
             </div>
 
             <div className="product-info-title">

@@ -9,40 +9,43 @@ const ProductHook = () => {
     const [ error, setError ] = useState(null);
     const navigate = useNavigate();
 
-        const handleSubmit = async (selectedOptions) => {
-            if (!selectedOptions || selectedOptions.length === 0) {
-                alert("사이즈와 컬러를 선택한 후 추가 버튼을 눌러주세요.");
-                return;
-            }
+    const handleSubmit = async (selectedOptions) => {
+        if (!selectedOptions || selectedOptions.length === 0) {
+            alert("사이즈와 컬러를 선택한 후 추가 버튼을 눌러주세요.");
+            return;
+        }
 
-            const requestBody = selectedOptions.map(option => ({
-                itemId: parseInt(id),
-                size: option.size,
-                color: option.color,
-                quantity: option.quantity
-            }));
+        // ✅ 백엔드에 맞게 itemDetailId와 quantity 포함
+        const requestBody = selectedOptions.map(option => ({
+            itemDetailId: option.itemDetailId,  // 반드시 이 값으로 보내야 백엔드가 인식함
+            color: option.color,
+            size: option.size,
+            stockQuantity: option.quantity,
+            itemId: id,
+        }));
 
-            console.log("전송될 데이터:", requestBody);
+        console.log("전송될 데이터:", requestBody);
 
-            // ❌ 백엔드 연결 전이라면 아래 코드는 주석처리
-            /*
-            try {
-                const response = await axios.post("/api/buy-items", requestBody);
-                console.log("전송 결과:", response.data);
-                navigate("/Payment", {
-                    state: { productId: id, options: selectedOptions }
-                });
-            } catch (err) {
-                console.error("구매 요청 실패:", err);
-                setError(err);
-            }
-            */
+        try {
+            const response = await axios.post(
+                "/api/buy-items",
+                requestBody,
+                { withCredentials: true }
+            );
 
-            // 👉 Payment 페이지로 이동은 유지하거나 주석처리 선택 가능
+            console.log("전송 결과:", response.data);
+
             navigate("/Payment", {
-                state: { productId: id, options: selectedOptions }
+                state: {
+                    productId: id,
+                    selectedOptions: requestBody,
+                }
             });
-        };
+        } catch (err) {
+            console.error("구매 요청 실패:", err);
+            setError(err);
+        }
+    };
 
 
         useEffect(() => {
@@ -51,8 +54,13 @@ const ProductHook = () => {
         const fetchProduct = async () => {
             try {
                 const response = await axios.get(`/api/showItem/${id}`);
-                console.log(response.data);
+                console.log("상품 전체 응답:", response.data);
                 setProductData(response.data);
+
+                // 예: 첫 번째 옵션의 itemDetailId 확인
+                if (response.data.colors && response.data.colors.length > 0) {
+                    console.log("첫 옵션의 itemDetailId:", response.data.colors[0].itemDetailId);
+                }
             } catch (err) {
                 setError(err);
             } finally {

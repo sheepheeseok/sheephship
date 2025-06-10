@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PaymentHook from "../hooks/PaymentHook.js";
 
 const Payment = () => {
@@ -11,7 +11,7 @@ const Payment = () => {
             setUseSameAddress(false);
         }
     };
-    const { processPayment, productData, loading,error } = PaymentHook();
+    const { processPayment, productData, loading,error, deliveryFee , deliveryInfo} = PaymentHook();
     const [requestMessage, setRequestMessage] = useState("");
     const handleRequestChange = (e) => {
         setRequestMessage(e.target.value);
@@ -34,7 +34,38 @@ const Payment = () => {
 
     const [customMessage, setCustomMessage] = useState(false);
     const handleSelectChange = (event) => {
-        setCustomMessage(event.target.value === "direct");
+        const value = event.target.value;
+        if (value === "direct") {
+            setCustomMessage(true);
+            setRequestMessage(""); // 직접 입력 초기화
+        } else {
+            setCustomMessage(false);
+            setRequestMessage(value); // 드롭다운 선택값 설정
+        }
+    };
+    const [address, setAddress] = useState(""); // formData.address 대신 사용
+    const [detailAddress, setDetailAddress] = useState("");
+
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }, []);
+
+    const handleAddressSearch = (setAddress, setDetailAddress) => {
+        if (!(window.daum && window.daum.Postcode)) {
+            alert("주소 검색 스크립트가 아직 로드되지 않았습니다.");
+            return;
+        }
+
+        new window.daum.Postcode({
+            oncomplete: function (data) {
+                const fullAddress = data.address;
+                setAddress(fullAddress);          // 주소 설정
+                setDetailAddress("");             // 상세주소 초기화
+            },
+        }).open();
     };
 
     const [activeMethod, setActiveMethod] = useState(null);
@@ -43,15 +74,34 @@ const Payment = () => {
     };
 
     const handleSubmit = () => {
+        let firstAddress = "";
+        let secondAddress = "";
+
+        if (activeTab === "recent" && deliveryInfo) {
+            firstAddress = deliveryInfo.firstAddress;
+            secondAddress = deliveryInfo.secondAddress;
+        } else if (activeTab === "manual") {
+            const addressInput = document.querySelector("input[placeholder='주소']");
+            const detailInput = document.querySelector("input[name='detailAddress']");
+            if (addressInput && detailInput) {
+                firstAddress = addressInput.value;
+                secondAddress = detailInput.value;
+            }
+        }
+
         const paymentData = {
             paymentMethod: activeMethod,
             requireMents: requestMessage,
+            firstAddress,
+            secondAddress,
         };
+
         processPayment(paymentData);
-    }
+    };
+
 
     return (
-        <div className="container" style={{ alignItems:"start", flexDirection: "row"}}>
+        <div className="container" style={{alignItems: "start", flexDirection: "row"}}>
             <div className="payment-userInfobox">
                 <h1>배송 정보</h1>
                 <div className="p-address-tap">
@@ -59,7 +109,7 @@ const Payment = () => {
                         className={activeTab === "recent" ? "active" : ""}
                         onClick={() => setActiveTab("recent")}
                     >
-                        최근 배송지
+                        기본 배송지
                     </button>
                     <button
                         className={activeTab === "manual" ? "active" : ""}
@@ -69,65 +119,61 @@ const Payment = () => {
                     </button>
                 </div>
                 <div className="p-address-content">
-                    {activeTab === "recent" ? (
-                            <div className="p-recent-box">
-                                <div className="p-recent-address">
-                                    <input
-                                        type="checkbox"
-                                        id="userAddress1"
-                                        className="custom-checkbox"
-                                        checked={Addressselected === "userAddress1"}
-                                        onChange={() => addressSelect("userAddress1")}
-                                    />
-                                    <div className="p-userAddress-box">
-                                        <label htmlFor="userAddress1">배호준</label>
-                                        <h1>서울특별시 송파구 마천동 123-45 영대빌라 4동 201호</h1>
-                                        <h1>010-1234-5678</h1>
+                    {activeTab === "recent" && deliveryInfo ? (
+                        <div className="p-recent-box">
+                            <div className="p-recent-address">
+                                <input
+                                    type="checkbox"
+                                    id="userAddress1"
+                                    className="custom-checkbox"
+                                    checked={Addressselected === "userAddress1"}
+                                    onChange={() => addressSelect("userAddress1")}
+                                />
+                                <div className="p-userAddress-box">
+                                    <label htmlFor="userAddress1">{deliveryInfo.name}</label>
+                                    <div style={{display: "flex", gap: "5px", alignItems: "center"}}>
+                                        <h1>{deliveryInfo.firstAddress}</h1>
+                                        <h1>{deliveryInfo.secondAddress}</h1>
                                     </div>
+                                    <h1>{deliveryInfo.phoneNumber}</h1>
                                 </div>
-                                <div className="p-recent-address">
-                                    <input
-                                        type="checkbox"
-                                        id="userAddress2"
-                                        className="custom-checkbox"
-                                        checked={Addressselected === "userAddress2"}
-                                        onChange={() => addressSelect("userAddress2")}
-                                    />
-                                    <div className="p-userAddress-box">
-                                        <label htmlFor="userAddress2">양희석</label>
-                                        <h1>경기도 광역시 성남시 롯데캐슬 101동 201호</h1>
-                                        <h1>010-5782-1234</h1>
-                                    </div>
-                                </div>
-                                <div className="p-address-line" style={{marginTop: "40px"}}/>
-                                <div className="p-recipient" onChange={handleSelectChange}>
-                                    <h1 className="recent-h1" style={{whiteSpace: "nowrap"}}>요청 사항</h1>
-                                    <select className="p-request-msg" style={{marginLeft: "25px"}}>
-                                        <option value="">--메세지 선택-- (선택사항)</option>
-                                        <option value="gmail.com">gmail.com</option>
-                                        <option value="naver.com">naver.com</option>
-                                        <option value="daum.net">daum.net</option>
-                                        <option value="direct">직접 입력</option>
-                                    </select>
-                                </div>
-                                {customMessage && (
-                                    <textarea
-                                        className="p-request-area2"
-                                        placeholder="요청 사항을 입력하세요."
-                                    />
-                                )}
-
-                                <div className="p-addressinfo-box">
-                                    <input
-                                        type="checkbox"
-                                        id="Addressinfo"
-                                    />
-                                    <label htmlFor="Addressinfo">기본 배송지로 저장</label>
-                                </div>
-                                <div className="p-address-line"/>
                             </div>
-                        )
-                        : (
+
+                            <div className="p-address-line" style={{marginTop: "40px"}}/>
+
+                            <div className="p-recipient" onChange={handleSelectChange}>
+                                <h1 className="recent-h1" style={{whiteSpace: "nowrap"}}>요청 사항</h1>
+                                <select
+                                    className="p-request-msg"
+                                    style={{marginLeft: "25px"}}
+                                    value={customMessage ? "direct" : requestMessage}
+                                    onChange={handleSelectChange}
+                                >
+                                    <option value="">--메세지 선택-- (선택사항)</option>
+                                    <option value="문 앞에 놓아주세요">문 앞에 놓아주세요</option>
+                                    <option value="경비실에 맡겨주세요">경비실에 맡겨주세요</option>
+                                    <option value="직접 전달해주세요">직접 전달해주세요</option>
+                                    <option value="direct">직접 입력</option>
+                                </select>
+                            </div>
+
+                            {customMessage && (
+                                <textarea
+                                    className="p-request-area2"
+                                    placeholder="요청 사항을 입력하세요."
+                                    value={requestMessage}
+                                    onChange={handleRequestChange}
+                                />
+                            )}
+
+                            <div className="p-addressinfo-box">
+                                <input type="checkbox" id="Addressinfo" />
+                                <label htmlFor="Addressinfo">기본 배송지로 저장</label>
+                            </div>
+
+                            <div className="p-address-line" />
+                        </div>
+                    ) : (
                             <div className="p-manual-box">
                                 <div className="p-checkbox-area">
                                     {/* 회원 정보와 동일 체크박스 */}
@@ -173,10 +219,12 @@ const Payment = () => {
                                                 type="text"
                                                 readOnly
                                                 placeholder="주소"
+                                                value={address}
                                             />
                                             <button
                                                 type="button"
                                                 className="p-address-btn"
+                                                onClick={() => handleAddressSearch(setAddress, setDetailAddress)}
                                             >
                                                 주소검색
                                             </button>
@@ -187,6 +235,8 @@ const Payment = () => {
                                         name="detailAddress"
                                         placeholder="상세 주소"
                                         style={{marginLeft: "104.5px", width: "850px", padding: "10px"}}
+                                        value={detailAddress}
+                                        onChange={(e) => setDetailAddress(e.target.value)}
                                     />
                                     <div className="p-recipient">
                                         <h1 style={{whiteSpace: "nowrap"}}>휴대전화</h1>
@@ -238,9 +288,14 @@ const Payment = () => {
                                 <div className="p-address-line"/>
 
                                 <div className="p-address-form">
-                                    <div className="p-recipient">
+                                    <div className="p-recipient" onChange={handleSelectChange}>
                                         <h1 style={{whiteSpace: "nowrap"}}>요청 사항</h1>
-                                        <select className="p-request-msg" onChange={handleSelectChange}>
+                                        <select
+                                            className="p-request-msg"
+                                            style={{marginLeft: "25px"}}
+                                            value={customMessage ? "direct" : requestMessage}
+                                            onChange={handleSelectChange}
+                                        >
                                             <option value="">--메세지 선택-- (선택사항)</option>
                                             <option value="gmail.com">gmail.com</option>
                                             <option value="naver.com">naver.com</option>
@@ -251,13 +306,13 @@ const Payment = () => {
                                 </div>
                                 {customMessage && (
                                     <textarea
-                                        className="p-request-area"
+                                        className="p-request-area2"
                                         placeholder="요청 사항을 입력하세요."
-                                        value={requestMessage} // 상태 값으로 바인딩
-                                        onChange={handleRequestChange} // 입력값이 변경될 때마다 상태 업데이트
+                                        value={requestMessage}
+                                        onChange={handleRequestChange}
                                     />
                                 )}
-                                <div className="p-addressinfo-box" style={{ marginTop: "30px"}}>
+                                <div className="p-addressinfo-box" style={{marginTop: "30px"}}>
                                     <input
                                         type="checkbox"
                                         id="Addressinfo"
@@ -381,9 +436,16 @@ const Payment = () => {
                                             <input type="password" name="bankSendName"
                                                    className="bank-payment-input" style={{marginLeft: "20px"}}/>
                                         </div>
-                                        <h1 style={{marginLeft: "27px", marginTop:"10px", fontFamily: "NotoSansKR-Light",
-                                            fontSize: "22px", color: "red"}}>※입금자와 입금자명이 다를시 결제 확인이 불가능 합니다.</h1>
-                                        <h1 style={{marginLeft: "20px", marginTop: "20px", fontFamily: "NotoSansKR-Bold", fontSize: "20px"}}>현금 영수증</h1>
+                                        <h1 style={{
+                                            marginLeft: "27px", marginTop: "10px", fontFamily: "NotoSansKR-Light",
+                                            fontSize: "22px", color: "red"
+                                        }}>※입금자와 입금자명이 다를시 결제 확인이 불가능 합니다.</h1>
+                                        <h1 style={{
+                                            marginLeft: "20px",
+                                            marginTop: "20px",
+                                            fontFamily: "NotoSansKR-Bold",
+                                            fontSize: "20px"
+                                        }}>현금 영수증</h1>
 
                                         <div className="card-payment-box" style={{marginTop: "10px"}}>
                                             <div className="p-checkbox-box" style={{marginLeft: "16px"}}>
@@ -461,106 +523,111 @@ const Payment = () => {
             </div>
             <div className="payment-productBox">
                 <h1>구매 상품</h1>
-                <div className="payment-product-info">
-                    <img src={productData.mainUrl} alt="payment-product"
-                         className="payment-product"/>
-                    <div className="payment-product-detail">
-                        <h1 style={{marginBottom: "5px"}}>{productData.name}</h1>
-                        <h2>사이즈 : L</h2>
-                        <h2 style={{marginTop: "5px"}}>수량: 1개</h2>
-                        <h2 style={{marginTop: "5px"}}>컬러 : {productData.color}</h2>
-                        <h1 style={{
-                            textAlign: "end",
-                            marginRight: "10px",
-                            fontSize: "30px",
-                            marginTop: "35px"
-                        }}>{productData.price?.toLocaleString()}원</h1>
-                    </div>
-                </div>
+
+                {Array.isArray(productData) && productData.length > 0 ? (
+                    productData.map((item, index) => (
+                        <div className="payment-product-info" key={index}>
+                            <img src={item.mainUrl} alt="payment-product" className="payment-product" />
+                            <div className="payment-product-detail">
+                                <h1 style={{ marginBottom: "5px" }}>{item.itemName}</h1>
+                                <h2>사이즈 : {item.size}</h2>
+                                <h2 style={{ marginTop: "5px" }}>수량: {item.stockQuantity}개</h2>
+                                <h2 style={{ marginTop: "5px" }}>컬러 : {item.color}</h2>
+                                <h1 style={{
+                                    textAlign: "end",
+                                    marginRight: "10px",
+                                    fontSize: "30px",
+                                    marginTop: "35px"
+                                }}>{item.price?.toLocaleString()}원</h1>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>상품 정보가 없습니다.</p>
+                )}
 
                 <div className="payment-deliverly-price">
                     <h1>배송비</h1>
-                    <h1>없음</h1>
+                    <h1>{deliveryFee > 0 ? `${deliveryFee.toLocaleString()}원` : '없음'}</h1>
                 </div>
-                <div className="p-address-line" style={{ marginTop: "10px", marginBottom: "35px"}}/>
 
-                <h1 style={{ fontFamily: "NotoSansKR-Medium", marginLeft: "37px", marginBottom: "10px"}}>결제 정보</h1>
+                <div className="p-address-line" style={{marginTop: "10px", marginBottom: "35px"}}/>
+
+                <h1 style={{fontFamily: "NotoSansKR-Medium", marginLeft: "37px", marginBottom: "10px"}}>결제 정보</h1>
+
                 <div className="payment-product-price">
                     <h1>주문상품</h1>
-                    <h1>{productData.price?.toLocaleString()}원</h1>
+                    <h1>
+                        {productData
+                            .reduce((acc, item) => acc + (item.price || 0), 0)
+                            .toLocaleString()
+                        }원
+                    </h1>
                 </div>
+
                 <div className="payment-product-price">
                     <h1>배송비</h1>
-                    <h1>없음</h1>
+                    <h1>{deliveryFee > 0 ? `${deliveryFee.toLocaleString()}원` : '없음'}</h1>
                 </div>
-                <div className="p-address-line" style={{ marginBottom: "15px"}}/>
+
+                <div className="p-address-line" style={{marginBottom: "15px"}}/>
+
                 <div className="payment-product-price">
                     <div className="payment-grade-info">
                         <h1>등급 할인</h1>
                         <div className="info-tooltip-container">
-                            <img
-                                src="/icons/info.svg"
-                                alt="info-icon"
-                                className="info-icon"
-                                style={{
-                                    width: "25px",
-                                    height: "25px",
-                                    display: "flex",
-                                }}
-                            />
+                            <img src="/icons/info.svg" alt="info-icon" className="info-icon"
+                                 style={{width: "25px", height: "25px", display: "flex"}}/>
                             <div className="info-tooltip-box">
                                 <h1>등급별 할인</h1>
                                 <ul>
-                                    <li><img src="/imgs/grade/red_grade.png" alt="grade-icon"
-                                             className="grade-icon"/>
-                                        RED 3%
-                                    </li>
+                                    <li><img src="/imgs/grade/red_grade.png" className="grade-icon"/> RED 3%</li>
                                     <div className="grade-line"/>
-                                    <li><img src="/imgs/grade/yellow_grade.png" alt="grade-icon"
-                                             className="grade-icon"/>YELLOW 5%
-                                    </li>
+                                    <li><img src="/imgs/grade/yellow_grade.png" className="grade-icon"/> YELLOW 5%</li>
                                     <div className="grade-line"/>
-                                    <li><img src="/imgs/grade/navy_grade.png" alt="grade-icon"
-                                             className="grade-icon"/>
-                                        NAVY 7%
-                                    </li>
+                                    <li><img src="/imgs/grade/navy_grade.png" className="grade-icon"/> NAVY 7%</li>
                                     <div className="grade-line"/>
-                                    <li><img src="/imgs/grade/purple_grade.png" alt="grade-icon"
-                                             className="grade-icon"/>
-                                        PURPLE 9%
-                                    </li>
+                                    <li><img src="/imgs/grade/purple_grade.png" className="grade-icon"/> PURPLE 9%</li>
                                     <div className="grade-line"/>
-                                    <li><img src="/imgs/grade/brown_grade.png" alt="grade-icon"
-                                             className="grade-icon"/>
-                                        BROWN 12%
-                                    </li>
+                                    <li><img src="/imgs/grade/brown_grade.png" className="grade-icon"/> BROWN 12%</li>
                                     <div className="grade-line"/>
-                                    <li><img src="/imgs/grade/black_grade.png" alt="grade-icon"
-                                             className="grade-icon"/>
-                                        BLACK 15%
-                                    </li>
+                                    <li><img src="/imgs/grade/black_grade.png" className="grade-icon"/> BLACK 15%</li>
                                 </ul>
                             </div>
                         </div>
                         <h2 style={{marginTop: "13px"}}>나의 등급 : </h2>
-                        <img
-                            src="/imgs/grade/red_grade.png"
-                            alt="grade-icon"
-                            className="grade-icon"
-                            style={{marginTop: "2px", marginLeft: "5px"}}
-                        />
+                        <img src="/imgs/grade/red_grade.png" alt="grade-icon" className="grade-icon"
+                             style={{marginTop: "2px", marginLeft: "5px"}}/>
                     </div>
-                    <h1 style={{color: "#FF5F5F"}}>-1,500원</h1>
+                    <h1 style={{color: "#FF5F5F"}}>
+                        -{Math.floor(productData.reduce((acc, item) => acc + (item.price || 0), 0) * 0.03).toLocaleString()}원
+                    </h1>
                 </div>
-                <div className="p-address-line" style={{ marginTop: "30px", marginBottom: "20px"}}/>
+
+                <div className="p-address-line" style={{marginTop: "30px", marginBottom: "20px"}}/>
+
                 <div className="p-result-box">
                     <div className="p-result-price">
                         <h1 style={{fontSize: "24px"}}>최종 결제 금액</h1>
-                        <h1 style={{fontSize: "32px", marginTop: "7px"}}>48,500원</h1>
+                        <h1 style={{fontSize: "32px", marginTop: "7px"}}>
+                            {
+                                (
+                                    productData.reduce((acc, item) => acc + (item.price || 0), 0)
+                                    - Math.floor(productData.reduce((acc, item) => acc + (item.price || 0), 0) * 0.03)
+                                    + deliveryFee
+                                ).toLocaleString()
+                            }원
+                        </h1>
                     </div>
-                    <div className="p-result-price" style={{ marginTop: "10px"}}>
+                    <div className="p-result-price" style={{marginTop: "10px"}}>
                         <h2 style={{marginBottom: "2px"}}>적립 예정금액</h2>
-                        <h2 style={{fontSize: "24px"}}>485원</h2>
+                        <h2 style={{fontSize: "24px"}}>
+                            {
+                                Math.floor(
+                                    (productData.reduce((acc, item) => acc + (item.price || 0), 0)) * 0.01
+                                ).toLocaleString()
+                            }원
+                        </h2>
                     </div>
                 </div>
             </div>
