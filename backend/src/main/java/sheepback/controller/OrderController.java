@@ -48,7 +48,6 @@ public class OrderController {
                     StockReserveRequest req = new StockReserveRequest();
                     req.setItemDetailId(item.getItemDetailId());
                     req.setMemberId(rmemberId);
-                    // stockQuantity가 String이므로 Long으로 변환
                     req.setQuantity(item.getStockQuantity());
                     return req;
                 })

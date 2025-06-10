@@ -22,8 +22,9 @@ public class MemberRepository {
     //회원탈퇴
     public void delete(Member member) {
         em.createQuery("delete from Member m " +
-                        "where m.id = :memberId")
+                        "where m.id = :memberId and m.password =:password")
                 .setParameter("memberId", member.getId())
+                .setParameter("password", member.getPassword())
                 .executeUpdate();
     }
 

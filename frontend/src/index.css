@@ -3883,82 +3883,621 @@ span {
   color: #000000;
 }
 
+/* 회원 정보 수정 css */
+.UserEdit-container {
+  width: 600px;
+  background: #fff;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.UserEdit-container h1 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0 0 16px 0;
+  letter-spacing: -1px;
+  text-align: left;
+  line-height: 1;
+  border-bottom: none;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.UserEdit-title-bar {
+  width: 100%;
+  height: 2px;
+  background: #222;
+  margin-bottom: 32px;
+  margin-top: 0;
+}
+
+.useredit-greeting-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 0;
+  padding: 32px 0;
+  margin: 0 24px 24px 24px;
+  background: #fafafa;
+  justify-content: center;
+  width: auto;
+  box-sizing: border-box;
+}
+
+.useredit-greeting-img img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-right: 32px;
+}
+
+.useredit-greeting-text h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  letter-spacing: -1px;
+}
+
+.useredit-greeting-text span {
+  font-size: 15px;
+  color: #222;
+}
+
+.useredit-greeting-text > div {
+  font-size: 14px;
+  color: #888;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.UserEdit-section-bar {
+  width: 100%;
+  height: 1px;
+  background: #888;
+  margin: 0 0 32px 0;
+}
+
+.useredit-form {
+  margin-top: 0;
+  padding: 0 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.UserEdit-form-bar {
+  width: calc(100% + 48px);
+  height: 1px;
+  background: #888;
+  margin-bottom: 32px;
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+.useredit-form h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 24px 0;
+  border-bottom: none;
+  padding-bottom: 0;
+  letter-spacing: -1px;
+}
+
+.useredit-form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  color: #222;
+}
+
+.UserEdit-input {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 0 0 16px 0;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  font-size: 15px;
+  background: #fafafa;
+  transition: border 0.2s;
+}
+
+.UserEdit-input:focus {
+  border: 1.5px solid #222;
+  outline: none;
+  background: #fff;
+}
+
+.useredit-form .useredit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+.useredit-form .useredit-row input {
+  margin: 0;
+}
+.useredit-form .useredit-row span {
+  font-size: 15px;
+  color: #222;
+  white-space: nowrap;
+}
+
+.useredit-address-btn {
+  padding: 10px 18px;
+  background: #fff;
+  color: #222;
+  border: 1px solid #222;
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 0;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+
+.useredit-address-btn:hover {
+  background: #222;
+  color: #fff;
+}
+
+.useredit-form > div[style*="marginTop: 16px"] {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 40px;
+}
+.useredit-form > div[style*="marginTop: 16px"] label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #444;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.useredit-form > div[style*="marginTop: 16px"] label:last-of-type {
+    margin-left: 24px;
+}
+.useredit-form input[type="checkbox"] {
+  accent-color: #222;
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+
+.useredit-form input[type="tel"] {
+  text-align: center;
+  font-size: 15px;
+  border-radius: 0;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  margin: 0;
+  padding: 10px 0;
+  flex-shrink: 0;
+}
+
+.useredit-form input[type="tel"]:focus {
+  border: 1.5px solid #222;
+  background: #fff;
+}
+.useredit-row > input[type="tel"]:nth-child(1) {
+  width: 60px;
+}
+.useredit-row > input[type="tel"]:nth-child(3) {
+  width: 80px;
+}
+.useredit-row > input[type="tel"]:nth-child(5) {
+  width: 80px;
+}
+
+.UserEdit-bottom-bar {
+  width: calc(100% + 48px);
+  height: 1px;
+  background: #888;
+  margin-bottom: 32px;
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+.useredit-form > div[style*="justifyContent: center"] {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 0;
+}
+
+.UserEdit-cancel-btn,
+.UserEdit-submit-btn {
+  padding: 12px 48px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 0;
+  cursor: pointer;
+  margin: 0;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+
+.UserEdit-cancel-btn:hover {
+  background: #f5f5f5;
+}
+
+.UserEdit-submit-btn {
+  background: #222;
+  color: #fff;
+  border: none;
+}
+
+.UserEdit-submit-btn:hover {
+  background: #444;
+}
+
+@media (max-width: 700px) {
+  .UserEdit-container {
+    width: 95vw;
+    min-width: 0;
+    padding: 0 8px;
+  }
+  .UserEdit-container h1,
+  .useredit-form {
+      padding-left: 0;
+      padding-right: 0;
+  }
+  .useredit-greeting-box {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 24px 8px;
+  }
+  .UserEdit-title-bar,
+  .UserEdit-section-bar,
+  .UserEdit-form-bar,
+  .UserEdit-bottom-bar {
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+  }
+
+  .useredit-greeting-img img {
+    width: 80px;
+    height: 80px;
+    margin-right: 16px;
+  }
+  .useredit-form .useredit-row {
+      flex-wrap: wrap;
+      gap: 4px;
+  }
+  .useredit-address-btn {
+      margin-left: 0;
+  }
+  .useredit-form input[type="tel"] {
+      width: calc(33% - 8px);
+  }
+  .UserEdit-cancel-btn,
+  .UserEdit-submit-btn {
+      padding: 10px 24px;
+  }
+}
+
 
 /* 비번 변경 CSS */
-.pwchange-container {
-  width: 400px;
-  margin: 50px auto;
-  padding: 32px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.pwchange-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 24px;
-}
-
-.pwchange-form {
+.pwchange-outer {
+  background: #fff;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
 
+.pwchange-inner {
+  width: 600px;
+  background: #fff;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pwchange-title-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.pwchange-title {
+  font-size: 24px;
+  border-bottom: 5px solid #888;
+  padding-bottom: 15px;
+  margin-bottom: 24px;
+  margin-top: 0;
+  width: 100%;
+  font-family: NotoSansKR-Medium;
+  color: #000;
+}
+
+.pwchange-desc {
+  width: 100%;
+  text-align: center;
+  color: #444;
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+.pwchange-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
 .pwchange-input-group {
-  margin-bottom: 18px;
+  margin-bottom: 24px;
+  width: 100%;
 }
 
 .pwchange-label {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   display: block;
+  color: #222;
 }
 
 .pwchange-input {
   width: 100%;
-  padding: 10px 12px;
-  font-size: 14px;
+  padding: 14px 12px;
+  font-size: 15px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 0;
   outline: none;
+  background: #fff;
+  box-sizing: border-box;
 }
 
 .pwchange-input:focus {
-  border-color: #2684ff;
-  box-shadow: 0 0 0 2px rgba(38, 132, 255, 0.2);
+  border-color: #222;
 }
 
-.pwchange-button {
-  margin-top: 12px;
-  padding: 12px;
-  background-color: #007bff;
-  color: #fff;
-  font-weight: bold;
-  font-size: 15px;
-  border: none;
-  border-radius: 8px;
+.pwchange-line {
+  width: 1060px;
+  height: 1px;
+  background-color: #ccc;
+  margin: 30px 0;
+  position: relative;
+  left: calc(-30vw + 50%); /* 중앙 정렬 보정 */
+}
+
+.pwchange-btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.pwchange-btn-cancel {
+  padding: 14px 48px;
+  background: #fff;
+  color: #222;
+  border: 1.5px solid #222;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 0;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
-.pwchange-button:hover {
-  background-color: #0056b3;
+.pwchange-btn-submit {
+  padding: 14px 48px;
+  background: #222;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pwchange-btn-cancel:hover {
+  background: #f5f5f5;
+}
+
+.pwchange-btn-submit:hover {
+  background: #000;
 }
 
 .pwchange-error {
-  color: red;
-  font-size: 13px;
-  margin-bottom: 12px;
+  color: #e74c3c;
+  font-size: 14px;
+  margin-bottom: 8px;
   text-align: center;
 }
 
 .pwchange-success {
-  color: green;
-  font-size: 13px;
-  margin-bottom: 12px;
+  color: #27ae60;
+  font-size: 14px;
+  margin-bottom: 8px;
   text-align: center;
+}
+
+/* 회원 탈퇴 css */
+.userout-outer {
+  width: 100%;
+  min-height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.userout-title-row {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.userout-title {
+  font-size: 24px;
+  font-family: NotoSansKR-Medium;
+  color: #000;
+  margin-left: 0;
+  margin-bottom: 0;
+  display: block;
+  padding-bottom: 15px;
+}
+
+.userout-title-underline {
+  width: 100%;
+  max-width: 1200px;
+  height: 0;
+  border-bottom: 5px solid #888;
+  margin: 0 auto 32px auto;
+}
+
+.userout-inner {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userout-desc {
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  color: #444;
+  font-size: 15px;
+  margin-top: 0;
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+.userout-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: center;
+}
+
+.userout-input-group {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.userout-label {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+  color: #222;
+}
+
+.userout-input {
+  width: 100%;
+  padding: 14px 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  outline: none;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.userout-input:focus {
+  border-color: #222;
+}
+
+.userout-btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+  width: 100%;
+}
+
+.userout-btn-cancel {
+  flex: 1;
+  padding: 14px 0;
+  background: #fff;
+  color: #222;
+  border: 1.5px solid #222;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.userout-btn-submit {
+  flex: 1;
+  padding: 14px 0;
+  background: #222;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.userout-btn-cancel:hover {
+  background: #f5f5f5;
+}
+
+.userout-btn-submit:hover {
+  background: #000;
+}
+
+.userout-error {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.userout-success {
+  color: #27ae60;
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.userout-bottom-line {
+  width: 100%;
+  max-width: 1200px;
+  border-bottom: 1.5px solid #888;
+  margin: 48px auto 0 auto;
+}
+
+.userout-btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 40px auto 0 auto;
+  width: 100%;
+  max-width: 400px;
 }
 
 
