@@ -177,6 +177,14 @@ public class MemberApiController {
         return myPageDto;
 
     }
+    @DeleteMapping("/api/deleteAccount/{password}")
+    public String deleteAccount(@PathVariable String password, @CookieValue("loginId") String Id) {
+        Member member = new Member();
+        member.setPassword(password);
+        member.setId(Id);
+        memberService.deleteMember(member);
+        return "success delete Account";
+    }
 
     @GetMapping("/api/OrderMemberbyId/{id}")
     public OrderMemberDto OrderMemberbyId(@PathVariable("id") String id) {
