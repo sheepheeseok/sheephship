@@ -12,9 +12,22 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
 
     const filters = ["오늘", "1개월", "3개월", "6개월"];
 
-    const totalPages = Math.ceil(orders.length / ordersPerPage);
+    const flattenedOrders = orderList.flatMap(order =>
+        order.orderInquiryItemDtoList.map(item => ({
+            orderId: order.orderId,
+            image: item.mainUrl,
+            name: item.name,
+            price: item.orderPrice ?? 0,
+            quantity: item.quantity,
+            orderDate: order.orderDate, // 만약 존재한다면
+            fullOrder: order, // 상세 보기에 전체 order 객체 넘기기
+        }))
+    );
+
+    const totalPages = Math.ceil(flattenedOrders.length / ordersPerPage);
+
     const startIndex = (currentPage - 1) * ordersPerPage;
-    const currentOrders = orders.slice(startIndex, startIndex + ordersPerPage);
+    const currentOrders = flattenedOrders.slice(startIndex, startIndex + ordersPerPage);
 
     useEffect(() => {
         const index = filters.indexOf(selectedFilter);
@@ -73,19 +86,19 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
                         <h1 style={{ marginTop: "10px" }}>주문 내역</h1>
 
                         {/* 주문 카드 렌더링 */}
-                        {currentOrders.map((order, index) => (
+                        {currentOrders.map((item, index) => (
                             <OrderContentCard
-                                key={order.id || index}
+                                key={`${item.orderId}-${index}`}
                                 product={{
-                                    id: order.id,
-                                    image: order.mainImageUrl,
-                                    name: order.itemName,
-                                    date: new Date(order.orderDate).toLocaleDateString(),
-                                    price: order.totalPrice ?? 0,
-                                    quantity: order.totalQuantity,
+                                    orderId: item.orderId,
+                                    date: item.orderDate ?? "날짜 없음",
+                                    image: item.image,
+                                    name: item.name,
+                                    price: item.price,
+                                    quantity: item.quantity,
                                 }}
-                                onDetailClick={(orderObj) => {
-                                    setSelectedOrder(orderObj);
+                                onDetailClick={() => {
+                                    setSelectedOrder(item.fullOrder); // 전체 주문 전달
                                     setTimeout(() => setSelectedTab("OrderDetail"), 0);
                                 }}
                             />

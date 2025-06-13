@@ -27,18 +27,19 @@ const OrderContentCard = ({ product,onDetailClick }) => {
         </div>
         <div className="order-card-button-wrap">
           {["주문취소", "주문상세", "재구매"].map((btn) => (
-            <button
-              key={btn}
-              className={activeButton === btn ? "active" : ""}
-              onClick={() => {
-                handleClick(btn); // 공통 실행
-                if (btn === "주문상세") {
-                  onDetailClick?.(product); // 주문상세일 경우 추가 실행
-                }
-              }}
-            >
-              {btn}
-            </button>
+              <button
+                  key={btn}
+                  className={activeButton === btn ? "active" : ""}
+                  onClick={() => {
+                    handleClick(btn); // ✅ btn을 handleClick에 인자로 전달
+                    if (btn === "주문상세") {
+                      console.log("OrderContentCard product:", product); // ✅ orderId 확인 가능
+                      onDetailClick?.(product);
+                    }
+                  }}
+              >
+                {btn}
+              </button>
           ))}
         </div>
       </div>
