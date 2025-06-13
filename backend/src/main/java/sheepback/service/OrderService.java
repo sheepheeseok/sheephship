@@ -261,9 +261,14 @@ public class OrderService {
     */
     //해결후
     //페이지네이션 만들기
-    public List<OrderInquiryListDto> getOrderList(String memberId) {
-        return orderItemMapper.getOrderListWithItems(memberId);
+    public List<OrderInquiryListDto> getOrderList(String memberId, LocalDateTime startDate, LocalDateTime endDate) {
+        return orderItemMapper.getOrderListWithItems(memberId, startDate, endDate);
     }
+
+    public List<OrderInquiryListDto> getCancelOrderList(String memberId) {
+        return orderItemMapper.getCancelOrderListWithItems(memberId);
+    }
+
 
     public OrderDetailDto getOrderDetail(Long orderId) {
         return orderMapper.getOrderDetailByOrderId(orderId);
