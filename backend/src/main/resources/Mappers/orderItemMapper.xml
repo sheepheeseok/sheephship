@@ -44,6 +44,8 @@
     <resultMap id="OrderInquiryListMap" type="sheepback.Dtos.OrderInquiryListDto">
         <!-- 주문 기본 정보 -->
         <id property="orderId" column="order_id"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="status" column="status"/>
 
         <!-- 주문 상품 목록 (컬렉션) -->
         <collection
@@ -65,7 +67,10 @@
     </resultMap>
     <select id="getOrderListWithItems" resultMap="OrderInquiryListMap">
         SELECT
+
             o.order_id,
+            o.order_date,
+            o.status,
             oi.order_item_id,
             oi.quantity,
             oi.item_detail_id,
@@ -79,6 +84,28 @@
                 INNER JOIN item i ON oi.item_id = i.item_id
                 INNER JOIN item_detail id ON oi.item_detail_id = id.item_detail_id
         WHERE
-            o.member_id = #{memberId}
+            o.member_id = #{memberId} and o.order_date BETWEEN #{startDate} AND #{endDate}
+    </select>
+
+    <select id="getCancelOrderListWithItems" resultMap="OrderInquiryListMap">
+        SELECT
+
+            o.order_id,
+            o.order_date,
+            o.status,
+            oi.order_item_id,
+            oi.quantity,
+            oi.item_detail_id,
+            oi.item_id,
+            oi.order_price,
+            i.name AS item_name,
+            i.main_url
+        FROM
+            orders o
+                INNER JOIN order_items oi ON o.order_id = oi.order_id
+                INNER JOIN item i ON oi.item_id = i.item_id
+                INNER JOIN item_detail id ON oi.item_detail_id = id.item_detail_id
+        WHERE
+            o.member_id = #{memberId} and (o.status = 'CANCLE' or o.status = 'REFUND')
     </select>
 </mapper>

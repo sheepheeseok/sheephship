@@ -78,8 +78,14 @@ public class OrderController {
     }
 
     @GetMapping("/api/orderList/{id}")
-    public List<OrderInquiryListDto> getOrderList(@PathVariable("id") String memberId) {
-        List<OrderInquiryListDto> result = orderService.getOrderList(memberId);
+    public List<OrderInquiryListDto> getOrderList(@PathVariable("id") String memberId, @RequestBody DateRequest request) {
+        List<OrderInquiryListDto> result = orderService.getOrderList(memberId,request.getStartDate(),request.getEndDate());
+        return result;
+    }
+
+    @GetMapping("/api/cancleOrderList")
+    public List<OrderInquiryListDto> getCancleOrderList(@CookieValue("loginId") String memberId) {
+        List<OrderInquiryListDto> result = orderService.getCancelOrderList(memberId);
         return result;
     }
 
@@ -87,6 +93,8 @@ public class OrderController {
     public OrderDetailDto getOrderDetail(@PathVariable("id") Long orderId) {
       return orderService.getOrderDetail(orderId);
     }
+
+
 
     @Data
     private static class BuyItemListAndDeliveryFeeDto {
@@ -99,5 +107,11 @@ public class OrderController {
         private Long orderId;
         private List<Long> orderItemIds;
 
+    }
+
+    @Data
+    private static class DateRequest {
+        private LocalDateTime startDate;
+        private LocalDateTime endDate;
     }
 }
