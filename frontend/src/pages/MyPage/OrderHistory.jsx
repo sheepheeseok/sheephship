@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import OrderContentCard from "../../component/OrderContentCard";
+import MyPageHook from "../../hooks/MyPageHook.js";
 
 const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) => {
+    const { orderList, loading, error } = MyPageHook();
     const [orderTab, setOrderTab] = useState("order");
     const [selectedFilter, setSelectedFilter] = useState("오늘");
     const [currentPage, setCurrentPage] = useState(1);
@@ -72,12 +74,19 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
 
                         {/* 주문 카드 렌더링 */}
                         {currentOrders.map((order, index) => (
-                             <OrderContentCard
+                            <OrderContentCard
                                 key={order.id || index}
-                                product={order}
+                                product={{
+                                    id: order.id,
+                                    image: order.mainImageUrl,
+                                    name: order.itemName,
+                                    date: new Date(order.orderDate).toLocaleDateString(),
+                                    price: order.totalPrice ?? 0,
+                                    quantity: order.totalQuantity,
+                                }}
                                 onDetailClick={(orderObj) => {
-                                    setSelectedOrder(orderObj); // 선택된 주문 저장
-                                    setTimeout(() => setSelectedTab("OrderDetail"), 0); // 탭 전환
+                                    setSelectedOrder(orderObj);
+                                    setTimeout(() => setSelectedTab("OrderDetail"), 0);
                                 }}
                             />
                         ))}
