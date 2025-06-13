@@ -84,7 +84,7 @@
                 INNER JOIN item i ON oi.item_id = i.item_id
                 INNER JOIN item_detail id ON oi.item_detail_id = id.item_detail_id
         WHERE
-            o.member_id = #{memberId} and o.order_date BETWEEN #{startDate} AND #{endDate}
+            o.member_id = #{memberId} and (o.status = 'CONFIRM' or o.status = 'ORDER') and o.order_date BETWEEN #{startDate} AND #{endDate}
     </select>
 
     <select id="getCancelOrderListWithItems" resultMap="OrderInquiryListMap">
