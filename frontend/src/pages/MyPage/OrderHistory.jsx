@@ -23,7 +23,7 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
 
     return (
         <>
-            <div className="mypage-paymentTitle">
+            <div className="mypage-OrderHistory-Title">
                 <h1>주문 조회</h1>
             </div>
 
