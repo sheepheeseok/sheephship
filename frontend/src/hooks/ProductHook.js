@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
+import useCookie from "./useCookie.js";
+import CartHook from "../hooks/CartHook.js";
 
 const ProductHook = () => {
+    const { cartList, reloadCartList } = CartHook();
     const { id } = useParams();
     const [ ProductData, setProductData ] = useState({});
     const [ loading, setLoding ] = useState(true);
     const [ error, setError ] = useState(null);
     const navigate = useNavigate();
+    const memberId = useCookie("loginId");
 
     const handleSubmit = async (selectedOptions) => {
         if (!selectedOptions || selectedOptions.length === 0) {
@@ -47,6 +51,49 @@ const ProductHook = () => {
         }
     };
 
+    const handleAddToCart = async (selectedOptions) => {
+        if(!selectedOptions || selectedOptions.length === 0) {
+            alert("사이즈와 컬러를 선택한 후 장바구니 버튼을 눌러주세요.");
+            return;
+        }
+
+        const isDuplicate = cartList.some(cartItem =>
+            cartItem.itemId === Number(id) &&
+            selectedOptions.some(opt =>
+                cartItem.size === opt.size && cartItem.color === opt.color
+            )
+        );
+
+        if (isDuplicate) {
+            alert("이미 장바구니에 담긴 상품입니다.");
+            return;
+        }
+
+        const requestBody = selectedOptions.map(option => ({
+            memberId: memberId,
+            itemId: id,
+            count: option.quantity,
+            size: option.size,
+            color: option.color
+        }));
+
+        console.log("장바구니 전송 데이터:", requestBody);
+
+        try {
+            const response = await axios.put(
+                "/api/addCart",
+                requestBody[0],
+                { withCredentials: true }
+            );
+            console.log("장바구니 추가 성공", response.data);
+            alert("장바구니에 상품이 담겼습니다.");
+            navigate("/Cart");
+        } catch(err) {
+            console.error("장바구니 추가 실패", err);
+            alert("장바구니 추가에 실패했습니다.");
+        }
+    }
+
 
         useEffect(() => {
         if (!id) return;
@@ -71,7 +118,7 @@ const ProductHook = () => {
         fetchProduct();
     }, [id]);
 
-    return { ProductData, loading, error, handleSubmit };
+    return { ProductData, loading, error, handleSubmit, handleAddToCart };
 }
 
 export default ProductHook;

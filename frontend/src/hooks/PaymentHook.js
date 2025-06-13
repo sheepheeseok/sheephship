@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom";
 import useCookie from "../hooks/useCookie.js";
 import axios from "axios";
 import {useLocation} from "react-router-dom";
 
 const PaymentHook = () => {
     const loginId = useCookie("loginId");
+    const navigate = useNavigate();
+    const memberGrade = useCookie("Grade");
     const { state } = useLocation();
     const [productData, setproductData] = useState([]);
     const [deliveryFee, setDeliveryFee] = useState(0);
@@ -97,14 +100,16 @@ const PaymentHook = () => {
                     throw new Error("결제 실패");
                 }
 
-                const result = await paymentRes.json();
+                const result = await paymentRes.text();
                 console.log("결제 완료", result);
+                navigate("/Shop");
+                alert("주문이 완료되었습니다.")
             } catch (err) {
                 console.error("결제 처리 중 오류:", err.message);
             }
         };
 
-    return {processPayment, deliveryFee, productData, loading, error, deliveryInfo};
+    return {processPayment, deliveryFee, productData, loading, error, deliveryInfo, memberGrade};
 }
 
 export default PaymentHook;

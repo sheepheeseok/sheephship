@@ -11,11 +11,32 @@ const Payment = () => {
             setUseSameAddress(false);
         }
     };
-    const { processPayment, productData, loading,error, deliveryFee , deliveryInfo} = PaymentHook();
+    const { processPayment, productData, loading,error, deliveryFee , deliveryInfo, memberGrade} = PaymentHook();
     const [requestMessage, setRequestMessage] = useState("");
     const handleRequestChange = (e) => {
         setRequestMessage(e.target.value);
     };
+
+    const gradeInfo = {
+        RED: { discount: 0.03, image: "/imgs/grade/red_grade.png" },
+        YELLOW: { discount: 0.05, image: "/imgs/grade/yellow_grade.png" },
+        NAVY: { discount: 0.07, image: "/imgs/grade/navy_grade.png" },
+        PURPLE: { discount: 0.09, image: "/imgs/grade/purple_grade.png" },
+        BROWN: { discount: 0.12, image: "/imgs/grade/brown_grade.png" },
+        BLACK: { discount: 0.15, image: "/imgs/grade/black_grade.png" },
+    };
+
+    const grade = memberGrade?.toUpperCase();
+    const discountRate = gradeInfo[grade]?.discount || 0;
+    const gradeImage = gradeInfo[grade]?.image || "/imgs/grade/default.png";
+
+    const totalPrice = productData.reduce((acc, item) => acc + (item.price || 0), 0);
+    const discountPrice = Math.floor(totalPrice * discountRate);
+    const discountAmount = Math.floor(
+        productData.reduce((acc, item) => acc + (item.price || 0), 0) * discountRate
+    );
+    const finalAmount = totalPrice - discountAmount + deliveryFee;
+    const pointAmount = Math.floor(totalPrice * 0.01);
 
     const [Addressselected, setAddressSelected] = useState("userAddress1");
     const addressSelect = (id) => {
@@ -500,14 +521,6 @@ const Payment = () => {
                                 )}
                             </div>
                         </div>
-                        <div className="p-addressinfo-box">
-                            <input
-                                type="checkbox"
-                                id="SavePaymentinfo"
-                            />
-                            <label htmlFor="SavePaymentinfo">결제수단과 입력정보를 다음에도 사용</label>
-                        </div>
-
                         <button className="payment-end-box" onClick={handleSubmit}>
                             48,500원 결제
                         </button>
@@ -527,12 +540,12 @@ const Payment = () => {
                 {Array.isArray(productData) && productData.length > 0 ? (
                     productData.map((item, index) => (
                         <div className="payment-product-info" key={index}>
-                            <img src={item.mainUrl} alt="payment-product" className="payment-product" />
+                            <img src={item.mainUrl} alt="payment-product" className="payment-product"/>
                             <div className="payment-product-detail">
-                                <h1 style={{ marginBottom: "5px" }}>{item.itemName}</h1>
+                                <h1 style={{marginBottom: "5px"}}>{item.itemName}</h1>
                                 <h2>사이즈 : {item.size}</h2>
-                                <h2 style={{ marginTop: "5px" }}>수량: {item.stockQuantity}개</h2>
-                                <h2 style={{ marginTop: "5px" }}>컬러 : {item.color}</h2>
+                                <h2 style={{marginTop: "5px"}}>수량: {item.stockQuantity}개</h2>
+                                <h2 style={{marginTop: "5px"}}>컬러 : {item.color}</h2>
                                 <h1 style={{
                                     textAlign: "end",
                                     marginRight: "10px",
@@ -595,14 +608,15 @@ const Payment = () => {
                                 </ul>
                             </div>
                         </div>
-                        <h2 style={{marginTop: "13px"}}>나의 등급 : </h2>
-                        <img src="/imgs/grade/red_grade.png" alt="grade-icon" className="grade-icon"
+                        <h2 style={{marginTop: "13px"}}>나의 등급 : {grade || "등급 없음"}</h2>
+                        <img src={gradeImage} alt="grade-icon" className="grade-icon"
                              style={{marginTop: "2px", marginLeft: "5px"}}/>
                     </div>
                     <h1 style={{color: "#FF5F5F"}}>
-                        -{Math.floor(productData.reduce((acc, item) => acc + (item.price || 0), 0) * 0.03).toLocaleString()}원
+                        -{discountPrice.toLocaleString()}원
                     </h1>
                 </div>
+
 
                 <div className="p-address-line" style={{marginTop: "30px", marginBottom: "20px"}}/>
 
@@ -610,23 +624,14 @@ const Payment = () => {
                     <div className="p-result-price">
                         <h1 style={{fontSize: "24px"}}>최종 결제 금액</h1>
                         <h1 style={{fontSize: "32px", marginTop: "7px"}}>
-                            {
-                                (
-                                    productData.reduce((acc, item) => acc + (item.price || 0), 0)
-                                    - Math.floor(productData.reduce((acc, item) => acc + (item.price || 0), 0) * 0.03)
-                                    + deliveryFee
-                                ).toLocaleString()
-                            }원
+                            {finalAmount.toLocaleString()}원
                         </h1>
                     </div>
+
                     <div className="p-result-price" style={{marginTop: "10px"}}>
                         <h2 style={{marginBottom: "2px"}}>적립 예정금액</h2>
                         <h2 style={{fontSize: "24px"}}>
-                            {
-                                Math.floor(
-                                    (productData.reduce((acc, item) => acc + (item.price || 0), 0)) * 0.01
-                                ).toLocaleString()
-                            }원
+                            {pointAmount.toLocaleString()}원
                         </h2>
                     </div>
                 </div>

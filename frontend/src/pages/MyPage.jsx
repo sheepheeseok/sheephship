@@ -65,7 +65,6 @@ const MyPage = () => {
                             </div>
                             <img src="/icons/mypage-Vector.svg" alt="Tracker-Vector" className="Tracker-Vector"/>
                             <div className="Tracker-Fourth">
-                                <h1>0</h1>
                                 <h2>배송 완료</h2>
                             </div>
                         </div>

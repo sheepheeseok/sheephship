@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useProduct from "../hooks/ProductHook";
 
 const Product = () => {
-    const { ProductData, loading, error, handleSubmit } = useProduct();
+    const { ProductData, loading, error, handleSubmit, handleAddToCart } = useProduct();
 
     const [isExpanded, setIsExpanded] = useState(false);
     const toggleExpand = () => {
@@ -193,7 +193,7 @@ const Product = () => {
                         <button className="buy-btn" onClick={() => handleSubmit(selectedOptions)}>
                             구매하기
                         </button>
-                        <button className="product-cart-btn">장바구니</button>
+                        <button className="product-cart-btn" onClick={() => handleAddToCart(selectedOptions)}>장바구니</button>
                     </div>
 
                     <div className="product-toss-box">
