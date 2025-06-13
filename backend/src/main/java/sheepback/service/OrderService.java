@@ -157,13 +157,14 @@ public class OrderService {
             saveOrderDto.setStatus(Status.ORDER);
             saveOrderDto.setPaymentMethod(orderDto.getPaymentMethod());
             saveOrderDto.setRequireMents(orderDto.getRequireMents());
-
+            orderMapper.saveOrder(saveOrderDto);
             List<SaveOrderItemDto> saveOrderItemDtos = new ArrayList<>();
             List<Long> totalPrice = new ArrayList<>();
             for(OrderItemDetailDto orderItemDetailDto : orderDto.getOrderItemDetailDtos()) {
                 ItemInfoForOrderDto itemInfoForOrderDto = itemMapper.getItemInfoForOrderDto(orderItemDetailDto.getItemId(), orderItemDetailDto.getColor(), orderItemDetailDto.getSize());
                 SaveOrderItemDto saveOrderItemDto = new SaveOrderItemDto();
                 saveOrderItemDto.setItemId(orderItemDetailDto.getItemId());
+                System.out.println(" orderId =? " + saveOrderItemDto.getOrderId());
                 saveOrderItemDto.setOrderId(saveOrderDto.getOrderId());
                 saveOrderItemDto.setQuantity(orderItemDetailDto.getQuantity());
                 saveOrderItemDto.setOrderPrice((totalPrice(itemInfoForOrderDto.getPrice(),
@@ -178,10 +179,11 @@ public class OrderService {
                         orderItemDetailDto.getItemDetailId(), orderDto.getMemberId(), orderItemDetailDto.getQuantity());
 
             }
-        Long deliveryFee = calculateTotalDeliveryFee(totalPrice);
-            saveOrderDto.setDeliveryFee(deliveryFee);
+
         orderItemMapper.saveOrderItem(saveOrderItemDtos);
-            orderMapper.saveOrder(saveOrderDto);
+        Long deliveryFee = calculateTotalDeliveryFee(totalPrice);
+            orderMapper.saveDeliveryFee(deliveryFee, saveOrderDto.getOrderId());
+
             SaveDeliveryDto saveDeliveryDto = new SaveDeliveryDto();
             saveDeliveryDto.setOrderId(saveOrderDto.getOrderId());
             saveDeliveryDto.setFirstAddress(orderDto.getFirstAddress());

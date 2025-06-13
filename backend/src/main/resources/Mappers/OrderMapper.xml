@@ -146,4 +146,7 @@
 
     </select>
 
+    <update id="saveDeliveryFee">
+        update orders set delivery_fee = #{deliveryFee} where order_id = #{orderId}
+    </update>
 </mapper>

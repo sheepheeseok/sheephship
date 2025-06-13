@@ -22,4 +22,5 @@ public interface OrderMapper {
     Long hasPurchased(@Param("memberId") String memberId, @Param("itemId") Long itemId);
 
 
+    void saveDeliveryFee(@Param("deliveryFee") Long deliveryFee,@Param("orderId") Long orderId);
 }
