@@ -9,11 +9,11 @@ const MyPageHook = () => {
     const [error, setError] = useState(null);
 
     const loginId = useCookie("loginId"); // 로그인된 회원 ID
-    const fetchOrderList = async () => {
+    const fetchOrderList = async (startDate, endDate) => {
         if (!loginId) return;
 
         try {
-            const res = await axios.get(`/api/orderList/${loginId}`, {
+            const res = await axios.get(`/api/orderList/${loginId}/${startDate}/${endDate}`, {
                 withCredentials: true,
             });
             console.log("✅ 주문 목록:", res.data);
@@ -41,9 +41,42 @@ const MyPageHook = () => {
         }
     };
 
+    const cancelOrder = async (orderId, orderItemIds) => {
+        try {
+            const response = await axios.post(
+                "/api/cancelorder",
+                { orderId, orderItemIds },
+                { withCredentials: true }
+            );
+            console.log("🗑️ 주문 취소 성공:", response.data);
+            return response.data;
+        } catch (err) {
+            console.error("❌ 주문 취소 실패:", err);
+            throw err;
+        }
+    };
 
     useEffect(() => {
-        fetchOrderList();
+        if (!loginId) return;
+
+        const today = new Date();
+
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const dd = String(today.getDate()).padStart(2, "0");
+        const startDate = `${yyyy}-${mm}-${dd}`;
+
+        // ✅ 하루 뒤 날짜 계산
+        const nextDay = new Date(today);
+        nextDay.setDate(today.getDate() + 1);
+
+        const yyyyNext = nextDay.getFullYear();
+        const mmNext = String(nextDay.getMonth() + 1).padStart(2, "0");
+        const ddNext = String(nextDay.getDate()).padStart(2, "0");
+        const endDate = `${yyyyNext}-${mmNext}-${ddNext}`;
+
+        // ✅ 동일한 날짜를 startDate, endDate로 초기 호출
+        fetchOrderList(startDate, endDate);
     }, [loginId]);
 
     return {
@@ -52,6 +85,7 @@ const MyPageHook = () => {
         error,
         reloadOrderList: fetchOrderList,
         fetchOrderDetail,
+        cancelOrder,
     };
 };
 

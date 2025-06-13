@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const OrderContentCard = ({ product,onDetailClick }) => {
+const OrderContentCard = ({ product,onDetailClick, onCancelClick }) => {
   const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
 
   const handleClick = (buttonName) => {
     setActiveButton(buttonName);
+
     if (buttonName === "주문상세") {
-        console.log("OrderContentCard product:", product);
+      console.log("OrderContentCard product:", product);
       onDetailClick?.(product);
+    } else if (buttonName === "주문취소") {
+      console.log("🚫 주문 취소 요청:", product);
+      onCancelClick?.(product); // 상위에서 콜백을 넘겨줘야 함
     }
   };
 
@@ -18,7 +22,7 @@ const OrderContentCard = ({ product,onDetailClick }) => {
       <div className="order-card-date">{product.date}</div>
       <div className="order-card-box">
         <div className="order-card-image-wrap">
-          <img src={product.image} alt={product.name} className="order-card-image" />
+          <img src={product.image} alt={product.name} className="order-card-image"/>
         </div>
         <div className="order-card-info-right">
           <div className="order-card-name">{product.name}</div>
@@ -30,13 +34,7 @@ const OrderContentCard = ({ product,onDetailClick }) => {
               <button
                   key={btn}
                   className={activeButton === btn ? "active" : ""}
-                  onClick={() => {
-                    handleClick(btn); // ✅ btn을 handleClick에 인자로 전달
-                    if (btn === "주문상세") {
-                      console.log("OrderContentCard product:", product); // ✅ orderId 확인 가능
-                      onDetailClick?.(product);
-                    }
-                  }}
+                  onClick={() => handleClick(btn)}  // ✅ 중복 실행 방지
               >
                 {btn}
               </button>
