@@ -84,7 +84,7 @@ public class MemberApiController {
         //등급도 저장해주기
         Cookie cookie = new Cookie("loginId", String.valueOf(login.getId()));
         Cookie cookie2 = new Cookie("Grade", String.valueOf(login.getGrade()));
-
+        Cookie cookie3 = new Cookie("PhoneNumber",String.valueOf(login.getPhoneNumber()));
       /*  HttpSession session = req.getSession(false);
         if(session != null) {
             session.invalidate();
@@ -92,7 +92,16 @@ public class MemberApiController {
         session = req.getSession(true);
         session.setAttribute("loginId", String.valueOf(login.getId()));
         session.setAttribute("Grade", String.valueOf(login.getGrade()));
+
 */
+
+            cookie3.setHttpOnly(false);
+            cookie3.setSecure(false);
+            cookie3.setPath("/");
+            cookie3.setMaxAge(60 * 60 * 24 * 7);
+            response.addCookie(cookie3);
+
+
         cookie2.setHttpOnly(false);
         cookie2.setSecure(false);
         cookie2.setPath("/");

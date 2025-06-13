@@ -50,6 +50,8 @@ public class ItemService {
         itemMapper.insertItem(insetItemDto);
     }
 
+    public List<RecentItemDto> getRecent
+
 }
 
     //아이템 추가
