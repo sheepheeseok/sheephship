@@ -10,7 +10,7 @@ import Recent from "./MyPage/Recent.jsx";
 import UserEdit from "./MyPage/UserEdit.jsx";
 import UserOut from "./MyPage/UserOut.jsx";
 import MyClimb from "./MyPage/MyClimb.jsx";
-
+import DeliveryAddressForm from "./MyPage/DeliveryAddressForm.jsx";
 
 
 const MyPage = () => {
@@ -41,6 +41,8 @@ const MyPage = () => {
                 return <UserEdit/>;
             case "UserOut":
                 return <UserOut/>;
+            case "DeliveryAddressForm":
+                return <DeliveryAddressForm/>;
             default:
                 return (
                     <>
@@ -171,7 +173,7 @@ const MyPage = () => {
                         <ul>
                             <li className={selectedTab === "OrderHistory" ? "selected" : ""} onClick={() => setSelectedTab("OrderHistory")} style={{marginTop: "15px"}}>주문내역 조회</li>
                             <li className={selectedTab === "Savings" ? "selected" : ""} onClick={() => setSelectedTab("Savings")}>적립금 내역</li>
-                            <li>배송 주소록 관리</li>
+                            <li className={selectedTab === "DeliveryAddressForm" ? "selected" : ""} onClick={() => setSelectedTab("DeliveryAddressForm")}>배송 주소록 관리</li>
                         </ul>
 
                         <h1 style={{marginTop: "40px"}}>활동 정보</h1>

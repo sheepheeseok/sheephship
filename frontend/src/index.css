@@ -654,6 +654,11 @@ body {
 }
 
 {/* Mypage 내부 내용 css */}
+.mypage-OrderHistory-Title h1 {
+    font-family: NotoSansKR-Medium;
+    font-size: 24px;
+}
+
 .OrderHistory-Tab {
     display: flex;
     flex-direction: row;
@@ -3271,7 +3276,7 @@ span {
 .savings-title {
   position: absolute;
   top: 0;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "NotoSansKR-Medium";
   font-size: 24px;
   font-weight: 500;
   color: #000;
@@ -3915,6 +3920,269 @@ input[type="text"] {
     color: #fff;
 }
 
+
+/* 배송 주소록 추가 css */
+.DAF-delivery-address-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 10px;
+}
+
+.DAF-delivery-address-container h1 {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  margin-bottom: 20px; /* 간격 조정 */
+}
+
+.DAF-delivery-address-title-bar {
+  width: 100%;
+  height: 2px;
+  background: #000000; /* 이미지에 맞춰 검은색으로 변경 */
+  margin-bottom: 30px; /* 간격 조정 */
+}
+
+.DAF-form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px; /* 일관된 간격을 위해 gap 추가 */
+}
+
+.DAF-form-label {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  width: 120px; /* 정렬을 위해 레이블의 고정 너비 설정 */
+  margin-left: 40px;
+}
+
+.DAF-form-label-small {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  color: #888888;
+  width: 70px; /* 작은 레이블의 고정 너비 설정 */
+}
+
+.DAF-form-input-text {
+  box-sizing: border-box;
+  height: 40px;
+  border: 1px solid #888888;
+  padding: 0 10px;
+  font-size: 16px;
+}
+
+.DAF-form-input-text.DAF-small {
+  width: 250px;
+}
+
+.DAF-form-input-text.DAF-medium {
+  width: 300px;
+}
+
+.DAF-form-input-text.DAF-large {
+  width: 800px;
+}
+
+.DAF-address-search-btn {
+  box-sizing: border-box;
+  width: 100px;
+  height: 40px;
+  border: 1px solid #000000;
+  background: #FFFFFF;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  cursor: pointer;
+  border-radius: 0px;
+}
+
+.DAF-tel-input-part {
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid #888888;
+  height: 40px;
+  padding: 0 5px;
+  width: 100px;
+}
+
+.DAF-tel-dash {
+  font-size: 16px;
+  color: #333333;
+}
+
+.DAF-email-domain-select {
+  height: 40px;
+  border: 1px solid #888888;
+  padding: 0 10px;
+  font-size: 16px;
+  background-color: #fff;
+}
+
+.DAF-email-domain-custom-input {
+  height: 40px;
+  border: 1px solid #888888;
+  padding: 0 10px;
+  font-size: 16px;
+}
+
+.DAF-email-domain-radio-label {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  color: #888888;
+  margin-left: 10px; /* 라디오 버튼 간격 */
+  cursor: pointer;
+}
+
+.DAF-email-domain-radio-label.active {
+  color: #000000;
+}
+
+.DAF-email-domain-radio-input {
+  accent-color: #3375B1; /* 선택된 라디오 버튼 파란색 */
+  margin-right: 5px;
+}
+
+.DAF-request-select {
+  box-sizing: border-box;
+  height: 40px;
+  border: 1px solid #888888;
+  padding: 0 10px;
+  font-size: 16px;
+  background-color: #fff;
+  width: 800px;
+}
+
+.DAF-checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.DAF-checkbox-label {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  cursor: pointer;
+}
+
+.DAF-checkbox-input {
+  accent-color: #3375B1;
+  margin-right: 8px;
+  width: 20px; /* 체크박스 크기 조정 */
+  height: 20px; /* 체크박스 크기 조정 */
+}
+
+.DAF-bar {
+  width: 100%;
+  height: 1px;
+  background: #888888;
+  margin-bottom: 20px;
+}
+
+.DAF-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* 버튼 간격 */
+  margin-top: 40px;
+}
+
+.DAF-cancel-button {
+  width: 170px;
+  height: 56px;
+  border: 1px solid #888888;
+  background: #FFFFFF;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.DAF-register-button {
+  width: 169px;
+  height: 56px;
+  background: #000000;
+  border: none;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.DAF-notice-section h2 {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  margin-bottom: 15px; /* 간격 */
+}
+
+.DAF-notice-bar {
+  width: 100%;
+  height: 3px;
+  background: #888888;
+  margin-bottom: 20px;
+}
+
+.DAF-notice-text {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 25px;
+  color: #000000;
+  text-align: left;
+}
 
 /* 비번 변경 CSS */
 .pwchange-outer {
