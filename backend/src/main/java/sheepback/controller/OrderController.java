@@ -12,6 +12,7 @@ import sheepback.domain.Address;
 import sheepback.domain.Grade;
 import sheepback.service.OrderService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,9 +78,9 @@ public class OrderController {
         return "cancel successful";
     }
 
-    @GetMapping("/api/orderList/{id}")
-    public List<OrderInquiryListDto> getOrderList(@PathVariable("id") String memberId, @RequestBody DateRequest request) {
-        List<OrderInquiryListDto> result = orderService.getOrderList(memberId,request.getStartDate(),request.getEndDate());
+    @GetMapping("/api/orderList/{id}/{startDate}/{endDate}")
+    public List<OrderInquiryListDto> getOrderList(@PathVariable("id") String memberId, @PathVariable("startDate")LocalDate startDate, @PathVariable("endDate")LocalDate endDate) {
+        List<OrderInquiryListDto> result = orderService.getOrderList(memberId,startDate,endDate);
         return result;
     }
 
@@ -109,9 +110,5 @@ public class OrderController {
 
     }
 
-    @Data
-    private static class DateRequest {
-        private LocalDateTime startDate;
-        private LocalDateTime endDate;
-    }
+
 }

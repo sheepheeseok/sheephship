@@ -10,6 +10,7 @@ import sheepback.domain.item.Item;
 import sheepback.mapper.*;
 import sheepback.repository.MemberRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -261,7 +262,7 @@ public class OrderService {
     */
     //해결후
     //페이지네이션 만들기
-    public List<OrderInquiryListDto> getOrderList(String memberId, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<OrderInquiryListDto> getOrderList(String memberId, LocalDate startDate, LocalDate endDate) {
         return orderItemMapper.getOrderListWithItems(memberId, startDate, endDate);
     }
 
