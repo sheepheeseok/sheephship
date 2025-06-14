@@ -130,7 +130,7 @@ const Payment = () => {
                         className={activeTab === "recent" ? "active" : ""}
                         onClick={() => setActiveTab("recent")}
                     >
-                        기본 배송지
+                        최근 배송지
                     </button>
                     <button
                         className={activeTab === "manual" ? "active" : ""}

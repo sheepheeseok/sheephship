@@ -6,7 +6,7 @@ import CartHook from "../hooks/CartHook.js";
 
 const ProductHook = () => {
     const { cartList, reloadCartList } = CartHook();
-    const { id } = useParams();
+    const { itemId } = useParams();
     const [ ProductData, setProductData ] = useState({});
     const [ loading, setLoding ] = useState(true);
     const [ error, setError ] = useState(null);
@@ -25,7 +25,7 @@ const ProductHook = () => {
             color: option.color,
             size: option.size,
             stockQuantity: option.quantity,
-            itemId: id,
+            itemId: itemId,
         }));
 
         console.log("전송될 데이터:", requestBody);
@@ -41,7 +41,7 @@ const ProductHook = () => {
 
             navigate("/Payment", {
                 state: {
-                    productId: id,
+                    productId: itemId,
                     selectedOptions: requestBody,
                 }
             });
@@ -58,7 +58,7 @@ const ProductHook = () => {
         }
 
         const isDuplicate = cartList.some(cartItem =>
-            cartItem.itemId === Number(id) &&
+            cartItem.itemId === Number(itemId) &&
             selectedOptions.some(opt =>
                 cartItem.size === opt.size && cartItem.color === opt.color
             )
@@ -71,7 +71,7 @@ const ProductHook = () => {
 
         const requestBody = selectedOptions.map(option => ({
             memberId: memberId,
-            itemId: id,
+            itemId: itemId,
             count: option.quantity,
             size: option.size,
             color: option.color
@@ -96,11 +96,11 @@ const ProductHook = () => {
 
 
         useEffect(() => {
-        if (!id) return;
+        if (!itemId) return;
 
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`/api/showItem/${id}`);
+                const response = await axios.get(`/api/showItem/${itemId}`);
                 console.log("상품 전체 응답:", response.data);
                 setProductData(response.data);
 
@@ -116,7 +116,7 @@ const ProductHook = () => {
         };
 
         fetchProduct();
-    }, [id]);
+    }, [itemId]);
 
     return { ProductData, loading, error, handleSubmit, handleAddToCart };
 }

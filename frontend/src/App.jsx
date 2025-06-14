@@ -44,7 +44,7 @@ function App() {
                 <Route path="/Signup" element={<Signup/>} /> {/* 회원가입 */}
                 <Route path="/Mypage"
                        element={<PrivateRoute><MyPage/></PrivateRoute>}/>{" "} { /* 마이페이지 */}
-                <Route path="/Product/:id" element={<Product/>} /> { /* 제품 상세 */}
+                <Route path="/Product/:itemId" element={<Product/>} /> { /* 제품 상세 */}
                 <Route path="/Shop" element={<Shop/>} /> {/* 샵 */}
                 <Route path="/Payment" element={<Payment/>} /> {/* Payment */}
                 <Route path="/Cart" element={<Cart/>} /> { /* Cart */}

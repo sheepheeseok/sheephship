@@ -38,7 +38,7 @@ const Recent = () => {
                   {currentItems.map((item) => (
                       <div key={item.id} className="Recent-Item">
                         <img
-                            src={item.mainImageUrl}
+                            src={item.mainUrl}
                             alt={item.name}
                             className="recent-item-img"
                         />

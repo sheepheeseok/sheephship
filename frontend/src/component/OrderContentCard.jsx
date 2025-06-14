@@ -30,7 +30,7 @@ const OrderContentCard = ({ product,onDetailClick, onCancelClick }) => {
           <div className="order-card-price">{product.price.toLocaleString()}원</div>
         </div>
         <div className="order-card-button-wrap">
-          {["주문취소", "주문상세", "재구매"].map((btn) => (
+          {["주문취소", "주문상세"].map((btn) => (
               <button
                   key={btn}
                   className={activeButton === btn ? "active" : ""}

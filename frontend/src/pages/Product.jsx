@@ -93,7 +93,9 @@ const Product = () => {
     return (
         <div className="container">
             <div className="Product-container">
-                <img src={currentImage} alt="Product-img" className="Product-img"/>
+                <div className="Product-img-wrapper">
+                    <img src={currentImage} alt="Product-img" className="Product-img"/>
+                </div>
 
                 <div className="Product-box">
                     <h1>{ProductData.name}</h1>
@@ -193,7 +195,8 @@ const Product = () => {
                         <button className="buy-btn" onClick={() => handleSubmit(selectedOptions)}>
                             구매하기
                         </button>
-                        <button className="product-cart-btn" onClick={() => handleAddToCart(selectedOptions)}>장바구니</button>
+                        <button className="product-cart-btn" onClick={() => handleAddToCart(selectedOptions)}>장바구니
+                        </button>
                     </div>
 
                     <div className="product-toss-box">
@@ -210,14 +213,39 @@ const Product = () => {
             </div>
 
             <div className="product-img-info">
-                <img src={ProductData.mainUrl} alt="product1" className="info-product-img"
-                     onClick={() => changeImage(ProductData.mainUrl)}/>
-                <img src={ProductData.image?.subUrl1 ?? "기본이미지.png"} alt="product2" className="info-product-img"
-                     onClick={() => changeImage(ProductData.itemImg.subUrl1)}/>
-                <img src={ProductData.image?.subUrl2 ?? "기본이미지.png"} alt="product3" className="info-product-img"
-                     onClick={() => changeImage(ProductData.itemImg.subUrl2)}/>
-                <img src={ProductData.image?.subUrl3 ?? "기본이미지.png"} alt="product4" className="info-product-img"
-                     onClick={() => changeImage(ProductData.itemImg.subUrl3)} />
+                <img
+                    src={ProductData.mainUrl}
+                    alt="product1"
+                    className="info-product-img"
+                    onClick={() => changeImage(ProductData.mainUrl)}
+                />
+
+                {ProductData.image?.subUrl1 && (
+                    <img
+                        src={ProductData.image.subUrl1}
+                        alt="product2"
+                        className="info-product-img"
+                        onClick={() => changeImage(ProductData.image.subUrl1)}
+                    />
+                )}
+
+                {ProductData.image?.subUrl2 && (
+                    <img
+                        src={ProductData.image.subUrl2}
+                        alt="product3"
+                        className="info-product-img"
+                        onClick={() => changeImage(ProductData.image.subUrl2)}
+                    />
+                )}
+
+                {ProductData.image?.subUrl3 && (
+                    <img
+                        src={ProductData.image.subUrl3}
+                        alt="product4"
+                        className="info-product-img"
+                        onClick={() => changeImage(ProductData.image.subUrl3)}
+                    />
+                )}
             </div>
 
             <div className="product-info-title">
@@ -248,13 +276,32 @@ const Product = () => {
                 </button>
 
                 <div className="image-container" style={{maxHeight: isExpanded ? 'none' : '400px'}}>
-                    <img src={ProductData.mainUrl} alt="p-detail-img" className="p-detail-img" style={{marginTop: "96px"}}/>
+                    <img src={ProductData.mainUrl} alt="p-detail-img" className="p-detail-img"
+                         style={{marginTop: "96px"}}/>
                     <h1>DETAILS</h1>
-                    <img src={ProductData.image?.detailUrl1 ?? "기본이미지.png"} alt="p-detail-img" className="p-detail-img"/>
-                    <img src={ProductData.image?.detailUrl2 ?? "기본이미지.png"} alt="p-detail-img" className="p-detail-img" style={{marginTop: "64px"}}/>
-                    <img src={ProductData.image?.detailUrl3 ?? "기본이미지.png"} alt="p-detail-img" className="p-detail-img" style={{marginTop: "64px"}}/>
-                    <h2 style={{marginTop: "100px"}}>*상품의 색상은 모니터 해상도에 따라 실제 색상과 다소 차이가 있을 수 있으며 구매 전 상세 사진을 꼼꼼히 확인 바랍니다.</h2>
-                    <img src={ProductData.image?.detailUrl4 ?? "기본이미지.png"} alt="p-detail-img" className="p-detail-img" style={{marginTop: "5px"}}/>
+
+                    {ProductData.image?.detailUrl1 && (
+                        <img src={ProductData.image.detailUrl1} alt="p-detail-img" className="p-detail-img"/>
+                    )}
+
+                    {ProductData.image?.detailUrl2 && (
+                        <img src={ProductData.image.detailUrl2} alt="p-detail-img" className="p-detail-img"
+                             style={{marginTop: "64px"}}/>
+                    )}
+
+                    {ProductData.image?.detailUrl3 && (
+                        <img src={ProductData.image.detailUrl3} alt="p-detail-img" className="p-detail-img"
+                             style={{marginTop: "64px"}}/>
+                    )}
+
+                    <h2 style={{marginTop: "100px"}}>
+                        *상품의 색상은 모니터 해상도에 따라 실제 색상과 다소 차이가 있을 수 있으며 구매 전 상세 사진을 꼼꼼히 확인 바랍니다.
+                    </h2>
+
+                    {ProductData.image?.detailUrl4 && (
+                        <img src={ProductData.image.detailUrl4} alt="p-detail-img" className="p-detail-img"
+                             style={{marginTop: "5px"}}/>
+                    )}
                 </div>
             </div>
         </div>
