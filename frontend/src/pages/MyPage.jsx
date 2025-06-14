@@ -11,25 +11,11 @@ import UserEdit from "./MyPage/UserEdit.jsx";
 import UserOut from "./MyPage/UserOut.jsx";
 import MyClimb from "./MyPage/MyClimb.jsx";
 import DeliveryAddressForm from "./MyPage/DeliveryAddressForm.jsx";
-import DeliveryAddressManagement from "./MyPage/DeliveryAddressManagement.jsx";
 
 
 const MyPage = () => {
     const [selectedTab, setSelectedTab] = useState("default");
     const [selectedOrder, setSelectedOrder] = useState(null);
-
-    const [editingAddressId, setEditingAddressId] = useState(null);
-
-
-    // 상태 추가
-    const [deliveryAddresses, setDeliveryAddresses] = useState([]);
-
-    // 새 주소 추가 함수
-    const handleAddAddress = (newAddress) => {
-      setDeliveryAddresses((prev) => [...prev, newAddress]);
-      setSelectedTab("DeliveryAddressManagement"); // 등록 후 탭 전환
-    };
-
 
     const renderContent = () => {
         switch (selectedTab) {
@@ -55,17 +41,8 @@ const MyPage = () => {
                 return <UserEdit/>;
             case "UserOut":
                 return <UserOut/>;
-            case "DeliveryAddressManagement":
-                return <DeliveryAddressManagement
-                            setSelectedTab={setSelectedTab}
-                            deliveryAddresses={deliveryAddresses}
-                            setEditingAddressId={setEditingAddressId}
-                       />;
             case "DeliveryAddressForm":
-                return <DeliveryAddressForm
-                            setSelectedTab={setSelectedTab}
-                            onAddAddress={handleAddAddress}
-                       />;
+                return <DeliveryAddressForm/>;
             default:
                 return (
                     <>
@@ -193,23 +170,23 @@ const MyPage = () => {
                     <div className="mypage-tapBox">
                         <h1>나의 쇼핑 정보</h1>
                         <ul>
-                            <li className={selectedTab === "OrderHistory" ? "selected" : ""} onClick={() => setSelectedTab("OrderHistory")} style={{marginTop: "15px"}}>주문내역 조회</li>
-                            <li className={selectedTab === "Savings" ? "selected" : ""} onClick={() => setSelectedTab("Savings")}>적립금 내역</li>
-                            <li className={selectedTab === "DeliveryAddressManagement" ? "selected" : ""} onClick={() => setSelectedTab("DeliveryAddressManagement")}>배송 주소록 관리</li>
+                            <li className={selectedTab === "OrderHistory" ? "selected" : ""} onClick={() => setSelectedTab("OrderHistory")} style={{marginTop: "15px", cursor: "pointer"}}>주문내역 조회</li>
+                            <li style={{ cursor: "pointer" }} className={selectedTab === "Savings" ? "selected" : ""} onClick={() => setSelectedTab("Savings")}>적립금 내역</li>
+                            <li style={{ cursor: "pointer" }} className={selectedTab === "DeliveryAddressForm" ? "selected" : ""} onClick={() => setSelectedTab("DeliveryAddressForm")}>배송 주소록 관리</li>
                         </ul>
 
                         <h1 style={{marginTop: "40px"}}>활동 정보</h1>
                         <ul>
-                            <li style={{marginTop: "15px"}} className={selectedTab === "Recent" ? "selected" : ""} onClick={() => setSelectedTab("Recent")}>최근 본 상품</li>
-                            <li className={selectedTab === "WishList" ? "selected" : ""} onClick={() => setSelectedTab("WishList")}>나의 위시리스트</li>
-                            <li className={selectedTab === "MyClimb" ? "selected" : ""} onClick={() => setSelectedTab("MyClimb")}>저장한 클라이밍 짐</li>
+                            <li style={{marginTop: "15px", cursor: "pointer"}} className={selectedTab === "Recent" ? "selected" : ""} onClick={() => setSelectedTab("Recent")}>최근 본 상품</li>
+                            <li style={{ cursor: "pointer" }} className={selectedTab === "WishList" ? "selected" : ""} onClick={() => setSelectedTab("WishList")}>나의 위시리스트</li>
+                            <li style={{ cursor: "pointer" }} className={selectedTab === "MyClimb" ? "selected" : ""} onClick={() => setSelectedTab("MyClimb")}>저장한 클라이밍 짐</li>
                         </ul>
 
                         <h1 style={{marginTop: "40px"}}>나의 정보</h1>
                         <ul>
-                            <li style={{marginTop: "15px"}} className={selectedTab === "UserEdit" ? "selected" : ""} onClick={() => setSelectedTab("UserEdit")}>회원정보 수정</li>
-                            <li className={selectedTab === "PasswordChange" ? "selected" : ""} onClick={() => setSelectedTab("PasswordChange")}>비밀번호 변경</li>
-                            <li className={selectedTab === "UserOut" ? "selected" : ""} onClick={() => setSelectedTab("UserOut")}>회원 탈퇴</li>
+                            <li style={{marginTop: "15px", cursor: "pointer"}} className={selectedTab === "UserEdit" ? "selected" : ""} onClick={() => setSelectedTab("UserEdit")}>회원정보 수정</li>
+                            <li style={{ cursor: "pointer" }} className={selectedTab === "PasswordChange" ? "selected" : ""} onClick={() => setSelectedTab("PasswordChange")}>비밀번호 변경</li>
+                            <li style={{ cursor: "pointer" }} className={selectedTab === "UserOut" ? "selected" : ""} onClick={() => setSelectedTab("UserOut")}>회원 탈퇴</li>
                         </ul>
                     </div>
 
