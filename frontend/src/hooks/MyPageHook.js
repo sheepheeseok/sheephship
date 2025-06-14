@@ -16,11 +16,11 @@ const MyPageHook = () => {
             const res = await axios.get(`/api/orderList/${loginId}/${startDate}/${endDate}`, {
                 withCredentials: true,
             });
-            console.log("✅ 주문 목록:", res.data);
             setOrderList(res.data);
+            return res.data;
         } catch (err) {
-            console.error("❌ 주문 목록 불러오기 실패:", err);
             setError(err);
+            return [];
         } finally {
             setLoading(false);
         }
@@ -38,6 +38,22 @@ const MyPageHook = () => {
             console.error("❌ 주문 상세 조회 실패:", err);
             setError(err);
             return null;
+        }
+    };
+
+    const loadCancelOrderList = async () => {
+        setLoading(true);
+        try {
+            const res = await axios.get("/api/cancleOrderList", {
+                withCredentials: true,
+            });
+            setOrderList(res.data);
+            return res.data;
+        } catch (err) {
+            console.error("취소 주문 목록 조회 실패:", err);
+            setError(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -86,6 +102,7 @@ const MyPageHook = () => {
         reloadOrderList: fetchOrderList,
         fetchOrderDetail,
         cancelOrder,
+        loadCancelOrderList,
     };
 };
 

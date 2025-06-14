@@ -3,7 +3,15 @@ import OrderContentCard from "../../component/OrderContentCard";
 import MyPageHook from "../../hooks/MyPageHook.js";
 
 const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) => {
-    const { orderList, loading, error, reloadOrderList, cancelOrder } = MyPageHook();
+    const {
+        orderList,
+        loading,
+        error,
+        reloadOrderList,
+        cancelOrder,
+        loadCancelOrderList,
+    } = MyPageHook();
+
     const [orderTab, setOrderTab] = useState("order");
     const [selectedFilter, setSelectedFilter] = useState("오늘");
     const [currentPage, setCurrentPage] = useState(1);
@@ -11,6 +19,9 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
     const sliderRef = useRef(null);
     const [customStartDate, setCustomStartDate] = useState("");
     const [customEndDate, setCustomEndDate] = useState("");
+
+    const [orderCount, setOrderCount] = useState(0);
+    const [cancelCount, setCancelCount] = useState(0);
 
     const filters = ["오늘", "1개월", "3개월", "6개월"];
 
@@ -47,8 +58,41 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
 
     useEffect(() => {
         const { startDate, endDate } = calculateDateRange(selectedFilter);
-        reloadOrderList(startDate, endDate);
+
+        const test = async () => {
+            const res = await reloadOrderList(startDate, endDate);
+        };
+
+        reloadOrderList(startDate, endDate).then((res) => {
+            const count = res?.flatMap(order => order.orderInquiryItemDtoList || []).length || 0;
+            setOrderCount(count);
+        });
+
+        loadCancelOrderList().then((res) => {
+            const count = res?.flatMap(order => order.orderInquiryItemDtoList || []).length || 0;
+            setCancelCount(count);
+        });
+        test();
+    }, []);
+
+
+    useEffect(() => {
+        const count = orderList?.flatMap(order => order.orderInquiryItemDtoList || []).length || 0;
+        if (orderTab === "returns") {
+            setCancelCount(count);
+        } else {
+            setOrderCount(count);
+        }
+    }, [orderList, orderTab]);
+
+
+    useEffect(() => {
+        const index = filters.indexOf(selectedFilter);
+        if (sliderRef.current) {
+            sliderRef.current.style.transform = `translateX(${index * 100}%)`;
+        }
     }, [selectedFilter]);
+
 
     const flattenedOrders = orderList.flatMap(order =>
         order.orderInquiryItemDtoList.map(item => ({
@@ -67,13 +111,6 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
     const startIndex = (currentPage - 1) * ordersPerPage;
     const currentOrders = flattenedOrders.slice(startIndex, startIndex + ordersPerPage);
 
-    useEffect(() => {
-        const index = filters.indexOf(selectedFilter);
-        if (sliderRef.current) {
-            sliderRef.current.style.transform = `translateX(${index * 100}%)`;
-        }
-    }, [selectedFilter]);
-
     return (
         <>
             <div className="mypage-OrderHistory-Title">
@@ -82,10 +119,10 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
 
             <div className="OrderHistory-Tab">
                 <span className={orderTab === "order" ? "selected" : ""} onClick={() => setOrderTab("order")}>
-                    주문내역 조회 ({orders.length})
+                    주문내역 조회 ({orderCount})
                 </span>
                 <span className={orderTab === "returns" ? "selected" : ""} onClick={() => setOrderTab("returns")}>
-                    취소/반품/교환 내역 (0)
+                    취소/반품/교환 내역 ({cancelCount})
                 </span>
             </div>
 
@@ -211,7 +248,51 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
                         </div>
                     </div>
                 ) : (
-                    <p>여기에 취소/반품/교환 내역 표시</p>
+                    <div className="order-Content">
+                        <h2 style={{ marginBottom: "16px" }}>취소/반품/교환 내역</h2>
+
+                        {currentOrders.length === 0 ? (
+                            <p>해당 내역이 없습니다.</p>
+                        ) : (
+                            currentOrders.map((item, index) => (
+                                <OrderContentCard
+                                    key={`${item.orderId}-${index}`}
+                                    product={{
+                                        orderId: item.orderId,
+                                        date: item.orderDate ?? "날짜 없음",
+                                        image: item.image,
+                                        name: item.name,
+                                        price: item.price,
+                                        quantity: item.quantity,
+                                    }}
+                                    onDetailClick={() => {
+                                        setSelectedOrder(item.fullOrder);
+                                        setTimeout(() => setSelectedTab("OrderDetail"), 0);
+                                    }}
+                                    onCancelClick={() => {}}
+                                />
+                            ))
+                        )}
+
+                        {totalPages > 1 && (
+                            <div className="orderh-pagination">
+                                {Array.from({ length: totalPages }).map((_, i) => (
+                                    <span
+                                        key={i}
+                                        className={currentPage === i + 1 ? "page-number active" : "page-number"}
+                                        onClick={() => setCurrentPage(i + 1)}
+                                        style={{
+                                            margin: "0 8px",
+                                            cursor: "pointer",
+                                            fontWeight: currentPage === i + 1 ? "bold" : "normal",
+                                        }}
+                                    >
+                                        {i + 1}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 )}
             </div>
         </>
