@@ -175,4 +175,18 @@
 
     </update>
 
+    <select id="getRecent" resultType="sheepback.service.RecentItemDto">
+        SELECT item_id, name, price, main_url
+        FROM item
+        WHERE item_id IN
+        <foreach collection="itemIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        ORDER BY FIELD(item_id,
+        <foreach collection="itemIds" item="id" separator=",">
+            #{id}
+
+        </foreach>
+        )
+    </select>
 </mapper>

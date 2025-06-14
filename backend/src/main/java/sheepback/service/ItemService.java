@@ -50,7 +50,10 @@ public class ItemService {
         itemMapper.insertItem(insetItemDto);
     }
 
-    public List<RecentItemDto> getRecent
+    public List<RecentItemDto> getRecent(List<Long> itemIds){
+        List<RecentItemDto> dtos = itemMapper.getRecent(itemIds);
+        return dtos;
+    }
 
 }
 

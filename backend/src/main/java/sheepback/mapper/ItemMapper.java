@@ -3,6 +3,7 @@ package sheepback.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import sheepback.Dtos.*;
+import sheepback.service.RecentItemDto;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,4 +53,6 @@ public interface ItemMapper {
     List<ItemStockDto> getStocksForUpdate(@Param("itemDetailIds") List<Long> ids);
 
     int repairStock(@Param("itemDetailId") Long itemDetailId,@Param("quantity") Long quantity);
+
+    List<RecentItemDto> getRecent(@Param("itemIds") List<Long> itemIds);
 }
