@@ -9,7 +9,7 @@ function getCookie(name) {
   return null;
 }
 
-const DeliveryAddressForm = () => {
+const DeliveryAddressForm = ({ onAddAddress, setSelectedTab }) => {
   const [formData, setFormData] = useState({
     recipientName: "",
     zipCode: "",
@@ -20,28 +20,24 @@ const DeliveryAddressForm = () => {
     part3: "",
     emailPrefix: "",
     emailDomain: "",
-    emailDomainOption: "select", // "select" or "direct"
+    emailDomainOption: "select",
     customEmailDomain: "",
-    request: "배송 메시지 선택", // Default value for select
+    request: "배송 메시지 선택",
     isDefaultAddress: false,
   });
-  const [loading, setLoading] = useState(true); // API가 로드되었는지 여부
+
+  const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState(null);
 
-  // API 로드 체크
+  // Daum 주소 API 로드
   useEffect(() => {
-    if (window.daum && window.daum.Postcode) {
-      setLoading(false);  // 이미 로드되었으면 loading false로 설정
+    if (window.daum?.Postcode) {
+      setLoading(false);
     } else {
       const script = document.createElement("script");
-      script.src = "https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js";
-      script.onload = () => {
-        console.log("Daum Postcode script loaded");
-        setLoading(false);  // 로드 완료 후 loading 상태 false로 설정
-      };
-      script.onerror = () => {
-        alert("주소 검색 기능을 불러오지 못했습니다. 다시 시도해주세요.");
-      };
+      script.src = "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+      script.onload = () => setLoading(false);
+      script.onerror = () => alert("주소 검색 기능을 불러오지 못했습니다.");
       document.body.appendChild(script);
     }
   }, []);
@@ -50,76 +46,95 @@ const DeliveryAddressForm = () => {
     setFormData({ ...formData, [field]: e.target.value });
   };
 
-  // ✅ 주소 찾기 함수
   const handleAddressSearch = () => {
     if (loading) {
       alert("주소 검색 기능을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.");
       return;
     }
 
-    if (window.daum && window.daum.Postcode) {
-      new window.daum.Postcode({
-        oncomplete: (data) => {
-          let fullAddress = data.address;
-          let extraAddress = "";
+    new window.daum.Postcode({
+      oncomplete: (data) => {
+        let fullAddress = data.address;
+        let extraAddress = "";
 
-          if (data.addressType === "R") {
-            if (data.bname !== "") extraAddress += data.bname;
-            if (data.buildingName !== "") {
-              extraAddress += extraAddress ? `, ${data.buildingName}` : data.buildingName;
-            }
-            if (extraAddress !== "") {
-              fullAddress += ` (${extraAddress})`;
-            }
-          }
+        if (data.addressType === "R") {
+          if (data.bname) extraAddress += data.bname;
+          if (data.buildingName) extraAddress += (extraAddress ? ", " : "") + data.buildingName;
+          if (extraAddress) fullAddress += ` (${extraAddress})`;
+        }
 
-          setFormData((prev) => ({
-            ...prev,
-            zipCode: data.zonecode,
-            address: fullAddress,
-          }));
-        },
-      }).open();
-    } else {
-      alert("주소 검색 API를 불러오는 데 실패했습니다.");
-    }
+        setFormData((prev) => ({
+          ...prev,
+          zipCode: data.zonecode,
+          address: fullAddress,
+        }));
+      },
+    }).open();
   };
 
-
-  const handleEmailDomainOptionChange = (option) => () => {
-    setFormData({ ...formData, emailDomainOption: option, customEmailDomain: "", emailDomain: "" });
+  const handleEmailDomainOptionChange = (option) => {
+    setFormData({
+      ...formData,
+      emailDomainOption: option,
+      emailDomain: "",
+      customEmailDomain: "",
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const loginId = getCookie("loginId");
     if (!loginId) {
       alert("로그인이 필요합니다.");
       return;
     }
 
+    // 필수 입력값 검증
+      const {
+        recipientName,
+        zipCode,
+        address,
+        detailAddress,
+        part1,
+        part2,
+        part3,
+      } = formData;
+
+      if (
+        !recipientName.trim() ||
+        !zipCode.trim() ||
+        !address.trim() ||
+        !detailAddress.trim() ||
+        !part1.trim() ||
+        !part2.trim() ||
+        !part3.trim()
+      ) {
+        alert("모든 필수 항목을 입력해주세요.");
+        return;
+      }
+
     const fullEmail = formData.emailDomainOption === "direct"
       ? `${formData.emailPrefix}@${formData.customEmailDomain}`
       : `${formData.emailPrefix}@${formData.emailDomain}`;
 
     const payload = {
-      ...formData,
+      recipientName: formData.recipientName,
+      zipCode: formData.zipCode,
+      address: formData.address,
+      detailAddress: formData.detailAddress,
       phoneNumber: `${formData.part1}-${formData.part2}-${formData.part3}`,
       email: fullEmail,
-      emailPrefix: undefined,
-      emailDomainOption: undefined,
-      customEmailDomain: undefined,
-      part1: undefined,
-      part2: undefined,
-      part3: undefined,
+      request: formData.request,
+      isDefaultAddress: formData.isDefaultAddress,
     };
 
-    console.log("Submitting form data:", payload);
-
     try {
-      const res = await axios.post(`/api/addDeliveryAddress/${loginId}`, payload);
-      setResponse(res.data);
+      //const res = await axios.get(`/api/getAddress/{id}${loginId}`, payload);
+      //setResponse(res.data);
       alert("배송 주소록에 추가되었습니다.");
+
+      // 초기화
       setFormData({
         recipientName: "",
         zipCode: "",
@@ -135,9 +150,13 @@ const DeliveryAddressForm = () => {
         request: "배송 메시지 선택",
         isDefaultAddress: false,
       });
+
+      // 전달 함수가 있다면 호출
+      onAddAddress?.();
+      setSelectedTab?.("list");
     } catch (e) {
       alert("배송 주소록 추가에 실패했습니다.");
-      console.error("Error adding delivery address:", e);
+      console.error(e);
     }
   };
 
@@ -149,6 +168,7 @@ const DeliveryAddressForm = () => {
       <div className="DAF-delivery-address-title-bar" />
 
       <form onSubmit={handleSubmit}>
+        {/* 받는 사람 */}
         <div className="DAF-form-row">
           <label className="DAF-form-label">받는사람 *</label>
           <input
@@ -159,13 +179,14 @@ const DeliveryAddressForm = () => {
           />
         </div>
 
+        {/* 주소 */}
         <div className="DAF-form-row" style={{ alignItems: "flex-start" }}>
           <label className="DAF-form-label">주소 *</label>
           <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-            <div className="DAF-form-row" style={{ marginBottom: "8px", gap: "10px", width: "100%" }}>
+            <div className="DAF-form-row" style={{ gap: "10px", marginBottom: "8px" }}>
               <input
                 type="text"
-                className="DAF-form-input-text" /* placeholder로 width 제어 */
+                className="DAF-form-input-text"
                 placeholder="우편번호"
                 value={formData.zipCode}
                 readOnly
@@ -190,35 +211,19 @@ const DeliveryAddressForm = () => {
           </div>
         </div>
 
+        {/* 휴대전화 */}
         <div className="DAF-form-row">
           <label className="DAF-form-label">휴대전화 *</label>
-          <input
-            type="tel"
-            className="DAF-tel-input-part"
-            value={formData.part1}
-            onChange={handleChange("part1")}
-            maxLength={3}
-          />
+          <input type="tel" className="DAF-tel-input-part" value={formData.part1} onChange={handleChange("part1")} maxLength={3} />
           <span className="DAF-tel-dash">-</span>
-          <input
-            type="tel"
-            className="DAF-tel-input-part"
-            value={formData.part2}
-            onChange={handleChange("part2")}
-            maxLength={4}
-          />
+          <input type="tel" className="DAF-tel-input-part" value={formData.part2} onChange={handleChange("part2")} maxLength={4} />
           <span className="DAF-tel-dash">-</span>
-          <input
-            type="tel"
-            className="DAF-tel-input-part"
-            value={formData.part3}
-            onChange={handleChange("part3")}
-            maxLength={4}
-          />
+          <input type="tel" className="DAF-tel-input-part" value={formData.part3} onChange={handleChange("part3")} maxLength={4} />
         </div>
 
+        {/* 이메일 */}
         <div className="DAF-form-row">
-          <label className="DAF-form-label">이메일 *</label>
+          <label className="DAF-form-label">이메일</label>
           <input
             type="text"
             className="DAF-form-input-text DAF-medium"
@@ -230,13 +235,13 @@ const DeliveryAddressForm = () => {
             className="DAF-email-domain-select"
             value={formData.emailDomainOption === "select" ? formData.emailDomain : "direct"}
             onChange={(e) => {
-              if (e.target.value === "direct") {
-                handleEmailDomainOptionChange("direct")();
+              const val = e.target.value;
+              if (val === "direct") {
+                handleEmailDomainOptionChange("direct");
               } else {
-                setFormData({ ...formData, emailDomain: e.target.value, emailDomainOption: "select", customEmailDomain: "" });
+                setFormData({ ...formData, emailDomain: val, emailDomainOption: "select", customEmailDomain: "" });
               }
             }}
-            style={{ width: formData.emailDomainOption === "select" ? "150px" : "auto" }}
           >
             <option value="">선택</option>
             <option value="naver.com">naver.com</option>
@@ -256,6 +261,7 @@ const DeliveryAddressForm = () => {
           )}
         </div>
 
+        {/* 요청사항 */}
         <div className="DAF-form-row">
           <label className="DAF-form-label">요청 사항</label>
           <select
@@ -270,13 +276,14 @@ const DeliveryAddressForm = () => {
           </select>
         </div>
 
-        <div className="DAF-checkbox-group" style={{marginTop: '30px', marginBottom: '40px'}}>
+        {/* 기본배송지 체크 */}
+        <div className="DAF-checkbox-group" style={{ marginTop: '30px', marginBottom: '40px' }}>
           <label className="DAF-checkbox-label">
             <input
               type="checkbox"
               className="DAF-checkbox-input"
               checked={formData.isDefaultAddress}
-              onChange={(e) => setFormData(prev => ({...prev, isDefaultAddress: e.target.checked}))}
+              onChange={(e) => setFormData(prev => ({ ...prev, isDefaultAddress: e.target.checked }))}
             />
             기본 배송지로 저장
           </label>
@@ -289,12 +296,12 @@ const DeliveryAddressForm = () => {
         </div>
       </form>
 
-      <div className="DAF-notice-section" style={{marginTop: '60px'}}>
+      <div className="DAF-notice-section" style={{ marginTop: '60px' }}>
         <h2>배송 주소록 유의사항</h2>
         <div className="DAF-notice-bar" />
         <p className="DAF-notice-text">
-          • 배송 주소록은 최대 10개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동 업데이트 됩니다.<br/>
-          • 자동 업데이트를 원하지 않을 경우 주소록 고정 선택을 선택하시면 선택된 주소록은 업데이트 대상에서 제외됩니다.<br/>
+          • 배송 주소록은 최대 10개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동 업데이트 됩니다.<br />
+          • 자동 업데이트를 원하지 않을 경우 주소록 고정 선택을 선택하시면 선택된 주소록은 업데이트 대상에서 제외됩니다.<br />
           • 기본 배송지는 1개만 저장됩니다. 다른 배송지를 기본 배송지로 설정하시면 기본 배송지가 변경됩니다.
         </p>
       </div>
