@@ -11,11 +11,25 @@ import UserEdit from "./MyPage/UserEdit.jsx";
 import UserOut from "./MyPage/UserOut.jsx";
 import MyClimb from "./MyPage/MyClimb.jsx";
 import DeliveryAddressForm from "./MyPage/DeliveryAddressForm.jsx";
+import DeliveryAddressManagement from "./MyPage/DeliveryAddressManagement.jsx";
 
 
 const MyPage = () => {
     const [selectedTab, setSelectedTab] = useState("default");
     const [selectedOrder, setSelectedOrder] = useState(null);
+
+    const [editingAddressId, setEditingAddressId] = useState(null);
+
+
+    // 상태 추가
+    const [deliveryAddresses, setDeliveryAddresses] = useState([]);
+
+    // 새 주소 추가 함수
+    const handleAddAddress = (newAddress) => {
+      setDeliveryAddresses((prev) => [...prev, newAddress]);
+      setSelectedTab("DeliveryAddressManagement"); // 등록 후 탭 전환
+    };
+
 
     const renderContent = () => {
         switch (selectedTab) {
@@ -41,8 +55,17 @@ const MyPage = () => {
                 return <UserEdit/>;
             case "UserOut":
                 return <UserOut/>;
+            case "DeliveryAddressManagement":
+                return <DeliveryAddressManagement
+                            setSelectedTab={setSelectedTab}
+                            deliveryAddresses={deliveryAddresses}
+                            setEditingAddressId={setEditingAddressId}
+                       />;
             case "DeliveryAddressForm":
-                return <DeliveryAddressForm/>;
+                return <DeliveryAddressForm
+                            setSelectedTab={setSelectedTab}
+                            onAddAddress={handleAddAddress}
+                       />;
             default:
                 return (
                     <>
@@ -67,7 +90,6 @@ const MyPage = () => {
                             </div>
                             <img src="/icons/mypage-Vector.svg" alt="Tracker-Vector" className="Tracker-Vector"/>
                             <div className="Tracker-Fourth">
-                                <h1>0</h1>
                                 <h2>배송 완료</h2>
                             </div>
                         </div>
@@ -173,7 +195,7 @@ const MyPage = () => {
                         <ul>
                             <li className={selectedTab === "OrderHistory" ? "selected" : ""} onClick={() => setSelectedTab("OrderHistory")} style={{marginTop: "15px"}}>주문내역 조회</li>
                             <li className={selectedTab === "Savings" ? "selected" : ""} onClick={() => setSelectedTab("Savings")}>적립금 내역</li>
-                            <li className={selectedTab === "DeliveryAddressForm" ? "selected" : ""} onClick={() => setSelectedTab("DeliveryAddressForm")}>배송 주소록 관리</li>
+                            <li className={selectedTab === "DeliveryAddressManagement" ? "selected" : ""} onClick={() => setSelectedTab("DeliveryAddressManagement")}>배송 주소록 관리</li>
                         </ul>
 
                         <h1 style={{marginTop: "40px"}}>활동 정보</h1>

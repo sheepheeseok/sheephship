@@ -17,6 +17,8 @@ const UserEdit = () => {
         zipCode: "",
         address: "",
         detailAddress: "",
+        emailAgree: true, // 추가: 이메일 수신 동의
+        smsAgree: true,   // 추가: SMS 수신 동의
     });
 
     const [passwordMatchError, setPasswordMatchError] = useState(false);
@@ -26,7 +28,7 @@ const UserEdit = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.post("/api/updateMemberInfo", null, {
+                const response = await axios.post("http://localhost:8080/api/updateMemberInfo", null, { // 예시: 실제 API 엔드포인트로 변경
                     withCredentials: true,
                 });
 
@@ -43,16 +45,19 @@ const UserEdit = () => {
                     part2: phoneParts[1],
                     part3: phoneParts[2],
                     email: emailParts[0],
-                    domain: emailParts[1],
+                    domain: emailParts[1], // 이메일 도메인 설정
                     customDomain: "",
                     zipCode: data.address?.zipCode || "",
                     address: data.address?.firstAddress || "",
                     detailAddress: data.address?.secondAddress || "",
+                    emailAgree: data.emailAgree || true, // API 응답에 따라 설정
+                    smsAgree: data.smsAgree || true,     // API 응답에 따라 설정
                 });
 
                 setEmailOption(emailParts[1] || "");
             } catch (error) {
                 console.error("사용자 정보를 불러오지 못했습니다:", error);
+                // 실제 서비스에서는 에러 처리 (예: 사용자에게 메시지 표시)
             }
         };
 
@@ -63,6 +68,11 @@ const UserEdit = () => {
         script.async = true;
         document.body.appendChild(script);
     }, []);
+
+    // ✅ 공통 input 변경 핸들러
+    const handleChange = (field) => (e) => {
+        setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+    };
 
     // ✅ 주소 찾기 함수
     const handleAddressSearch = () => {
@@ -129,7 +139,7 @@ const UserEdit = () => {
             id: formData.userId,
             name: formData.name,
             ...(formData.password && { password: formData.password }),
-            password: formData.password,
+            password: formData.password, // 비밀번호 필드 추가
             phoneNumber,
             email: fullEmail,
             address: {
@@ -137,15 +147,18 @@ const UserEdit = () => {
                 firstAddress: formData.address,
                 secondAddress: formData.detailAddress,
             },
+            // 동의 여부 필드 추가 (API에 맞게 조정)
+            emailAgree: formData.emailAgree,
+            smsAgree: formData.smsAgree,
         };
 
         try {
-            const response = await axios.post("http://localhost:8080/api/updateMember", userData, {
+            const response = await axios.post("http://localhost:8080/api/updateMember", userData, { // 예시: 실제 API 엔드포인트로 변경
                 withCredentials: true,
             });
             console.log("서버 응답 데이터:", response.data);
             alert("회원 정보가 성공적으로 수정되었습니다.");
-            navigate("/");
+            navigate("/"); // 수정 후 홈으로 이동
         } catch (error) {
             console.error("회원 정보 수정 실패:", error);
             if (error.response) {
@@ -158,92 +171,136 @@ const UserEdit = () => {
     };
 
     return (
-        <div className="user-edit-container">
-            <div className="user-edit-title">회원정보 수정</div>
+        <>
+            <div className="useredit-title">회원정보 수정</div>
+            <div className="useredit-title-bar" />
 
-            <div className="user-edit-box">
-                <div className="user-edit-greeting">
-                    <div className="greeting-image" />
-                    <div className="greeting-text">
-                        <p><strong>안녕하세요. {formData.name} 님!</strong></p>
-                        <p>회원가입해주셔서 감사합니다.</p>
-                        <p><span className="highlight">5,000원</span>의 가입 축하 <span className="highlight">YELLOW 적립금</span>을 드렸습니다.</p>
-                    </div>
+        <div className="useredit-container">
+            <div className="useredit-greeting-box">
+                <div className="useredit-greeting-image" />
+                <div className="useredit-greeting-text">
+                    <p><strong>안녕하세요. {formData.name} 님!</strong></p>
+                    <p>회원님의 회원등급은 <span className="useredit-highlight">RED</span> 입니다.</p>
+                    <p><span className="useredit-highlight">50,000원</span> 이상 구매시 <span className="useredit-highlight useredit-yellow">YELLOW</span> 등급으로 올라갑니다.</p>
                 </div>
             </div>
 
-            <div className="user-edit-line" />
+            <h2 className="useredit-section-title">기본정보</h2>
+            <div className="useredit-section-bar" /> {/* "기본정보" 아래의 선 */}
 
-            <form className="user-edit-form" onSubmit={handleSubmit}>
-                <div className="form-group">
+            <form className="useredit-form" onSubmit={handleSubmit}>
+                <div className="useredit-form-group">
                     <label>아이디 *</label>
-                    <input type="text" value={formData.userId} disabled />
+                    <input type="text" className="useredit-input" value={formData.userId} disabled />
                 </div>
 
-                <div className="form-group">
+                <div className="useredit-form-group">
                     <label>이메일 *</label>
-                    <input type="text" value={formData.email} onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))} />
-                    <div className="radio-group">
-                        <label><input type="radio" name="emailAgree" defaultChecked /> 수신함</label>
-                        <label><input type="radio" name="emailAgree" /> 수신안함</label>
-                    </div>
-                </div>
-
-                <div className="form-group">
-                    <label>이름 *</label>
-                    <input type="text" value={formData.name} disabled />
-                </div>
-
-                <div className="form-group">
-                    <label>배송지 정보 *</label>
-                    <div className="address-row">
-                        <input type="text" placeholder="우편번호" value={formData.zipCode} readOnly />
-                        <button type="button" className="btn-lookup" onClick={handleAddressSearch}>주소찾기</button>
-                    </div>
-                    <input type="text" placeholder="기본 주소" value={formData.address} readOnly />
                     <input
                         type="text"
+                        className="useredit-input"
+                        value={formData.email}
+                        onChange={handleChange("email")}
+                    />
+                    <div className="useredit-radio-group">
+                        <label>
+                            <input
+                                type="radio"
+                                name="emailAgree"
+                                checked={formData.emailAgree}
+                                onChange={() => setFormData((prev) => ({ ...prev, emailAgree: true }))}
+                            />
+                            수신함
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="emailAgree"
+                                checked={!formData.emailAgree}
+                                onChange={() => setFormData((prev) => ({ ...prev, emailAgree: false }))}
+                            />
+                            수신안함
+                        </label>
+                    </div>
+                </div>
+
+                <div className="useredit-form-group">
+                    <label>이름 *</label>
+                    <input type="text" className="useredit-input" value={formData.name} disabled />
+                </div>
+
+                <div className="useredit-form-group">
+                    <label>배송지 정보 *</label>
+                    <div className="useredit-address-row">
+                        <input type="text" className="useredit-input" placeholder="우편번호" value={formData.zipCode} readOnly />
+                        <button type="button" className="useredit-btn-lookup" onClick={handleAddressSearch}>주소찾기</button>
+                    </div>
+                    <input type="text" className="useredit-input" placeholder="기본 주소" value={formData.address} readOnly />
+                    <input
+                        type="text"
+                        className="useredit-input"
                         placeholder="상세 주소"
                         value={formData.detailAddress}
-                        onChange={(e) =>
-                            setFormData((prev) => ({ ...prev, detailAddress: e.target.value }))
-                        }
+                        onChange={handleChange("detailAddress")}
                     />
                 </div>
 
-                <div className="form-group">
+                <div className="useredit-form-group">
                     <label>휴대전화 *</label>
-                    <div className="phone-row">
+                    <div className="useredit-phone-row">
                         <input
                             type="text"
+                            className="useredit-input"
                             value={formData.part1}
+                            maxLength="3"
                             onChange={(e) => handlePhoneChange("part1", e.target.value)}
                         />
                         <span>-</span>
                         <input
                             type="text"
+                            className="useredit-input"
                             value={formData.part2}
+                            maxLength="4"
                             onChange={(e) => handlePhoneChange("part2", e.target.value)}
                         />
                         <span>-</span>
                         <input
                             type="text"
+                            className="useredit-input"
                             value={formData.part3}
+                            maxLength="4"
                             onChange={(e) => handlePhoneChange("part3", e.target.value)}
                         />
                     </div>
-                    <div className="radio-group">
-                        <label><input type="radio" name="smsAgree" defaultChecked /> 수신함</label>
-                        <label><input type="radio" name="smsAgree" /> 수신안함</label>
+                    <div className="useredit-radio-group">
+                        <label>
+                            <input
+                                type="radio"
+                                name="smsAgree"
+                                checked={formData.smsAgree}
+                                onChange={() => setFormData((prev) => ({ ...prev, smsAgree: true }))}
+                            />
+                            수신함
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="smsAgree"
+                                checked={!formData.smsAgree}
+                                onChange={() => setFormData((prev) => ({ ...prev, smsAgree: false }))}
+                            />
+                            수신안함
+                        </label>
                     </div>
                 </div>
 
-                <div className="button-group">
-                    <button type="button" className="btn-cancel" onClick={() => navigate(-1)}>취소</button>
-                    <button type="submit" className="btn-submit">수정</button>
+                <div className="useredit-button-group">
+                    <button type="button" className="useredit-btn-cancel" onClick={() => navigate(-1)}>취소</button>
+                    <button type="submit" className="useredit-btn-submit">수정</button>
                 </div>
             </form>
         </div>
+        </>
     );
 };
 
