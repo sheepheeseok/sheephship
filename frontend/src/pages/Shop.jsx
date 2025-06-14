@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import ShopHook from "../hooks/ShopHook.js";
 
 const allProducts = [
     { id: 1, title: "와이드 턱 팬츠 스프링 믹스", price: "92,000원", img: "/imgs/shop/pants1-1.jpg", category: "BOTTOM"},
@@ -32,7 +32,7 @@ const allProducts = [
 ];
 
 const Shop = () => {
-    const navigate = useNavigate();
+    const { handleClickProduct } = ShopHook();
     const [currentPage, setCurrentPage] = useState(1);
     const [activeMenu, setActiveMenu] = useState("ALL");
     const productsPerPage = 16;
@@ -64,21 +64,6 @@ const Shop = () => {
         }
     };
 
-    const handleProductClick = (product) => {
-        const stored = localStorage.getItem("recentItems");
-        let recentItems = stored ? JSON.parse(stored) : [];
-
-        recentItems = recentItems.filter((item) => item.id !== product.id);
-        recentItems.unshift(product);
-
-        if (recentItems.length > 20) {
-            recentItems = recentItems.slice(0, 20);
-        }
-
-        localStorage.setItem("recentItems", JSON.stringify(recentItems));
-        navigate(`/product/${product.id}`);
-    };
-
     return (
         <div className="container">
             <div className="shop-container">
@@ -95,7 +80,7 @@ const Shop = () => {
                         <div
                             className="product-item"
                             key={product.id}
-                            onClick={() => handleProductClick(product)}
+                            onClick={() => handleClickProduct(product.id)}
                             style={{ cursor: "pointer" }}
                         >
                             <img src={product.img} alt={product.title} />
