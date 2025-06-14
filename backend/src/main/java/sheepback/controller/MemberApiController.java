@@ -31,6 +31,7 @@ public class MemberApiController {
     @PostMapping("/api/signup")
     public String signup(@RequestBody @Valid RegisterRequest registerRequest) {
 
+
         Member member = Member.builder()
                 .id(registerRequest.getId())
                 .name(registerRequest.getName())
@@ -42,10 +43,11 @@ public class MemberApiController {
                 .agreeMarketing(registerRequest.isAgreeMarketing())
                 .agreeAge(registerRequest.isAgreeAge())
                 .build();
-
+        System.out.println("member.getid = " + member.getId());
         memberService.joinMember(member);
         return "회원가입 성공";
     }
+
     @PostMapping("/api/deleteMember")
     public String deleteMeber(@RequestBody @Valid GetId id){
         Member deleteMember = memberService.getMemberById(id.getId());
@@ -258,8 +260,6 @@ public class MemberApiController {
 
 
     }
-
-
     @Data
     private static class MemberDto{
         String id;

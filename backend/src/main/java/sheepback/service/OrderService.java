@@ -65,7 +65,7 @@ public class OrderService {
         return items;
     }
 
-    @Transactional
+
     public void cancelStockReservation(List<CancelReserveRequest> requests, String memberId) {
         for (CancelReserveRequest req : requests) {
             // 1. 예약 상태 조회 (최근 1개)
@@ -109,6 +109,7 @@ public class OrderService {
     //주문 상태 들어갈시 원자적 쿼리와 함께 예약 테이블에 구매할 재고를 추가 그전에 재고가 없다면 false 출력
     @Transactional
     public List<Long> reserveMultipleStocks(List<StockReserveRequest> requests) {
+
         // 1. 모든 재고를 락과 함께 조회
         List<Long> ids = requests.stream().map(StockReserveRequest::getItemDetailId).collect(Collectors.toList());
         List<ItemStockDto> stocks = itemMapper.getStocksForUpdate(ids);
@@ -121,6 +122,7 @@ public class OrderService {
         for (StockReserveRequest req : requests) {
 
             if (stockMap.getOrDefault(req.getItemDetailId(), 0L) < req.getQuantity()) {
+
                 throw new RuntimeException("재고 부족: " + req.getItemDetailId());
             }
 
