@@ -9,5 +9,6 @@ public class RecentItemDto {
     private String name;
     private Long price;
     private String mainUrl;
+    private String produce;
 
 }

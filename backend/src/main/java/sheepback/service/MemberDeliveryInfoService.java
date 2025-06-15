@@ -42,13 +42,22 @@ public class MemberDeliveryInfoService {
     //배송정보 삭제
     public void deleteDeliveryInfo(String memberId, Long deliveryInfoId) {
         //배송지 정보 확인후 해당 배송지가 기본 배송지면 아무거나 기본배송지로 만들기
-        memberDeliveryInfoMapper.deleteDeliveryInfo(memberId, deliveryInfoId);
+        Long l = memberDeliveryInfoMapper.isbasicdeliveryInfo(memberId, deliveryInfoId);
+        if(l == 1){
+            memberDeliveryInfoMapper.deleteDeliveryInfo(memberId, deliveryInfoId);
+            memberDeliveryInfoMapper.setFirstDeliveryAsDefault(memberId);
+        }
+        else{
+            memberDeliveryInfoMapper.deleteDeliveryInfo(memberId, deliveryInfoId);
+        }
+
     }
 
 
     //멤버아이디로 배송정보가져오기
     public List<MemberDeliveryInfoDto> findByMemberId(String memberId) {
        List<MemberDeliveryInfoDto> dtos = memberDeliveryInfoMapper.getDeliveryInfoListByMemberId(memberId);
+
        return dtos;
     }
 

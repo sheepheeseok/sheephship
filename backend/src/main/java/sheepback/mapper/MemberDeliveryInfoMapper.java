@@ -20,5 +20,8 @@ public interface MemberDeliveryInfoMapper {
 
     void deleteDeliveryInfo(@Param("memberId") String memberId,@Param("deliveryInfoId") Long deliveryInfoId);
 
+    void setFirstDeliveryAsDefault(@Param("memberId") String memberId);
     List<MemberDeliveryInfoDto> getDeliveryInfoListByMemberId(@Param("memberId") String memberId);
+
+    Long isbasicdeliveryInfo(@Param("memberId") String memberId,@Param("deliveryInfoId") Long deliveryInfoId);
 }

@@ -176,7 +176,7 @@
     </update>
 
     <select id="getRecent" resultType="sheepback.service.RecentItemDto">
-        SELECT item_id, name, price, main_url
+        SELECT item_id, name, price, main_url, produce
         FROM item
         WHERE item_id IN
         <foreach collection="itemIds" item="id" open="(" separator="," close=")">
