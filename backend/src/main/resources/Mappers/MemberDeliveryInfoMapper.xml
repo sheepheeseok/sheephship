@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sheepback.mapper.MemberDeliveryInfoMapper">
+
+
+    <insert id="insertDeliveryInfo" useGeneratedKeys="true" keyProperty="deliveryInfoId">
+        insert into member_delivery_info (member_id,first_address,second_address,phone_number,email )
+        values (#{memberId},#{firstAddress},#{secondAddress},#{phoneNumber},#{email})
+    </insert>
+    <update id="setrecentDeliveryInfo">
+        UPDATE member_delivery_info
+        SET basic_delivery_info = 0
+        WHERE member_id = #{memberId}
+          AND delivery_info_id != #{deliveryInfoId};
+
+    </update>
+    <update id="setBasicDeliveryInfo">
+        UPDATE member_delivery_info
+        SET basic_delivery_info = 1
+        WHERE delivery_info_id = #{deliveryInfoId};
+
+    </update>
+    <update id="updateDeliveryInfo">
+
+    update member_delivery_info
+    set first_address = #{firstAddress},
+        second_address = #{secondAddress},
+        phone_number = #{phoneNumber},
+        email = #{email}
+    where delivery_info_id = #{deliveryInfoId} and member_id = #{memberId}
+
+    </update>
+    <delete id="deleteDeliveryInfo">
+        delete from member_delivery_info
+        where member_id = #{memberId} and delivery_info_id = #{deliveryInfoId}
+    </delete>
+    <select id="getDeliveryInfoListByMemberId">
+        select * from member_delivery_info where member_id = #{memberId}
+    </select>
+</mapper>
