@@ -38,4 +38,22 @@
     <select id="getDeliveryInfoListByMemberId">
         select * from member_delivery_info where member_id = #{memberId}
     </select>
+
+    <select id="isbasicdeliveryInfo" resultType="java.lang.Long">
+        select basic_delivery_info from member_delivery_info
+        where member_id = #{member_id} and delivery_info_id = #{deliveryInfoId}
+    </select>
+
+    <update id="setFirstDeliveryAsDefault">
+        UPDATE member_delivery_info
+        SET basic_delivery_info = CASE
+                                      WHEN delivery_info_id = (
+                                          SELECT MAX(delivery_info_id)
+                                          FROM member_delivery_info
+                                          WHERE member_id = #{memberId}
+                                      ) THEN 1
+                                      ELSE 0
+            END
+        WHERE member_id = #{memberId}
+    </update>
 </mapper>
