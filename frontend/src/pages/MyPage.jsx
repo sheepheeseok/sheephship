@@ -193,7 +193,7 @@ const MyPage = () => {
                     <div className="mypage-tapBox">
                         <h1>나의 쇼핑 정보</h1>
                         <ul>
-                            <li style={{marginTop: "15px", cursor: "pointer"}} className={selectedTab === "OrderHistory" ? "selected" : ""} onClick={() => setSelectedTab("OrderHistory")} style={{marginTop: "15px"}}>주문내역 조회</li>
+                            <li style={{marginTop: "15px", cursor: "pointer"}} className={selectedTab === "OrderHistory" ? "selected" : ""} onClick={() => setSelectedTab("OrderHistory")}>주문내역 조회</li>
                             <li style={{cursor: "pointer"}} className={selectedTab === "Savings" ? "selected" : ""} onClick={() => setSelectedTab("Savings")}>적립금 내역</li>
                             <li style={{cursor: "pointer"}} className={selectedTab === "DeliveryAddressManagement" ? "selected" : ""} onClick={() => setSelectedTab("DeliveryAddressManagement")}>배송 주소록 관리</li>
                         </ul>

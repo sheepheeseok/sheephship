@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-const OrderContentCard = ({ product, onDetailClick, onCancelClick }) => {
+const OrderContentCard = ({ product, onDetailClick, onCancelClick, type }) => {
   const [activeButton, setActiveButton] = useState(null);
-  const navigate = useNavigate();
 
   const handleClick = (buttonName) => {
     setActiveButton(buttonName);
@@ -34,7 +32,7 @@ const OrderContentCard = ({ product, onDetailClick, onCancelClick }) => {
           </div>
           <div className="order-card-button-wrap">
             {/* 조건부 버튼 렌더링 */}
-            {canCancel && (
+            {type === "order" && (
                 <button
                     className={activeButton === "주문취소" ? "active" : ""}
                     onClick={() => handleClick("주문취소")}

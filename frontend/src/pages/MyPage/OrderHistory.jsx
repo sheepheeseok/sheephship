@@ -186,6 +186,7 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
                         {currentOrders.map((item, index) => (
                             <OrderContentCard
                                 key={`${item.orderId}-${index}`}
+                                type={orderTab === "order" ? "order" : "cancel"}
                                 product={{
                                     orderId: item.orderId,
                                     date: item.orderDate ?? "날짜 없음",

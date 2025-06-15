@@ -36,7 +36,7 @@ const Recent = () => {
               <>
                 <div className="Recent-Items">
                   {currentItems.map((item) => (
-                      <div key={item.id} className="Recent-Item">
+                      <div key={item.itemId} className="Recent-Item">
                         <img
                             src={item.mainUrl}
                             alt={item.name}

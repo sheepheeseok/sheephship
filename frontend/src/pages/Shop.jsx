@@ -7,8 +7,7 @@ const Shop = () => {
 
     const category = activeMenu;
 
-    const { products = [], totalCount = 1, loading, error, handleClickProduct } = ShopHook(category, currentPage);
-
+    const { products = [], totalCount = 1, loading, error, handleClickProduct, addWish, handleAddToWishList } = ShopHook(category, currentPage);
 
     const productsPerPage = 16;
     const totalPages = Math.max(1, Math.ceil(totalCount / productsPerPage));
@@ -22,19 +21,6 @@ const Shop = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-
-    const handleAddToWishList = (product) => {
-        const existing = JSON.parse(localStorage.getItem("wishItems")) || [];
-        const isDuplicate = existing.find(item => item.id === product.id);
-
-        if (!isDuplicate) {
-            const updated = [...existing, product];
-            localStorage.setItem("wishItems", JSON.stringify(updated));
-            alert("위시리스트에 추가되었습니다!");
-        } else {
-            alert("이미 위시리스트에 있습니다.");
-        }
-    };
 
     return (
         <div className="container">
@@ -63,7 +49,8 @@ const Shop = () => {
                                 <img src={product.mainUrl} alt={product.name}/>
                                 <p>{product.name}</p>
                                 <strong>{product.price}원</strong>
-                                <button className="wish-btn" onClick={(e) => {
+                                <button className="wish-btn" onClick={(e
+                                ) => {
                                     e.stopPropagation();
                                     handleAddToWishList(product);
                                 }}>WISH
