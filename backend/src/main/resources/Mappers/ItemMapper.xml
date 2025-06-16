@@ -53,7 +53,7 @@
         INNER JOIN item_category ic ON i.item_id = ic.item_id
         INNER JOIN category c ON ic.category_id = c.category_id
         <where>
-            <if test="category != null and category != 'all'">
+            <if test="category != null and category != 'ALL'">
                 c.name = #{category}
             </if>
         </where>
