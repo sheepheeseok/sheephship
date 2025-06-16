@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import OrderSection from "./MyPage/OrderSection";
 import OrderHistory from "./MyPage/OrderHistory.jsx";
 import PasswordChange from "./MyPage/PasswordChange.jsx";
@@ -12,17 +12,46 @@ import UserOut from "./MyPage/UserOut.jsx";
 import MyClimb from "./MyPage/MyClimb.jsx";
 import DeliveryAddressForm from "./MyPage/DeliveryAddressForm.jsx";
 import DeliveryAddressManagement from "./MyPage/DeliveryAddressManagement.jsx";
+import MyPageHook from "../hooks/MyPageHook.js";
 
 
 const MyPage = () => {
     const [selectedTab, setSelectedTab] = useState("default");
     const [selectedOrder, setSelectedOrder] = useState(null);
+    const { members, userInfo, loading, error, loadMembers, loadCurrentUserInfo } = MyPageHook();
+
+    useEffect(() => {
+        loadMembers();
+        loadCurrentUserInfo(); // ✅ 사용자 정보 불러오기
+    }, []);
 
     const [editingAddressId, setEditingAddressId] = useState(null);
 
-
     // 상태 추가
     const [deliveryAddresses, setDeliveryAddresses] = useState([]);
+
+    const gradeInfo = {
+        RED: { discount: 0.03, image: "/imgs/grade/red_grade.png" },
+        YELLOW: { discount: 0.05, image: "/imgs/grade/yellow_grade.png" },
+        NAVY: { discount: 0.07, image: "/imgs/grade/navy_grade.png" },
+        PURPLE: { discount: 0.09, image: "/imgs/grade/purple_grade.png" },
+        BROWN: { discount: 0.12, image: "/imgs/grade/brown_grade.png" },
+        BLACK: { discount: 0.15, image: "/imgs/grade/black_grade.png" },
+    };
+
+    const gradeColors = {
+        RED: "#e74c3c",
+        YELLOW: "#f1c40f",
+        NAVY: "#34495e",
+        PURPLE: "#9b59b6",
+        BROWN: "#8e6e53",
+        BLACK: "#000000",
+    };
+
+    const userGrade = userInfo?.grade?.toUpperCase(); // "RED" 등
+    const gradeImage = gradeInfo[userGrade]?.image || "/imgs/grade/default.png";
+    const gradeDiscount = gradeInfo[userGrade]?.discount || 0;
+    const gradeColor = gradeColors[userGrade] || "#333";
 
     // 새 주소 추가 함수
     const handleAddAddress = (newAddress) => {
@@ -90,21 +119,8 @@ const MyPage = () => {
                             </div>
                             <img src="/icons/mypage-Vector.svg" alt="Tracker-Vector" className="Tracker-Vector"/>
                             <div className="Tracker-Fourth">
+                                <h1>0</h1>
                                 <h2>배송 완료</h2>
-                            </div>
-                        </div>
-                        <div className="mypage-paymentInfo">
-                            <div className="paymentInfo-text">
-                                <h1>취소 :</h1>
-                                <span>0</span>
-                            </div>
-                            <div className="paymentInfo-text">
-                                <h1>교환 :</h1>
-                                <span>0</span>
-                            </div>
-                            <div className="paymentInfo-text" style={{borderRight: "none"}}>
-                                <h1>반품 :</h1>
-                                <span>0</span>
                             </div>
                         </div>
                         <h1 style={{marginTop: "40px"}}>주문내역 조회</h1>
@@ -127,8 +143,8 @@ const MyPage = () => {
                 {showUserInfo && (
                     <div className="mypage-userinfoBox">
                         <div className="mypage-userinfo">
-                            <h1>안녕하세요. 배호준님!</h1>
-                            <h2>회원님의 회원등급은 <a>RED</a> 입니다.</h2>
+                            <h1>안녕하세요. {userInfo?.name ?? "고객"}님!</h1>
+                            <h2>회원님의 회원등급은 <a style={{ color: gradeColor}}>{userInfo?.grade ?? "일반"}</a> 입니다.</h2>
                         </div>
                         <div className="mypage-usergrade">
                             <div className="mypage-usergradeBox">
@@ -171,20 +187,8 @@ const MyPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <img src="/imgs/grade/red_grade.png" alt="usergrade" className="mypage-usergrade"/>
-                            <a>RED</a>
-                        </div>
-
-                        <div className="mypage-mileage">
-                            <img src="/icons/mypage-mileage.svg" alt="mileage-icon" className="mypage-mileage"/>
-                            <h1>0 원</h1>
-                            <h2>총 적립금</h2>
-                        </div>
-
-                        <div className="mypage-deliverly">
-                            <img src="/icons/mypage-deliverly.svg" alt="deliverly-icon" className="mypage-deliverly"/>
-                            <h1>0 회</h1>
-                            <h2>총 주문횟수</h2>
+                            <img src={gradeImage} alt="user-grade" className="mypage-usergrade"/>
+                            <a style={{ color: gradeColor}}>{userGrade || "등급없음"}</a>
                         </div>
                     </div>
                 )}
@@ -202,7 +206,6 @@ const MyPage = () => {
                         <ul>
                             <li style={{marginTop: "15px", cursor: "pointer"}} className={selectedTab === "Recent" ? "selected" : ""} onClick={() => setSelectedTab("Recent")}>최근 본 상품</li>
                             <li style={{cursor: "pointer"}} className={selectedTab === "WishList" ? "selected" : ""} onClick={() => setSelectedTab("WishList")}>나의 위시리스트</li>
-                            <li style={{cursor: "pointer"}} className={selectedTab === "MyClimb" ? "selected" : ""} onClick={() => setSelectedTab("MyClimb")}>저장한 클라이밍 짐</li>
                         </ul>
 
                         <h1 style={{marginTop: "40px"}}>나의 정보</h1>

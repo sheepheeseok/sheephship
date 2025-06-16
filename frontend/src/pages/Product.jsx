@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import useProduct from "../hooks/ProductHook";
+import {useNavigate, useParams} from "react-router-dom";
 
 const Product = () => {
     const { ProductData, loading, error, handleSubmit, handleAddToCart } = useProduct();
-
+    const navigate = useNavigate();
+    const handlePostQuestion = () => {
+        navigate("/inquiry", { state: { itemId: ProductData.itemId } });
+    };
     const [isExpanded, setIsExpanded] = useState(false);
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
@@ -302,6 +306,24 @@ const Product = () => {
                         <img src={ProductData.image.detailUrl4} alt="p-detail-img" className="p-detail-img"
                              style={{marginTop: "5px"}}/>
                     )}
+                </div>
+            </div>
+            <div className="QestionBox-container">
+                <h1>후기</h1>
+                <div style={{color: "#cccccc", height: "0.5px"}} className="Recent-Line2"/>
+                <div className="QuestionBox"></div>
+                <div style={{color: "#cccccc", height: "0.5px"}} className="Recent-Line2"/>
+                <div className="QuestionButton">
+                    <button>POST REVIEW</button>
+                </div>
+            </div>
+            <div className="SeviceBox-container">
+                <h1>질문</h1>
+                <div style={{color: "#cccccc", height: "0.5px"}} className="Recent-Line2"/>
+                <div className="QuestionBox"></div>
+                <div style={{color: "#cccccc", height: "0.5px"}} className="Recent-Line2"/>
+                <div className="QuestionButton">
+                    <button onClick={handlePostQuestion}>POST REVIEW</button>
                 </div>
             </div>
         </div>

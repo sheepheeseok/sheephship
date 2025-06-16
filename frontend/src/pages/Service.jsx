@@ -51,9 +51,6 @@ const SERVICE = () => {
   const handleSearch = () => {
     console.log('Searching for:', searchText);
   };
-  const handlePostQuestion = () => {
-    navigate('/inquiry');
-  };
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -93,7 +90,6 @@ const SERVICE = () => {
             onChange={(e) => setSearchText(e.target.value)}
           />
           <button className="searchButton">SEARCH</button>
-          <button className="postButton" onClick={handlePostQuestion}>POST QUESTION</button>
         </div>
         <div className="service-pagination">
           {[1, 2, 3, 4, 5].map((page) => (

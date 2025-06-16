@@ -415,7 +415,7 @@ body {
 .mypage-userinfo {
     display: flex;
     flex-direction: column;
-    width: 610px;
+    width: 100%;
     height: 100%;
     align-items: center;
     justify-content: center;
@@ -442,7 +442,7 @@ body {
 .mypage-usergrade {
     display: flex;
     flex-direction: column;
-    width: 244px;
+    width: 400px;
     height: 100%;
     align-items: center;
     justify-content: center;
@@ -1417,6 +1417,8 @@ body {
     height: 100%;
     margin-top: 61px;
     padding-top: 150px;
+
+    position: relative;
 }
 .product-info-box h1 {
     font-family: NotoSansKR-Bold;
@@ -1498,7 +1500,7 @@ body {
 .expand-btn {
     font-family: NotoSansKR-Bold;
     position: absolute;
-    bottom: 230px;
+    bottom: -20px;
     left: 50%;
     height: 52px;
     width: 280px;
@@ -1588,6 +1590,78 @@ body {
     width: 20px;
     height: 23px;
     margin-right: 2px;
+}
+.QestionBox-container {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    height: 900px;
+    margin-top: 61px;
+    padding-top: 150px;
+    align-items: center;
+}
+.SeviceBox-container {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    height: 100%;
+    margin-top: 200px;
+    align-items: center;
+}
+.QestionBox-container h1{
+    font-family: NotoSansKR-Medium;
+    font-size: 20px;
+}
+.SeviceBox-container h1{
+    font-family: NotoSansKR-Medium;
+    font-size: 20px;
+}
+.QuestionBox-pagination {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+.QuestionButton {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.QestionBox-container button{
+    font-family: NotoSansKR-Bold;
+    height: 52px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: #3375B1;
+    color: #ffffff;
+    flex-direction: row;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+.SeviceBox-container button{
+    font-family: NotoSansKR-Bold;
+    height: 52px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: #3375B1;
+    color: #ffffff;
+    flex-direction: row;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+.QuestionBox {
+    width: 100%;
+    height: 100%;
+
 }
 
 

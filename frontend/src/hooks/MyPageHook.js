@@ -5,6 +5,8 @@ import useCookie from "../hooks/useCookie.js";
 const MyPageHook = () => {
     const [orderList, setOrderList] = useState([]);
     const [orderDetail, setOrderDetail] = useState(null);
+    const [members, setMembers] = useState([]);
+    const [userInfo, setUserInfo] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -95,7 +97,31 @@ const MyPageHook = () => {
         fetchOrderList(startDate, endDate);
     }, [loginId]);
 
+    const loadMembers = async () => {
+        try {
+            const response = await axios.post("/api/admin/getAllMembers", null, {
+                withCredentials: true,
+            });
+            setMembers(response.data);
+        } catch (err) {
+            setError(err);
+        }
+    };
+
+    const loadCurrentUserInfo = async () => { // ✅ 사용자 정보 불러오는 함수
+        try {
+            const response = await axios.post("/api/updateMemberInfo", null, {
+                withCredentials: true,
+            });
+            setUserInfo(response.data);
+        } catch (err) {
+            setError(err);
+        }
+    };
+
     return {
+        members,
+        userInfo,
         orderList,
         loading,
         error,
@@ -103,6 +129,8 @@ const MyPageHook = () => {
         fetchOrderDetail,
         cancelOrder,
         loadCancelOrderList,
+        loadMembers,
+        loadCurrentUserInfo,
     };
 };
 

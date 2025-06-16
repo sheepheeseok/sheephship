@@ -1,8 +1,50 @@
 import React, { useState } from "react";
+import {useNavigate, useLocation} from "react-router-dom";
+import QuestionHook from "../hooks/QuestionHook.js";
+import useCookie from "../hooks/useCookie.js";
+import axios from "axios";
 
 const Inquiry = () => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const itemId = location.state?.itemId;
+  const memberId = useCookie("loginId");
+
+  const { addQuestion } = QuestionHook();
+
+  const handleSubmit = async () => {
+    if (content.length < 10) {
+      alert("문의 내용을 10자 이상 작성해 주세요.");
+      return;
+    }
+
+    if (!itemId || !memberId) {
+      alert("상품 정보 또는 로그인 정보가 없습니다.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("itemId", itemId);
+    formData.append("memberId", memberId);
+    formData.append("content", content);
+    if (image) {
+      formData.append("image", image);
+    }
+
+    try {
+      await axios.post("/api/questions/add", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      });
+      alert("문의가 등록되었습니다.");
+      navigate(-1);
+    } catch (err) {
+      console.error("문의 등록 실패:", err);
+      alert("문의 등록 중 오류가 발생했습니다.");
+    }
+  };
 
   return (
     <div className="inquiry-page">
@@ -24,22 +66,22 @@ const Inquiry = () => {
         <div className="photo-upload-area">
           <label htmlFor="photo-upload" className="photo-upload-box">
             {image ? (
-              <img src={URL.createObjectURL(image)} alt="업로드 이미지" />
+                <img src={URL.createObjectURL(image)} alt="업로드 이미지"/>
             ) : (
-              <span className="plus-icon">+</span>
+                <span className="plus-icon">+</span>
             )}
           </label>
           <input
-            id="photo-upload"
-            type="file"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={e => setImage(e.target.files[0])}
+              id="photo-upload"
+              type="file"
+              accept="image/*"
+              style={{display: "none"}}
+              onChange={e => setImage(e.target.files[0])}
           />
         </div>
         <div className="inquiry-buttons">
-          <button className="cancel-btn" type="button">취소</button>
-          <button className="submit-btn" type="button">등록</button>
+          <button className="cancel-btn" type="button" onClick={() => navigate(-1)}>취소</button>
+          <button className="submit-btn" type="button" onClick={handleSubmit}>등록</button>
         </div>
       </div>
       <div className="notice-section">

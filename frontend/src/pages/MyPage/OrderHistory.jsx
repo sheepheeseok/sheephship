@@ -11,7 +11,6 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
         cancelOrder,
         loadCancelOrderList,
     } = MyPageHook();
-
     const [orderTab, setOrderTab] = useState("order");
     const [selectedFilter, setSelectedFilter] = useState("오늘");
     const [currentPage, setCurrentPage] = useState(1);
@@ -19,6 +18,7 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
     const sliderRef = useRef(null);
     const [customStartDate, setCustomStartDate] = useState("");
     const [customEndDate, setCustomEndDate] = useState("");
+    console.log(orderList);
 
     const [orderCount, setOrderCount] = useState(0);
     const [cancelCount, setCancelCount] = useState(0);
@@ -59,21 +59,21 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
     useEffect(() => {
         const { startDate, endDate } = calculateDateRange(selectedFilter);
 
-        const test = async () => {
-            const res = await reloadOrderList(startDate, endDate);
-        };
+        if (orderTab === "order") {
+            reloadOrderList(startDate, endDate).then((res) => {
+                const count = res?.flatMap(order => order.orderInquiryItemDtoList || []).length || 0;
+                setOrderCount(count);
+            });
+        }
 
-        reloadOrderList(startDate, endDate).then((res) => {
-            const count = res?.flatMap(order => order.orderInquiryItemDtoList || []).length || 0;
-            setOrderCount(count);
-        });
+        if (orderTab === "returns") {
+            loadCancelOrderList().then((res) => {
+                const count = res?.flatMap(order => order.orderInquiryItemDtoList || []).length || 0;
+                setCancelCount(count);
+            });
+        }
+    }, [orderTab, selectedFilter]);
 
-        loadCancelOrderList().then((res) => {
-            const count = res?.flatMap(order => order.orderInquiryItemDtoList || []).length || 0;
-            setCancelCount(count);
-        });
-        test();
-    }, []);
 
 
     useEffect(() => {
@@ -94,17 +94,27 @@ const OrderHistory = ({ setSelectedTab, orders, setOrders, setSelectedOrder }) =
     }, [selectedFilter]);
 
 
-    const flattenedOrders = orderList.flatMap(order =>
-        order.orderInquiryItemDtoList.map(item => ({
-            orderId: order.orderId,
-            image: item.mainUrl,
-            name: item.name,
-            price: item.orderPrice ?? 0,
-            quantity: item.quantity,
-            orderDate: order.orderDate, // 만약 존재한다면
-            fullOrder: order, // 상세 보기에 전체 order 객체 넘기기
-        }))
-    );
+    const flattenedOrders = orderList
+        .filter(order => {
+            if (orderTab === "order") {
+                return order.status === "CONFIRMED" || order.status === "ORDER";
+            } else if (orderTab === "returns") {
+                return order.status === "CANCLE" || order.status === "RETURN" || order.status === "EXCHANGE";
+            }
+            return false;
+        })
+        .flatMap(order =>
+            order.orderInquiryItemDtoList.map(item => ({
+                orderId: order.orderId,
+                image: item.mainUrl,
+                name: item.name,
+                price: item.orderPrice ?? 0,
+                quantity: item.quantity,
+                orderDate: order.orderDate,
+                fullOrder: order,
+            }))
+        );
+
 
     const totalPages = Math.ceil(flattenedOrders.length / ordersPerPage);
 
