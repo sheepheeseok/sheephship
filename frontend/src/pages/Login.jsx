@@ -24,7 +24,7 @@ const Login = () => {
                 <img src="/imgs/login_logo.png" alt="login-logo" className="login-logo"/>
 
                 <div className="login-area">
-                    <h1>Email</h1>
+                    <h1>ID</h1>
                     <div className="login-box">
                         <img src="/icons/email.svg" alt="email-icon" className="login-icon"/>
                         <div className="login-line"/>

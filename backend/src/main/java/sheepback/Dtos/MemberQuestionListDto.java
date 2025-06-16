@@ -10,6 +10,7 @@ public class MemberQuestionListDto {
     private Long questionId;
     private LocalDateTime writeDateTime;
     private String title;
+    private String content;
     private String memberId;
     private String answerStatus;
     private Long itemId;

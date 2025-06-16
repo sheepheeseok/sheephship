@@ -97,6 +97,7 @@
             q.question_id      AS questionId,
             q.write_date_time  AS writeDateTime,
             q.title,
+            q.content,
             q.member_id        AS memberId,
             q.answer_status    AS answerStatus,
             q.item_id          AS itemId

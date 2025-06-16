@@ -1,9 +1,42 @@
 import React, { useState, useEffect } from "react";
 import useProduct from "../hooks/ProductHook";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import QuestionHook from "../hooks/QuestionHook.js";
+import useCookie from "../hooks/useCookie.js";
 
 const Product = () => {
+    const loginId = useCookie("loginId");
     const { ProductData, loading, error, handleSubmit, handleAddToCart } = useProduct();
+    const {
+        questions,
+        loadItemQuestions,
+        deleteQuestion,
+        updateQuestion,
+    } = QuestionHook();
+
+    const [editModeId, setEditModeId] = useState(null);
+    const [editedContent, setEditedContent] = useState("");
+    const [openId, setOpenId] = useState(null);
+
+    const handleQuestionDelete = async (questionId) => {
+        if (window.confirm("정말 삭제하시겠습니까?")) {
+            await deleteQuestion(questionId);
+            loadItemQuestions(ProductData.itemId); // 목록 새로고침
+        }
+    };
+
+    const handleQuestionEdit = (q) => {
+        setEditModeId(q.questionId); // 문의 ID로 전환
+        setEditedContent(q.content); // 문의 본문 불러오기
+    };
+
+    const handleQuestionSave = async (q) => {
+        await updateQuestion(q.questionId, { content: editedContent });
+        setEditModeId(null);
+        loadItemQuestions(ProductData.itemId);
+    };
+
+    const itemId = ProductData?.itemId;
     const navigate = useNavigate();
     const handlePostQuestion = () => {
         navigate("/inquiry", { state: { itemId: ProductData.itemId } });
@@ -93,6 +126,14 @@ const Product = () => {
     const removeOption = (index) => {
         setSelectedOptions((prev) => prev.filter((_, i) => i !== index));
     };
+
+
+
+    useEffect(() => {
+        if (itemId) loadItemQuestions(itemId);
+    }, [itemId]);
+
+    console.log(questions);
 
     return (
         <div className="container">
@@ -318,12 +359,88 @@ const Product = () => {
                 </div>
             </div>
             <div className="SeviceBox-container">
-                <h1>질문</h1>
-                <div style={{color: "#cccccc", height: "0.5px"}} className="Recent-Line2"/>
-                <div className="QuestionBox"></div>
-                <div style={{color: "#cccccc", height: "0.5px"}} className="Recent-Line2"/>
+                <h1 style={{marginBottom: "60px"}}>질문</h1>
+
+                <div className="QuestionBox">
+                    {loading ? (
+                        <p>불러오는 중...</p>
+                    ) : error ? (
+                        <p style={{color: "red"}}>오류가 발생했습니다.</p>
+                    ) : questions.length === 0 ? (
+                        <p style={{color: "#999"}}>등록된 문의가 없습니다.</p>
+                    ) : (
+                        <table className="question-table">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Subject</th>
+                                <th>Writer</th>
+                                <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {questions
+                                .slice()
+                                .sort((a, b) => b.questionId - a.questionId)
+                                .map((q, idx) => {
+                                    const hasAnswer = q.answerContent && q.answerContent.trim() !== "";
+                                    const isMyQuestion = q.memberId === loginId;
+                                    const isExpanded = openId === q.questionId;
+                                    const isEditing = editModeId === q.questionId;
+
+                                    return (
+                                        <React.Fragment key={q.questionId}>
+                                            <tr
+                                                onClick={() => hasAnswer && setOpenId(isExpanded ? null : q.questionId)}
+                                                style={{ cursor: hasAnswer ? "pointer" : "default" }}
+                                            >
+                                                <td>{idx + 1}</td>
+                                                <td>[{hasAnswer ? "답변 완료" : "미답변"}] {q.content}</td>
+                                                <td>{q.memberId || "익명"}</td>
+                                                <td>{q.writeDateTime?.substring(0, 16).replace("T", " ")}</td>
+                                            </tr>
+
+                                            {isExpanded && (
+                                                <tr className="answer-row">
+                                                    <td colSpan="4" className="answer-cell">
+                                                        {isEditing ? (
+                                                            <>
+                  <textarea
+                      value={editedContent}
+                      onChange={(e) => setEditedContent(e.target.value)}
+                      className="edit-textarea"
+                  />
+                                                                <div className="edit-button-group">
+                                                                    <button className="edit-btn save" onClick={() => handleQuestionSave(q)}>저장</button>
+                                                                    <button className="edit-btn cancel" onClick={() => setEditModeId(null)}>취소</button>
+                                                                </div>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <strong>A.</strong> {q.answerContent}
+                                                                {isMyQuestion && (
+                                                                    <div className="answer-actions">
+                                                                        <button className="edit-btn" onClick={() => handleQuestionEdit(q)}>수정</button>
+                                                                        <button className="edit-btn cancel" onClick={() => handleQuestionDelete(q.questionId)}>삭제</button>
+                                                                    </div>
+                                                                )}
+                                                            </>
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            )}
+                                        </React.Fragment>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    )}
+                </div>
+
+
+                <div className="Recent-Line2"/>
                 <div className="QuestionButton">
-                    <button onClick={handlePostQuestion}>POST REVIEW</button>
+                    <button onClick={handlePostQuestion}>POST QUESTION</button>
                 </div>
             </div>
         </div>

@@ -19,11 +19,20 @@ const MyPage = () => {
     const [selectedTab, setSelectedTab] = useState("default");
     const [selectedOrder, setSelectedOrder] = useState(null);
     const { members, userInfo, loading, error, loadMembers, loadCurrentUserInfo } = MyPageHook();
+    const {
+        orderQuoList,
+        loadingOrderQuo,
+        loadOrderQuoList,
+        // ...기존 훅 값
+    } = MyPageHook();
 
     useEffect(() => {
         loadMembers();
         loadCurrentUserInfo(); // ✅ 사용자 정보 불러오기
+        loadOrderQuoList();
     }, []);
+
+    console.log(orderQuoList);
 
     const [editingAddressId, setEditingAddressId] = useState(null);
 
@@ -98,38 +107,93 @@ const MyPage = () => {
             default:
                 return (
                     <>
-                        <div className="mypage-paymentTitle">
-                            <h1>주문 처리 현황<span>(최근 3개월 기준)</span></h1>
-                        </div>
-                        <div className="mypage-paymentLine"/>
                         <div className="mypage-Tracker">
                             <div className="Tracker-first">
-                                <h1>0</h1>
+                                <h1>{orderQuoList?.beforeDepositCount ?? 0}</h1>
                                 <h2>입금 전</h2>
                             </div>
                             <img src="/icons/mypage-Vector.svg" alt="Tracker-Vector" className="Tracker-Vector"/>
                             <div className="Tracker-second">
-                                <h1>0</h1>
+                                <h1>{orderQuoList?.cofirmCount ?? 0}</h1>
                                 <h2>배송 준비중</h2>
                             </div>
                             <img src="/icons/mypage-Vector.svg" alt="Tracker-Vector" className="Tracker-Vector"/>
                             <div className="Tracker-Third">
-                                <h1>0</h1>
+                                <h1>{orderQuoList?.deliveriedCount ?? 0}</h1>
                                 <h2>배송중</h2>
                             </div>
                             <img src="/icons/mypage-Vector.svg" alt="Tracker-Vector" className="Tracker-Vector"/>
                             <div className="Tracker-Fourth">
-                                <h1>0</h1>
+                                <h1>{orderQuoList?.pendingCount ?? 0}</h1>
                                 <h2>배송 완료</h2>
                             </div>
                         </div>
                         <h1 style={{marginTop: "40px"}}>주문내역 조회</h1>
                         <div className="mypage-paymentLine"/>
-                        <div className="mypage-paymentArea">
-                            <img src="/icons/mypage-noneIcon.svg" alt="noneIcon" className="mypage-NoneIcon"/>
-                            <h1>주문 내역이 없습니다.</h1>
-                            <div className="mypage-paymentLine2"/>
-                        </div>
+
+                        {orderQuoList?.orderInquiryList?.length > 0 ? (
+                            <div className="mypage-paymentArea-list">
+                                {orderQuoList.orderInquiryList.map((order) => (
+                                    <div key={order.orderId} className="mypage-order-card">
+                                        <div className="mypage-paymentLine2" style={{marginTop: "0px"}}/>
+                                        <div className="order-header">
+                                            <h2>주문번호: {order.orderId}</h2>
+                                            <span>{order.orderDate}</span>
+                                        </div>
+                                        <div
+                                            className={`order-status-badge ${
+                                                order.status === "CONFIRMED"
+                                                    ? "status-confirmed"
+                                                    : order.status === "PENDING"
+                                                        ? "status-pending"
+                                                        : order.status === "ON_DELIVERY"
+                                                            ? "status-on_delivery"
+                                                            : order.status === "BEFORE_DEPOSIT"
+                                                                ? "status-BEFORE_DEPOSIT"
+                                                                : ""
+                                            }`}
+                                        >
+                                            <h1>주문상태</h1>
+                                            {order.status === "CONFIRMED" && "배송 완료"}
+                                            {order.status === "PENDING" && "배송 준비중"}
+                                            {order.status === "ON_DELIVERY" && "배송중"}
+                                            {order.status === "BEFORE_DEPOSIT" && "입금 전"}
+                                        </div>
+
+                                        <div className="order-items">
+                                            {order.orderInquiryItemDtoList.map((item) => (
+                                                <div key={item.orderItemId} className="order-item">
+                                                    <img src={item.mainUrl} alt={item.name} className="item-thumb"/>
+                                                    <div className="item-info">
+                                                        <p className="item-name">{item.name}</p>
+                                                        <p className="item-count">{item.quantity}개</p>
+                                                        <p className="item-price">{item.orderPrice.toLocaleString()}원</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <div className="order-total">
+                                            <strong>
+                                                총 결제금액:{" "}
+                                                {order.orderInquiryItemDtoList
+                                                    .reduce((sum, i) => sum + i.orderPrice * i.quantity, 0)
+                                                    .toLocaleString()}
+                                                원
+                                            </strong>
+                                        </div>
+
+                                        <div className="mypage-paymentLine2" style={{marginTop: "20px"}}/>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="mypage-paymentArea">
+                                <img src="/icons/mypage-noneIcon.svg" alt="noneIcon" className="mypage-NoneIcon"/>
+                                <h1>주문 내역이 없습니다.</h1>
+                                <div className="mypage-paymentLine2"/>
+                            </div>
+                        )}
                     </>
                 )
         }

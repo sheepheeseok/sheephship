@@ -119,6 +119,26 @@ const MyPageHook = () => {
         }
     };
 
+    const [orderQuoList, setOrderQuoList] = useState(null);
+    const [loadingOrderQuo, setLoadingOrderQuo] = useState(false);
+    const [errorOrderQuo, setErrorOrderQuo] = useState(null);
+
+    const loadOrderQuoList = async () => {
+        setLoadingOrderQuo(true);
+        try {
+            const response = await axios.get("/api/getOrderQuo", {
+                withCredentials: true,
+            });
+            setOrderQuoList(response.data);
+            return response.data; // 필요 시 호출부에서 사용 가능
+        } catch (err) {
+            setErrorOrderQuo(err);
+        } finally {
+            setLoadingOrderQuo(false);
+        }
+    };
+
+
     return {
         members,
         userInfo,
@@ -131,6 +151,10 @@ const MyPageHook = () => {
         loadCancelOrderList,
         loadMembers,
         loadCurrentUserInfo,
+        orderQuoList,
+        loadingOrderQuo,
+        errorOrderQuo,
+        loadOrderQuoList,
     };
 };
 

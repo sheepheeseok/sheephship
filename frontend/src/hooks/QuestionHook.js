@@ -99,8 +99,10 @@ const QuestionHook = () => {
             setLoading(true);
             const response = await axios.get(`/api/questions/member/Detailed/${questionId}`, { withCredentials: true });
             setDetailedQuestion(response.data);
+            return response.data ?? null;
         } catch (err) {
             setError(err);
+            return null;
         } finally {
             setLoading(false);
         }
