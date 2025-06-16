@@ -14,31 +14,36 @@ const DeliveryAddressManagement = ({ setSelectedTab, setEditingAddressId }) => {
   const [deliveryAddresses, setDeliveryAddresses] = useState([]);
   const [selectedAddresses, setSelectedAddresses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isAllSelected, setIsAllSelected] = useState(false);
+
 
   // 배송지 목록 불러오기 (컴포넌트 마운트 시 또는 데이터 변경 시 다시 불러오기)
   const fetchDeliveryAddresses = async () => {
     setLoading(true);
     try {
-      // 실제 서버에서 배송지 목록을 불러오는 API 호출로 대체해야 합니다.
-      // const loginId = getCookie("loginId");
-      // if (!loginId) {
-      //   alert("로그인이 필요합니다.");
-      //   setLoading(false);
-      //   return;
-      // }
-      // const res = await axios.get(`/api/getDeliveryAddresses/${loginId}`);
-      // setDeliveryAddresses(res.data);
+      const loginId = getCookie("loginId"); // 쿠키에서 로그인 ID 추출
+      if (!loginId) {
+        alert("로그인이 필요합니다.");
+        setLoading(false);
+        return;
+      }
 
-      // 현재는 목업 데이터 사용
-      setDeliveryAddresses([
-        // 새로운 주소를 추가할 때 이 배열에 추가될 것입니다.
-      ]);
+      const res = await axios.get(`/api/MemberDeliveryInfo/${loginId}`);
+      console.log("서버에서 받은 응답:", res.data);
+      const deliveryData = res.data;
+
+      // 응답이 배열이 아닌 단일 객체라면 배열로 감쌈
+      const deliveryList = Array.isArray(deliveryData) ? deliveryData : [deliveryData];
+
+      // 서버에서 내려주는 필드명에 따라 수정 필요
+      setDeliveryAddresses(deliveryList);
     } catch (e) {
       alert("배송지 목록을 불러오지 못했습니다.");
       console.error("Error fetching delivery addresses:", e);
     }
     setLoading(false);
   };
+
 
   useEffect(() => {
     fetchDeliveryAddresses();
@@ -52,14 +57,24 @@ const DeliveryAddressManagement = ({ setSelectedTab, setEditingAddressId }) => {
         return [...prevSelected, id];
       }
     });
+    // 헤더 체크박스 상태는 업데이트하지 않음
   };
 
+
   const handleSelectAllChange = (e) => {
-    if (e.target.checked) {
-      setSelectedAddresses(deliveryAddresses.map((address) => address.id));
+    const checked = e.target.checked;
+    setIsAllSelected(checked); // 상태 직접 관리
+    if (checked) {
+      setSelectedAddresses(deliveryAddresses.map((_, index) => index));
     } else {
       setSelectedAddresses([]);
     }
+  };
+
+  const handleEditClick = (id) => {
+    console.log("수정 버튼 클릭 - 주소 ID:", id);
+    setEditingAddressId(id);
+    setSelectedTab("DeliveryAddressForm");
   };
 
   const handleDeleteSelected = async () => {
@@ -85,7 +100,7 @@ const DeliveryAddressManagement = ({ setSelectedTab, setEditingAddressId }) => {
   };
 
   const handleEditAddress = (addressId) => {
-    navigate(`/delivery-address/form/${addressId}`);
+    navigate(`/delivery-address/form/${addressId}`); // ID 전달
   };
 
   const handleRegisterNewAddress = () => {
@@ -106,10 +121,9 @@ const DeliveryAddressManagement = ({ setSelectedTab, setEditingAddressId }) => {
               <input
                 type="checkbox"
                 onChange={handleSelectAllChange}
-                checked={selectedAddresses.length === deliveryAddresses.length && deliveryAddresses.length > 0}
+                checked={isAllSelected}
               />
             </th>
-            <th>배송지명</th>
             <th>수령인</th>
             <th>휴대전화</th>
             <th>주소</th>
@@ -118,24 +132,27 @@ const DeliveryAddressManagement = ({ setSelectedTab, setEditingAddressId }) => {
         </thead>
         <tbody>
           {deliveryAddresses.length > 0 ? (
-            deliveryAddresses.map((address) => (
-              <tr key={address.id} className="DAM-table-row">
+            deliveryAddresses.map((address, index) => (
+              <tr key={index} className="DAM-table-row">
                 <td className="DAM-table-cell">
                   <input
                     type="checkbox"
-                    checked={selectedAddresses.includes(address.id)}
-                    onChange={() => handleCheckboxChange(address.id)}
+                    checked={selectedAddresses.includes(index)}
+                    onChange={() => handleCheckboxChange(index)}
                   />
                 </td>
-                <td className="DAM-table-cell">{address.alias}</td>
-                <td className="DAM-table-cell">{address.recipient}</td>
-                <td className="DAM-table-cell">{address.phone}</td>
-                <td className="DAM-table-cell">{address.address}</td>
+                <td className="DAM-table-cell">{address.name}</td>
+                <td className="DAM-table-cell">{address.phoneNumber}</td>
+                <td className="DAM-table-cell">
+                  {address.firstAddress} {address.secondAddress}
+                </td>
                 <td className="DAM-table-cell">
                   <button
                     type="button"
                     className="DAM-table-action-button"
-                    onClick={() => handleEditAddress(address.id)}
+                    onClick={() => handleEditClick(address)
+                    }
+
                   >
                     수정
                   </button>
