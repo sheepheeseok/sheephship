@@ -1,6 +1,7 @@
 package sheepback.domain;
 
 public enum DeliveryStatus {
+
     ORDERCONFIRM("주문확인중"),
     PENDING("배송준비중"),
     HIPPED("배송 중"),
