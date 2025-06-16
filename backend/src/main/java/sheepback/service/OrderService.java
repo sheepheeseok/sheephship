@@ -157,7 +157,11 @@ public class OrderService {
             SaveOrderDto saveOrderDto = new SaveOrderDto();
             saveOrderDto.setMemberId(orderDto.getMemberId());
             saveOrderDto.setOrderDate(now);
-            saveOrderDto.setStatus(Status.ORDER);
+            if (orderDto.getPaymentMethod() == "bank"){
+                saveOrderDto.setStatus(Status.BEFORE_DEPOSIT);
+            }else{
+                saveOrderDto.setStatus(Status.ORDER);
+            }
             saveOrderDto.setPaymentMethod(orderDto.getPaymentMethod());
             saveOrderDto.setRequireMents(orderDto.getRequireMents());
             orderMapper.saveOrder(saveOrderDto);
@@ -267,6 +271,22 @@ public class OrderService {
     public List<OrderInquiryListDto> getOrderList(String memberId, LocalDate startDate, LocalDate endDate) {
         return orderItemMapper.getOrderListWithItems(memberId, startDate, endDate);
     }
+
+    //주문 처리 현황
+    public OrderQuoListDto getOrderOrderQuoList(String memberId){
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime ThreeMonthAgo = LocalDateTime.now().minusMonths(3);
+        List<OrderInquiryListDto> orderQuo = orderItemMapper.getOrderQuo(memberId, ThreeMonthAgo, now);
+        Map<String, Long> stringIntegerMap = orderItemMapper.selectOrderStatusCounts(memberId, ThreeMonthAgo, now);
+        OrderQuoListDto orderQuoListDto = new OrderQuoListDto();
+        orderQuoListDto.setOrderInquiryList(orderQuo);
+        orderQuoListDto.setBeforeDepositCount(stringIntegerMap.getOrDefault("beforeDepositCount",0L));
+        orderQuoListDto.setPendingCount(stringIntegerMap.getOrDefault("pendingCount",0L));
+        orderQuoListDto.setDeliveriedCount(stringIntegerMap.getOrDefault("deliveredCount",0L));
+        orderQuoListDto.setCofirmCount(stringIntegerMap.getOrDefault("confirmedCount",0L));
+        return orderQuoListDto;
+    }
+    //주문 상태 변경 배송 상태도 같이 변경시키는 로직 구현
 
     public List<OrderInquiryListDto> getCancelOrderList(String memberId) {
         return orderItemMapper.getCancelOrderListWithItems(memberId);

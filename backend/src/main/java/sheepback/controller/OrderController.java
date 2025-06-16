@@ -90,6 +90,12 @@ public class OrderController {
         return result;
     }
 
+    @GetMapping("/api/getOrderQuo")
+    public OrderQuoListDto getOrderQuo(@CookieValue("loginId") String memberId) {
+        OrderQuoListDto orderOrderQuoList = orderService.getOrderOrderQuoList(memberId);
+        return orderOrderQuoList;
+    }
+
     @GetMapping("/api/orderDetail/{id}")
     public OrderDetailDto getOrderDetail(@PathVariable("id") Long orderId) {
       return orderService.getOrderDetail(orderId);

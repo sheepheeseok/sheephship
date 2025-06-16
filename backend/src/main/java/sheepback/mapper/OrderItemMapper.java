@@ -2,14 +2,12 @@ package sheepback.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import sheepback.Dtos.OrderInquiryItemDto;
-import sheepback.Dtos.OrderInquiryListDto;
-import sheepback.Dtos.SaveOrderItemDto;
-import sheepback.Dtos.SimpleOrderItemDto;
+import sheepback.Dtos.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderItemMapper {
@@ -19,4 +17,6 @@ public interface OrderItemMapper {
     List<OrderInquiryListDto> getOrderListWithItems(@Param("memberId") String memberId,@Param("startDate") LocalDate startDate,@Param("endDate") LocalDate endDate);
 
     List<OrderInquiryListDto> getCancelOrderListWithItems(@Param("memberId") String memberId);
+    Map<String, Long>selectOrderStatusCounts(@Param("memberId") String memberId,@Param("startDate") LocalDateTime startDate,@Param("endDate") LocalDateTime endDate);
+    List<OrderInquiryListDto> getOrderQuo(@Param("memberId") String memberId,@Param("startDate") LocalDateTime startDate,@Param("endDate") LocalDateTime endDate);
 }
